@@ -17,6 +17,10 @@ theme:
     - content.code.copy
     - search.highlight
 
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js
+  - js/init-mermaid.js   # arquivo local que inicializa o Mermaid
+
 nav:
   - Início: index.md
   - B2B.Dominio:
@@ -28,8 +32,7 @@ markdown_extensions:
   - codehilite
   - toc:
       permalink: true
-  - pymdownx.superfences  # mermaid2 já registra automaticamente, não precisa de custom_fences
+  - pymdownx.superfences
 
 plugins:
   - search
-  - mermaid2
