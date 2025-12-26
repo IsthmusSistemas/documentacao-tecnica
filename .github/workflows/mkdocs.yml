@@ -29,7 +29,11 @@ jobs:
 
       - name: Instalar dependências
         run: |
-          pip install mkdocs mkdocs-material pymdown-extensions mkdocs-mermaid2-plugin
+          pip install \
+            mkdocs==1.6.0 \
+            mkdocs-material==9.5.18 \
+            pymdown-extensions==10.8 \
+            mkdocs-mermaid2-plugin==1.1.1
 
       - name: Build do site
         run: mkdocs build
