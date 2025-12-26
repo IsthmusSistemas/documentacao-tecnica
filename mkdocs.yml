@@ -5,9 +5,15 @@ site_author: Isthmus Omni
 theme:
   name: material
   language: pt-BR
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/lightbulb-outline
+        name: Alternar modo claro/escuro
   features:
     - navigation.tabs
-    - navigation.sections
     - content.code.copy
     - search.highlight
 
@@ -15,13 +21,11 @@ nav:
   - Início: index.md
   - B2B.Dominio:
       - EmbalagemUtil: b2b-dominio/IsthmusWinthor.Nucleo/IsthmusWinthor.Dominio/EmbalagemUtil.md
-      - MoneyExtensions: b2b-dominio/IsthmusWinthor.Nucleo/IsthmusWinthor.Dominio/MoneyExtensions.md 
+      - MoneyExtensions: b2b-dominio/IsthmusWinthor.Nucleo/IsthmusWinthor.Dominio/MoneyExtensions.md
 
 markdown_extensions:
   - admonition
   - codehilite
-  - footnotes
-  - tables
   - toc:
       permalink: true
   - pymdownx.superfences:
