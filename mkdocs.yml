@@ -28,11 +28,7 @@ markdown_extensions:
   - codehilite
   - toc:
       permalink: true
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: pymdownx.superfences.fence_code_format
+  - pymdownx.superfences  # mermaid2 já registra automaticamente, não precisa de custom_fences
 
 plugins:
   - search
