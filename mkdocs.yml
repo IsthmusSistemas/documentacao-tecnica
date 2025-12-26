@@ -24,8 +24,6 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
-
-  # 👇 necessário para Mermaid
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
