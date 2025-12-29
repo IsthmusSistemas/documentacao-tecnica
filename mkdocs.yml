@@ -7,6 +7,7 @@ extra_css:
 
 theme:
   name: material
+  logo: img/logo.png
   language: pt-BR
   palette:
     - scheme: default
