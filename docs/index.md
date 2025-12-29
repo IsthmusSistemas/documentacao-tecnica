@@ -1,10 +1,9 @@
-# Documentação Técnica — Isthmus Winthor
+# Documentação Técnica - Fábrica
 
-Bem-vindo à documentação técnica do ecossistema **Isthmus Winthor**.  
-Este portal centraliza informações sobre domínios, componentes, utilitários e decisões técnicas do projeto.
+**Bem-vindo à documentação técnica da fábrica de software da Isthmus Omni.**
+Este material reúne orientações e referências para a equipe de desenvolvimento, abordando temas como implementação de regras de negócio, modelagem de domínio, relacionamento entre dados e suporte ao onboarding de novos desenvolvedores.
 
-Use os atalhos abaixo para navegar diretamente para as áreas de interesse.
-
+Use os atalhos abaixo para acessar rapidamente as áreas de interesse.
 ---
 
 ## [🧩 B2B — Domínio](b2b-dominio/index.md)
