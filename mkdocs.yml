@@ -22,10 +22,7 @@ extra_javascript:
   - js/init-mermaid.js
 
 nav:
-  - Início: index.md
-  - B2B.Dominio:
-      - EmbalagemUtil: b2b-dominio/IsthmusWinthor.Nucleo/IsthmusWinthor.Dominio/EmbalagemUtil.md
-      - MoneyExtensions: b2b-dominio/IsthmusWinthor.Nucleo/IsthmusWinthor.Dominio/MoneyExtensions.md
+  - Home: index.md
 
 markdown_extensions:
   - admonition
