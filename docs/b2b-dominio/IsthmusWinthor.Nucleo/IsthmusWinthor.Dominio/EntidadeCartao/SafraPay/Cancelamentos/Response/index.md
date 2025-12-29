@@ -1,0 +1,4 @@
+- [CancelationResponseSafraPay.md](CancelationResponseSafraPay.md)
+- [Card.md](Card.md)
+- [Charge.md](Charge.md)
+- [Transaction.md](Transaction.md)

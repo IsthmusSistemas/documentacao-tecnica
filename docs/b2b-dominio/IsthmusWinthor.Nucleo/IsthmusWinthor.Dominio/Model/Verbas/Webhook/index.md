@@ -1,0 +1,4 @@
+- [NegociacaoAnalistaWebhookModel.md](NegociacaoAnalistaWebhookModel.md)
+- [NegociacaoItemAnalistaWebhookModel.md](NegociacaoItemAnalistaWebhookModel.md)
+- [NegociacaoItemWebhookModel.md](NegociacaoItemWebhookModel.md)
+- [NegociacaoWebhookModel.md](NegociacaoWebhookModel.md)

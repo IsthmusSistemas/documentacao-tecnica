@@ -1,0 +1,2 @@
+- [RegistroAcessoConsumidorB2B.md](RegistroAcessoConsumidorB2B.md)
+- [RegistroAcessosConsumidorB2BClientes.md](RegistroAcessosConsumidorB2BClientes.md)

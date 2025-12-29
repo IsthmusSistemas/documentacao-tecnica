@@ -1,0 +1,2 @@
+- [StatusPipelineExecucaoEnum.md](StatusPipelineExecucaoEnum.md)
+- [TipoSincronizacaoEnum.md](TipoSincronizacaoEnum.md)

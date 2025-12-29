@@ -1,0 +1,2 @@
+- [RegistroProduto.md](RegistroProduto.md)
+- [RegistroProdutoCliente.md](RegistroProdutoCliente.md)

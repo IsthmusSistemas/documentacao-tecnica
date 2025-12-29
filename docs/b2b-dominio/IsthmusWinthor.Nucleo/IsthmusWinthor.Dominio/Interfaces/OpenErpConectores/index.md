@@ -1,0 +1,4 @@
+- [IOpenErpB2BAuthService.md](IOpenErpB2BAuthService.md)
+- [IOpenErpClientServiceAutenticador.md](IOpenErpClientServiceAutenticador.md)
+- [IOpenErpPesquisaProdutosService.md](IOpenErpPesquisaProdutosService.md)
+- [IOpenErpPesquisaProdutosSyncService.md](IOpenErpPesquisaProdutosSyncService.md)

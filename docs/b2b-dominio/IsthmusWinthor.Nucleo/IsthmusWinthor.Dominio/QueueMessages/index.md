@@ -1,0 +1,8 @@
+- [ConviteAceitoMessage.md](ConviteAceitoMessage.md)
+- [DistribuidoraDeleteMessage.md](DistribuidoraDeleteMessage.md)
+- [DistribuidoraUpsertMessage.md](DistribuidoraUpsertMessage.md)
+- [IntegracaoBancoDadosMessage.md](IntegracaoBancoDadosMessage.md)
+- [LogotipoDistribuidoraMessage.md](LogotipoDistribuidoraMessage.md)
+- [UsuarioAuthDeleteMessage.md](UsuarioAuthDeleteMessage.md)
+- [UsuarioAuthUpsertMessage.md](UsuarioAuthUpsertMessage.md)
+- [UsuarioSenhaAuthUpsertMessage.md](UsuarioSenhaAuthUpsertMessage.md)

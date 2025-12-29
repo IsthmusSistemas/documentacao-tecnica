@@ -1,0 +1,7 @@
+- [NegociacaoAnalistaResponseModel.md](NegociacaoAnalistaResponseModel.md)
+- [NegociacaoIntegracaoPedidoTentativaResponseModel.md](NegociacaoIntegracaoPedidoTentativaResponseModel.md)
+- [NegociacaoIntegracaoResponseModel.md](NegociacaoIntegracaoResponseModel.md)
+- [NegociacaoItemAnalistaResponseModel.md](NegociacaoItemAnalistaResponseModel.md)
+- [NegociacaoItemResponseModel.md](NegociacaoItemResponseModel.md)
+- [NegociacaoResponseModel.md](NegociacaoResponseModel.md)
+- [NegociacaoResultModel.md](NegociacaoResultModel.md)

@@ -1,0 +1,4 @@
+- [DataFactoryJson.md](DataFactoryJson.md)
+- [EntidadeAzureAbstract.md](EntidadeAzureAbstract.md)
+- [ImagemAzureSearch.md](ImagemAzureSearch.md)
+- [StorageServiceTableEntity.md](StorageServiceTableEntity.md)

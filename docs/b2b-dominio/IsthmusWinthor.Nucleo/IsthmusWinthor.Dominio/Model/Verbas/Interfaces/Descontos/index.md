@@ -1,0 +1,3 @@
+- [IDescontoOrcamentoVerbasFaixaQuantidadeWinthor2323Service.md](IDescontoOrcamentoVerbasFaixaQuantidadeWinthor2323Service.md)
+- [IDescontoOrcamentoVerbasIntegracaoService.md](IDescontoOrcamentoVerbasIntegracaoService.md)
+- [IDescontoOrcamentoVerbasService.md](IDescontoOrcamentoVerbasService.md)

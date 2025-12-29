@@ -1,0 +1,7 @@
+- [CustomerNameDTO.md](CustomerNameDTO.md)
+- [DadosCartaoEncriptar.md](DadosCartaoEncriptar.md)
+- [RespostaPadraoErro.md](RespostaPadraoErro.md)
+- [Cielo](Cielo//index.md)
+- [Getnet](Getnet//index.md)
+- [RedeCard](RedeCard//index.md)
+- [SafraPay](SafraPay//index.md)
