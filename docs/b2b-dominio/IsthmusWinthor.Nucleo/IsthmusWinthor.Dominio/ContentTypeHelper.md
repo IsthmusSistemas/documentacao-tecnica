@@ -1,60 +1,68 @@
 # ContentTypeHelper
-
 **Namespace**: IsthmusWinthor.Dominio  
 **Nome do Arquivo**: ContentTypeHelper.cs  
 
 ## Visão Geral e Responsabilidade
-
-A classe `ContentTypeHelper` atua como uma ferramenta central para determinar o tipo MIME (Content-Type) de arquivos ou extensões de arquivo dadas. Esta funcionalidade é essencial em cenários em que é necessário identificar e diferenciar tipos de conteúdo para processamento ou transmissão correta de dados através de diferentes meios (ex: web, API). O problema de negócio que ela resolve é garantir que arquivos e extensões sejam mapeados para o tipo MIME correto, uma parte crucial na gestão de tipos de dados em sistemas complexos.
+A classe `ContentTypeHelper` tem como responsabilidade fornecer uma forma de mapear tipos de conteúdo (Content Types) a partir de extensões de arquivo e vice-versa. Essa funcionalidade é crucial em cenários onde o sistema precisa manipular diferentes formatos de arquivos, garantindo que os tipos de conteúdo corretos sejam aplicados em operações de upload, download ou visualização de arquivos. O problema de negócio que esta classe resolve é a necessidade de uma identificação consistente do tipo de dado que cada arquivo representa, melhorando assim a interoperabilidade e o tratamento adequado dos conteúdos.
 
 ## Métodos de Negócio
 
-### ContentTypeFile(string file)
-
-- **Objetivo**: Identificar o tipo MIME de um arquivo com base na sua extensão.
+### Título: ContentTypeFile (Estático)
+- **Objetivo**: Este método garante que um tipo de conteúdo seja retornado a partir de uma string de nome de arquivo, de modo que o sistema saiba como tratar o arquivo de acordo com sua extensão.
 - **Comportamento**: 
-  1. Recebe o nome do arquivo.
-  2. Separa a extensão do arquivo usando o último ponto `.` como delimitador.
-  3. Verifica se a extensão é nula ou vazia.
-     - Se sim, retorna o tipo MIME padrão `application/octet-stream`.
-  4. Tenta encontrar no dicionário `_contentTypes` se a extensão está mapeada para um tipo MIME.
-  5. Retorna o tipo MIME encontrado ou o padrão `application/octet-stream` se não houver correspondência.
-- **Retorno**: Retorna uma `string` que representa o tipo MIME correspondente à extensão do arquivo, ou o tipo padrão se não for encontrado.
+  1. O método recebe um nome de arquivo como parâmetro.
+  2. A extensão do arquivo é extraída usando o método `Split`.
+  3. Verifica se a extensão é nula ou vazia. Se for, retorna o tipo de conteúdo padrão `application/octet-stream`.
+  4. Tenta buscar o tipo de conteúdo correspondente à extensão no dicionário `_contentTypes`.
+  5. Se a extensão não for encontrada, retorna o tipo de conteúdo padrão.
+- **Retorno**: Uma string representando o tipo de conteúdo do arquivo ou o tipo padrão caso não seja possível determinar.
 
-   ```mermaid
-   flowchart TD
-       A[Start] --> B{File Extension Empty?}
-       B -->|Yes| C[Return Default: application/octet-stream]
-       B -->|No| D{Extension in Dictionary?}
-       D -->|Yes| E[Return Corresponding MIME Type]
-       D -->|No| C
-   ```
+```mermaid
+flowchart TD
+    A[Início] --> B{Extensão do arquivo é nula ou vazia?}
+    B -- Sim --> C[Retorna application/octet-stream]
+    B -- Não --> D[Tenta obter tipo de conteúdo]
+    D --> E{Tipo de conteúdo encontrado?}
+    E -- Sim --> F[Retorna tipo de conteúdo correspondente]
+    E -- Não --> G[Retorna application/octet-stream]
+```
 
-### ContentTypeExtension(string extension)
-
-- **Objetivo**: Determinar o tipo MIME com base diretamente na extensão do arquivo.
+### Título: ContentTypeExtension (Estático)
+- **Objetivo**: Garante que o tipo de conteúdo seja retornado a partir de uma extensão de arquivo, facilitando o mapeamento e validação em diversas operações de manipulação de arquivos.
 - **Comportamento**: 
-  1. Recebe uma extensão de arquivo como entrada.
-  2. Verifica se a extensão é nula ou vazia.
-     - Se sim, retorna o tipo MIME padrão `application/octet-stream`.
-  3. Tenta localizar a extensão no dicionário `_contentTypes`.
-  4. Retorna o tipo MIME correspondente ou o padrão `application/octet-stream` se não encontrado.
-- **Retorno**: Retorna uma `string` que representa o tipo MIME correspondente à extensão indicada ou o tipo padrão se a extensão não for reconhecida.
+  1. O método recebe uma extensão de arquivo como parâmetro.
+  2. Verifica se a extensão é nula ou vazia. Se for, retorna o tipo de conteúdo padrão `application/octet-stream`.
+  3. Tenta buscar o tipo de conteúdo correspondente à extensão no dicionário `_contentTypes`.
+  4. Se a extensão não for encontrada, retorna o tipo de conteúdo padrão.
+- **Retorno**: Uma string representando o tipo de conteúdo correspondente à extensão fornecida ou o tipo padrão caso não seja possível determinar.
+
+```mermaid
+flowchart TD
+    A[Início] --> B{Extensão é nula ou vazia?}
+    B -- Sim --> C[Retorna application/octet-stream]
+    B -- Não --> D[Tenta obter tipo de conteúdo]
+    D --> E{Tipo de conteúdo encontrado?}
+    E -- Sim --> F[Retorna tipo de conteúdo correspondente]
+    E -- Não --> G[Retorna application/octet-stream]
+```
+
+## Propriedades Calculadas e de Validação
+- Esta classe não possui propriedades que contenham lógica em `get` ou validação em `set`.
+
+## Navigation Property
+- Esta classe não possui propriedades que sejam classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-
-- `Dictionary<string, string>`: Estrutura usada para mapear extensões para tipos MIME específicos.
+- Não utiliza enumeradores ou classes auxiliares externas além do próprio dicionário privado.
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class ContentTypeHelper {
-        +string ContentTypeFile(string file)
-        +string ContentTypeExtension(string extension)
-        -static Dictionary~string, string~ _contentTypes
-        -static string _defaultContentType
+        <<static>>
+        +ContentTypeFile(file: string) string
+        +ContentTypeExtension(extension: string) string
     }
 ```
-
-A classe `ContentTypeHelper` não possui referências a outras classes ou enums complexas, atuando de maneira isolada dentro do domínio para fornecer utilidades relacionadas a tipos de conteúdo.
+---
+Gerada em 29/12/2025 20:01:44
