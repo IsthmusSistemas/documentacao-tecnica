@@ -1,65 +1,45 @@
 ﻿/* ============================================================
-   HEADER — mesma cor em modo claro e escuro
+   HEADER – mesma cor em qualquer modo
    ============================================================ */
-[data-md-color-scheme] .md-header,
-[data-md-color-scheme] .md-header__inner,
-[data-md-color-scheme] .md-tabs {
-  background-color: #1b1d36 !important; /* fundo do header */
-  color: #F8F6F1 !important;            /* cor base do texto */
+
+/* Força o fundo e o texto do header com base em data-md-component */
+header.md-header {
+  background-color: #1b1d36 !important;
+  color: #F8F6F1 !important;
 }
 
-/* Título, logo, links e ícones no header */
-.md-header,
-.md-header a,
-.md-header .md-header__title,
-.md-header .md-logo,
-.md-header .md-icon {
+/* Links, título, logo e ícones do header */
+header.md-header a,
+header.md-header .md-header__title,
+header.md-header .md-logo,
+header.md-header .md-icon {
   color: #F8F6F1 !important;
   fill: #F8F6F1 !important;
 }
 
-/* Campo de busca no header ajustado para não sumir visualmente */
-.md-header .md-search__input {
-  background-color: #F8F6F1;
-  color: #1b1d36;
+/* Tabs de navegação logo abaixo do header (se ativas) */
+.md-tabs {
+  background-color: #1b1d36 !important;
 }
 
-/* Placeholder da busca */
-.md-header .md-search__input::placeholder {
-  color: #1b1d36cc;
+/* Campo de busca no header */
+header.md-header .md-search__input {
+  background-color: #F8F6F1 !important;
+  color: #1b1d36 !important;
 }
 
-/* Ícone da lupa dentro da busca */
-.md-header .md-search__icon {
-  color: #1b1d36;
+header.md-header .md-search__input::placeholder {
+  color: #1b1d36cc !important;
+}
+
+header.md-header .md-search__icon {
+  color: #1b1d36 !important;
 }
 
 /* ============================================================
-   TÍTULOS (H1 e H2) — mesma cor em ambos os modos
+   TÍTULOS (H1 e H2)
    ============================================================ */
 .md-typeset h1,
 .md-typeset h2 {
-  color: #e87722;
-}
-
-/* ============================================================
-   MODO CLARO (default)
-   ============================================================ */
-[data-md-color-scheme="default"] {
-  --md-default-bg-color: #F8F6F1;
-  --md-default-fg-color: #010101;
-
-  --md-primary-fg-color: #1b1d36;
-  --md-accent-fg-color: #e87722;
-}
-
-/* ============================================================
-   MODO ESCURO (slate)
-   ============================================================ */
-[data-md-color-scheme="slate"] {
-  --md-default-bg-color: #010101;
-  --md-default-fg-color: #d0d3d4;
-
-  --md-primary-fg-color: #1b1d36;
-  --md-accent-fg-color: #e87722;
+  color: #e87722 !important;
 }
