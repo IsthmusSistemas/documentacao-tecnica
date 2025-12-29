@@ -1,4 +1,5 @@
-#Documentação - Verbas## Conteúdo
+#Documentação - Verbas
+## Conteúdo
 - [AnalistaVerbasRequestGetModel](AnalistaVerbasRequestGetModel.md)
 - [DescontoOrcamentoVerba](DescontoOrcamentoVerba.md)
 - [NegociacaoAnalistaRequestPostModel](NegociacaoAnalistaRequestPostModel.md)

@@ -1,2 +1,3 @@
-#Documentação - Interfaces## Conteúdo
+#Documentação - Interfaces
+## Conteúdo
 - [IPrecoSankhyaRepositorio](IPrecoSankhyaRepositorio.md)

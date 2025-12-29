@@ -1,4 +1,5 @@
-#Documentação - DescontosProgressivosFamilias## Conteúdo
+#Documentação - DescontosProgressivosFamilias
+## Conteúdo
 - [DescontoIsthmusIndustriaAplicavelModel](DescontoIsthmusIndustriaAplicavelModel.md)
 - [DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel](DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel.md)
 - [DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel](DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel.md)

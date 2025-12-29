@@ -1,4 +1,5 @@
-#Documentação - PesquisaProdutos## Conteúdo
+#Documentação - PesquisaProdutos
+## Conteúdo
 - [BuscaProduto](BuscaProduto.md)
 - [BuscaProdutosInteligente](BuscaProdutosInteligente.md)
 - [CamposBuscaIndexados](CamposBuscaIndexados.md)

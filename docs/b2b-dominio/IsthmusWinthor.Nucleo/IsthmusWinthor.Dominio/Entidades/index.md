@@ -1,4 +1,5 @@
-#Documentação - Entidades## Conteúdo
+#Documentação - Entidades
+## Conteúdo
 - [AgrupamentoInformacoesProduto](AgrupamentoInformacoesProduto.md)
 - [Alerta](Alerta.md)
 - [AlertaPreco](AlertaPreco.md)

@@ -1,2 +1,3 @@
-#Documentação - Request## Conteúdo
+#Documentação - Request
+## Conteúdo
 - [CaptureRequestSafraPay](CaptureRequestSafraPay.md)

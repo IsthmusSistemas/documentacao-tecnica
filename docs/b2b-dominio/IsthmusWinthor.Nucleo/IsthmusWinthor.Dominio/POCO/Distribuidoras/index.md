@@ -1,2 +1,3 @@
-#Documentação - Distribuidoras## Conteúdo
+#Documentação - Distribuidoras
+## Conteúdo
 - [InformacoesDistribuidora](InformacoesDistribuidora.md)

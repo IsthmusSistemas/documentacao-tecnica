@@ -1,2 +1,3 @@
-#Documentação - Cancelamentos## Conteúdo
+#Documentação - Cancelamentos
+## Conteúdo
 - [Response/](Response//index.md)

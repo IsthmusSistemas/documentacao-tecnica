@@ -1,2 +1,3 @@
-#Documentação - Graficos## Conteúdo
+#Documentação - Graficos
+## Conteúdo
 - [GraficoSerie](GraficoSerie.md)

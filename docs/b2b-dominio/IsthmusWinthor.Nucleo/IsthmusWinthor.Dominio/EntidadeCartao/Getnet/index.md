@@ -1,4 +1,5 @@
-#Documentação - Getnet## Conteúdo
+#Documentação - Getnet
+## Conteúdo
 - [AutorizacaoCredito](AutorizacaoCredito.md)
 - [BaseRequisicaoGetnet](BaseRequisicaoGetnet.md)
 - [BillingAddressGetnet](BillingAddressGetnet.md)

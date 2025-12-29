@@ -1,4 +1,5 @@
-#Documentação - AzureSearchIndex## Conteúdo
+#Documentação - AzureSearchIndex
+## Conteúdo
 - [AcoesIndex](AcoesIndex.md)
 - [IElementoIndex](IElementoIndex.md)
 - [PesquisaProdutoElasticResponse](PesquisaProdutoElasticResponse.md)

@@ -1,4 +1,5 @@
-#Documentação - OpenErpConectores## Conteúdo
+#Documentação - OpenErpConectores
+## Conteúdo
 - [IOpenErpB2BAuthService](IOpenErpB2BAuthService.md)
 - [IOpenErpClientServiceAutenticador](IOpenErpClientServiceAutenticador.md)
 - [IOpenErpPesquisaProdutosService](IOpenErpPesquisaProdutosService.md)

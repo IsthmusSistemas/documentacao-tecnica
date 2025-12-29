@@ -1,4 +1,5 @@
-#Documentação - PropertiesConfig## Conteúdo
+#Documentação - PropertiesConfig
+## Conteúdo
 - [AlertaEmailProperties](AlertaEmailProperties.md)
 - [AnalyticsProperties](AnalyticsProperties.md)
 - [AzureSearchProperties](AzureSearchProperties.md)

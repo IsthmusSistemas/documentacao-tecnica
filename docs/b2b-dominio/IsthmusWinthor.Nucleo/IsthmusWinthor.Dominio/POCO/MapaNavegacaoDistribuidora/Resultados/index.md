@@ -1,4 +1,5 @@
-#Documentação - Resultados## Conteúdo
+#Documentação - Resultados
+## Conteúdo
 - [IMapaNavegacaoRegraCalculo](IMapaNavegacaoRegraCalculo.md)
 - [RegraCalculoOndeEstamosDivisao](RegraCalculoOndeEstamosDivisao.md)
 - [RegraCalculoOndeEstamosPercentual](RegraCalculoOndeEstamosPercentual.md)

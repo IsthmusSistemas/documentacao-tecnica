@@ -1,4 +1,5 @@
-#Documentação - EntidadesAzure## Conteúdo
+#Documentação - EntidadesAzure
+## Conteúdo
 - [DataFactoryJson](DataFactoryJson.md)
 - [EntidadeAzureAbstract](EntidadeAzureAbstract.md)
 - [ImagemAzureSearch](ImagemAzureSearch.md)

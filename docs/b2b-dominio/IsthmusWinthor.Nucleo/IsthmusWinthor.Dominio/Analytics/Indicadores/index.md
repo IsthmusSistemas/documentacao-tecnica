@@ -1,2 +1,3 @@
-#Documentação - Indicadores## Conteúdo
+#Documentação - Indicadores
+## Conteúdo
 - [IndicadorKPI](IndicadorKPI.md)

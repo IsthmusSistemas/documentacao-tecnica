@@ -1,3 +1,4 @@
-#Documentação - Formulario## Conteúdo
+#Documentação - Formulario
+## Conteúdo
 - [FormularioCampo](FormularioCampo.md)
 - [FormularioSecao](FormularioSecao.md)

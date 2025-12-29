@@ -1,4 +1,5 @@
-#Documentação - Interfaces## Conteúdo
+#Documentação - Interfaces
+## Conteúdo
 - [IAtualizacaoHistoricoPedidoRepositorio](IAtualizacaoHistoricoPedidoRepositorio.md)
 - [IAtualizacaoPedidoNotificar](IAtualizacaoPedidoNotificar.md)
 - [IClienteFilialRepositorio](IClienteFilialRepositorio.md)
