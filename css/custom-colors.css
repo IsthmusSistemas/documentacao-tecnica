@@ -1,0 +1,34 @@
+﻿/* ============================================
+   MODO CLARO (default)
+   ============================================ */
+[data-md-color-scheme="default"] {
+  /* Cores institucionais */
+  --md-primary-fg-color: #1b1d36;
+  --md-primary-fg-color--light: #489fdf;
+  --md-primary-fg-color--dark: #010101;
+
+  --md-accent-fg-color: #e87722;
+
+  /* Fundo e texto */
+  --md-default-bg-color: #F8F6F1;
+  --md-default-fg-color: #010101;
+
+  /* Elementos neutros */
+  --md-default-fg-color--light: #d0d3d4;
+}
+
+/* ============================================
+   MODO ESCURO (slate)
+   ============================================ */
+[data-md-color-scheme="slate"] {
+  /* Cores institucionais */
+  --md-primary-fg-color: #489fdf;
+  --md-primary-fg-color--light: #6bb8f0;
+  --md-primary-fg-color--dark: #1b1d36;
+
+  --md-accent-fg-color: #e87722;
+
+  /* Fundo e texto */
+  --md-default-bg-color: #010101;
+  --md-default-fg-color: #d0d3d4;
+}

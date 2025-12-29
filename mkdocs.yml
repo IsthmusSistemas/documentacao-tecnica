@@ -2,15 +2,20 @@ site_name: Isthmus Omni - Documentação Técnica - Fábrica
 site_description: Documentação técnica destinada à fábrica de softwares da Isthmus Omni
 site_author: Isthmus Omni
 
+extra_css:
+  - css/custom-colors.css
+
 theme:
   name: material
   language: pt-BR
   palette:
     - scheme: default
-      primary: indigo
-      accent: indigo
       toggle:
         icon: material/lightbulb-outline
+        name: Alternar modo claro/escuro
+    - scheme: slate
+      toggle:
+        icon: material/lightbulb
         name: Alternar modo claro/escuro
   features:
     - navigation.tabs
