@@ -1,5 +1,6 @@
-- [IMapaNavegacaoRegraCalculo.md](IMapaNavegacaoRegraCalculo.md)
-- [RegraCalculoOndeEstamosDivisao.md](RegraCalculoOndeEstamosDivisao.md)
-- [RegraCalculoOndeEstamosPercentual.md](RegraCalculoOndeEstamosPercentual.md)
-- [RegraCalculoParaOndeVamosMultiplicacao.md](RegraCalculoParaOndeVamosMultiplicacao.md)
-- [RegraCalculoParaOndeVamosPercentual.md](RegraCalculoParaOndeVamosPercentual.md)
+#Documentação - Resultados## Conteúdo
+- [IMapaNavegacaoRegraCalculo](IMapaNavegacaoRegraCalculo.md)
+- [RegraCalculoOndeEstamosDivisao](RegraCalculoOndeEstamosDivisao.md)
+- [RegraCalculoOndeEstamosPercentual](RegraCalculoOndeEstamosPercentual.md)
+- [RegraCalculoParaOndeVamosMultiplicacao](RegraCalculoParaOndeVamosMultiplicacao.md)
+- [RegraCalculoParaOndeVamosPercentual](RegraCalculoParaOndeVamosPercentual.md)

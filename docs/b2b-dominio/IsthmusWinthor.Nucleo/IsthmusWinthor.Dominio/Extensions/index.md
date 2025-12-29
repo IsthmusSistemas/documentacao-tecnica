@@ -1,4 +1,5 @@
-- [HttpResponseExtensions.md](HttpResponseExtensions.md)
-- [StorageExtensions.md](StorageExtensions.md)
-- [ToDataOracleExtensions.md](ToDataOracleExtensions.md)
-- [UriExtensions.md](UriExtensions.md)
+#Documentação - Extensions## Conteúdo
+- [HttpResponseExtensions](HttpResponseExtensions.md)
+- [StorageExtensions](StorageExtensions.md)
+- [ToDataOracleExtensions](ToDataOracleExtensions.md)
+- [UriExtensions](UriExtensions.md)

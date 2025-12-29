@@ -1,6 +1,7 @@
-- [BrandEnum.md](BrandEnum.md)
-- [DocumentTypeEnum.md](DocumentTypeEnum.md)
-- [EntityTypeEnum.md](EntityTypeEnum.md)
-- [PaymentSourceEnum.md](PaymentSourceEnum.md)
-- [PaymentTypeEnum.md](PaymentTypeEnum.md)
-- [PhoneEnum.md](PhoneEnum.md)
+#Documentação - SafraPay## Conteúdo
+- [BrandEnum](BrandEnum.md)
+- [DocumentTypeEnum](DocumentTypeEnum.md)
+- [EntityTypeEnum](EntityTypeEnum.md)
+- [PaymentSourceEnum](PaymentSourceEnum.md)
+- [PaymentTypeEnum](PaymentTypeEnum.md)
+- [PhoneEnum](PhoneEnum.md)

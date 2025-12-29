@@ -1,3 +1,4 @@
-- [AgrupamentoInformacoesAdicionais.md](AgrupamentoInformacoesAdicionais.md)
-- [InformacoesProduto.md](InformacoesProduto.md)
-- [OrganizacaoMenu.md](OrganizacaoMenu.md)
+#Documentação - Produtos## Conteúdo
+- [AgrupamentoInformacoesAdicionais](AgrupamentoInformacoesAdicionais.md)
+- [InformacoesProduto](InformacoesProduto.md)
+- [OrganizacaoMenu](OrganizacaoMenu.md)

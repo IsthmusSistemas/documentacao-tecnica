@@ -1,4 +1,5 @@
-- [IOpenErpB2BAuthService.md](IOpenErpB2BAuthService.md)
-- [IOpenErpClientServiceAutenticador.md](IOpenErpClientServiceAutenticador.md)
-- [IOpenErpPesquisaProdutosService.md](IOpenErpPesquisaProdutosService.md)
-- [IOpenErpPesquisaProdutosSyncService.md](IOpenErpPesquisaProdutosSyncService.md)
+#Documentação - OpenErpConectores## Conteúdo
+- [IOpenErpB2BAuthService](IOpenErpB2BAuthService.md)
+- [IOpenErpClientServiceAutenticador](IOpenErpClientServiceAutenticador.md)
+- [IOpenErpPesquisaProdutosService](IOpenErpPesquisaProdutosService.md)
+- [IOpenErpPesquisaProdutosSyncService](IOpenErpPesquisaProdutosSyncService.md)

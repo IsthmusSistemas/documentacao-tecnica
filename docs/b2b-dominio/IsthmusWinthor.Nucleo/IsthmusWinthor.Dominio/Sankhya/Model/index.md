@@ -1,1 +1,2 @@
-- [Precos](Precos//index.md)
+#Documentação - Model## Conteúdo
+- [Precos/](Precos//index.md)

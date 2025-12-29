@@ -1,6 +1,7 @@
-- [AcoesIndex.md](AcoesIndex.md)
-- [IElementoIndex.md](IElementoIndex.md)
-- [PesquisaProdutoElasticResponse.md](PesquisaProdutoElasticResponse.md)
-- [ProdutoAutoCompleteIndex.md](ProdutoAutoCompleteIndex.md)
-- [ProdutoSearchIndex.md](ProdutoSearchIndex.md)
-- [RespostaAcaoIndex.md](RespostaAcaoIndex.md)
+#Documentação - AzureSearchIndex## Conteúdo
+- [AcoesIndex](AcoesIndex.md)
+- [IElementoIndex](IElementoIndex.md)
+- [PesquisaProdutoElasticResponse](PesquisaProdutoElasticResponse.md)
+- [ProdutoAutoCompleteIndex](ProdutoAutoCompleteIndex.md)
+- [ProdutoSearchIndex](ProdutoSearchIndex.md)
+- [RespostaAcaoIndex](RespostaAcaoIndex.md)

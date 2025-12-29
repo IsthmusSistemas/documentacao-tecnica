@@ -1,2 +1,3 @@
-- [RegistroAcessoConsumidorB2B.md](RegistroAcessoConsumidorB2B.md)
-- [RegistroAcessosConsumidorB2BClientes.md](RegistroAcessosConsumidorB2BClientes.md)
+#Documentação - AutorizacoesClientes## Conteúdo
+- [RegistroAcessoConsumidorB2B](RegistroAcessoConsumidorB2B.md)
+- [RegistroAcessosConsumidorB2BClientes](RegistroAcessosConsumidorB2BClientes.md)

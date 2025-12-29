@@ -1,4 +1,5 @@
-- [DataFactoryJson.md](DataFactoryJson.md)
-- [EntidadeAzureAbstract.md](EntidadeAzureAbstract.md)
-- [ImagemAzureSearch.md](ImagemAzureSearch.md)
-- [StorageServiceTableEntity.md](StorageServiceTableEntity.md)
+#Documentação - EntidadesAzure## Conteúdo
+- [DataFactoryJson](DataFactoryJson.md)
+- [EntidadeAzureAbstract](EntidadeAzureAbstract.md)
+- [ImagemAzureSearch](ImagemAzureSearch.md)
+- [StorageServiceTableEntity](StorageServiceTableEntity.md)

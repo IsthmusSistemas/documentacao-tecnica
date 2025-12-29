@@ -1,2 +1,3 @@
-- [StatusPipelineExecucaoEnum.md](StatusPipelineExecucaoEnum.md)
-- [TipoSincronizacaoEnum.md](TipoSincronizacaoEnum.md)
+#Documentação - Pipelines## Conteúdo
+- [StatusPipelineExecucaoEnum](StatusPipelineExecucaoEnum.md)
+- [TipoSincronizacaoEnum](TipoSincronizacaoEnum.md)

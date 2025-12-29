@@ -1,4 +1,5 @@
-- [PrecosSankhyaRequest.md](PrecosSankhyaRequest.md)
-- [PrecosSankhyaResponse.md](PrecosSankhyaResponse.md)
-- [ProdutoPrecoSankhyaRequest.md](ProdutoPrecoSankhyaRequest.md)
-- [ProdutoPrecoSankhyaResponse.md](ProdutoPrecoSankhyaResponse.md)
+#Documentação - Precos## Conteúdo
+- [PrecosSankhyaRequest](PrecosSankhyaRequest.md)
+- [PrecosSankhyaResponse](PrecosSankhyaResponse.md)
+- [ProdutoPrecoSankhyaRequest](ProdutoPrecoSankhyaRequest.md)
+- [ProdutoPrecoSankhyaResponse](ProdutoPrecoSankhyaResponse.md)

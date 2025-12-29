@@ -1,1 +1,2 @@
-- [GraficoSerie.md](GraficoSerie.md)
+#Documentação - Graficos## Conteúdo
+- [GraficoSerie](GraficoSerie.md)

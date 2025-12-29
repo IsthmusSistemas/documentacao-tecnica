@@ -1,1 +1,2 @@
-- [IPrecoSankhyaRepositorio.md](IPrecoSankhyaRepositorio.md)
+#Documentação - Interfaces## Conteúdo
+- [IPrecoSankhyaRepositorio](IPrecoSankhyaRepositorio.md)
