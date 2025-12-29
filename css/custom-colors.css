@@ -1,40 +1,15 @@
 ﻿/* ============================================================
-   HEADER — mesmo estilo para modo claro e escuro
-   ============================================================ */
-.md-header {
-  background-color: #1b1d36 !important;
-  color: #F8F6F1 !important;
-}
-
-.md-header .md-header__title,
-.md-header .md-header__button,
-.md-header .md-logo,
-.md-header a {
-  color: #F8F6F1 !important;
-}
-
-/* Ícones do header */
-.md-header .md-icon {
-  color: #F8F6F1 !important;
-}
-
-/* ============================================================
-   TÍTULOS (H1 e H2) — mesma cor em ambos os modos
-   ============================================================ */
-.md-typeset h1,
-.md-typeset h2 {
-  color: #e87722 !important;
-}
-
-/* ============================================================
    MODO CLARO (default)
    ============================================================ */
 [data-md-color-scheme="default"] {
+  /* Header: fundo e texto */
+  --md-primary-fg-color: #1b1d36;  /* fundo do header */
+  --md-primary-bg-color: #F8F6F1;  /* texto/ícones do header */
+
+  /* Cores gerais */
   --md-default-bg-color: #F8F6F1;
   --md-default-fg-color: #010101;
 
-  /* Mantém as cores institucionais */
-  --md-primary-fg-color: #1b1d36;
   --md-accent-fg-color: #e87722;
 }
 
@@ -42,10 +17,21 @@
    MODO ESCURO (slate)
    ============================================================ */
 [data-md-color-scheme="slate"] {
+  /* Mantém as MESMAS cores de header dos dois modos */
+  --md-primary-fg-color: #1b1d36;  /* fundo do header */
+  --md-primary-bg-color: #F8F6F1;  /* texto/ícones do header */
+
+  /* Cores gerais do modo escuro */
   --md-default-bg-color: #010101;
   --md-default-fg-color: #d0d3d4;
 
-  /* Mantém as mesmas cores institucionais */
-  --md-primary-fg-color: #1b1d36;
   --md-accent-fg-color: #e87722;
+}
+
+/* ============================================================
+   TÍTULOS (H1 e H2) — mesma cor em ambos os modos
+   ============================================================ */
+.md-typeset h1,
+.md-typeset h2 {
+  color: #e87722;
 }
