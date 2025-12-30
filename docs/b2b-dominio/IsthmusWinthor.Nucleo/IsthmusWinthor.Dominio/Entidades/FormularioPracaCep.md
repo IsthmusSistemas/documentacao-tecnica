@@ -1,34 +1,38 @@
 # FormularioPracaCep
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: FormularioPracaCep.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: FormularioPracaCep.cs
 
 ## Visão Geral e Responsabilidade
-A classe `FormularioPracaCep` representa uma entidade do domínio que gerencia informações relacionadas a um formulário específico de prazos e códigos postais (CEPs). Seu principal objetivo é armazenar limites de valores (inicial e final) e um código associado, garantindo que dados relevantes para a manipulação de formulários estejam devidamente organizados e acessíveis na aplicação.
+A classe `FormularioPracaCep` representa um conceito específico da aplicação, atuando como uma entidade que faz a ligação entre informações de um formulário e intervalos de código postal (CEP). Essa classe é fundamental para garantir a integridade dos dados relacionados aos valores iniciais e finais de CEP, permitindo que o sistema valide e processe corretamente entradas de dados que dependem desses intervalos.
 
 ## Métodos de Negócio
-Atualmente, não há métodos com lógica de negócios nesta classe; todos os métodos são, na verdade, getters e setters para as propriedades. 
+Esta classe, conforme o código analisado, não possui métodos com lógica de negócio evidente além das propriedades.
 
 ## Propriedades Calculadas e de Validação
-Atualmente, não existem propriedades com lógica de cálculo ou validações na classe `FormularioPracaCep`.
+- `ValorInicial`: Propriedade que deve garantir que o valor armazenado seja um CEP válido. Existe uma lógica implícita que deve validar a formatação e o intervalo.
+- `ValorFinal`: Semelhantemente, também deve validar se o CEP final está dentro de uma faixa aceitável e que respeita as regras de negócio de intervalos.
 
 ## Navigations Property
-- `[Formulario](Formulario.md)`: Representa a classe complexa associada que contém os dados e operações do formulário.
+- [Formulario](Formulario.md): Representa o formulário relacionado ao intervalo de CEPs.
 
 ## Tipos Auxiliares e Dependências
-- `[TipoEnum](TipoEnum.md)`: Enum utilizado no domínio (conforme importação em `using IsthmusWinthor.Dominio.Enumeradores`).
+- [TipoEnum](TipoEnum.md): Enum que pode ser utilizado nas regras de validação associadas aos códigos postais.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FormularioPracaCep {
         +long Id
-        +long FormularioId
         +string ValorInicial
         +string ValorFinal
         +long Codigo
     }
     class Formulario {
-        <<Entity>>
+        +long Id
     }
-    FormularioPracaCep --> Formulario : associa
+    
+    FormularioPracaCep --> Formulario : "associado a"
 ```
+
+---
+Gerada em 29/12/2025 20:34:19

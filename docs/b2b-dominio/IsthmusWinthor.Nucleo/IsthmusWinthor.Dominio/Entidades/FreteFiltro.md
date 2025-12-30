@@ -1,22 +1,19 @@
 # FreteFiltro
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: FreteFiltro.cs  
+**Nome do Arquivo**: FreteFiltro.cs
 
 ## Visão Geral e Responsabilidade
-A classe `FreteFiltro` é um Rich Domain Model que representa os filtros a serem aplicados em operações de frete. O objetivo principal desta classe é encapsular a lógica necessária para definir os critérios de filtragem de informações de frete, garantindo que as regras de negócio relacionadas a operações e tipos de filtro sejam respeitadas.
-
-## Métodos de Negócio
-Nenhum método com lógica de negócio foi implementado nesta classe. Todos os métodos são acessores ou mutadores simples para as propriedades.
+A classe `FreteFiltro` representa um filtro aplicado a fretes dentro do domínio. O seu propósito é oferecer uma estrutura que possibilite a manipulação e a consulta de dados relacionados a fretes, permitindo que os usuários definam critérios específicos de filtragem (como tipo de operação e tipo de filtro) que contribuam para a obtenção de informações precisas e relevantes em processos logísticos. Essa classe é crucial em cenários de aplicações onde é necessário refinar a busca ou apresentação de dados de frete, garantindo que apenas informações pertinentes sejam utilizadas em decisões operacionais.
 
 ## Propriedades Calculadas e de Validação
-Nenhuma propriedade com lógica no `get` ou validação no `set` foi identificada nesta classe. As propriedades são anêmicas e apenas armazenam dados.
+Não existem propriedades com lógica no `get` ou validação no `set` nesta classe.
 
 ## Navigation Property
-- [Frete](Frete.md)
+- [Frete](Frete.md): Representa a relação de um filtro com um frete específico.
 
 ## Tipos Auxiliares e Dependências
-- [TipoOperacao](TipoOperacao.md)
-- [TipoFiltroFrete](TipoFiltroFrete.md)
+- [TipoOperacao](TipoOperacao.md): Enumerador que descreve os diferentes tipos de operações que podem ser aplicadas a um frete.
+- [TipoFiltroFrete](TipoFiltroFrete.md): Enumerador que define os tipos de filtros que podem ser usados para categorizar e refinar fretes.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -28,12 +25,10 @@ classDiagram
         +TipoFiltroFrete TipoFiltroFrete
         +string ValorFiltro
     }
-
-    class Frete {
-        <<entity>>
-    }
-
     FreteFiltro --> Frete
     FreteFiltro --> TipoOperacao
     FreteFiltro --> TipoFiltroFrete
 ```
+
+---
+Gerada em 29/12/2025 20:35:03

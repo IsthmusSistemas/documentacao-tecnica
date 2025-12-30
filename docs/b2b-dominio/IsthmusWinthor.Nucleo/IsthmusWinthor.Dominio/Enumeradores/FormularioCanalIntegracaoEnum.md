@@ -1,61 +1,56 @@
-# FormularioCanalIntegracaoEnum
-
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: FormularioCanalIntegracaoEnum.cs
-
-O `FormularioCanalIntegracaoEnum` define os diferentes canais de integração que o sistema pode utilizar para formular interações, desempenhando um papel crucial na configuração de rotinas de integração.
-
----
-
 # FormularioCanalIntegracaoTabela
 
 - **Namespace**: IsthmusWinthor.Dominio.Enumeradores
 - **Nome do Arquivo**: FormularioCanalIntegracaoTabela.cs
 
 ## Visão Geral e Responsabilidade
-A classe `FormularioCanalIntegracaoTabela` é responsável por mapear os valores do enumerador `FormularioCanalIntegracaoEnum` para suas respectivas tabelas no sistema. Esta classe desempenha um papel essencial na definição clara de quais tabelas devem ser utilizadas de acordo com o canal de integração especificado, garantindo que a aplicação possa interagir corretamente com diferentes sistemas e formatos.
+A classe `FormularioCanalIntegracaoTabela` atua como um utilitário que fornece uma tabela de integração para diferentes canais de um formulário. Seu papel é converter um `FormularioCanalIntegracaoEnum` em uma string correspondente à tabela correta, resolvendo o problema de mapeamento entre o canal de integração e a sua respectiva tabela de dados.
 
 ## Métodos de Negócio
 
-### Título: `TabelaDoCanal` (public static)
+### Título: TabelaDoCanal (Método Estático)
+- **Objetivo**: Garantir que cada tipo de canal de integração tenha uma representação em string correspondente utilizada em operações de integração.
+- **Comportamento**: 
+  1. Recebe um parâmetro do tipo `FormularioCanalIntegracaoEnum`.
+  2. Avalia o valor do enum.
+     - Se for `IntegradoraPCClientFV`, retorna a string "PCCLIENTFV".
+     - Se for `TabelaPCClient`, retorna a string "PCCLIENT".
+     - Para qualquer outro valor, retorna uma string vazia.
+- **Retorno**: Retorna uma string que representa a tabela correspondente ao canal de integração, ou uma string vazia se o canal não for mapeado.
 
-- **Objetivo**: Este método assegura que, dado um canal de integração, a tabela correspondente seja retornada, ajudando na manutenção da integridade do mapeamento entre canais e suas respectivas tabelas.
-  
-- **Comportamento**:
-  1. O método recebe um parâmetro do tipo `FormularioCanalIntegracaoEnum`.
-  2. Avalia o canal fornecido através de um `switch`.
-  3. Se o canal for `IntegradoraPCClientFV`, retorna a string `"PCCLIENTFV"`.
-  4. Se o canal for `TabelaPCClient`, retorna a string `"PCCLIENT"`.
-  5. Para qualquer outro valor passado, retorna uma string vazia.
-
-- **Retorno**: O método retorna o nome da tabela correspondente ao canal de integração. Se o canal não for reconhecido, retorna uma string vazia.
+```mermaid
+flowchart TD
+    A[Recebe canal] --> B{Avalia canal}
+    B -->|IntegradoraPCClientFV| C["Retorna PCMCLIENTFV"]
+    B -->|TabelaPCClient| D["Retorna PCCLIENT"]
+    B -->|Outro| E["Retorna "" " (vazio)]
+```
 
 ## Propriedades Calculadas e de Validação
-
-Nenhuma propriedade com lógica de cálculo ou validação foi identificada nesta classe.
+- Não se aplica, pois a classe não possui propriedades com lógica no `get` ou validação no `set`.
 
 ## Navigations Property
-
-Nenhuma propriedade que represente classes complexas do domínio foi identificada nesta classe.
+- Não se aplica, pois a classe não possui propriedades que são classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-
-- Enumeradores:
-  - `[FormularioCanalIntegracaoEnum](FormularioCanalIntegracaoEnum.md)`
+- **Enumeradores**:
+  - [FormularioCanalIntegracaoEnum](FormularioCanalIntegracaoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FormularioCanalIntegracaoTabela {
-      +string TabelaDoCanal(FormularioCanalIntegracaoEnum canal)
+        <<static>>
+        +string TabelaDoCanal(FormularioCanalIntegracaoEnum canal)
     }
-    
     class FormularioCanalIntegracaoEnum {
-      <<enumeration>>
-      TabelaPCClient
-      IntegradoraPCClientFV
-      Email
+        <<enumerator>>
+        +TabelaPCClient
+        +IntegradoraPCClientFV
+        +Email
     }
 
-    FormularioCanalIntegracaoTabela ..> FormularioCanalIntegracaoEnum : uses
+    FormularioCanalIntegracaoTabela --> FormularioCanalIntegracaoEnum : utilize
 ```
+---
+Gerada em 29/12/2025 20:56:03

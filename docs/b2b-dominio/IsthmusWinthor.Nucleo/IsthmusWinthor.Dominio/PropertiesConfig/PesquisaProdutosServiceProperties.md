@@ -1,5 +1,7 @@
 # PesquisaProdutosServiceProperties
-**Namespace**: IsthmusWinthor.Dominio.PropertiesConfig  
-**Nome do Arquivo**: PesquisaProdutosServiceProperties.cs  
+- **Namespace**: IsthmusWinthor.Dominio.PropertiesConfig
+- **Nome do Arquivo**: PesquisaProdutosServiceProperties.cs
 
-A classe `PesquisaProdutosServiceProperties` é um DTO (Data Transfer Object) que serve para o transporte de dados relacionados à configuração de um serviço que pesquisa produtos. Essa classe não contém lógica de negócios ou estado complexo, apenas encapsula as propriedades necessárias para configurar os URLs de uma API e de um sincronizador.
+A classe `PesquisaProdutosServiceProperties` serve como um DTO (Data Transfer Object) que transporta as configurações de URLs necessárias para a execução dos serviços de pesquisa de produtos dentro do sistema.
+---
+Gerada em 29/12/2025 22:02:51

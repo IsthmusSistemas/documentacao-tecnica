@@ -1,15 +1,13 @@
 # TipoPromocaoComboEnum
-
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: TipoPromocaoComboEnum.cs
+**Nome do Arquivo**: TipoPromocaoComboEnum.cs  
 
-Este enumerador define os tipos de promoção disponíveis no sistema, servindo como um meio de transporte para categorizar promoções de forma consistente em outras partes da aplicação.
+O `TipoPromocaoComboEnum` é um enumerador que define diferentes tipos de promoções que podem ser aplicadas no sistema. Ele serve para padronizar as opções de promoções de combos, facilitando a manipulação e comparação de tais valores ao longo do sistema.
 
-### Tipos Auxiliares e Dependências
-- **Enumerações**:
-  - `TipoPromocaoComboEnum` - Representa diferentes tipos de promoção para combos disponíveis no sistema.
+## Tipos Auxiliares e Dependências
+- Nenhum.
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoPromocaoComboEnum {
@@ -18,3 +16,5 @@ classDiagram
         +ComboMedicamentos2323
     }
 ```
+---
+Gerada em 29/12/2025 21:06:15

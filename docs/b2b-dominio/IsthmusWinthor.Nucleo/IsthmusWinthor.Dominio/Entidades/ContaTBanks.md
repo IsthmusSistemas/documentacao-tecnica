@@ -1,35 +1,29 @@
 # ContaTBanks
+
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: ContaTBanks.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ContaTBanks` representa uma conta bancária associada a uma distribuidora, contendo informações relacionadas ao acordo de pagamento via Pix. Ela lida com a gestão da conta dentro do sistema, incluindo a validação de seu status e outros dados críticos para a operação financeira. Seu objetivo principal é garantir que apenas contas válidas sejam utilizadas nas transações, conforme a regra de negócio estabelecida.
+A classe `ContaTBanks` representa uma conta bancária vinculada a uma distribuidora no contexto do sistema financeiro da empresa. Ela é responsável por manter as informações necessárias sobre a conta, como os dados do representante e o status da conta, resolvendo o problema de gestão e validação de contas usadas para a transação financeira via Pix.
 
 ## Métodos de Negócio
-
 ### Título: ContaValida (Propriedade Calculada)
-**Objetivo**: Garantir que a conta esteja aprovada e que a chave Pix esteja preenchida, validando assim a sua utilização nos processos financeiros.  
-**Comportamento**: 
-1. A propriedade calcula o estado da conta ao verificar se o `StatusContaTBanks` é igual a `StatusContaTBanksEnum.Aprovada`.
-2. Além disso, verifica se a `ChavePixConta` não é nula ou vazia.
-3. O resultado final é um valor booleano indicando se a conta é válida ou não.
-
-**Retorno**: `true` se a conta estiver aprovada e com uma chave Pix válida; caso contrário, retorna `false`.
+- **Objetivo**: Garante que a conta bancária está na condição adequada para ser utilizada. Verifica se a conta está aprovada e se a chave Pix está disponível.
+- **Comportamento**:
+  1. Verifica se o status da conta (`StatusContaTBanks`) é igual a `Aprovada`.
+  2. Valida se a propriedade `ChavePixConta` não é nula ou vazia.
+  3. Retorna `true` se ambas as condições forem atendidas, caso contrário, retorna `false`.
+- **Retorno**: `bool` que representa se a conta está válida para uso em transações.
 
 ## Propriedades Calculadas e de Validação
-
-### Propriedades 
-- **ContaValida**: Esta propriedade oferece uma forma de validar a conta através da combinação do status da conta e a existência da chave Pix. 
-  - Regra: Uma conta é considerada válida apenas quando seu status é "Aprovada" e uma chave Pix está disponível.
+- **ContaValida**: Essa propriedade determina se a conta está em um estado válido para operações de pagamento. As regras de negócios estabelecem que uma conta deve estar aprovada e ter uma chave Pix válida para ser considerada válida.
 
 ## Navigations Property
-
-- `[Distribuidora](Distribuidora.md)`
-- `[ConvenioPix](ConvenioPix.md)`
+- [Distribuidora](Distribuidora.md)
+- [ConvenioPix](ConvenioPix.md)
 
 ## Tipos Auxiliares e Dependências
-
-- `[StatusContaTBanksEnum](StatusContaTBanksEnum.md)`
+- [StatusContaTBanksEnum](StatusContaTBanksEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -48,16 +42,10 @@ classDiagram
         +string ChavePixConta
         +StatusContaTBanksEnum StatusContaTBanks
         +decimal Fee
-        +boolean ContaValida
+        +bool ContaValida
     }
-
-    class Distribuidora {
-    }
-
-    class ConvenioPix {
-    }
-
-    ContaTBanks --> Distribuidora: "1"
-    ContaTBanks --> ConvenioPix: "1"
+    ContaTBanks --> Distribuidora
+    ContaTBanks --> ConvenioPix
 ```
-
+---
+Gerada em 29/12/2025 20:23:57

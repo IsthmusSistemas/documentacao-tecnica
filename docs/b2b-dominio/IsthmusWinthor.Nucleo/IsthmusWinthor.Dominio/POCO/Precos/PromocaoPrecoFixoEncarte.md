@@ -1,59 +1,50 @@
 # PromocaoPrecoFixoEncarte
-**Namespace**: IsthmusWinthor.Dominio.POCO.Precos  
-**Nome do Arquivo**: PromocaoPrecoFixoEncarte.cs  
+- **Namespace**: IsthmusWinthor.Dominio.POCO.Precos
+- **Nome do Arquivo**: PromocaoPrecoFixoEncarte.cs
 
 ## Visão Geral e Responsabilidade
-A classe `PromocaoPrecoFixoEncarte` representa uma promoção de preço fixo aplicada a produtos, sendo capaz de definir um código de promoção baseado em uma lógica específica. Ela resolve o problema de aplicação de descontos de maneira flexível, considerando tanto o código de promoção do medicamento quanto o do distribuidor, proporcionando uma visão clara e unificada das promoções disponíveis.
+A classe `PromocaoPrecoFixoEncarte` atua como um modelo de domínio que encapsula as regras de negócio relacionadas a uma promoção de preço fixo para medicamentos. Seu objetivo principal é gerenciar as promoções e garantir que um código promocional válido seja utilizado, permitindo a aplicação de preços fixos e descontos respectivos, aplicando a lógica de seleção do código promocional.
 
 ## Métodos de Negócio
 
-### Título: `CodigoPromocao` - `public`
-- **Objetivo**: Garante que um código de promoção válido seja retornado, priorizando o código do medicamento quando este está disponível.
+### Título: CodigoPromocao (Propriedade)
+- **Objetivo**: Garante que sempre será retornado um código promocional válido. Se `CodigoPromocaoMedicamento` estiver disponível e diferente de zero, ele é utilizado; caso contrário, `CodigoPromocaoDistribuidor` é retornado.
 - **Comportamento**: 
   1. Verifica se `CodigoPromocaoMedicamento` é diferente de zero.
   2. Se verdadeiro, retorna `CodigoPromocaoMedicamento`.
   3. Se falso, retorna `CodigoPromocaoDistribuidor`.
-- **Retorno**: Retorna o código de promoção que será utilizado para identificar a promoção aplicada.
-
-```mermaid
-flowchart TD
-    A[CodigoPromocaoMedicamento != 0?] -->|Sim| B[Retornar CodigoPromocaoMedicamento]
-    A -->|Não| C[Retornar CodigoPromocaoDistribuidor]
-```
+- **Retorno**: O valor retornado é o código promocional a ser aplicado; assegura que um código válido esteja sempre disponível.
 
 ## Propriedades Calculadas e de Validação
-- `CodigoPromocao`: Este é uma propriedade calculada que determina o código de promoção a ser usado com base na presença de um código promocional específico do medicamento. A regra é que, se o código do medicamento for diferente de zero, ele será utilizado; caso contrário, o código do distribuidor é retornado.
+- **CodigoPromocao**: A propriedade contém lógica que determina qual código promocional é retornado com base na condição das propriedades `CodigoPromocaoMedicamento` e `CodigoPromocaoDistribuidor`.
 
 ## Navigations Property
-- `ItensPrecoFixo`: Esta propriedade representa uma lista de itens que possuem preço fixo dentro da promoção. O arquivo presumido para esta classe é `[ItemPrecoFixo](ItemPrecoFixo.md)`.
+- **ItensPrecoFixo**: Lista de itens associados a promoção de preço fixo, que é uma coleção do tipo [ItemPrecoFixo](ItemPrecoFixo.md).
 
 ## Tipos Auxiliares e Dependências
-- `TipoPromocaoEnum`: Este enum é utilizado para definir o tipo da promoção. O arquivo presumido para ele é `[TipoPromocaoEnum](TipoPromocaoEnum.md)`.
+- `TipoPromocaoEnum`: [TipoPromocaoEnum](TipoPromocaoEnum.md)
+- `ItemPrecoFixo`: [ItemPrecoFixo](ItemPrecoFixo.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PromocaoPrecoFixoEncarte {
-        + long CodigoPromocaoMedicamento
-        + long CodigoPromocaoDistribuidor
-        + string Nome
-        + string Descricao
-        + DateTime? DataInicio
-        + DateTime? DataFim
-        + List~ItemPrecoFixo~ ItensPrecoFixo
-        + string CondicaoPromocao
+        +long CodigoPromocaoMedicamento
+        +long CodigoPromocaoDistribuidor
+        +string Nome
+        +string Descricao
+        +DateTime? DataInicio
+        +DateTime? DataFim
+        +List<ItemPrecoFixo> ItensPrecoFixo
+        +string CondicaoPromocao
     }
-
     class ItemPrecoFixo {
-        + long CodigoProduto
-        + decimal Preco
-        + decimal PercentualDescontoFinanceiro
+        +long CodigoProduto
+        +decimal Preco
+        +decimal PercentualDescontoFinanceiro
     }
-
-    class TipoPromocaoEnum {
-        <<enumerator>>
-    }
-
-    PromocaoPrecoFixoEncarte --> ItemPrecoFixo
-    PromocaoPrecoFixoEncarte --> TipoPromocaoEnum
+    
+    PromocaoPrecoFixoEncarte "1" --> "*" ItemPrecoFixo
 ```
+---
+Gerada em 29/12/2025 21:53:45

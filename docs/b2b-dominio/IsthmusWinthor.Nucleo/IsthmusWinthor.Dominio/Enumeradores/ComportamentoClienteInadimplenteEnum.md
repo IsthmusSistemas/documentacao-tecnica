@@ -1,21 +1,21 @@
 # ComportamentoClienteInadimplenteEnum
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: ComportamentoClienteInadimplenteEnum.cs
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: ComportamentoClienteInadimplenteEnum.cs  
 
-O `ComportamentoClienteInadimplenteEnum` é um enumerador que define as diferentes permissões de acesso e ações que um cliente inadimplente pode realizar dentro do sistema.
+O `ComportamentoClienteInadimplenteEnum` é um enumerador que define os diferentes comportamentos que um cliente inadimplente pode ter em relação ao acesso e utilização de serviços e funcionalidades da plataforma, como login e operações de compra.
 
 ## Tipos Auxiliares e Dependências
-- **Enums**:
-  - `[ComportamentoClienteInadimplenteEnum](ComportamentoClienteInadimplenteEnum.md)`: Define os comportamentos permitidos para clientes que estão inadimplentes no sistema.
+- Enum: [ComportamentoClienteInadimplenteEnum](ComportamentoClienteInadimplenteEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ComportamentoClienteInadimplenteEnum {
-        <<enumeration>>
-        NaoPermitirLoginB2B
-        PermitirLoginMasNaoPermitirAdicionarNoCarrinho
-        PermitirLoginAdicionarNoCarrinhoEnviarPedidos
-        PermitirLoginAdicionarNoCarrinhoEnviarPedidosApenasCondicoesAVista
+        +NaoPermitirLoginB2B
+        +PermitirLoginMasNaoPermitirAdicionarNoCarrinho
+        +PermitirLoginAdicionarNoCarrinhoEnviarPedidos
+        +PermitirLoginAdicionarNoCarrinhoEnviarPedidosApenasCondicoesAVista
     }
 ```
+---
+Gerada em 29/12/2025 20:53:43

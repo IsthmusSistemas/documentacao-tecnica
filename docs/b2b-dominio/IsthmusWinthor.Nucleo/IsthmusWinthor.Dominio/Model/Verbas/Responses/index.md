@@ -1,4 +1,4 @@
-#Documentação - Responses
+# Responses
 ## Conteúdo
 - [NegociacaoAnalistaResponseModel](NegociacaoAnalistaResponseModel.md)
 - [NegociacaoIntegracaoPedidoTentativaResponseModel](NegociacaoIntegracaoPedidoTentativaResponseModel.md)

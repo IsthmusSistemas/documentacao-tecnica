@@ -3,30 +3,30 @@
 **Nome do Arquivo**: NegociacaoRequestPostModel.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `NegociacaoRequestPostModel` é responsável por encapsular informações necessárias para a criação de uma negociação dentro do sistema, incluindo detalhes sobre o representante comercial, o ponto de venda e os itens da negociação. Ela garante que todos os dados relevantes estão presentes e que estão em conformidade com as regras de negócio definidas, facilitando a integração e a validação do pedido.
+A classe `NegociacaoRequestPostModel` representa um modelo de solicitação para a negociação, contendo informações relevantes para a criação e validação de um pedido. O propósito desta classe é garantir que todos os dados necessários para a negociação estejam presentes e válidos antes de serem processados, assegurando que a negociação atenda a requisitos específicos de negócio.
 
 ## Métodos de Negócio
 
-### Título: IsValid (Público)
-- **Objetivo**: Garante que todos os dados essenciais para a negociação sejam válidos e cumpram as regras de integridade.
+### Título: IsValid (Propriedade)
+- **Objetivo**: Garante que os dados da negociação estejam completos e corretos antes de serem aceitos para processamento.
 - **Comportamento**: 
-  1. Verifica se `RCACodigo` é maior que 0.
-  2. Certifica que `RCANome`, `PDVCodigo`, `PDVCNPJ` e `PDVNome` não estão vazios.
-  3. Confirma que pelo menos um item em `Itens` possui um `PercentualAlteracaoPreco` maior que 0.
-  4. Garante que pelo menos um analista em `Analistas` possua um `Identificador` não vazio e um `PercentualDaVerba` maior que 0.
-  5. Assegura que a soma dos `PercentualDaVerba` dos analistas resulte em 100.
-- **Retorno**: Retorna `true` se todas as validações forem satisfeitas; caso contrário, retorna `false`.
+  1. Verifica se `RCACodigo` é maior que zero.
+  2. Confirma que `RCANome`, `PDVCodigo`, `PDVCNPJ` e `PDVNome` tenham valores não vazios e não consistam apenas em espaços em branco.
+  3. Avalia se pelo menos um item na lista `Itens` possui um `PercentualAlteracaoPreco` maior que zero.
+  4. Verifica se pelo menos um analista na lista `Analistas` possui um `Identificador` não vazio e um `PercentualDaVerba` maior que zero.
+  5. Assegura que a soma dos percentuais dos analistas seja exatamente igual a 100, usando uma operação de arredondamento.
+- **Retorno**: Retorna um valor booleano indicando se a negociação é válida (true) ou não (false).
 
 ## Propriedades Calculadas e de Validação
-- `IsValid`: Esta propriedade garante que a instância da classe possui todos os dados necessários e válidos para proceder com a criação da negociação, seguindo regras específicas em termos de obrigatoriedade e consistência percentual.
+- **IsValid**: Esta propriedade calcula a validade do modelo com base em diversos critérios. O modelo é considerado válido se todos os requisitos citados acima forem atendidos.
 
 ## Navigations Property
-- **Itens**: [NegociacaoItemRequestPostModel](NegociacaoItemRequestPostModel.md)
-- **Analistas**: [NegociacaoAnalistaRequestPostModel](NegociacaoAnalistaRequestPostModel.md)
+- [NegociacaoItemRequestPostModel](NegociacaoItemRequestPostModel.md)
+- [NegociacaoAnalistaRequestPostModel](NegociacaoAnalistaRequestPostModel.md)
 
 ## Tipos Auxiliares e Dependências
-- Enumeradores e Helpers utilizados:
-  - Nenhum enumerador ou assistente está diretamente associado a esta classe.
+- [NegociacaoItemRequestPostModel](NegociacaoItemRequestPostModel.md)
+- [NegociacaoAnalistaRequestPostModel](NegociacaoAnalistaRequestPostModel.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -46,6 +46,11 @@ classDiagram
         +string ObservacaoPedido
     }
 
-    NegociacaoRequestPostModel --> NegociacaoItemRequestPostModel: contém
-    NegociacaoRequestPostModel --> NegociacaoAnalistaRequestPostModel: contém
+    class NegociacaoItemRequestPostModel
+    class NegociacaoAnalistaRequestPostModel
+
+    NegociacaoRequestPostModel --> NegociacaoItemRequestPostModel : contains
+    NegociacaoRequestPostModel --> NegociacaoAnalistaRequestPostModel : contains
 ```
+---
+Gerada em 29/12/2025 21:21:47

@@ -1,44 +1,49 @@
 # AvaliacaoProduto
-
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: AvaliacaoProduto.cs
+**Nome do Arquivo**: AvaliacaoProduto.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `AvaliacaoProduto` representa a avaliação de um produto realizada por um cliente. Ela desempenha um papel crucial na coleta de feedback sobre produtos, permitindo que os clientes deixem suas opiniões e notas, influenciando assim futuras decisões de compra. Essa avaliação pode impactar diretamente a reputação do produto no mercado e a satisfação do cliente, sendo uma parte vital do ciclo de vida do produto e de suas vendas.
+A classe `AvaliacaoProduto` representa uma avaliação feita por um cliente sobre um produto específico. Ela serve para permitir que os clientes compartilhem suas opiniões sobre produtos, contribuindo para a transparência e ajudando outros usuários a tomar decisões informadas de compra. Essa entidade é essencial para o feedback de produtos e para a melhoria contínua dos serviços oferecidos pela empresa.
 
 ## Métodos de Negócio
-Nesta implementação não existem métodos com lógica de negócio complexa, portanto, não há detalhes a serem fornecidos nesta seção.
+*Nota: A classe AvaliacaoProduto não possui métodos com lógica de negócio significativa ou complexa além dos simples getters/setters.*
 
 ## Propriedades Calculadas e de Validação
-Não foram identificadas propriedades que contenham lógica de cálculo ou validação complexa.
+- Não há propriedades calculadas ou de validação nesta classe.
 
 ## Navigations Property
-- `Cliente`: Representa a entidade `Cliente`, que pode ser acessada através da propriedade `ClienteId`.
-  - [Cliente](Cliente.md)
-- `Produto`: Representa a entidade `Produto`, referenciada pela propriedade `ProdutoId`.
-  - [Produto](Produto.md)
+- [Cliente](Cliente.md)
+- [Produto](Produto.md)
 
 ## Tipos Auxiliares e Dependências
-Não foram identificados enumeradores ou classes helpers que a classe utiliza.
+- Não utiliza Enumeradores ou Classes Estáticas/Helpers.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class AvaliacaoProduto {
         +long Id
+        +Cliente Cliente
+        +long ClienteId
+        +Produto Produto
+        +long ProdutoId
         +DateTime DataAvaliacao
         +int Estrelas
         +string Titulo
         +string Comentario
         +bool Publicado
     }
+    
     class Cliente {
-        <<Entity>>
+        <<Entidade>>
     }
+    
     class Produto {
-        <<Entity>>
+        <<Entidade>>
     }
 
-    AvaliacaoProduto --> Cliente: clienteId
-    AvaliacaoProduto --> Produto: produtoId
+    AvaliacaoProduto --> Cliente : possui
+    AvaliacaoProduto --> Produto : avaliado
 ```
+---
+Gerada em 29/12/2025 20:16:45

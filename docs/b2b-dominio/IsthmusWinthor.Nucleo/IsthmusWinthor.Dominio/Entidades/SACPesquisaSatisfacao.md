@@ -3,45 +3,39 @@
 **Nome do Arquivo**: SACPesquisaSatisfacao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `SACPesquisaSatisfacao` representa uma pesquisa de satisfação realizada por clientes em relação ao atendimento recebido através do SAC (Serviço de Atendimento ao Cliente). O principal objetivo desta classe é capturar as opiniões dos clientes, quantificadas por uma nota e um comentário, de forma a monitorar e melhorar a qualidade do atendimento prestado. Essa classe desempenha um papel vital na análise de dados de satisfação e na retroalimentação dos processos de atendimento.
+A classe `SACPesquisaSatisfacao` representa a entidade que coleta feedback de clientes sobre o atendimento recebido, após a resolução de um chamado no sistema SAC (Serviço de Atendimento ao Cliente). Essa classe atua como um motor de avaliação, armazenando notas e comentários que permitem medir a satisfação do cliente com o serviço prestado, possibilitando melhorias contínuas na equipe de atendimento e na abordagem ao cliente.
 
 ## Métodos de Negócio
-Não há métodos de negócios com lógica na classe.
+*Nota: Esta classe não possui métodos de negócio complexos definidos, apenas getters e setters simples. Portanto, essa seção não se aplica.*
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades que contenham lógica no `get` ou validação no `set`.
+- Esta classe não possui propriedades que contenham lógica no `get` ou validações no `set`. Todos os atributos são de acesso direto sem cálculos ou validações.
 
-## Navigation Property
-- [Distribuidora](Distribuidora.md): Representa a distribuidora associada à pesquisa de satisfação.
-- [Cliente](Cliente.md): Representa o cliente que realizou a pesquisa.
-- [SACChamado](SACChamado.md): Representa o chamado para o qual a pesquisa de satisfação está associada.
+## Navigations Property
+- [Distribuidora](Distribuidora.md): Refere-se à distribuidora associada ao cliente.
+- [Cliente](Cliente.md): Representa o cliente que forneceu o feedback.
+- [SACChamado](SACChamado.md): O chamado relacionado a essa pesquisa de satisfação.
 
 ## Tipos Auxiliares e Dependências
-Não há enumeradores ou classes auxiliares utilizadas nesta classe.
+- Nenhum tipo auxiliar, enumerador ou classe estática/utility é utilizado nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class SACPesquisaSatisfacao {
-        long Id
-        long DistribuidoraId
-        long ClienteId
-        long ChamadoId
-        long Nota
-        string Comentario
-        DateTime DataResposta
+        +long Id
+        +long Nota
+        +string Comentario
+        +DateTime DataResposta
     }
     
-    class Distribuidora {
-    }
+    class Distribuidora
+    class Cliente
+    class SACChamado
 
-    class Cliente {
-    }
-
-    class SACChamado {
-    }
-
-    SACPesquisaSatisfacao --> Distribuidora
-    SACPesquisaSatisfacao --> Cliente
-    SACPesquisaSatisfacao --> SACChamado
+    SACPesquisaSatisfacao --> Distribuidora : "possui"
+    SACPesquisaSatisfacao --> Cliente : "feedback de"
+    SACPesquisaSatisfacao --> SACChamado : "relacionado a"
 ```
+---
+Gerada em 29/12/2025 20:49:10

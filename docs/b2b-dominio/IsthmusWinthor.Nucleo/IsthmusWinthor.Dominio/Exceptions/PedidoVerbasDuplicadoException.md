@@ -1,32 +1,34 @@
 # PedidoVerbasDuplicadoException
+
 **Namespace**: IsthmusWinthor.Dominio.Exceptions  
 **Nome do Arquivo**: PedidoVerbasDuplicadoException.cs  
 
-### Visão Geral e Responsabilidade
-A classe `PedidoVerbasDuplicadoException` é uma exceção customizada que indica a ocorrência de tentando registrar um pedido de verbas que já foi gerado anteriormente. Esta classe é crucial para tratar cenários em que a lógica do negócio não admite a duplicidade de pedidos, assegurando a integridade dos dados e evitando inconsistências na negociação de verbas.
+## Visão Geral e Responsabilidade
+A classe `PedidoVerbasDuplicadoException` é um modelo de exceção que representa uma situação de erro específica no contexto de negócios onde uma negociação tentaria gerar pedidos duplicados. O propósito dela é garantir que a lógica de criação de pedidos não permita a duplicidade, fornecendo um mecanismo para sinalizar essa condição ao sistema, permitindo assim que o fluxo de execução seja controlado de maneira adequada.
 
-### Métodos de Negócio
-- **Título**: PedidoVerbasDuplicadoException(string message) - Visibilidade: Público
-  - **Objetivo**: Garante que uma exceção seja lançada quando um pedido de verbas é duplicado, evitando que o sistema permita essa situação.
-  - **Comportamento**: 
-    1. O construtor da classe é chamado e aceita uma mensagem opcional.
-    2. Chama o construtor base da classe `Exception`, passando a mensagem para descrever o erro.
-  - **Retorno**: Não possui um retorno, pois é uma exceção e sua função é interromper o fluxo normal da aplicação em caso de erro.
+## Métodos de Negócio
+### Título: PedidoVerbasDuplicadoException (public)
+- **Objetivo**: Este construtor de exceção indica que um pedido já foi gerado para uma negociação, o que é uma violação da regra de negócio que proíbe a duplicação de pedidos.
+- **Comportamento**: O construtor chamará a classe base `Exception`, passando uma mensagem padrão que informa sobre a duplicação de pedidos.
+- **Retorno**: Não aplica, pois é um construtor de exceção.
 
-### Propriedades Calculadas e de Validação
-Não há propriedades calculadas ou de validação, uma vez que a classe é uma exceção e não possui propriedades que requeiram de tal processamento.
+## Propriedades Calculadas e de Validação
+Não existem propriedades calculadas ou de validação nesta classe, pois ela se concentra exclusivamente em representar uma exceção sem lógica adicional.
 
-### Navigations Property
-Não há propriedades que representem classes complexas do domínio nesta classe.
+## Navigation Property
+Não existem propriedades de navegação nesta classe, pois é uma exceção simples sem relacionamentos complexos com outros objetos do domínio.
 
-### Tipos Auxiliares e Dependências
-Não utiliza tipos auxiliares ou enums.
+## Tipos Auxiliares e Dependências
+Não há enumeradores ou classes auxiliares específicas utilizadas nesta classe.
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PedidoVerbasDuplicadoException {
-        +PedidoVerbasDuplicadoException(string message)
+        <<exception>>
     }
-    PedidoVerbasDuplicadoException --|> Exception
-```
+``` 
+
+A classe `PedidoVerbasDuplicadoException` não possui relações complexas ou dependências com outras classes dentro do domínio, servindo como um alerta isolado para erro de regras de negócio.
+---
+Gerada em 29/12/2025 21:10:54

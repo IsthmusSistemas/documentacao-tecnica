@@ -2,23 +2,26 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: LinhaPrazo.cs  
 
-### Visão Geral e Responsabilidade
-A classe `LinhaPrazo` representa uma linha de prazo num contexto de planejamento financeiro, armazenando detalhes sobre diferentes condições de pagamento. O modelo é fundamental para garantir que as regras de negócio relacionadas à obrigatoriedade e à seleção de planos de pagamento sejam sempre seguidas, facilitando a gestão adequada dos prazos em compromissos financeiros.
+## Visão Geral e Responsabilidade
+A classe `LinhaPrazo` representa uma linha de prazo que pode ser configurada em um sistema de gerenciamento de pagamentos. Através dela, é possível definir diferentes prazos, especificar se estes prazos são obrigatórios e associá-los a diferentes planos de pagamento. Essa estrutura permite que o sistema cuide de prazos relacionados a pagamentos de maneira flexível, garantindo que requisitos específicos sejam atendidos durante o processo de cobrança e gestão financeira.
 
-### Métodos de Negócio
-A classe `LinhaPrazo` não contém métodos com lógica complexa ou regras de negócios que exijam documentação neste formato. Assim, iremos nos concentrar nas propriedades com lógica.
+## Métodos de Negócio
+- **Título**: (não há métodos com lógica de negócio definida)
 
-### Propriedades Calculadas e de Validação
-- **Codigo**: Esta propriedade é um identificador único que deve ser verificado no contexto de sua operação. É importante garantir que cada código seja único dentro do sistema.
-- **Obrigatorio**: Esta propriedade determina se a linha de prazo é obrigatória. O sistema deve garantir que, caso `Obrigatorio` seja `true`, a lógica de seleção de planos de pagamento respeite essa condição.
+Atualmente, a classe não possui métodos que implementem lógica de negócio, sendo composta apenas por propriedades simples que armazenam dados.
 
-### Navigation Properties
-- Não existem propriedades navegacionais complexas nesta classe.
+## Propriedades Calculadas e de Validação
+- **Código**: Necessita de validação para assegurar que representa um identificador único válido.
+- **Obrigatorio**: Define se a linha de prazo é obrigatória ou não.
 
-### Tipos Auxiliares e Dependências
-- Não há enumeradores ou classes auxiliares evidentes utilizadas.
+## Navigation Property
+- **CodigosPlanosPagamento**: 
+  - Representa uma lista de identificadores que se relacionam com planos de pagamento. Não há uma classe específica associada, mas esses códigos devem corresponder a uma classe externa responsável pela definição de planos de pagamento.
 
-### Diagrama de Relacionamentos
+## Tipos Auxiliares e Dependências
+- Não há enumeradores ou classes auxiliares utilizados diretamente nesta classe.
+
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class LinhaPrazo {
@@ -28,4 +31,15 @@ classDiagram
         +bool Obrigatorio
         +List<long> CodigosPlanosPagamento
     }
-```
+
+    class PlanoPagamento {
+        +long Id
+        +string Nome
+    }
+    
+    LinhaPrazo --> PlanoPagamento : associacao
+``` 
+
+Este diagrama ilustra uma associação entre a classe `LinhaPrazo` e uma hipotética classe `PlanoPagamento`, sugerindo um relacionamento onde uma linha de prazo está vinculada a múltiplos planos de pagamento através dos códigos armazenados na propriedade `CodigosPlanosPagamento`.
+---
+Gerada em 29/12/2025 21:36:35

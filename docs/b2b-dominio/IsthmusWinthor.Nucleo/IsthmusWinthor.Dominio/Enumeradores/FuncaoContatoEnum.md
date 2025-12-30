@@ -2,7 +2,7 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FuncaoContatoEnum.cs  
 
-Enumera as possíveis funções de contato dentro do sistema, definindo diferentes papéis e responsabilidades que um contato pode ter. Este enumerador é essencial para categorizar e gerenciar usuários da aplicação, facilitando a identificação de suas funções específicas no contexto organizacional.
+O `FuncaoContatoEnum` é um enumerador que define as funções possíveis que um contato pode ter dentro do sistema. Ele é utilizado para garantir a integridade e a validação dos dados ao classificar um contato em uma das funções predefinidas, facilitando a gestão de contatos.
 
 ## Tipos Auxiliares e Dependências
 - Nenhum.
@@ -20,3 +20,5 @@ classDiagram
         +Farmaceutico
     }
 ```
+---
+Gerada em 29/12/2025 20:56:24

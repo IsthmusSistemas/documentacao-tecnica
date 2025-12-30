@@ -3,42 +3,32 @@
 **Nome do Arquivo**: DadosPagamentoDinheiroCheckout.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DadosPagamentoDinheiroCheckout` é responsável por gerenciar as informações relacionadas ao pagamento em dinheiro durante o processo de checkout. Ela armazena dados relevantes, como mensagens e códigos de filiais, garantindo que essas informações sejam tratadas corretamente ao longo do fluxo de pagamento. O problema de negócio que essa classe resolve é a necessidade de manipular dados de pagamento, incluindo a serialização e desserialização de informações relacionadas às filiais, de forma eficiente e com integridade.
+A classe `DadosPagamentoDinheiroCheckout` representa as informações necessárias para processar um pagamento em dinheiro durante o checkout de um sistema de vendas. Ela é responsável por armazenar dados relacionados aos pagamentos em dinheiro, incluindo a mensagem que pode ser relevante para a transação e a listagem de códigos de filiais associados ao pagamento. A classe resolve o problema de manter a integridade e a estrutura dos dados de pagamento em dinheiro.
 
 ## Métodos de Negócio
 
-### Título: `CodigosFiliais` (Visibilidade: Pública)
-- **Objetivo**: Garante que a lista de códigos de filiais seja corretamente serializada e desserializada da representação JSON.
-- **Comportamento**: 
-  1. No `get`, é verificado se `CodigosFiliaisJson` está nulo ou vazio.
-  2. Se estiver vazio, retorna uma nova lista de strings vazia.
-  3. Caso contrário, tenta desserializar `CodigosFiliaisJson` em uma lista de strings.
-  4. Se a desserialização falhar, captura a exceção e retorna uma nova lista de strings vazia.
-  5. No `set`, verifica se o valor atribuído é nulo; caso seja, inicializa uma nova lista de strings.
-  6. Serializa a lista de códigos de filiais e a armazena em `CodigosFiliaisJson`.
-
-- **Retorno**: Retorna uma lista de strings representando os códigos das filiais ao acessar `CodigosFiliais`.
-
-```mermaid
-flowchart TD
-    A[Início] --> B[CodigosFiliaisJson é nulo ou vazio?]
-    B -->|Sim| C[Retorna nova lista vazia]
-    B -->|Não| D[Tentar desserializar CodigosFiliaisJson]
-    D --> E[Sucesso?]
-    E -->|Sim| F[Retorna lista desserializada]
-    E -->|Não| G[Captura exceção]
-    G --> H[Retorna nova lista vazia]
-```
+### Implicit Operator: implicit operator DadosPagamentoDinheiroCheckout(DadosPagamentoDinheiroCheckoutViewModel dadosPagamentoDinheiro)
+- **Objetivo**: Facilitar a conversão de um `ViewModel` para a entidade de domínio, garantindo que todos os dados necessários sejam transferidos corretamente.
+- **Comportamento**:
+  1. Cria uma nova instância de `DadosPagamentoDinheiroCheckout`.
+  2. Atribui a `Id` com o valor do `ViewModel`.
+  3. Atribui `DadosPagamentoDinheiroId` com o valor correspondente do `ViewModel`.
+  4. Usa o método `CodigosFiliais` para garantir que os códigos de filiais sejam manipulados corretamente como uma lista.
+  5. Atribui a `Mensagem` utilizando o valor do `ViewModel`.
+- **Retorno**: Retorna uma nova instância da classe `DadosPagamentoDinheiroCheckout` populada com os dados do `ViewModel`.
 
 ## Propriedades Calculadas e de Validação
-### Propriedade `CodigosFiliais`
-A propriedade `CodigosFiliais` realiza a conversão entre uma representação JSON e uma lista de strings. Essa lógica garante que os dados permanecem consistentes e corretamente formatados para utilização posterior, essencial para o entendimento e manipulação das informações de pagamento.
+
+### CodigosFiliais
+- Esta propriedade é uma lista que fornece uma interface de acesso aos códigos de filiais associados ao pagamento.
+- A lógica da propriedade permite que os dados sejam armazenados em formato JSON na propriedade `CodigosFiliaisJson`, garantindo que o acesso e manipulação da lista sejam simples e eficientes. 
+- O `get` tenta desserializar os códigos de filiais a partir de um JSON; se não houver dados (JSON vazio ou inválido), retorna uma lista vazia. O `set` serializa a lista, armazenando-a como JSON.
 
 ## Navigations Property
-- [DadosPagamentoDinheiro](DadosPagamentoDinheiro.md)
+- [`DadosPagamentoDinheiro`](DadosPagamentoDinheiro.md): Representa a entidade de pagamento associada ao pagamento em dinheiro.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enum ou classe estática/auxiliar foi detectado nesta classe.
+- Não há enums ou classes estáticas específicas listadas como dependências nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -46,11 +36,12 @@ classDiagram
     class DadosPagamentoDinheiroCheckout {
         +long Id
         +string Mensagem
-        +string CodigosFiliaisJson
-        +List<string> CodigosFiliais
     }
     class DadosPagamentoDinheiro {
-        <<Entidade>>
+        +long Id
     }
-    DadosPagamentoDinheiroCheckout --> DadosPagamentoDinheiro : referencia
+
+    DadosPagamentoDinheiroCheckout --> DadosPagamentoDinheiro : "1..*"
 ```
+---
+Gerada em 29/12/2025 20:27:14

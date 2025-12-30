@@ -1,43 +1,48 @@
 # Conciliacao
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: Conciliacao.cs  
+
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: Conciliacao.cs
 
 ## Visão Geral e Responsabilidade
-A classe `Conciliacao` representa o modelo de domínio responsável por gerenciar as informações de conciliação de pagamentos. Seu objetivo é garantir que as operações financeiras, como créditos e débitos, sejam registradas adequadamente, permitindo a rastreabilidade dos pagamentos realizados pelos clientes. Esta classe é fundamental para validar e processar as informações recebidas do ERP e garantir que os dados de conciliação estejam sempre consistentes.
+A classe `Conciliacao` representa o processo de conciliação financeira em um sistema de gestão, conectando pedidos e pagamentos de clientes a uma distribuidora específica. Ela garante a correta associação de pagamentos recebidos com pedidos, permitindo a visualização e operação de crédito e débito de valores. A conciliação é uma etapa essencial para a verificação e controle dos registros financeiros da empresa, garantindo que os valores conciliados correspondam às transações esperadas.
 
 ## Métodos de Negócio
 
-### Título: Construtor `Conciliacao(PagamentoContaPix)`
-- **Objetivo**: Inicializa uma nova instância de `Conciliacao` com os dados de um pagamento realizado via Conta Pix, garantindo que os campos obrigatórios sejam preenchidos corretamente.
-- **Comportamento**: 
-  1. Extraí informações do objeto `PagamentoContaPix`.
-  2. Atribui o `DistribuidoraId`, `NumeroPedido`, `CodigoCliente` e `CodigoBanco` com base nas propriedades do pagamento.
-  3. Gera um `IdentificadorConciliacao` único usando `Guid.NewGuid()`.
-  4. Define a `DataCriacao` como a data atual usando `DateTimeUtil.Now`.
-  5. Atribui o `Valor` do pagamento diretamente.
-- **Retorno**: Não há valor de retorno; este construtor inicializa a instância da classe.
-
-### Título: Construtor `Conciliacao(DevolucaoPagamentoContaPix)`
-- **Objetivo**: Inicializa uma nova instância de `Conciliacao` com dados de uma devolução de pagamento via Conta Pix, assegurando que os valores adequados sejam ajustados.
+### Construtor: Conciliacao(PagamentoContaPix pagamentoContaPix)
+- **Objetivo**: Inicializa uma nova instância de `Conciliacao` a partir de um objeto `PagamentoContaPix`, preenchendo os campos necessários com as informações derivadas do pagamento.
 - **Comportamento**:
-  1. Extrai informações do objeto `DevolucaoPagamentoContaPix`.
-  2. Atribui o `DistribuidoraId`, `NumeroPedido` e `CodigoCliente` semelhante ao construtor anterior.
-  3. Gera um `IdentificadorConciliacao` único com `Guid.NewGuid()`.
-  4. Define a `DataCriacao` utilizando `DateTimeUtil.Now`.
-  5. Atribui o `Valor` da devolução como um valor negativo.
-- **Retorno**: Não há valor de retorno; o construtor finaliza a configuração da instância.
+  1. Obtém e atribui o `DistribuidoraId` do `PagamentoContaPix`.
+  2. Extrai e estabelece o `NumeroPedido` associado ao pagamento.
+  3. Captura o `CodigoCliente` que realizou o pagamento.
+  4. Adquire o `CodigoBanco` referente ao pagamento.
+  5. Gera um identificador único para a conciliação utilizando `Guid`.
+  6. Define a `DataCriacao` com a data e hora atuais.
+  7. Atribui o valor pago à propriedade `Valor`.
+- **Retorno**: Não retorna valor, mas instancia um objeto `Conciliacao` totalmente preenchido.
+
+### Construtor: Conciliacao(DevolucaoPagamentoContaPix devolucaoPagamentoConta)
+- **Objetivo**: Cria uma nova instância de `Conciliacao` a partir de uma devolução de pagamento, processando os dados necessários.
+- **Comportamento**:
+  1. Atribui o `DistribuidoraId` da `DevolucaoPagamentoContaPix`.
+  2. Determina o `NumeroPedido` do pagamento devolvido.
+  3. Obtém o `CodigoCliente` associado ao pedido.
+  4. Captura o `CodigoBanco` relativo ao pagamento.
+  5. Gera um identificador único para a devolução.
+  6. Registra a `DataCriacao` com a data e hora atuais.
+  7. Estabelece o `Valor` como o valor da devolução multiplicado por -1, indicando que é um débito.
+- **Retorno**: Não retorna valor, mas cria um objeto `Conciliacao` configurado para refletir uma devolução.
 
 ## Propriedades Calculadas e de Validação
-- Nenhuma propriedade possui lógica de cálculo ou validação no `get` ou `set`.
+- Não há propriedades que contenham lógica extra no `get` ou validações no `set`.
 
-## Navigation Properties
-- [`Distribuidora`](Distribuidora.md)
-- [`Usuario`](Usuario.md)
+## Navigations Property
+- [Distribuidora](Distribuidora.md)
+- [Usuario](Usuario.md)
 
 ## Tipos Auxiliares e Dependências
 - [PagamentoContaPix](PagamentoContaPix.md)
 - [DevolucaoPagamentoContaPix](DevolucaoPagamentoContaPix.md)
-- [Usuario](Usuario.md)
+- [DateTimeUtil](DateTimeUtil.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -55,8 +60,16 @@ classDiagram
         +decimal Valor
         +bool Sucesso
         +string Mensagem
-        +long? UsuarioId
     }
+
+    class Distribuidora {
+    }
+
+    class Usuario {
+    }
+
     Conciliacao --> Distribuidora
     Conciliacao --> Usuario
 ```
+---
+Gerada em 29/12/2025 20:22:35

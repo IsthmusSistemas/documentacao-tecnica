@@ -3,19 +3,20 @@
 - **Nome do Arquivo**: FaixaConteudo.cs
 
 ## Visão Geral e Responsabilidade
-A classe `FaixaConteudo` representa um conceito de faixa de conteúdo dentro do domínio do sistema. Seu papel é armazenar as informações associadas ao conteúdo que pertence a uma faixa, incluindo um valor de conteúdo e a ordem em que esse conteúdo deve ser exibido. Essa classe soluciona o problema de organização e apresentação de diferentes conteúdos relacionados a uma faixa específica, garantindo que o sistema possa manter uma estrutura coerente e ordenada de apresentação.
+A classe `FaixaConteudo` representa um elemento dentro de uma faixa que contém informações de conteúdo, como um valor específico e uma ordem de prioridade. O objetivo de negócios é gerenciar a relação entre uma faixa e seu conteúdo associado, garantindo que o conteúdo esteja sempre acessível e organizado de acordo com a sua ordem.
 
 ## Métodos de Negócio
-(Observação: A classe não possui métodos com lógica significativa além dos simples getters e setters.)
+### Título: N/A
+- **Objetivo**: Esta classe não possui métodos de negócio com lógica, portanto, não se aplica neste contexto.
 
 ## Propriedades Calculadas e de Validação
-(Observação: Não existem propriedades com lógica de cálculo ou validação.)
+- As propriedades da classe não contêm lógica complexa em seus `getters` ou `setters`.
 
-## Navigation Properties
+## Navigations Property
 - [Faixa](Faixa.md)
 
 ## Tipos Auxiliares e Dependências
-(Observação: Esta classe não depende de tipos auxiliares, Enums ou classes estáticas.)
+- Esta classe não depende de enumeradores ou classes estáticas/Helpers.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -25,8 +26,12 @@ classDiagram
         +string ValorConteudo
         +int Ordem
     }
+    
     class Faixa {
-        <<interface>>
+        <<entidade>>
     }
-    FaixaConteudo "1" --> "1" Faixa : possui
+    
+    FaixaConteudo --> Faixa : contém
 ```
+---
+Gerada em 29/12/2025 20:30:36

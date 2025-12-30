@@ -1,21 +1,22 @@
 # CategoriaSite
-- **Namespace**: IsthmusWinthor.Dominio.POCO
-- **Nome do Arquivo**: CategoriaSite.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO  
+**Nome do Arquivo**: CategoriaSite.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CategoriaSite` representa uma categoria no contexto de um sistema de categorização de produtos em um site. Seu papel é organizar subcategorias e fornecer informações relacionadas a como essa categoria é exibida, incluindo propriedades visuais como ícones e cores. Essa estrutura é essencial para garantir que os produtos estejam logicamente agrupados e facilmente acessíveis aos usuários, ajudando na navegação e na busca de produtos.
+A classe `CategoriaSite` representa uma categoria dentro do sistema, utilizada em um contexto de menu de site. Ela é responsável por agrupar subcategorias de produtos, facilitar a busca de produtos e determinar a apresentação visual da categoria no frontend. A classe direciona o comportamento da exibição de informações e a categorização dos produtos, solucionando o problema de organização e navegação no site.
 
 ## Propriedades Calculadas e de Validação
-- `NivelMenu`: Retorna o valor `TipoNivelOrganizacao.Categoria`, representando o nível da organização para categorias.
+- **NivelMenu**: Retorna o tipo de nível de organização como `TipoNivelOrganizacao.Categoria`, que indica que esta instância representa uma categoria no sistema.
+- **CampoBuscaProduto**: Pode incluir lógica de validação relacionada ao formato dos campos permitidos para busca de produtos associados à categoria.
 
 ## Navigations Property
-- `Subcategorias`: Lista de subcategorias associadas a esta categoria. 
-   - Presumido que a classe esteja em `[SubCategoriaSite](SubCategoriaSite.md)`.
+- **Subcategorias**: Propriedade que representa uma lista de subcategorias relacionadas à `CategoriaSite`.  
+  - [SubCategoriaSite](SubCategoriaSite.md)
 
 ## Tipos Auxiliares e Dependências
-- `TipoNivelOrganizacao`: Enum que define os diferentes tipos de níveis de organização. [TipoNivelOrganizacao](TipoNivelOrganizacao.md).
-- `CampoBuscaProduto`: Classe utilizada para definir as características de busca de produtos.
-
+- **Enumeradores**: 
+  - [TipoNivelOrganizacao](TipoNivelOrganizacao.md)
+  
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
@@ -37,7 +38,12 @@ classDiagram
         +long Ordem
         +bool IsItemLivre
     }
-    CategoriaSite --> SubCategoriaSite
-    CategoriaSite --> TipoNivelOrganizacao
-    CategoriaSite --> CampoBuscaProduto
+    
+    class SubCategoriaSite {
+        ...
+    }
+    
+    CategoriaSite "1" o-- "*" SubCategoriaSite : contém
 ```
+---
+Gerada em 29/12/2025 21:29:32

@@ -3,22 +3,35 @@
 **Nome do Arquivo**: Fornecedor.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Fornecedor` representa um fornecedor dentro do sistema, atuando como um registro essencial que armazena informações relevantes a respeito das entidades fornecedoras que interagem com a `Distribuidora`. Tais informações são cruciais para a gestão de relacionamentos comerciais e para garantir a integridade e a rastreabilidade dos recursos fornecidos.
+A classe `Fornecedor` atua como uma entidade no domínio que gerencia a representação de um fornecedor dentro do sistema. Ela é responsável por armazenar informações essenciais sobre um fornecedor, como sua identificação, distribuição e nomenclatura. O desafio de negócio que esta classe resolve é a necessidade de gerenciar a relação entre a distribuidora e os fornecedores, garantindo que cada fornecedor esteja associado corretamente a uma distribuidora específica.
 
 ## Métodos de Negócio
-A classe `Fornecedor` não possui métodos de negócio complexos que implementem regras.
+Não existem métodos com lógica de negócio complexa na classe `Fornecedor`. Todos os métodos são simples e relacionados ao gerenciamento de dados.
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades com lógica de cálculo no `get` ou validação no `set`.
+Não existem propriedades que contenham lógica de cálculo ou validação.
 
 ## Navigations Property
-- [Distribuidora](Distribuidora.md)
+- [Distribuidora](Distribuidora.md): A classe `Distribuidora` representa a entidade que o fornecedor está associado.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou dependência identificada nesta classe.
+Nenhum enumerador ou classe auxiliar está sendo utilizado nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    Fornecedor --> Distribuidora
+    class Fornecedor {
+        +long Id
+        +long DistribuidoraId
+        +long Codigo
+        +string Nome
+        +string NomeFantasia
+    }
+    class Distribuidora {
+        <<entidade>>
+    }
+    
+    Fornecedor --> "1" Distribuidora : tem>
 ```
+---
+Gerada em 29/12/2025 20:34:26

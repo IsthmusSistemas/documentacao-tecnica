@@ -3,33 +3,33 @@
 **Nome do Arquivo**: OperadoraCartao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `OperadoraCartao` representa uma entidade de domínio que encapsula as informações relacionadas a operadoras de cartões de pagamento. Ela é responsável por armazenar dados essenciais para a interação com diferentes operadoras de cartões, incluindo a configuração de URLs para APIs e dados de autenticação, permitindo a comunicação e transações de pagamento de forma segura. O problema de negócio que ela resolve é a abstração e o gerenciamento eficaz das informações necessárias para processar pagamentos através de diversos provedores.
+A classe `OperadoraCartao` representa uma entidade que encapsula as informações e comportamentos relacionados a uma operadora de cartão no sistema. O objetivo principal dessa classe é centralizar e facilitar o gerenciamento dos dados necessários para a integração com diferentes operadoras, permitindo que o sistema manipule informações como URLs de API e credenciais de sandbox. Essa classe é essencial para garantir que a comunicação com operadoras de cartão seja feita de maneira consistente e segura.
 
 ## Métodos de Negócio
-A classe `OperadoraCartao` não contém métodos de negócio com lógica complexa, pois atualmente se apresenta como uma entidade pura que mantém dados.
+Não há métodos de negócio complexos definidos nesta classe, apenas propriedades básicas.
 
 ## Propriedades Calculadas e de Validação
-A classe não possui propriedades calculadas ou validações nos métodos `get` e `set`.
+Não há propriedades que contenham lógica em seu `get` ou validações em seus `set`.
 
 ## Navigations Property
-A classe `OperadoraCartao` não contém propriedades de navegação que sejam classes complexas do domínio.
+Não existem propriedades que sejam classes complexas do domínio neste caso.
 
 ## Tipos Auxiliares e Dependências
-A classe usa o enumerador:
-- `[OperadoraCartaoEnum](OperadoraCartaoEnum.md)`
+- Enumeradores: [OperadoraCartaoEnum](OperadoraCartaoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class OperadoraCartao {
-        long Id
-        string Nome
-        OperadoraCartaoEnum Operadora
-        string UrlApi
-        string UrlApiSandBox
-        string MerchantIdSandBox
-        string MerchantKeySandBox
+        +long Id
+        +string Nome
+        +OperadoraCartaoEnum Operadora
+        +string UrlApi
+        +string UrlApiSandBox
+        +string MerchantIdSandBox
+        +string MerchantKeySandBox
     }
-
-    OperadoraCartao -- OperadoraCartaoEnum
+    OperadoraCartao --> OperadoraCartaoEnum
 ```
+---
+Gerada em 29/12/2025 20:40:24

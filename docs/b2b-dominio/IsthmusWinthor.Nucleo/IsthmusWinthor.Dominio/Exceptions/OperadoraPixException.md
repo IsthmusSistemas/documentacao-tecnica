@@ -2,25 +2,33 @@
 **Namespace**: IsthmusWinthor.Dominio.Exceptions  
 **Nome do Arquivo**: OperadoraPixException.cs  
 
-A classe `OperadoraPixException` é uma exceção personalizada destinada a lidar com erros relacionados a operadoras de pagamento do tipo PIX no sistema. Ela possibilita que o sistema capture defeitos específicos ligados à validade e à integridade das operadoras PIX, permitindo um tratamento adequado de tais condições no fluxo da aplicação. 
+### Visão Geral e Responsabilidade
+A classe `OperadoraPixException` é uma implementação da exceção customizada em C#, essencial para lidar com erros relacionados a operadoras de pagamento via Pix. Seu papel no sistema é proporcionar um controle de fluxo adequado em situações onde a operadora Pix não é válida, garantindo que o sistema responda de forma adequada a falhas de validação.
 
-## Métodos de Negócio
-
-### 1. OperadoraPixException(string mensagem) - Visibilidade: público
-- **Objetivo**: Garante que uma mensagem de erro específica seja fornecida ao lançar uma exceção, permitindo diferenciá-la de outras exceções.
+### Métodos de Negócio
+#### Título: Construtor público
+- **Objetivo**: Garante que uma mensagem de erro específica seja gerada quando uma operadora Pix inválida é encontrada.
 - **Comportamento**: 
-  1. O construtor da classe é chamado com uma mensagem opcional. Se nenhuma mensagem for fornecida, a mensagem padrão "Operadora PIX inválida!" é utilizada.
-  2. O construtor da classe base `Exception` é invocado, passando a mensagem apropriada.
-- **Retorno**: Não aplica, já que este é um construtor. A exceção instanciada pode ser usada para sinalizar erros em outras partes do código.
+  1. Recebe uma mensagem como parâmetro. Se não houver mensagem fornecida, um valor padrão ("Operadora PIX inválida!") é utilizado.
+  2. Chama o construtor da classe base `Exception` com a mensagem fornecida.
+- **Retorno**: Esta exceção não retorna valores, mas serve para interromper o fluxo normal do programa e sinalizar um erro de validação.
 
-## Diagrama de Relacionamentos
+### Propriedades Calculadas e de Validação
+Não há propriedades calculadas ou de validação nesta classe, uma vez que sua implementação se restringe ao manejo de erros com o uso de mensagens.
+
+### Navigation Property
+Não há propriedades de navegação dentro desta classe, pois ela é uma exceção que não contém referências a outras classes de domínio.
+
+### Tipos Auxiliares e Dependências
+- Não há tipos auxiliares, enums ou classes estáticas que são utilizados por esta classe.
+
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class OperadoraPixException {
-        +string mensagem
+        +OperadoraPixException(string mensagem)
     }
     OperadoraPixException --> Exception
 ```
-
-### Considerações Finais
-A `OperadoraPixException` serve como um componente vital para assegurar a robustez do sistema em relação à lógica de negócios que envolve transações PIX, garantindo que exceções adequadas sejam lançadas e tratadas conforme as regras de negócio.
+---
+Gerada em 29/12/2025 21:10:47

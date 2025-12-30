@@ -2,6 +2,8 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: ForaLinhaFilial.cs  
 
-ForaLinhaFilial é uma classe utilizada para transportar dados relacionados ao status de uma filial em relação a uma condição específica de "fora da linha". Essa classe é um DTO (Data Transfer Object) que contém informações essenciais sem lógica de negócio implementada.
+A classe `ForaLinhaFilial` é um DTO (Data Transfer Object) utilizado para transportar dados relacionados à informação de uma filial que está fora da linha de negócios principal.
 
 
+---
+Gerada em 29/12/2025 21:34:17

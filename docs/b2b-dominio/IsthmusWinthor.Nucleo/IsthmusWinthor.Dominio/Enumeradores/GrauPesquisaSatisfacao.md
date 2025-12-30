@@ -1,12 +1,11 @@
 # GrauPesquisaSatisfacao
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: GrauPesquisaSatisfacao.cs
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: GrauPesquisaSatisfacao.cs  
 
-Esta classe é um enumerador que define os diferentes níveis de satisfação da pesquisa, permitindo categorizá-los de forma semântica para uso em relatórios e análises de feedback.
+O `GrauPesquisaSatisfacao` é um enumerador que categoriza a satisfação dos usuários em uma pesquisa, permitindo assim a representação de diferentes níveis de satisfação.
 
 ## Tipos Auxiliares e Dependências
-- **Enumerador**: 
-  - `[GrauPesquisaSatisfacao](GrauPesquisaSatisfacao.md)`
+- Nenhum tipo auxiliar ou dependência adicional é utilizado nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -19,4 +18,5 @@ classDiagram
         +Otimo
     }
 ```
-
+---
+Gerada em 29/12/2025 20:56:27

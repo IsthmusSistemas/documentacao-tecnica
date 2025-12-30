@@ -1,23 +1,22 @@
 # TemplateHeaderEnum
-
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TemplateHeaderEnum.cs  
 
-O `TemplateHeaderEnum` define os diferentes tipos de cabeçalhos de menu utilizados na aplicação, facilitando a identificação e a utilização de estilos de interface específicos em várias partes do sistema.
+Este enumerador define os diferentes tipos de cabeçalhos de template utilizados na aplicação, facilitando o gerenciamento e a consistência dos menus utilizados na interface de usuário.
 
 ## Tipos Auxiliares e Dependências
-
-- **Enumeradores**:
-  - `[TemplateHeaderEnum](TemplateHeaderEnum.md)`: Define os diferentes tipos de cabeçalhos.
+- [DescriptionAttribute](https://docs.microsoft.com/dotnet/api/system.componentmodel.descriptionattribute) - Usado para adicionar descrições aos membros do enum.
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class TemplateHeaderEnum {
-        +Padrao
-        +HeaderCascade
-        +HeaderIsthmus
-        +HeaderCascadeCompact
+        <<enumerator>>
+        Padrao
+        HeaderCascade
+        HeaderIsthmus
+        HeaderCascadeCompact
     }
 ```
+---
+Gerada em 29/12/2025 21:01:58

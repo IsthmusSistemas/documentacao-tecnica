@@ -1,80 +1,72 @@
 # ProdutoSearchIndex
-
 **Namespace**: IsthmusWinthor.Dominio.AzureSearchIndex  
 **Nome do Arquivo**: ProdutoSearchIndex.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ProdutoSearchIndex` funciona como um modelo de domínio rico, representando os produtos que serão indexados em um ambiente de busca no Azure. Esta classe é responsável por gerenciar as informações associadas a produtos, como identificadores, nomes, códigos e várias propriedades categóricas e de marca. Ela também determina características importantes do produto, como disponibilidade, estoque e status de novidade ou descontinuação. Isso facilita as operações de busca e categorização de produtos no sistema.
+A classe `ProdutoSearchIndex` atua como um modelo de domínio rico que encapsula as informações e regras relacionadas à indexação de produtos em um sistema de busca. Ela é responsável por garantir que os dados dos produtos sejam organizados e manipulados corretamente, facilitando a busca e a filtragem desses produtos em uma interface de usuário ou API. A classe assegura que informações críticas sobre cada produto, como identificação, disponibilidade e categorização, estejam sempre estruturadas e acessíveis para os processos de busca.
 
 ## Métodos de Negócio
-
-### PrefixoNome (Público)
-* **Objetivo**: Calcula e retorna o prefixo do nome do produto, geralmente a primeira palavra do nome.
-* **Comportamento**: Divide o nome do produto com base no espaço e retorna a primeira palavra.
-* **Retorno**: O valor retornado é uma string que representa o prefixo do nome. Se o nome for nulo ou vazio, retorna uma string vazia.
+A condição da classe `ProdutoSearchIndex` não contém métodos de lógica complexa a serem documentados, pois se concentra em representar os dados do produto.
 
 ## Propriedades Calculadas e de Validação
-
-- **PrefixoNome**: Esta propriedade calculada extrai a primeira palavra do nome do produto. A lógica verifica se o nome está vazio ou nulo, retornando uma string vazia nesse caso, caso contrário, divide o nome usando espaço como delimitador e retorna a primeira parte.
-
-## Navigations Property
-
-*Não há propriedades de navegação que representem objetos complexos do domínio, pois esta classe se concentra em tipos primitivos e listas simples.*
+- **PrefixoNome**: A propriedade `PrefixoNome` retorna o primeiro nome contido na string `Nome`, garantindo que o prefixo seja obtido corretamente se a propriedade `Nome` não estiver vazia. Assim, é uma lógica de validação e cálculo ao acessar esta propriedade.
+  
+## Navigation Property
+A classe `ProdutoSearchIndex` não possui propriedades complexas do domínio que representem relacionamentos diretos.
 
 ## Tipos Auxiliares e Dependências
-
-A classe `ProdutoSearchIndex` não utiliza enumeradores nem classes estáticas ou helpers que necessitem de referência ou link.
+- Nenhum enumerador ou classe estática é utilizado por esta classe.
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class ProdutoSearchIndex {
-        -string AcaoExecutar
-        -string IdentificadorDocumento
-        -string Produto
-        -string ProdutoId
-        -string Codigo
-        -long DistribuidoraId
-        -string Nome
-        -string NomeMarca
-        -string CodigoBarras
-        -List~string~ Tags
-        -string CodigoMarca
-        -string CodigoFabrica
-        -string CodigoDepartamentoSite
-        -string CodigoCategoriaSite
-        -string CodigoSubCategoriaSite
-        -string CodigoFornecedor
-        -string CodigoDepartamento
-        -string CodigoSecao
-        -string CodigoCategoria
-        -string CodigoSubCategoria
-        -string ClasseProduto
-        -bool Ativo
-        -bool PossuiEstoque
-        -bool ForaLinha
-        -bool Novidade
-        -bool PossuiEmbalagem
-        -string Natureza
-        -bool Medicamento
-        -string CodigoProdutoPrincipal
-        -string NumeroOriginal
-        -string CodigoBarrasTributacao
-        -string PrefixoNome
-        -bool ProibidoVenda
-        -long DataPrimeiraCompra
-        -decimal AvaliacaoMedia
-        -decimal TotalVendas
-        -List~string~ ForaLinhaFiliais
+        +string AcaoExecutar
+        +string IdentificadorDocumento
+        +string Produto
+        +string ProdutoId
+        +string Codigo
+        +long DistribuidoraId
+        +string Nome
+        +string NomeMarca
+        +string CodigoBarras
+        +List<string> Tags
+        +string CodigoMarca
+        +string CodigoFabrica
+        +string CodigoDepartamentoSite
+        +string CodigoCategoriaSite
+        +string CodigoSubCategoriaSite
+        +string CodigoFornecedor
+        +string CodigoDepartamento
+        +string CodigoSecao
+        +string CodigoCategoria
+        +string CodigoSubCategoria
+        +string ClasseProduto
+        +bool Ativo
+        +bool PossuiEstoque
+        +bool ForaLinha
+        +bool Novidade
+        +bool PossuiEmbalagem
+        +string Naturza
+        +bool Medicamento
+        +string CodigoProdutoPrincipal
+        +string NumeroOriginal
+        +string CodigoBarrasTributacao
+        +string PrefixoNome
+        +bool ProibidoVenda
+        +long DataPrimeiraCompra
+        +decimal AvaliacaoMedia
+        +decimal TotalVendas
+        +List<string> ForaLinhaFiliais
     }
 ```
 
 ---
 
 # ProdutoSearchIndexMenuFiltro
-
 **Namespace**: IsthmusWinthor.Dominio.AzureSearchIndex  
 **Nome do Arquivo**: ProdutoSearchIndexMenuFiltro.cs  
 
-> `ProdutoSearchIndexMenuFiltro` é um DTO utilizado para transportar dados de filtros de menu para o sistema de indexação.
+Esta classe se destina a transportar dados que definem filtros aplicáveis na busca de produtos, encapsulando as informações relacionadas à marca, departamento e categoria dos produtos a serem filtrados em um sistema de busca.
+---
+Gerada em 29/12/2025 20:09:40

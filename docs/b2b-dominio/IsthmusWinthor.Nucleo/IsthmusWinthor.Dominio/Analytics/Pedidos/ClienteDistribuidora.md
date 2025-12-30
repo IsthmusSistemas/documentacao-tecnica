@@ -1,6 +1,7 @@
 # ClienteDistribuidora
+- **Namespace**: IsthmusWinthor.Dominio.Analytics.Pedidos
+- **Nome do Arquivo**: ClienteDistribuidora.cs
 
-**Namespace**: IsthmusWinthor.Dominio.Analytics.Pedidos  
-**Nome do Arquivo**: ClienteDistribuidora.cs  
-
-> `ClienteDistribuidora` é um Data Transfer Object (DTO) utilizado para a finalidade de transporte de dados relacionados a clientes de distribuidoras, como identificadores e informações de documento e nome.
+Esta classe é um DTO (Data Transfer Object) que serve como um modelo de transporte para dados relacionados a um cliente distribuidora.
+---
+Gerada em 29/12/2025 20:08:02

@@ -1,15 +1,14 @@
 # StatusPedidoFiltroIndicadoresEnum
-
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: StatusPedidoFiltroIndicadoresEnum.cs  
 
-> Esta classe enum é responsável por definir os diferentes status de filtragem de pedidos utilizados no sistema, facilitando a categorização e visualização dos pedidos em diferentes estágios.
+Este enum é utilizado para definir os tipos de filtros que podem ser aplicados a pedidos no sistema, ajudando na categorização e análise de dados relacionados a pedidos de forma consistente.
 
-## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `StatusPedidoFiltroIndicadoresEnum`
+### Tipos Auxiliares e Dependências
+- Enumeradores:
+  - [StatusPedidoFiltroIndicadoresEnum](StatusPedidoFiltroIndicadoresEnum.md)
 
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class StatusPedidoFiltroIndicadoresEnum {
@@ -18,4 +17,6 @@ classDiagram
     }
 ``` 
 
-Este documento descreve o `StatusPedidoFiltroIndicadoresEnum`, utilizado para segmentar pedidos dentro da aplicação, possibilitando uma melhor gestão e análise dos dados nos relatórios.
+Este diagrama representa as opções disponíveis no enumerador `StatusPedidoFiltroIndicadoresEnum`, permitindo uma visualização clara das opções que estão disponíveis ao usuário para filtrar pedidos.
+---
+Gerada em 29/12/2025 21:01:34

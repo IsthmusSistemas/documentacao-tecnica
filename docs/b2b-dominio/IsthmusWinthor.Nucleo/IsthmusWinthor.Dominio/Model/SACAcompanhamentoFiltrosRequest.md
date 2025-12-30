@@ -2,33 +2,17 @@
 **Namespace**: IsthmusWinthor.Dominio.Model  
 **Nome do Arquivo**: SACAcompanhamentoFiltrosRequest.cs  
 
-## Visão Geral e Responsabilidade
-A classe `SACAcompanhamentoFiltrosRequest` é responsável por encapsular os parâmetros de filtro utilizados em requisições relacionadas ao acompanhamento de uma SAC (Serviço de Atendimento ao Cliente). Essa classe permite que o sistema colete informações específicas, como datas e IDs, essenciais para a recuperação de dados de atendimento ao cliente, facilitando a análise e o monitoramento das interações do cliente com a empresa.
+A classe `SACAcompanhamentoFiltrosRequest` é um objeto de transporte de dados (DTO) que tem a finalidade de encapsular os filtros utilizados para a consulta de acompanhamento de SAC (Serviço de Atendimento ao Cliente). Ela transporta informações sobre datas, assuntos, transportadoras e usuários envolvidos no acompanhamento.
 
-## Métodos de Negócio
-- **Título**: N/A (sem métodos de negócio implementados).  
-  Como a classe é um simples objeto de transporte de dados (DTO), ela não possui métodos de negócio que implementem lógica significativa.
+### Propriedades
 
-## Propriedades Calculadas e de Validação
-- **DataInicial**: O valor padrão é definido como um mês anterior à data atual. Essa propriedade assegura que o início da análise ocorra automaticamente a partir de um período razoável, facilitando as avaliações de desempenho sem necessidade de configuração manual.
-- **DataFinal**: O valor padrão é definido como a data atual. Essa escolha garante que as avaliações estejam sempre atualizadas e abranjam o período mais recente.
+- `DataInicial`: Define a data de início para a consulta. O valor padrão é a data do dia anterior a um mês atrás de hoje.
+- `DataFinal`: Define a data final para a consulta, com padrão sendo a data atual.
+- `AssuntoId`: ID opcional do assunto associado à consulta. Pode ser nulo.
+- `CodigoTransportadora`: Código da transportadora, que é opcional e também pode ser nulo.
+- `UsuarioId`: ID do usuário que está realizando a consulta, opcional e pode ser nulo.
+- `DistribuidoraId`: Um ID de distribuidora que não será serializado, pode ser nulo.
 
-## Navigations Property
-Nenhuma propriedade de navegação foi identificada nesta classe, pois todas as propriedades são simples e não contém referências a outras entidades complexas do domínio.
-
-## Tipos Auxiliares e Dependências
-Nenhum enumerador ou classe estática/helper é utilizado por esta classe, o que a torna uma estrutura leve de dados.
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class SACAcompanhamentoFiltrosRequest {
-        +DateTime DataInicial
-        +DateTime DataFinal
-        +long? AssuntoId
-        +long? CodigoTransportadora
-        +long? UsuarioId
-        +long? DistribuidoraId
-    }
-```  
-Essa representação visual ilustra a estrutura de dados da classe `SACAcompanhamentoFiltrosRequest`, sem associações ou composições com outras classes.
+A classe não contém lógica de validação ou outros métodos além de getters e setters simples, caracterizando-a como um DTO destinado ao transporte eficiente de dados entre camadas do sistema.
+---
+Gerada em 29/12/2025 21:19:47

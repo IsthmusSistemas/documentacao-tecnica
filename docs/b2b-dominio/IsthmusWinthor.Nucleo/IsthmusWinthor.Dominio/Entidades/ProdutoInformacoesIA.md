@@ -3,64 +3,72 @@
 **Nome do Arquivo**: ProdutoInformacoesIA.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ProdutoInformacoesIA` representa um modelo de domínio que encapsula informações sobre um produto, especificamente lidando com a descrição do produto gerada por inteligência artificial (IA). O principal problema de negócio que esta classe resolve é a gestão da descrição do produto, permitindo que descrições geradas por IA sejam moderadas e, se necessário, substituídas pela descrição padrão do produto. Isso garante que as informações apresentadas ao usuário sejam válidas e relevantes, mesmo quando geradas automaticamente.
+A classe `ProdutoInformacoesIA` representa informações relevantes sobre um produto que podem ser geradas ou editadas por um sistema de inteligência artificial (IA). Ela é responsável por manter a descrição atualizada de um produto e lidar com a moderação das informações, garantindo que a descrição gerada pela IA seja tratada adequadamente conforme as necessidades do distribuidor. Essa classe ajuda a resolver o problema de confiança nas descrições dos produtos, permitindo uma gestão de qualidade mais rigorosa e responsiva às alterações feitas.
 
 ## Métodos de Negócio
 
-### Título: `AtualizarDescricao(string descricao)`
-- **Objetivo**: Garante que a descrição do produto possa ser atualizada a critério do distribuidor.
+### AtualizarDescricao(string descricao)
+- **Objetivo**: Garante que a descrição do produto seja atualizada, assegurando que a moderação não tenha ocorrido.
 - **Comportamento**: 
-  1. O método atualiza a descrição do produto para o valor passado como parâmetro.
-  2. A propriedade `ModeracaoRealizada` é resetada para `false` indicando que novas edições são necessárias.
-  3. A propriedade `SobrescreverDescricao` também é resetada para `false`, mantendo o estado atual de não sobrescrita.
-- **Retorno**: Este método não possui retorno, sendo um procedimento que altera diretamente o estado do objeto.
+  1. A descrição do produto é alterada para o novo valor passado como parâmetro.
+  2. As propriedades `ModeracaoRealizada` e `SobrescreverDescricao` são definidas como `false`, uma vez que a descrição foi editada diretamente.
+- **Retorno**: Este método não retorna nenhum valor, mas altera o estado interno do objeto.
 
-### Título: `AtualizarDescricao(string descricaoIA, bool sobrescreverDescricaoProduto)`
-- **Objetivo**: Permite atualizar a descrição do produto com uma nova descrição gerada por IA, decidindo se deve ou não sobrescrever a descrição padrão do produto.
-- **Comportamento**:
-  1. O método verifica se a nova descrição gerada pela IA difere da descrição atual (ignorando diferenças de capitalização).
-  2. Se a descrição foi editada, a nova descrição é salva.
-  3. A propriedade `ModeracaoRealizada` é definida como `true` se qualquer uma das seguintes condições for verdadeira:
-     - A descrição de IA foi editada.
-     - A descrição gerada pela IA vai sobrescrever a descrição padrão do produto.
-     - A moderacão já foi realizada anteriormente.
-  4. A propriedade `SobrescreverDescricao` é atualizada para refletir se a descrição padrão deve ser sobrescrita.
-- **Retorno**: Este método não possui retorno, ele altera o estado do objeto com base nas condições e parâmetros fornecidos.
+### AtualizarDescricao(string descricaoIA, bool sobrescreverDescricaoProduto)
+- **Objetivo**: Este método gerencia a atualização da descrição a partir de conteúdo gerado por IA, decidindo se a descrição padrão do produto deve ser sobrescrita ou não.
+- **Comportamento**: 
+  1. Verifica se o conteúdo gerado pela IA (`descricaoIA`) difere da descrição atual (`Descricao`).
+  2. Se for diferente, a descrição é atualizada para essa nova versão.
+  3. A propriedade `ModeracaoRealizada` se torna `true` se:
+     - O conteúdo da IA tiver sido editado,
+     - O parâmetro `sobrescreverDescricaoProduto` for verdadeiro,
+     - Ou se já houver moderação previa.
+  4. A propriedade `SobrescreverDescricao` assume o valor do parâmetro `sobrescreverDescricaoProduto`.
+- **Retorno**: Este método não retorna nenhum valor, mas altera o estado do objeto e reflete se a moderação foi realizada.
 
 ```mermaid
 flowchart TD
-    A[AtualizarDescricao(descricaoIA, sobrescreverDescricaoProduto)] -->|Descricao editada| B[Atualiza Descricao]
-    A -->|Descricao nao editada| C[Moderacao Realizada mantém estado]
-    B --> D[Moderacao Realizada = true se descricao alterada ou sobrescrever]
+    A[Entrada: descricaoIA e sobrescreverDescricaoProduto]
+    B{Descricao é igual?}
+    C[Atualiza Descricao]
+    D[ModeracaoRealizada = true]
+    E[ModeracaoRealizada = false]
+    F[SobrescreverDescricao = sobrescreverDescricaoProduto]
+    
+    A --> B
+    B -->|Sim| E
+    B -->|Não| C
     C --> D
+    C --> F
 ```
 
 ## Propriedades Calculadas e de Validação
-- **ModeracaoRealizada**: Verifica se a descrição foi moderada. A regra é que a moderação é considerada realizada se a descrição de IA foi editada ou se a sobrescrita da descrição padrão ocorrer.
-- **SobrescreverDescricao**: Controla se a descrição gerada por IA deve substituir a descrição padrão do produto.
+Não existem propriedades com lógica de cálculo ou validação.
 
 ## Navigations Property
-- `[Produto](Produto.md)`: Representa a associação do `ProdutoInformacoesIA` com a entidade `Produto`, que contém detalhes adicionais sobre o produto.
+- `Produto`: [Produto](Produto.md)
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe estática auxiliar é utilizado nesta classe.
+Nenhum enumerador ou classe estática/helper é utilizado por esta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ProdutoInformacoesIA {
-        + long Id
-        + string Descricao
-        + bool ModeracaoRealizada
-        + bool SobrescreverDescricao
-        + AtualizarDescricao(string descricao)
-        + AtualizarDescricao(string descricaoIA, bool sobrescreverDescricaoProduto)
+        +long Id
+        +string Descricao
+        +bool ModeracaoRealizada
+        +bool SobrescreverDescricao
+        +void AtualizarDescricao(string descricao)
+        +void AtualizarDescricao(string descricaoIA, bool sobrescreverDescricaoProduto)
     }
-  
+
     class Produto {
-        + long Id
-        + string Nome
+        +long Id
+        +string Nome
     }
-  
-    ProdutoInformacoesIA --> Produto
+
+    ProdutoInformacoesIA --> Produto : "possui"
 ```
+---
+Gerada em 29/12/2025 20:45:14

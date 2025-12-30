@@ -2,11 +2,11 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FormatadorRelatorioTesterEnum.cs  
 
-O `FormatadorRelatorioTesterEnum` é um enumerador que define formatos de relatório para utilização em testes.
+Este enumerador é utilizado para definir os formatos de relatório disponíveis no sistema, facilitando a formatação e apresentação dos dados em diferentes contextos.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:  
-  - `[FormatadorRelatorioTesterEnum](FormatadorRelatorioTesterEnum.md)`: Define os formatos de relatório disponíveis.
+- **Enum**:
+  - [FormatadorRelatorioTesterEnum](FormatadorRelatorioTesterEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -16,3 +16,5 @@ classDiagram
         HTML
     }
 ```
+---
+Gerada em 29/12/2025 20:55:31

@@ -1,12 +1,7 @@
 # OpenErpProperties
 **Namespace**: IsthmusWinthor.Dominio.PropertiesConfig  
-**Nome do Arquivo**: OpenErpProperties.cs
+**Nome do Arquivo**: OpenErpProperties.cs  
 
-O `OpenErpProperties` é uma classe DTO que tem como finalidade transportar dados relacionados à configuração de integrações com diferentes APIs e serviços de um sistema ERP. Ele encapsula as credenciais e URLs necessárias para autenticação e acesso a serviços externos.
-
---- 
-
-### Nota
-Essa classe não contém lógica de negócios, validadores ou cálculos, servindo apenas como um objeto de transporte para as propriedades de configuração.
-
-
+Esta classe é um Data Transfer Object (DTO) que tem a finalidade de transportar informações de configuração para integração com o Open ERP e outros serviços associados. Ela contém diversas propriedades que armazenam identificadores e segredos necessários para autenticação e operação em APIs, mas não possui lógica de negócio incorporada.
+---
+Gerada em 29/12/2025 22:02:45

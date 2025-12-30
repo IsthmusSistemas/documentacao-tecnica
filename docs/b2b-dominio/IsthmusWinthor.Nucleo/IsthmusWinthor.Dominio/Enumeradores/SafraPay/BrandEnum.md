@@ -2,17 +2,67 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores.SafraPay  
 **Nome do Arquivo**: BrandEnum.cs  
 
-O `BrandEnum` é um enumerador que representa as marcas aceitas de cartões de pagamento dentro do sistema SafraPay. Sua finalidade é padronizar e facilitar a manipulação dos diferentes tipos de cartões pelos quais as transações podem ser realizadas.
+Este enumerador é utilizado para representar as diversas bandeiras de cartões disponíveis no sistema, garantindo a correta identificação e categorização de diferentes marcas que podem ser utilizadas em transações financeiras.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou dependência adicional foi identificado.
+- Este enumerador não possui dependências ou classes estáticas adicionais, mas é uma parte fundamental da lógica de validação e categorização de cartões no sistema.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class BrandEnum {
-        <<enumeration>>
+        <<enumerator>>
+        Visa
+        MasterCard
+        Amex
+        Elo
+        Aura
+        Jcb
+        Diners
+        Discover
+        Hipercard
+        Enroute
+        Ticket
+        Sodexo
+        Vr
+        Alelo
+        Setra
+        Vero
+        Sorocred
+        GreenCard
+        Cabal
+        Banescard
+        VerdeCard
+        ValeCard
+        UnionPay
+        Up
+        Tricard
+        Bigcard
+        Ben
+        RedeCompras
+        SafrapayDigital
+        BamexBenefits
+        Cdc
+        SindCredit
+        IdealCard
+        NutriCash
+        BiqCard
+        PersonalCard
+        EuCard
+        Planvale
+        LiberCard
+        MaxxCard
+        VsCard
+        CooperCard
+        Megavalecard
+        Abrapetite
+        Agiplan
+        Credsystem
+        Esplanada
+        Credz
+        Ourocard
     }
-``` 
+```
 
-Neste diagrama, o `BrandEnum` é representado como uma classe de enumeração, indicando que ele possui um conjunto fixo de constantes que referenciam as diferentes marcas de cartões disponíveis.
+---
+Gerada em 29/12/2025 21:08:32

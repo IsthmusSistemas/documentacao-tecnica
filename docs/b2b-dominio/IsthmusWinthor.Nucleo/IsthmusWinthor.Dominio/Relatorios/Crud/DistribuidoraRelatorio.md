@@ -2,6 +2,6 @@
 **Namespace**: IsthmusWinthor.Dominio.Relatorios.Crud  
 **Nome do Arquivo**: DistribuidoraRelatorio.cs  
 
-Esta classe é um DTO (Data Transfer Object) que serve para o transporte de dados relacionados a distribuidoras em relatórios.
-
-
+Este é um **Data Transfer Object (DTO)** que serve para transportar dados relacionados à distribuidora em relatórios.
+---
+Gerada em 29/12/2025 22:04:52

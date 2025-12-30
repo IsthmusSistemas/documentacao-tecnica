@@ -3,43 +3,43 @@
 **Nome do Arquivo**: PlanoPagamento.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PlanoPagamento` representa um modelo de domínio que gerencia as condições de pagamento para transações financeiras em um sistema de faturamento. Ela encapsula informações detalhadas sobre o plano de pagamento, como percentual, valores mínimos e formas de parcelamento, assegurando que as regras de negócio relacionadas ao processamento de pagamentos sejam respeitadas. Isso é importante para garantir que as vendas sejam realizadas de forma compatível com as expectativas de receita e estratégia financeira da empresa.
+A classe `PlanoPagamento` representa um modelo rico que encapsula as regras de negócio relacionadas aos planos de pagamento. Seu propósito é gerenciar informações sobre os diferentes planos de pagamento disponíveis, incluindo atributos como percentual de pagamento, valor mínimo por parcela, e a permissão para cobrança por boleto. Ela é fundamental para a integridade das operações financeiras dentro do sistema, garantindo que as regras associadas aos diferentes tipos de planos sejam aplicadas corretamente.
 
 ## Métodos de Negócio
 
-### TipoPlanoPagamentoProduto
-- **Título**: `TipoPlanoPagamentoProduto` (Estático)
-- **Objetivo**: Este método determina o tipo do plano de pagamento com base no grupo de faturamento do produto, garantindo que as regras específicas de categorização sejam aplicadas adequadamente.
+### Método: TipoPlanoPagamentoProduto (Estático)
+- **Objetivo**: Este método determina o tipo de plano de pagamento com base no grupo de faturamento do produto, garantindo a categorização correta dos planos.
 - **Comportamento**: 
-    1. Verifica se o `grupoFaturamento` é nulo ou vazio.
-    2. Se sim, retorna `TipoPlanoPagamento.Padrao`.
-    3. Caso contrário, utiliza uma expressão `switch` para retornar o tipo baseado em diferentes grupos ("E", "G" ou "P").
-- **Retorno**: Retorna um valor do tipo `TipoPlanoPagamento`, representando o tipo correspondente ao grupo de faturamento passado como argumento.
+  1. Verifica se o grupo de faturamento é nulo ou vazio.
+  2. Se for, retorna `TipoPlanoPagamento.Padrao`.
+  3. Caso contrário, utiliza uma expressão switch para retornar o tipo correspondente baseado nos valores "E", "G", ou "P", ou retorna `TipoPlanoPagamento.Padrao` como valor padrão caso nenhum dos casos seja atendido.
+- **Retorno**: Retorna um `TipoPlanoPagamento` que indica a categoria do plano de pagamento.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{grupoFaturamento vazio?}
-    B -->|Sim| C[Retorna TipoPlanoPagamento.Padrao]
-    B -->|Não| D[Switch grupoFaturamento]
-    D -->|E| E[Retorna TipoPlanoPagamento.Etico]
-    D -->|G| F[Retorna TipoPlanoPagamento.Generico]
-    D -->|P| G[Retorna TipoPlanoPagamento.Padrao]
-    D -->|Outro| H[Retorna TipoPlanoPagamento.Padrao]
+    A{Grupo Faturamento Vazio?} -->|Sim| B[TipoPlanoPagamento.Padrao]
+    A -->|Não| C{Grupo Faturamento}
+    C -- "E" --> D[TipoPlanoPagamento.Etico]
+    C -- "G" --> E[TipoPlanoPagamento.Generico]
+    C -- "P" --> F[TipoPlanoPagamento.Padrao]
+    C -->|Outro| G[TipoPlanoPagamento.Padrao]
 ```
 
 ## Propriedades Calculadas e de Validação
-### CodigosCobranca
-- **Regra**: A propriedade `CodigosCobranca` manipula uma string JSON que representa uma lista de códigos de cobrança. Ao acessar, ela tenta desserializar a string. Se a string não estiver em formato JSON válido, a propriedade assegura a compatibilidade ao retornar a string como uma única entrada. O `set` valida que a lista não contenha entradas nulas ou em branco e atualiza a string JSON.
 
-### Prazos
-- **Regra**: A propriedade `Prazos` funciona de forma semelhante à `CodigosCobranca`, manipulando uma string JSON que representa uma lista de prazos. A lógica garante que qualquer string inválida seja tratada e que a lista retornada seja sempre válida ao acessar ou setar os valores.
+### Propriedades com Lógica
+- **CodigosCobranca**: Esta propriedade é uma lista de códigos de cobrança. O `get` tenta desserializar um JSON armazenado e retorna a lista correspondente, garantindo a integridade dos dados. O `set` converte a lista recebida de volta para JSON, removendo quaisquer entradas vazias ou nulas. A regra aqui assegura que a representação em JSON sempre esteja correta e válida.
+  
+- **Prazos**: Semelhante à propriedade `CodigosCobranca`, esta propriedade lida com a representação em JSON de prazos. Possui lógica de tratamento de erros tanto no `get` quanto no `set`, garantindo que a conversão sempre retorne uma lista válida.
 
-## Navigation Property
-- `[Distribuidora](Distribuidora.md)`
-- `[PlanoPagamentoRestricao](PlanoPagamentoRestricao.md)`
+## Navigations Property
+- [Distribuidora](Distribuidora.md)
+- [PlanoPagamentoRestricao](PlanoPagamentoRestricao.md)
 
 ## Tipos Auxiliares e Dependências
-- `[TipoPlanoPagamento](TipoPlanoPagamento.md)`
+- **Enumeradores**: 
+  - [TipoPlanoPagamento](TipoPlanoPagamento.md)
+  - [FormaParcelamento](FormaParcelamento.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -58,17 +58,18 @@ classDiagram
         +int NumeroParcelas
         +bool CampoIntegracao
         +FormaParcelamento FormaParcelamento
-        +string PrazosJson
         +string CodigosCobrancaJson
-        +string CodigoFilial
-        +string GrupoFaturamento
-        +bool? CampoIntegracaoVendaAssistida
+        +string PrazosJson
+    }
+    
+    class Distribuidora {
     }
 
-    class Distribuidora
-    class PlanoPagamentoRestricao
-    class TipoPlanoPagamento
+    class PlanoPagamentoRestricao {
+    }
 
-    PlanoPagamento --> Distribuidora
-    PlanoPagamento o-- PlanoPagamentoRestricao
+    PlanoPagamento --> "1" Distribuidora : has
+    PlanoPagamento --> "*" PlanoPagamentoRestricao : contains
 ```
+---
+Gerada em 29/12/2025 20:44:24

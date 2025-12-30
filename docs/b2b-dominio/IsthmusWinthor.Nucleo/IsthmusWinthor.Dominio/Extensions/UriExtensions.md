@@ -3,31 +3,41 @@
 **Nome do Arquivo**: UriExtensions.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `UriExtensions` é uma classe estática que fornece uma extensão para o tipo `Uri`, permitindo alterar o domínio de um URI existente sem alterar o seu caminho e consulta. Esta funcionalidade é particularmente útil em cenários onde é necessário redirecionar requisições para um novo domínio enquanto mantém as informações do recurso inalteradas, garantindo a continuidade na navegação e integridade dos links.
+A classe `UriExtensions` fornece extensões para a manipulação de URIs. Esta classe permite alterar o domínio de uma URI existente, preservando o caminho e a consulta, o que é útil na construção de novas URIs a partir de um domínio base alterado, simplificando a lógica de reconstrução de URIs nas interações de rede dentro de um sistema.
 
 ## Métodos de Negócio
 
-### Título: ChangeDomain (Público)
-- **Objetivo**: Garante a alteração do domínio de um URI atual, preservando seu caminho e query strings.
+### Título: ChangeDomain (static)
+- **Objetivo**: Garante a capacidade de alterar facilmente o domínio de uma URI, permitindo operações dinâmicas em serviços que podem hospedar recursos em diferentes domínios.
 - **Comportamento**:
-  1. Extrai o caminho e a consulta do URI original usando a propriedade `PathAndQuery`.
-  2. Cria um novo URI combinando o `newDomain` com o caminho e consulta extraídos.
-  3. Retorna o novo URI criado.
-- **Retorno**: Retorna um novo objeto `Uri` que representa o mesmo recurso do URI original, mas com o domínio atualizado.
+  1. A função inicia recebendo uma URI existente e um novo domínio como argumentos.
+  2. Ela extrai o caminho e a consulta da URI original.
+  3. Um novo objeto `Uri` é criado utilizando o novo domínio e o caminho e consulta extraídos.
+  4. O novo objeto `Uri` é retornado.
+- **Retorno**: Retorna uma nova instância de `Uri` com o domínio alterado, mantendo a estrutura anterior intacta.
+
+```mermaid
+flowchart TD
+    A[URI Original] --> B{Novo Domínio}
+    B -->|Sim| C[Nova URI com Domínio Alterado]
+    B -->|Não| D[Erro: Domínio Inválido]
+```
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades na classe `UriExtensions` que apresentem lógica de cálculo ou validação.
+N/A
 
 ## Navigations Property
-Não existem propriedades que sejam classes complexas do domínio nesta classe.
+N/A
 
 ## Tipos Auxiliares e Dependências
-Nenhum enumerador ou classe auxiliar dependente é utilizado nesta classe. 
+N/A
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class UriExtensions {
-        +ChangeDomain(uri: Uri, newDomain: string): Uri
+        +static Uri ChangeDomain(Uri uri, string newDomain)
     }
 ```
+---
+Gerada em 29/12/2025 21:12:39

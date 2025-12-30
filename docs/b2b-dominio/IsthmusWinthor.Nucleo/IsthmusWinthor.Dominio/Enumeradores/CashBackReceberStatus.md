@@ -2,21 +2,22 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: CashBackReceberStatus.cs  
 
-O `CashBackReceberStatus` é um enumerador que define os possíveis estados do processo de recebimento de cashback dentro do sistema. Ele é fundamental para o controle do fluxo de transações de cashback, permitindo que o sistema identifique em qual etapa do ciclo de vida uma transação de cashback se encontra.  
+O `CashBackReceberStatus` é um enumerador que define os diferentes estados possíveis de um processo de recebimento de cashback. Este enumerador é crucial na lógica de negócios que envolve a gestão e acompanhamento de transações de cashback, permitindo distinções claras entre as etapas do processo.
 
 ## Tipos Auxiliares e Dependências
-- **Enums**:
-  - `[CashBackReceberStatus](CashBackReceberStatus.md)`
+- **Enumeradores**:
+  - [CashBackReceberStatus](CashBackReceberStatus.md)
 
----
-
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CashBackReceberStatus {
-        <<enumeration>>
+        <<enumerator>>
         Aguardando
         Processado
         MinimoNaoAtingido
         Cancelado
     }
 ```
+---
+Gerada em 29/12/2025 20:53:21

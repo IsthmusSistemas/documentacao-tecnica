@@ -1,53 +1,65 @@
 # CashBackEntrada
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: CashBackEntrada.cs
+**Nome do Arquivo**: CashBackEntrada.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CashBackEntrada` representa uma entrada de cashback em um sistema de gestão financeiro. Ela é responsável por gerenciar dados relacionados a campanhas de cashback, incluindo a origem dessa entrada, a data e o valor associado, além de controlar o estado do cashback e possíveis estornos. A classe tem como objetivo garantir a integridade dos dados relacionados a entradas de cashback e assegurar que as operações de cashback sejam válidas de acordo com regras específicas.
+A classe `CashBackEntrada` representa uma entrada de cashback vinculada a um cliente e a um pedido. Ela gerencia informações como a origem do cashback, sua validade, e se existem operações de estornos manuais associadas. A principal responsabilidade da classe é garantir que as regras de negócio relacionadas a cashback sejam respeitadas, como a validação do estado do cashback e a aplicação de regras referentes a estornos manuais.
 
 ## Métodos de Negócio
 
-### PodeSerUsado - Público
-**Objetivo:** Garante que o cashback pode ser utilizado com base em regras específicas de status e validade.  
-**Comportamento:**
-1. Verifica se o status do cashback é "Expirado". Se for, retorna `false`.
-2. Verifica se a campanha de cashback tem um número de dias de validade definido.
-   - Se não tiver, retorna `true`, permitindo o uso.
-3. Calcula a data de vencimento adicionando o número de dias de validade à data de entrada do cashback.
-4. Compara a data atual com a data de vencimento.
-   - Se a data atual for menor ou igual à data de vencimento, retorna `true`, caso contrário, retorna `false`.  
-**Retorno:** `true` se o cashback pode ser utilizado; `false` caso contrário.  
+### Método: PodeSerUsado()
+**Visibilidade**: Public  
+**Objetivo**: Este método verifica se o cashback pode ser utilizado com base no seu estado e validade.  
+**Comportamento**: 
+1. Verifica se o `CashBackStatus` é `Expirado`. Se for, retorna `false`.
+2. Se não houver um número de dias de validade definido, retorna `true`.
+3. Calcula a data de vencimento, adicionando o número de dias de validade à `DataEntrada`.
+4. Compara a data atual com a data de vencimento para determinar se o cashback ainda é utilizável.
+  
+**Retorno**: Retorna `true` se o cashback pode ser utilizado e `false` caso contrário.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{CashBackStatus == Expirado?}
-    B -- Sim --> C[Retorna false]
-    B -- Não --> D{NumeroDiasValidade definido?}
-    D -- Não --> E[Retorna true]
-    D -- Sim --> F[Calcula Vencimento]
-    F --> G{DataAtual <= Vencimento?}
-    G -- Sim --> H[Retorna true]
-    G -- Não --> I[Retorna false]
+    A[Início] --> B{CashBackStatus é Expirado?}
+    B -- Sim --> C[Retornar false]
+    B -- Não --> D{Número de Dias de Validade definido?}
+    D -- Não --> E[Retornar true]
+    D -- Sim --> F[Calcular Data de Vencimento]
+    F --> G{Data Atual ≤ Data de Vencimento?}
+    G -- Sim --> H[Retornar true]
+    G -- Não --> I[Retornar false]
 ```
 
-### Validade - Público
-**Objetivo:** Calcula a data de validade do cashback com base em sua data de entrada e política de validade.  
-**Comportamento:**
-1. Tenta obter o número de dias de validade da campanha de cashback.
-2. Se não houver um número de dias definido, retorna `DateTime.MaxValue`, indicando que o cashback não expira.
-3. Se houver, soma o número de dias de validade à data de entrada e retorna a data resultante.
-4. Em caso de exceção, também retorna `DateTime.MaxValue`.  
-**Retorno:** Data de validade do cashback, ou `DateTime.MaxValue` se não houver validade definida.  
+### Método: Validade()
+**Visibilidade**: Public  
+**Objetivo**: Retornar a data de validade do cashback.  
+**Comportamento**: 
+1. Verifica se o `NumeroDiasValidade` é definido.
+2. Se não for, retorna `DateTime.MaxValue`, indicando que não há limite de validade.
+3. Caso contrário, adiciona o número de dias de validade à `DataEntrada` e retorna a data resultante.
+
+**Retorno**: Retorna a data de validade do cashback ou `DateTime.MaxValue` caso não haja um prazo de validade definido.
+
+```mermaid
+flowchart TD
+    A[Início] --> B{Número de Dias de Validade definido?}
+    B -- Sim --> C[Calcular e retornar Data de Validade]
+    B -- Não --> D[Retornar DateTime.MaxValue]
+```
 
 ## Propriedades Calculadas e de Validação
 
-- **PossuiDebitoManual**: Indica se existem estornos manuais do tipo "Débito". Regra: Verifica se a coleção de estornos não é `null` e se há ao menos um estorno com operação diferente de "Crédito".
-  
-- **PossuiCreditoManual**: Indica se existem estornos manuais do tipo "Crédito" realizadas de forma manual. Regra: Verifica se a coleção de estornos não é `null`, se há ao menos um estorno do tipo "Crédito" e se a origem do cashback é "Manual".
+### PossuiDebitoManual
+- **Regra**: Indica se há algum estorno manual do tipo débito associado. Retorna `true` se existem estornos onde a operação não é de crédito.
 
-- **PossuiEstornosManuais**: Indica se há estornos manuais, sejam eles de débito ou crédito. Regra: Utiliza as propriedades `PossuiCreditoManual` e `PossuiDebitoManual`.
+### PossuiCreditoManual
+- **Regra**: Verifica se existem créditos manuais vinculados a este cashback e se a origem é `Manual`.
 
-- **DescricaoOperacaoEstornoManual**: Retorna uma descrição da operação de estorno manual. Regra: Se não houver estornos manuais, retorna uma string vazia; se houver estornos do tipo "Crédito", retorna "Lançamento Crédito", caso contrário retorna "Lançamento Débito".
+### PossuiEstornosManuais
+- **Regra**: Determina se existe qualquer tipo de estorno manual associado, seja crédito ou débito.
+
+### DescricaoOperacaoEstornoManual
+- **Regra**: Retorna uma descrição da operação de estorno manual. Se não houver estornos, retorna uma string vazia; se houver um crédito, retorna "Lançamento Crédito", caso contrário, "Lançamento Débito".
 
 ## Navigations Property
 - [Cliente](Cliente.md)
@@ -60,7 +72,6 @@ flowchart TD
 ## Tipos Auxiliares e Dependências
 - [CashbackEntradaOrigemEnum](CashbackEntradaOrigemEnum.md)
 - [CashBackStatus](CashBackStatus.md)
-- [CashBackEntradaEstornoManualEnum](CashBackEntradaEstornoManualEnum.md)
 - [DateTimeUtil](DateTimeUtil.md)
 
 ## Diagrama de Relacionamentos
@@ -82,20 +93,7 @@ classDiagram
         +CashBackStatus CashBackStatus
         +ICollection<CashBackSaida> CashBackSaidas
         +ICollection<CashBackEntradaEstornoManual> EstornosManuais
-        +bool PossuiDebitoManual
-        +bool PossuiCreditoManual
-        +bool PossuiEstornosManuais
-        +string DescricaoOperacaoEstornoManual
-        +bool PodeSerUsado()
-        +DateTime Validade()
     }
-
-    class Cliente {}
-    class Pedido {}
-    class CashBackCampanha {}
-    class CashBackReceber {}
-    class CashBackSaida {}
-    class CashBackEntradaEstornoManual {}
     
     CashBackEntrada --> Cliente
     CashBackEntrada --> Pedido
@@ -104,3 +102,5 @@ classDiagram
     CashBackEntrada --> CashBackSaida
     CashBackEntrada --> CashBackEntradaEstornoManual
 ```
+---
+Gerada em 29/12/2025 20:18:24

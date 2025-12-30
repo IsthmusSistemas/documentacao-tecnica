@@ -2,11 +2,11 @@
 - **Namespace**: IsthmusWinthor.Dominio.Enumeradores
 - **Nome do Arquivo**: ValidacaoQuantidadeMaximaVendaProdutoEnum.cs
 
-Este enumerador é utilizado para gerenciar a validação da quantidade máxima de venda de produtos em um sistema, definindo diferentes rotinas de validação.
+Este é um enumerador usado para definir as opções de validação da quantidade máxima de venda de um produto. Ele é responsável por direcionar a lógica de validação em cenários de venda, garantindo que as regras de negócio aplicáveis sejam efetivamente implementadas.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[ValidacaoQuantidadeMaximaVendaProdutoEnum](ValidacaoQuantidadeMaximaVendaProdutoEnum.md)` - Enum que contém as opções de validação para a quantidade máxima de venda de produto.
+- **Enums**: 
+  - [ValidacaoQuantidadeMaximaVendaProdutoEnum](ValidacaoQuantidadeMaximaVendaProdutoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -18,4 +18,5 @@ classDiagram
         Rotina238
     }
 ```
-
+---
+Gerada em 29/12/2025 21:08:08

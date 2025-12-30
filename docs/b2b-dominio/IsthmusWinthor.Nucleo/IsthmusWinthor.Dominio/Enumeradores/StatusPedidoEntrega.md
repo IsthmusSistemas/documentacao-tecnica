@@ -1,11 +1,11 @@
 # StatusPedidoEntrega
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: StatusPedidoEntrega.cs
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: StatusPedidoEntrega.cs
 
-O `StatusPedidoEntrega` é um enumerador que define os diversos estados que um pedido de entrega pode assumir durante seu ciclo de vida. Este modelo ajuda a gerenciar e identificar o status de entrega de um pedido, tornando clara a situação atual para os sistemas e usuários envolvidos.
+O `StatusPedidoEntrega` é um enumerador que define os diferentes estados que um pedido de entrega pode assumir durante seu ciclo de vida. A correta utilização deste enum possibilita a padronização do gerenciamento do status dos pedidos, garantindo que a aplicação tenha um controle claro sobre a fase em que cada pedido se encontra.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou dependência adicional a ser mencionado.
+- Nenhum tipo auxiliar ou dependência adicional.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -19,3 +19,5 @@ classDiagram
         +Outros
     }
 ```
+---
+Gerada em 29/12/2025 21:01:24

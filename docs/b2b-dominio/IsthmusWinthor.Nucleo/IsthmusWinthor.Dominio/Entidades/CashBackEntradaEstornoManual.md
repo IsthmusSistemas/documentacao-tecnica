@@ -1,28 +1,48 @@
 # CashBackEntradaEstornoManual
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: CashBackEntradaEstornoManual.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: CashBackEntradaEstornoManual.cs
 
 ## Visão Geral e Responsabilidade
-A classe `CashBackEntradaEstornoManual` atua como uma representação dos estornos manuais realizados em entradas de cashback dentro do sistema. O seu principal objetivo é registrar as informações relacionadas a um estorno, incluindo valores originais, retiradas, o motivo do estorno e a data em que ele ocorreu. Esta classe é fundamental para a integridade dos dados financeiros, garantindo que cada estorno seja devidamente documentado e associado à entrada de cashback correspondente.
+A classe `CashBackEntradaEstornoManual` representa uma operação de estorno manual de um cashback. Sua principal responsabilidade é registrar os detalhes de um estorno, incluindo informações sobre o valor inicial do cashback, o valor retirado, o restante a ser recuperado, a data do estorno e o motivo. Esse registro é crucial para garantir a transparência e a rastreabilidade das operações financeiras relacionadas a cashback dentro do sistema.
 
 ## Métodos de Negócio
-A classe não contém métodos de negócio significativos que implementem lógica de negócio complexa. Ela se concentra mais em representar os dados necessários para os estornos.
+*Nota: A classe não possui métodos que implementem lógica de negócio complexa. Somente propriedades e campos são apresentados, com ênfase nas regras e na integridade de dados.*
 
 ## Propriedades Calculadas e de Validação
-- **ValorRestante**: Esta propriedade deve representar a quantia que ainda está disponível após a retirada. Este cálculo é derivado da diferença entre o `ValorOriginal` e o `ValorRetirada`.
-    - Regra: `ValorRestante = ValorOriginal - ValorRetirada`.
+- **ValorRestante**: 
+  - **Regra**: A propriedade `ValorRestante` deve ser calculada como a diferença entre `ValorOriginal` e `ValorRetirada`. Este cálculo é fundamental para garantir que não se exceda o montante disponível para estorno.
 
-## Navigations Property
-- `[CashBackEntrada](CashBackEntrada.md)`: Representa a entrada de cashback associada a este estorno.
-- `[Usuario](Usuario.md)`: Representa o usuário que realizou o estorno.
+## Navigation Properties
+- [CashBackEntrada](CashBackEntrada.md): Representa a entrada de cashback associada ao estorno manual.
+- [Usuario](Usuario.md): O usuário que realizou o estorno.
 
 ## Tipos Auxiliares e Dependências
-- `[CashBackEntradaEstornoManualEnum](CashBackEntradaEstornoManualEnum.md)`: Enum que descreve os tipos de operações de estorno possíveis.
-  
+- [CashBackEntradaEstornoManualEnum](CashBackEntradaEstornoManualEnum.md): Enum usado para identificar o tipo de operação de estorno.
+
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    CashBackEntradaEstornoManual --> CashBackEntrada
-    CashBackEntradaEstornoManual --> Usuario
-    CashBackEntradaEstornoManual --> CashBackEntradaEstornoManualEnum
+    class CashBackEntradaEstornoManual {
+      +long Id
+      +long CashBackEntradaId
+      +CashBackEntradaEstornoManualEnum Operacao
+      +DateTime DataEstorno
+      +string Motivo
+      +decimal ValorOriginal
+      +decimal ValorRetirada
+      +decimal ValorRestante
+      +long? UsuarioId
+    }
+    class CashBackEntrada {
+    }
+    class Usuario {
+    }
+    class CashBackEntradaEstornoManualEnum {
+    }
+    
+    CashBackEntradaEstornoManual --> CashBackEntrada : associa
+    CashBackEntradaEstornoManual --> Usuario : pertence a
+    CashBackEntradaEstornoManual --> CashBackEntradaEstornoManualEnum : utiliza
 ```
+---
+Gerada em 29/12/2025 20:18:45

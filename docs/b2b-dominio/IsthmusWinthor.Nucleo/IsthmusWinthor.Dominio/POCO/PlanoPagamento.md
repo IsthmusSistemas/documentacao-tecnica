@@ -1,84 +1,60 @@
 # PlanoPagamento
+
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: PlanoPagamento.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PlanoPagamento` representa um modelo de domínio responsável pela definição das regras de pagamento de um produto ou serviço. Essa classe resolve o problema de negócio relacionado à estruturação dos planos de pagamento, incluindo detalhes como valores mínimos, número de parcelas, e condições de pagamento para diferentes tipos de clientes e filiais.
+A classe `PlanoPagamento` representa um modelo de domínio que encapsula as regras de negócio relacionadas aos planos de pagamento. Ela é responsável por gerenciar as condições que definem a aceitação de pagamentos e parcelamentos a serem oferecidos aos clientes, possibilitando a avaliação de planos de pagamento com base em critérios como tipos de pagamentos aceitos e grupos de faturamento.
 
 ## Métodos de Negócio
 
-### SeAplicaGrupoFaturamento | public
-**Objetivo**: Garante que um plano de pagamento seja aplicável a um determinado grupo de faturamento com base no tipo de plano de pagamento fornecido.
+### SeAplicaGrupoFaturamento (public)
+- **Objetivo**: Verificar se o plano de pagamento se aplica a um grupo de faturamento específico baseado no tipo de plano.
+- **Comportamento**: 
+  1. Se o `GrupoFaturamento` for "TO", o método retorna `true` imediatamente.
+  2. Caso contrário, o método avalia o tipo de plano de pagamento fornecido na entrada:
+     - Se for do tipo `Etico`, verifica se o `GrupoFaturamento` é "ET".
+     - Se for do tipo `Generico`, verifica se o `GrupoFaturamento` é "GE".
+     - Para outros tipos, retorna `false`.
+- **Retorno**: Retorna um valor booleano que indica se o tipo de plano de pagamento é aplicável ao grupo de faturamento.
 
-**Comportamento**:
-1. Verifica se `GrupoFaturamento` é igual a "TO". Se sim, retorna `true`, pois se aplica a todos os planos.
-2. Em caso contrário, utiliza um `switch` no `tipoPlanoPagamento`.
-   - Se `tipoPlanoPagamento` for `TipoPlanoPagamento.Etico`, retorna `true` se `GrupoFaturamento` é igual a "ET".
-   - Se `tipoPlanoPagamento` for `TipoPlanoPagamento.Generico`, retorna `true` se `GrupoFaturamento` é igual a "GE".
-3. Se nenhum dos casos for verdadeiro, retorna `false`.
-
-**Retorno**: Retorna um valor booleano que indica se o plano se aplica ao grupo de faturamento especificado.
-
-```mermaid
-flowchart TD
-    A[Início]
-    B{GrupoFaturamento == "TO"}
-    C{tipoPlanoPagamento}
-    D[Verifica se ET]
-    E[Verifica se GE]
-    F[Fim]
-    
-    A --> B
-    B -- Sim --> F
-    B -- Não --> C
-    C --> D
-    D -- Sim --> F
-    D -- Não --> E
-    E -- Sim --> F
-    E -- Não --> F
-```
-
-### AtendeFiliais | public
-**Objetivo**: Garante que o plano de pagamento atenda às filiais especificadas.
-
-**Comportamento**:
-1. Verifica se `codigosFiliais` ou `CodigosFiliais` estão vazios. Se qualquer uma delas estiver vazia, o método retorna `true`.
-2. Verifica se `CodigosFiliais` contém o código especial para "todas as filiais" (`CODIGO_TODAS_FILIAIS`).
-3. Se não, verifica se todas as `codigosFiliais` fornecidas estão contidas em `CodigosFiliais`.
-
-**Retorno**: Retorna um valor booleano que indica se o plano de pagamento atende às filiais listadas.
+### AtendeFiliais (public)
+- **Objetivo**: Determinar se as filiais específicas atendem às condições do plano de pagamento.
+- **Comportamento**: 
+  1. Se a lista de `codigosFiliais` estiver vazia ou nula, ou se a lista `CodigosFiliais` estiver vazia, o método retorna `true`.
+  2. Verifica se `CodigosFiliais` contém `CODIGO_TODAS_FILIAIS`. Se sim, retorna `true`.
+  3. Para as filiais fornecidas na lista `codigosFiliais`, o método verifica se todas estão contidas em `CodigosFiliais`. Se todas as filiais estiverem inclusas, retorna `true`; senão, retorna `false`.
+- **Retorno**: Retorna um valor booleano indicando se as filiais atendem ao plano de pagamento.
 
 ```mermaid
 flowchart TD
-    A[Início]
-    B{codigosFiliais.IsNullOrEmpty()}
-    C{CodigosFiliais.IsNullOrEmpty()}
-    D{CodigosFiliais contém CODIGO_TODAS_FILIAIS}
-    E{Todos os codigosFiliais contidos}
-    F[Fim]
-
-    A --> B
-    B -- Sim --> F
-    B -- Não --> C
-    C -- Sim --> F
-    C -- Não --> D
-    D -- Sim --> F
-    D -- Não --> E
-    E -- Sim --> F
-    E -- Não --> F
+    A[Início] --> B{GrupoFaturamento = "TO"}
+    B -- Sim --> C[Retornar true]
+    B -- Não --> D[Verificar TipoPlanoPagamento]
+    D --> E{TipoPlanoPagamento == "Etico"}
+    E -- Sim --> F[GrupoFaturamento == "ET"]
+    F -- Sim --> C
+    F -- Não --> G{TipoPlanoPagamento == "Generico"}
+    G -- Sim --> H[GrupoFaturamento == "GE"]
+    H -- Sim --> C
+    H -- Não --> I[Retornar false]
+    E -- Não --> J[Retornar false]
 ```
 
 ## Propriedades Calculadas e de Validação
+
 ### CodigosFiliais
-- **Regra**: Ao acessar `CodigosFiliais`, a propriedade realiza uma validação para garantir que a `CodigoFilial` não está vazia e faz a divisão da string em uma lista de códigos de filial. Se `CodigoFilial` for inválido, retorna uma lista vazia.
+- **Regra**: Esta propriedade retorna uma lista de códigos de filiais, que são extraídos da string `CodigoFilial`. Se `CodigoFilial` estiver vazio, retorna uma lista vazia. A propriedade também lida com exceções, garantindo a integridade da operação.
 
 ## Navigations Property
-- **TipoPlanoPagamento**: `[TipoPlanoPagamento](TipoPlanoPagamento.md)`
+- [TipoPlanoPagamento](TipoPlanoPagamento.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**: `[TipoPlanoPagamento](TipoPlanoPagamento.md)`, `[OpcaoPagamento](OpcaoPagamento.md)`
+- [OpcaoPagamento](OpcaoPagamento.md)
+- [TipoPlanoPagamento](TipoPlanoPagamento.md)
 
 ## Diagrama de Relacionamentos
+
 ```mermaid
 classDiagram
     class PlanoPagamento {
@@ -91,7 +67,6 @@ classDiagram
         +int NumeroParcelas
         +int NumeroDias
         +bool CartaoCredito
-        +long IndicePreco
         +TipoPlanoPagamento TipoPlanoPagamento
         +bool PIX
         +int DiasPrimeiraParcela
@@ -102,16 +77,12 @@ classDiagram
         +bool SeAplicaGrupoFaturamento(TipoPlanoPagamento tipoPlanoPagamento)
         +bool AtendeFiliais(List<string> codigosFiliais)
     }
-
-    class TipoPlanoPagamento {
-        <<enumeration>>
-    }
-
-    class OpcaoPagamento {
-        <<enumeration>>
-    }
+    
+    class TipoPlanoPagamento { }
+    class OpcaoPagamento { }
 
     PlanoPagamento --> TipoPlanoPagamento
     PlanoPagamento --> OpcaoPagamento
 ```
-
+---
+Gerada em 29/12/2025 21:38:03

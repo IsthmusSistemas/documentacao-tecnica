@@ -1,22 +1,18 @@
 # EntidadeAzureAbstract
-
 **Namespace**: IsthmusWinthor.Dominio.EntidadesAzure  
 **Nome do Arquivo**: EntidadeAzureAbstract.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `EntidadeAzureAbstract` atua como uma estrutura base para entidades que serão armazenadas no Azure Table Storage. Ela define um modelo genérico que inclui propriedades essenciais para o gerenciamento de entidades, como `DistribuidoraId`, `UsuarioId`, `Status` e `Mensagem`. Este modelo garante que todas as entidades derivadas mantenham consistência em relação a atributos fundamentais, facilitando a integração e manipulação de dados dentro do serviço de armazenamento em nuvem.
+A classe `EntidadeAzureAbstract` serve como uma base abstrata para entidades que são armazenadas no Azure Table Storage. Ela define as propriedades básicas que são comuns a diversas entidades, garantindo integração com o sistema de gerenciamento de tabelas do Azure. A principal responsabilidade desta classe é assegurar que todas as entidades derivadas possuam um conjunto padronizado de atributos que são necessários para a identificação e gerenciamento de dados, como ID de distribuidora, ID de usuário, status da entidade e uma mensagem relacionada. Esta padronização facilita a manipulação de dados e a aplicação de regras de negócio relacionadas a estados e identificações.
 
 ## Propriedades Calculadas e de Validação
-- **DistribuidoraId**: Representa a identificação da distribuidora associada. Deve sempre ser um valor válido (não negativo) para garantir a coerência na representação das entidades.
-- **UsuarioId**: Identifica o usuário que gerencia ou é responsável pela entidade. Este ID deve ser verificado para garantir que corresponde a um usuário ativo no sistema.
-- **Status**: Indica o estado atual da entidade (por exemplo, ativo, inativo, em processamento). O valor deve estar dentro de um conjunto predefinido de estados válidos, garantindo que apenas estados reconhecidos sejam utilizados.
-- **Mensagem**: Um campo livre que pode conter informações adicionais referentes à entidade. Não deve ultrapassar um determinado limite de caracteres, para manutenção da integridade dos dados.
+Não existem propriedades com lógica de cálculo ou validação nesta classe, pois todas as propriedades são definidas diretamente como campos de dados que armazenam informações.
 
 ## Navigations Property
-Não há propriedades que sejam classes complexas do domínio nesta classe abstrata.
+Não existem propriedades que são classes complexas do domínio nesta classe, pois ela atua apenas como uma classe base com propriedades primárias.
 
 ## Tipos Auxiliares e Dependências
-- Não há enumeradores ou classes auxiliares específicas utilizadas diretamente nesta classe.
+Nenhum tipo auxiliar como Enums ou Classes Estáticas/Helpers são utilizados nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -28,5 +24,5 @@ classDiagram
         +string Mensagem
     }
 ```
-
-Esta documentação fornece uma visão clara sobre o papel e a estrutura da `EntidadeAzureAbstract` dentro do contexto de sistemas que utilizam o Azure para armazenamento de dados, enfatizando a importância das propriedades no contexto de integração e integridade de dados.
+---
+Gerada em 29/12/2025 20:52:04

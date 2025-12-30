@@ -2,4 +2,20 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: CashbackEntradaOrigemEnum.cs  
 
-Este é um enumerador que representa as diferentes origens de entrada de cashback dentro do sistema. Essa estrutura auxilia no controle e na categorização das transações de cashback no processo de negócios, permitindo uma gestão mais eficiente das entradas que podem ocorrer tanto por meio de pedidos quanto por entradas manuais.
+O `CashbackEntradaOrigemEnum` é um enumerador utilizado para representar as origens válidas de entrada de cashback em um sistema financeiro. Este enum é essencial para a lógica de negócios que determina de onde provêm as entradas de cashback, permitindo que o sistema identifique corretamente a origem de cada entrada.
+
+## Tipos Auxiliares e Dependências
+- **Enumeradores**:
+  - `CashbackEntradaOrigemEnum`  
+
+## Diagrama de Relacionamentos
+```mermaid
+classDiagram
+    class CashbackEntradaOrigemEnum {
+        <<enumerator>>
+        Pedido
+        Manual
+    }
+```
+---
+Gerada em 29/12/2025 20:53:11

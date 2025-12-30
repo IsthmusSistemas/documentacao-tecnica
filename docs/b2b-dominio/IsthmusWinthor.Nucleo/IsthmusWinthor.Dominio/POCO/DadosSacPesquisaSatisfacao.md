@@ -2,4 +2,8 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: DadosSacPesquisaSatisfacao.cs  
 
-Esta classe é um objeto de transferência de dados (DTO) que transporta informações relacionadas à pesquisa de satisfação do SAC (Serviço de Atendimento ao Consumidor). Ela serve para encapsular os dados que têm origem em uma pesquisa de satisfação específica, permitindo a troca eficiente de informações entre as camadas do sistema.
+A classe `DadosSacPesquisaSatisfacao` é um DTO (Data Transfer Object) que serve para transportar dados relacionados à pesquisa de satisfação obtida através de um sistema de atendimento ao cliente. Essa classe encapsula informações fundamentais, como o ID da distribuidora, o código do cliente e o ID do chamado, possibilitando a transmissão de dados relevantes entre diferentes camadas do sistema.
+
+
+---
+Gerada em 29/12/2025 21:32:09

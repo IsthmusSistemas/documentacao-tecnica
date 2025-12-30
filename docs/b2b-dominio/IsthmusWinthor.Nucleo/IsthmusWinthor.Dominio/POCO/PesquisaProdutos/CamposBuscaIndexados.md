@@ -3,63 +3,68 @@
 **Nome do Arquivo**: CamposBuscaIndexados.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CamposBuscaIndexados` atua como um motor de configuração para os campos utilizados em operações de busca de produtos dentro de um sistema de pesquisa. Ela encapsula informações sobre quais campos podem ser pesquisados e filtráveis, otimizando a manipulação de dados na busca de produtos, facilitando a consulta e permitindo uma filtragem eficiente. Essa estrutura é crucial para garantir que os dados retornados nas buscas sejam relevantes e em conformidade com as regras de negócio.
+A classe `CamposBuscaIndexados` atua como um repositório central para a definição e gestão dos campos de busca indexados no sistema. Seu papel é garantir a integridade e a acessibilidade dos dados relacionados à pesquisa de produtos, permitindo que os usuários realizem pesquisas e filtros de maneira consistente e eficiente. Essa classe também cuida das regras de negócio associadas à quais campos são pesquisáveis e filtráveis, promovendo a otimização das operações de busca.
 
 ## Métodos de Negócio
 
 ### Título: CamposPesquisaveis
 - **Visibilidade**: `public static`
-- **Objetivo**: Garante que apenas campos configurados como pesquisáveis sejam retornados.
+- **Objetivo**: Retornar uma lista de campos que são marcados como pesquisáveis.
 - **Comportamento**: 
-  1. Filtra a lista de campos indexados, selecionando apenas aqueles marcados como pesquisáveis (`IsSearchable`).
-  2. Retorna uma lista de `CampoBuscaProduto` correspondente aos campos filtrados.
-- **Retorno**: Uma lista de `CampoBuscaProduto`, que representa os campos que podem ser utilizados em operações de busca.
+  1. Filtra os campos armazenados na lista `CamposIndexados`.
+  2. Seleciona apenas aqueles que têm a propriedade `IsSearchable` como verdadeira.
+  3. Constrói e retorna uma lista com os campos filtrados.
+- **Retorno**: Uma lista de `CampoBuscaProduto` representando todos os campos que podem ser utilizados em uma pesquisa.
 
 ### Título: CamposPesquisaveisCodigo
 - **Visibilidade**: `public static`
-- **Objetivo**: Fornece uma lista pré-definida de campos que são especificamente identificáveis por código.
-- **Comportamento**:
-  1. Retorna uma nova lista contendo campos de busca predefinidos que podem ser utilizados em pesquisas por código.
-- **Retorno**: Uma lista de `CampoBuscaProduto`, que contém os códigos dos campos pesquisáveis.
+- **Objetivo**: Fornecer uma lista fixa de campos que podem ser utilizados especificamente com códigos.
+- **Comportamento**: 
+  1. Cria e retorna uma nova lista contendo produtos com códigos importantes.
+- **Retorno**: Uma lista de `CampoBuscaProduto` que contém campos específicos úteis para pesquisas por código.
 
 ### Título: CamposOrdenaveis
 - **Visibilidade**: `public static`
-- **Objetivo**: Define quais campos podem ser utilizados para ordenação em consultas e suas representações.
+- **Objetivo**: Retornar um dicionário com campos que podem ser ordenados e suas respectivas representações formatadas.
 - **Comportamento**:
-  1. Retorna um dicionário contendo `CampoBuscaProduto` como chave e uma string representativa como valor.
-  2. A string gerada é baseada no nome do campo, com a primeira letra em minúsculo e, quando aplicável, adicionando sufixos `.keyword` para adequação em sistemas de busca.
-- **Retorno**: Um `Dictionary<CampoBuscaProduto, string>`, que associa campos a suas representações em strings para ordenação.
+  1. Cria um dicionário associando `CampoBuscaProduto` com strings formatadas para ordenação.
+  2. Formata os nomes dos campos usando a função `LowerCaseFirstLetter` para garantir consistência em busca e exibição.
+- **Retorno**: Um dicionário onde as chaves são campos de busca e os valores são suas representações em formato lowercase.
+
+### Título: LowerCaseFirstLetter
+- **Visibilidade**: `public static`
+- **Objetivo**: Converter a primeira letra de uma string para minúscula.
+- **Comportamento**:
+  1. Verifica se a string é nula ou vazia.
+  2. Retorna a string original se estiver vazia, ou modifica a primeira letra para minúscula.
+- **Retorno**: A string com a primeira letra em minúscula ou a string original.
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades com lógica de cálculo ou validação na camada de getters e setters. Todas as propriedades são geridas diretamente pelo construtor.
+Não há propriedades que possuam lógica de validação ou cálculo, uma vez que todas as propriedades são simples e desempenham um papel direto na representação de um campo de busca.
 
-## Navigation Property
-Não existem classes complexas do domínio referenciadas por esta classe.
+## Navigations Property
+Não há propriedades de navegação que representem classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-- **Enums**:
-  - `[TipoDadoEnum](TipoDadoEnum.md)` - Enum para definir os tipos de dados que podem ser utilizados nos campos de busca.
-- **Classes Auxiliares**:
-  - `[CampoBuscaProduto](CampoBuscaProduto.md)` - Enum que define os distintos campos que podem ser utilizados nas operações de busca.
+- Enumeradores:
+  - [CampoBuscaProduto](CampoBuscaProduto.md)
+  - [TipoDadoEnum](TipoDadoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CamposBuscaIndexados {
-        +List<CampoBuscaProduto> CamposPesquisaveis()
-        +List<CampoBuscaProduto> CamposPesquisaveisCodigo()
-        +Dictionary<CampoBuscaProduto, string> CamposOrdenaveis()
-        -static List<CamposBuscaIndexados> CamposIndexados
+        +CampoBuscaProduto CampoBusca
+        +TipoDadoEnum TipoDadoEnum
+        +bool IsSearchable
+        +bool IsFilterable
+        +bool FiltrarUsandoLike
     }
 
-    class CampoBuscaProduto {
-        <<enumeration>>
-    }
+    CamposBuscaIndexados --> CampoBuscaProduto : possui
+    CamposBuscaIndexados --> TipoDadoEnum : classifica como
+``` 
 
-    class TipoDadoEnum {
-        <<enumeration>>
-    }
-
-    CamposBuscaIndexados --|> CampoBuscaProduto
-    CamposBuscaIndexados --|> TipoDadoEnum
-```
+Esta documentação oferece uma visão clara das regras de negócio implementadas na classe `CamposBuscaIndexados`, suas responsabilidades e como ela deve ser utilizada dentro do contexto da aplicação. A estrutura e os métodos apresentados garantem que a integridade dos dados e a facilidade de pesquisa sejam mantidas.
+---
+Gerada em 29/12/2025 21:47:25

@@ -1,48 +1,47 @@
 # Email
-**Namespace**: IsthmusWinthor.Dominio.POCO.Shared  
+**Namespace**: IsthmusWinThor.Dominio.POCO.Shared  
 **Nome do Arquivo**: Email.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Email` representa um modelo de domínio rico para a manipulação de endereços de e-mail dentro do sistema. Ela encapsula não apenas o endereço de e-mail, mas também o tipo de contato e um identificador único. A classe é responsável por garantir a integridade dos dados relacionados a endereços de e-mail, incluindo a validação da formatação e a ocultação parcial do endereço.
+A classe `Email` representa um endereço de e-mail, incluindo informações sobre seu tipo de contato e a capacidade de validar sua formatação. Este modelo aborda a necessidade de manusear e garantir a integridade de dados de e-mail em um sistema, assegurando que os endereços sejam válidos e bem-estruturados, além de oferecer funcionalidades adicionais, como ocultar partes do e-mail para proteção da privacidade.
 
 ## Métodos de Negócio
 
-### EmailOculto
-- **Título**: `EmailOculto` - Visibilidade: `public`
-- **Objetivo**: Garante a privacidade do endereço de e-mail ao ocultar partes do mesmo para proteção de dados sensíveis.
+### EmailOculto() - Público
+- **Objetivo**: Garante que partes do endereço de e-mail sejam ocultadas para aumentar a privacidade do usuário.
 - **Comportamento**: 
-  1. Define um padrão regex para localizar partes do endereço de e-mail que devem ser ocultadas.
-  2. Aplica a regex ao endereço, substituindo por asteriscos (`*`) os caracteres que devem ser ocultados, mantendo visíveis apenas o primeiro e o último caractere do nome do usuário.
-- **Retorno**: Retorna uma string com o endereço de e-mail parcialmente oculto.
+  1. Define um padrão de regex que identifica as partes do e-mail a serem ocultadas.
+  2. Utiliza o método `Regex.Replace` para substituir os caracteres visíveis no meio do endereço por asteriscos, mantendo o primeiro e o último caractere visíveis.
+  3. Retorna o e-mail modificado.
+- **Retorno**: Retorna uma string que representa o endereço de e-mail com partes ocultas.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Verifica se o endereço é válido}
-    B -->|Sim| C[Aplica regex para ocultar partes do endereço]
-    B -->|Não| D[Fim]
-    C --> E[Retorna e-mail oculto]
-    E --> F[Fim]
+    A[Início] --> B{Regex pattern encontrado?}
+    B -- Sim --> C[Substituir caracteres por '*']
+    B -- Não --> D[Retornar e-mail original]
+    C --> E[Retornar e-mail modificado]
+    D --> E
 ```
 
-### IsValidEmail
-- **Título**: `IsValidEmail` - Visibilidade: `public`
-- **Objetivo**: Garante que o endereço de e-mail fornecido esteja em um formato válido.
+### IsValidEmail() - Público
+- **Objetivo**: Assegura a validade do formato do endereço de e-mail.
 - **Comportamento**: 
-  1. Tenta criar uma instância de `MailAddress` usando o `Endereco` atual.
-  2. Se a instância for criada com sucesso, o e-mail é considerado válido. Caso contrário, uma exceção de formato é capturada e a validade é negada.
-- **Retorno**: Retorna um booleano indicando se o endereço de e-mail é válido (`true`) ou não (`false`).
+  1. Tenta criar uma instância de `MailAddress` com o endereço armazenado.
+  2. Se bem-sucedida, retorna `true`, sinalizando que o e-mail tem um formato válido.
+  3. Se ocorre uma exceção do tipo `FormatException`, retorna `false`, indicando um formato inválido.
+- **Retorno**: Retorna um booleano, onde `true` representa um endereço válido e `false` representa um endereço inválido.
 
 ## Propriedades Calculadas e de Validação
-- **Endereco**: Contém o endereço de e-mail. A validade deste é garantida pelo método `IsValidEmail`.
-- **TipoEmail**: Representa o tipo do contato e deve ser associado a um valor do enum `TipoContato`.
+- `Endereco`: Valida se o endereço de e-mail, quando criado, está em um formato correto por meio do método `IsValidEmail()`.
+- `Identificador`: Gera um novo identificador único sempre que um novo objeto `Email` é instanciado, garantindo que cada e-mail seja singular.
 
 ## Navigations Property
-- **TipoContato**: Enum que categoriza o tipo de contato para o endereço de e-mail.  
-   Link: `[TipoContato](TipoContato.md)`
+- Nenhuma propriedade de classe complexa do domínio que seja um Navigation Property foi identificada nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- **Enums**: 
-  - `[TipoContato](TipoContato.md)`
+- **Enumeradores**:
+  - [TipoContato](TipoContato.md): Define os tipos de contatos que podem estar associados a um endereço de e-mail.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -54,7 +53,7 @@ classDiagram
         +string EmailOculto()
         +bool IsValidEmail()
     }
-    class TipoContato
-    
-    Email --> TipoContato : "TipoEmail"
+    Email --> TipoContato
 ```
+---
+Gerada em 29/12/2025 22:00:39

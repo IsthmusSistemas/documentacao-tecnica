@@ -1,42 +1,51 @@
 # IPeriodoConsultaPrecosRepositorio
 **Namespace**: IsthmusWinthor.Dominio.Interfaces  
-**Nome do Arquivo**: IPeriodoConsultaPrecosRepositorio.cs  
+**Nome do Arquivo**: IPeriodoConsultaPrecosRepositorio.cs
 
-### Visão Geral e Responsabilidade
-A interface `IPeriodoConsultaPrecosRepositorio` define as operações necessárias para gerenciar períodos de consulta de preços em um sistema de domínio. Sua responsabilidade principal é garantir que o sistema possa controlar e manipular intervalos de tempo com segurança, o que é crucial para a administração de preços ao longo do tempo. Isso é fundamental em cenários onde preços podem variar com base em datas específicas.
+Este é um repositório que define a interface para o gerenciamento de períodos de consulta de preços no sistema, sendo responsável por fornecer métodos que permitem a manipulação e verificação desses períodos.
 
-### Métodos de Negócio
+## Métodos de Negócio
 
-#### Título: `Inicio` e Visibilidade: `public`
-- **Objetivo**: Retornar a data de início do período de consulta de preços.
-- **Comportamento**: Este método deve retornar a data que marca o início do intervalo. A implementação deve garantir que esta data esteja definida e válida dentro dos limites do sistema.
-- **Retorno**: Um objeto `DateTime` que representa a data de início do período.
+### 1. `Inicio() : DateTime`
+   - **Objetivo**: Retorna a data de início do período de consulta de preços definido.
+   - **Comportamento**:
+     1. O método é chamado para obter a data de início do período atual.
+     2. O valor retornado representa o início do intervalo de datas para consultas de preços.
+   - **Retorno**: Retorna um objeto `DateTime` que indica a data de início.
 
-#### Título: `Fim` e Visibilidade: `public`
-- **Objetivo**: Retornar a data final do período de consulta de preços.
-- **Comportamento**: Este método deve retornar a data que marca o fim do intervalo. A implementação deve assegurar que esta data esteja definida e válida, respeitando as regras de negócio que podem limitar o intervalo de preços.
-- **Retorno**: Um objeto `DateTime` que representa a data de término do período.
+### 2. `Fim() : DateTime`
+   - **Objetivo**: Retorna a data de fim do período de consulta de preços definido.
+   - **Comportamento**:
+     1. O método é utilizado para obter a data de fim do período atual.
+     2. O valor retornado representa o final do intervalo de datas para consultas de preços.
+   - **Retorno**: Retorna um objeto `DateTime` que indica a data de fim.
 
-#### Título: `PossuiPeriodo` e Visibilidade: `public`
-- **Objetivo**: Verificar se um período de consulta de preços está definido.
-- **Comportamento**: Este método deve verificar a existência de um período configurado, retornando verdadeiro ou falso, dependendo se o períod está ativo.
-- **Retorno**: Um valor booleano indicando se existem datas de início e fim definidas.
+### 3. `PossuiPeriodo() : bool`
+   - **Objetivo**: Verifica se existe um período de consulta de preços definido.
+   - **Comportamento**:
+     1. O método é chamado para checar a existência de um período validado.
+     2. Retorna verdadeiro se um período válido de consulta de preços estiver definido, caso contrário, retorna falso.
+   - **Retorno**: Retorna um valor booleano que indica a existência de um período.
 
-#### Título: `DefinirPeriodo` e Visibilidade: `public`
-- **Objetivo**: Definir um novo período de consulta de preços com uma data de início e uma data de fim.
-- **Comportamento**: Este método aceita duas datas e deve validar se estas formam um intervalo correto (a data de início deve ser anterior à data de fim). Se as datas não forem válidas, a operação deve falhar e gerar uma exceção ou retorno apropriado.
-- **Retorno**: Não retorna valor (void); no entanto, a implementação deve garantir a integridade do intervalo.
+### 4. `DefinirPeriodo(DateTime dataInicio, DateTime dataFim)`
+   - **Objetivo**: Define o período de consulta de preços com as datas de início e fim fornecidas.
+   - **Comportamento**:
+     1. O método é chamado com duas datas, `dataInicio` e `dataFim`.
+     2. O sistema valida se `dataInicio` é anterior a `dataFim`.
+     3. Se a validação for bem-sucedida, o período de consulta é atualizado.
+     4. Se a validação falhar, deve lançar uma exceção (não explicitado no código, mas uma prática comum em situações de erro).
+   - **Retorno**: Este método não possui retorno.
 
-### Propriedades Calculadas e de Validação
-N/A - A interface não possui propriedades calculadas com lógica ou validações diretamente.
+## Propriedades Calculadas e de Validação
+Nenhuma propriedade calculada ou de validação é definida nesta interface.
 
-### Navigations Property
-N/A - A interface não possui propriedades que referenciam classes complexas do domínio.
+## Navigations Property
+Nenhuma propriedade de navegação existente é aplicável nesta interface.
 
-### Tipos Auxiliares e Dependências
-N/A - A interface não utiliza tipos auxiliares, enumeradores ou classes estáticas que precisem ser linkados.
+## Tipos Auxiliares e Dependências
+Nenhum tipo auxiliar ou dependência é utilizada nesta interface.
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IPeriodoConsultaPrecosRepositorio {
@@ -45,6 +54,6 @@ classDiagram
         +bool PossuiPeriodo()
         +void DefinirPeriodo(DateTime dataInicio, DateTime dataFim)
     }
-``` 
-
-Esta documentação técnica destina-se a desenvolvedores e arquitetos que precisam entender as regras de negócio associadas ao gerenciamento de períodos de consulta de preços dentro do sistema, facilitando assim o entendimento e a implementação da lógica necessária para o domínio.
+```
+---
+Gerada em 29/12/2025 21:16:41

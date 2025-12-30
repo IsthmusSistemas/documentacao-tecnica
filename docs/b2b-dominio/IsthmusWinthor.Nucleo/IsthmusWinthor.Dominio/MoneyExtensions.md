@@ -1,48 +1,60 @@
 # MoneyExtensions
 
 **Namespace**: IsthmusWinthor.Dominio  
-**Nome do Arquivo**: MoneyExtensions.cs  
+**Nome do Arquivo**: MoneyExtensions.cs
 
-### Visão Geral e Responsabilidade
-A classe `MoneyExtensions` é uma classe estática que oferece uma série de extensões úteis para manipulação e formatação de valores monetários e percentuais no contexto de aplicações financeiras. Esta classe visa facilitar operações comuns relacionadas a cálculos financeiros e apresentações numéricas, assegurando que a formatação esteja de acordo com a cultura "pt-BR" para moedas e oferecer funcionalidades convenientes como arredondamento e formatação percentual.
+## Visão Geral e Responsabilidade
+A classe `MoneyExtensions` é uma classe de extensão estática que fornece métodos utilitários para manipulação e formatação de valores monetários e percentuais, além de oferecer funcionalidades adicionais como arredondamento e conversão para inteiro. Essa classe melhora a legibilidade e a praticidade dos cálculos financeiros, promovendo a consistência na apresentação de valores monetários em um formato padrão para a cultura brasileira.
 
-### Métodos de Negócio
+## Métodos de Negócio
 
-#### ToMoney (Public)
-- **Objetivo**: Formatar um valor decimal como moeda, garantindo que a exibição siga o padrão monetário brasileiro.
-- **Comportamento**: Converte o valor decimal em uma string formatada como moeda com duas casas decimais, usando a cultura "pt-BR".
-- **Retorno**: Retorna uma string que representa o valor formatado como moeda.
+### 1. ToMoney() - Público
+- **Objetivo**: Formatar um valor decimal para uma representação monetária no formato brasileiro.
+- **Comportamento**: Este método converte o valor decimal em uma string formatada de acordo com a cultura específica do Brasil, utilizando o formato de moeda adequado.
+- **Retorno**: Retorna uma string representando o valor em formato monetário (ex: R$ 1.234,56).
 
-#### Arredondar (Public)
+### 2. Arredondar() - Público
 - **Objetivo**: Arredondar um valor decimal para um número específico de casas decimais.
-- **Comportamento**: Utiliza o método `Math.Round` com arredondamento "AwayFromZero" para ajustar o valor à quantidade especificada de casas decimais.
-- **Retorno**: Retorna um valor decimal arredondado com precisão definida pelo parâmetro `quantidadeCasas`.
+- **Comportamento**: Este método utiliza a função `Math.Round`, especificando o modo de arredondamento para `AwayFromZero` e arredonda o valor para a quantidade de casas decimais definida pelo usuário.
+- **Retorno**: Retorna um valor decimal arredondado de acordo com a quantidade de casas especificadas.
 
-#### ToInt (Public)
-- **Objetivo**: Converter um valor decimal em uma representação inteira.
-- **Comportamento**: Realiza uma conversão de um valor decimal para um inteiro e retorna sua representação em string.
-- **Retorno**: Retorna uma string representando o número inteiro.
+### 3. ToInt() - Público
+- **Objetivo**: Converter um valor decimal para a representação de inteiro em forma de string.
+- **Comportamento**: O método converte o valor decimal para um inteiro, eliminando a parte fracionária e retornando o valor como uma string.
+- **Retorno**: Retorna uma string representando o valor como um número inteiro.
 
-#### ToPercentual (Public)
-- **Objetivo**: Apresentar um valor decimal como uma porcentagem formatada.
-- **Comportamento**: Arredonda o valor para um número especificado de casas decimais. Se a precisão for zero, o valor é truncado antes da formatação como percentual.
-- **Retorno**: Retorna uma string que representa o valor como percentual, incluindo o símbolo de percentual.
+### 4. ToPercentual() - Público
+- **Objetivo**: Converter um valor decimal em uma representação percentual, arredondando para uma quantidade específica de casas decimais.
+- **Comportamento**: O método arredonda o valor para a quantidade de casas decimais especificada, e se `quantidadeCasas` for 0, ele trunca o valor. O resultado é formatado como uma string seguida pelo símbolo de porcentagem (%).
+- **Retorno**: Retorna uma string representando o valor em porcentagem (ex: 85%).
 
-### Tipos Auxiliares e Dependências
-- `System.Globalization` é utilizado para `CultureInfo`, assegurando que a formatação de moeda esteja de acordo com padrões culturais específicos.
-- `System.Math` fornece operações matemáticas essenciais para arredondamento e truncamento de valores.
-- Converter (`System.Convert`) para conversões de tipo de dados.
+```mermaid
+flowchart TD
+    A[Início] --> B{quantidadeCasas == 0}
+    B -->|Sim| C[Truncar percentual]
+    B -->|Não| D[Arredondar percentual]
+    C --> E[Retornar percentual com %]
+    D --> E
+```
 
-### Diagrama de Relacionamentos
+## Propriedades Calculadas e de Validação
+Não existem propriedades com lógica de cálculo ou validação nesta classe, pois todos os métodos são estáticos e não contêm propriedades.
+
+## Navigation Properties
+Não existem propriedades de navegação, pois esta é uma classe estática sem complexidade de domínio.
+
+## Tipos Auxiliares e Dependências
+- Nenhum enumerador ou classe auxiliar específica é utilizada nesta classe.
+
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class MoneyExtensions {
-        +string ToMoney(decimal)
-        +decimal Arredondar(decimal, int)
-        +string ToInt(decimal)
-        +string ToPercentual(decimal, int)
+        +string ToMoney(decimal @this)
+        +decimal Arredondar(decimal @this, int quantidadeCasas)
+        +string ToInt(decimal @this)
+        +string ToPercentual(decimal @this, int quantidadeCasas)
     }
-    MoneyExtensions --> System.Globalization
-    MoneyExtensions --> System.Math
-    MoneyExtensions --> System.Convert
 ```
+---
+Gerada em 29/12/2025 20:05:52

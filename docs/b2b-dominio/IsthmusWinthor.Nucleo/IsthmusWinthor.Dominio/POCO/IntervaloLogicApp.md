@@ -1,67 +1,71 @@
 # IntervaloLogicApp
-- **Namespace**: IsthmusWinthor.Dominio.POCO
-- **Nome do Arquivo**: IntervaloLogicApp.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO  
+**Nome do Arquivo**: IntervaloLogicApp.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `IntervaloLogicApp` tem a responsabilidade de gerenciar intervalos de execução para distribuidoras em um sistema de agendamento. Seu papel é fundamental para garantir que os intervalos de execução estejam corretos e que as regras estabelecidas para atividades de agendamento estejam sendo seguidas, permitindo validar se o agendamento está pausado ou se é padrão, além de auxiliar na configuração dos horários de execução.
+A classe `IntervaloLogicApp` serve como um motor de gerenciamento de agendamentos de execução de intervalos para distribuidores. Sua finalidade é controlar o tempo, tipo de intervalo e agendamento, incluindo a lógica para determinar se o intervalo está pausado com base em condições definidas. Esta classe é fundamental para assegurar que os agendamentos sejam configurados corretamente e que sua execução seja gerenciada de forma apropriada, atendendo aos parâmetros e regras de negócio relevantes.
 
 ## Métodos de Negócio
-### Título: Construtor com parâmetros
-**Visibilidade**: Público
+### Construtor: IntervaloLogicApp(long distribuidoraId, DateTime dataInicial, int tempoIntervalo, TipoIntervaloEnum tipoIntervalo, bool pausada, TipoAgendamentoEnum tipoAgendamento, List<TimeSpan> horariosExecucao) 
+#### Objetivo:
+Este construtor garante que um `IntervaloLogicApp` seja criado com valores válidos e que a lógica de pausa seja aplicada no momento da criação.
 
-#### Objetivo
-Configurar um novo intervalo de execução de acordo com os dados fornecidos, implementando regras de validação associadas ao agendamento específico.
+#### Comportamento:
+1. Inicializa a propriedade `DistribuidoraId` com o valor fornecido.
+2. Define `DataInicial` com a data de início fornecida.
+3. Estabelece `TempoIntervalo` com o intervalo de tempo desejado.
+4. Atribui `TipoIntervalo` ao tipo de intervalo fornecido.
+5. Avalia se a instância deve ser considerada "pausada":
+   - Se `pausada` for verdadeiro, a instância é marcada como pausada.
+   - Se o `TipoAgendamento` for `HorarioEspecifico`, verifica se a lista `HorariosExecucao` está vazia; se estiver, a instância é marcada como pausada.
 
-#### Comportamento
-1. Recebe os parâmetros de entrada necessários para configurar o objeto.
-2. Define o `DistribuidoraId` e a `DataInicial` para estabelecer a data de início do agendamento.
-3. Atribui o `TempoIntervalo` e o `TipoIntervalo` para definir a periodicidade e tipo do intervalo.
-4. Verifica se o agendamento deve ser considerado pausado - se `Pausada` for true ou se o agendamento é do tipo `HorarioEspecifico` e não possui horários definidos.
-5. Inicializa a lista de `HorariosExecucao` com os horários especificados.
+#### Retorno:
+Não retorna valor, pois é um construtor.
 
-#### Retorno
-Sem valor retornado; ele cria uma nova instância da classe.
+### Construtor: IntervaloLogicApp(PipelineSincronizacaoAgendamentoDistribuidora agendamento)
+#### Objetivo:
+O construtor é responsável por instanciar um novo objeto `IntervaloLogicApp` a partir de um objeto do tipo `PipelineSincronizacaoAgendamentoDistribuidora`, promovendo uma engenharia reversa dos dados do agendamento.
 
-### Título: Construtor a partir de PipelineSincronizacaoAgendamentoDistribuidora
-**Visibilidade**: Público
+#### Comportamento:
+1. Inicializa `DistribuidoraId` a partir do `agendamento.DistribuidoraId`.
+2. Define `DataInicial` usando `agendamento.DataInicial`.
+3. Atribui `TempoIntervalo` usando `agendamento.TempoIntervalo`.
+4. Define `TipoIntervalo` através de `agendamento.TipoIntervalo`.
+5. Avalia se a instância deve ser considerada "pausada":
+   - Se `agendamento.Pausada` for verdadeiro, está pausada.
+   - Se o `TipoAgendamento` for `HorarioEspecifico`, e `agendamento.HorariosExecucao` estiver vazio, a instância é marcada como pausada.
+6. Atribui `TipoAgendamento` de `agendamento.TipoAgendamento`.
+7. Define `HorariosExecucao` utilizando `agendamento.HorariosExecucao`.
 
-#### Objetivo
-Facilitar a criação de um `IntervaloLogicApp` a partir de um objeto de agendamento já existente, garantindo que todos os dados relevantes sejam transferidos corretamente.
-
-#### Comportamento
-1. Recebe um objeto do tipo `PipelineSincronizacaoAgendamentoDistribuidora`.
-2. Atribui o `DistribuidoraId`, `DataInicial`, `TempoIntervalo`, `TipoIntervalo`, `Pausada`, `TipoAgendamento` e `HorariosExecucao` a partir do agendamento fornecido.
-3. Verifica e aplica a lógica para determinar se o agendamento deve ser pausado da mesma forma que o construtor com parâmetros.
-
-#### Retorno
-Sem valor retornado; este método cria uma nova instância do `IntervaloLogicApp` a partir de um objeto existente.
+#### Retorno:
+Não retorna valor, pois é um construtor.
 
 ## Propriedades Calculadas e de Validação
-### Propriedade: `Padrao`
-- **Regra**: Define se o agendamento é padrão, baseado no `DistribuidoraId`. Se o `DistribuidoraId` for menor ou igual a zero, o agendamento é considerado padrão.
+### Padrao
+- **Regra:** A propriedade `Padrao` indica se a `DistribuidoraId` é menor ou igual a zero, representando um estado padrão onde não há uma distribuidora específica atribuída.
 
 ## Navigations Property
-- Não há propriedades de navegação que sejam classes complexas do domínio nesta implementação.
+- Não há propriedades de navegação que sejam classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-- **Enum**: 
-  - `[TipoIntervaloEnum](TipoIntervaloEnum.md)`
-  - `[TipoAgendamentoEnum](TipoAgendamentoEnum.md)`
+- **Enumerações:**
+  - [TipoIntervaloEnum](TipoIntervaloEnum.md)
+  - [TipoAgendamentoEnum](TipoAgendamentoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IntervaloLogicApp {
-        - long DistribuidoraId
-        - DateTime DataInicial
-        - int TempoIntervalo
-        - TipoIntervaloEnum TipoIntervalo
-        - bool Pausada
-        - TipoAgendamentoEnum TipoAgendamento
-        - List<TimeSpan> HorariosExecucao
-        + IntervaloLogicApp(long distribuidoraId, DateTime dataInicial, int tempoIntervalo, TipoIntervaloEnum tipoIntervalo, bool pausada, TipoAgendamentoEnum tipoAgendamento, List<TimeSpan> horariosExecucao)
-        + IntervaloLogicApp(PipelineSincronizacaoAgendamentoDistribuidora agendamento)
+        +long DistribuidoraId
+        +DateTime DataInicial
+        +int TempoIntervalo
+        +TipoIntervaloEnum TipoIntervalo
+        +bool Pausada
+        +TipoAgendamentoEnum TipoAgendamento
+        +List<TimeSpan> HorariosExecucao
     }
-    class TipoIntervaloEnum
-    class TipoAgendamentoEnum
+    IntervaloLogicApp --> TipoIntervaloEnum
+    IntervaloLogicApp --> TipoAgendamentoEnum
 ```
+---
+Gerada em 29/12/2025 21:36:24

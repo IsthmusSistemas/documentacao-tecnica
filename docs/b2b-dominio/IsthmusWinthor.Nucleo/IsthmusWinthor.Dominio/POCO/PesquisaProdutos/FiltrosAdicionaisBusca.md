@@ -2,30 +2,22 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO.PesquisaProdutos  
 **Nome do Arquivo**: FiltrosAdicionaisBusca.cs
 
-> Classe que transporta filtros adicionais para pesquisas de produtos, permitindo a combinação de critérios de busca.
+### Visão Geral e Responsabilidade
+A classe `FiltrosAdicionaisBusca` serve como um modelo para encapsular filtros de busca usados na pesquisa de produtos dentro da plataforma. Ela permite a aplicação de múltiplos filtros de forma flexível, utilizando operadores lógicos AND e OR. O problema de negócio que essa classe resolve é a necessidade de refinar resultados de busca através de combinações de critérios específicos, possibilitando que usuários obtenham resultados mais relevantes e direcionados.
 
-## Visão Geral e Responsabilidade
-A classe `FiltrosAdicionaisBusca` tem como objetivo gerenciar e aplicar critérios de filtragem em buscas de produtos, proporcionando flexibilidade na combinação de múltiplos filtros. Através dos parâmetros que define, ela permite que o usuário escolha entre aplicar filtros de forma cumulativa (AND) ou alternativa (OR), resolvendo problemas de busca específica conforme os requisitos do negócio.
+### Métodos de Negócio
+Nenhum método com lógica complexa foi identificado nesta classe, portanto, esta seção não se aplica.
 
-## Métodos de Negócio
-- **Título**: Construtor (Visibilidade: Público)
-  - **Objetivo**: Inicializar a classe `FiltrosAdicionaisBusca` com uma lista de filtros e um indicativo de operação lógica (AND/OR).
-  - **Comportamento**: 
-    1. O construtor padrão inicializa a classe sem filtros.
-    2. O construtor sobrecarregado recebe uma lista de objetos `FiltroBusca` e um booleano `filtroAnd` para determinar a lógica de combinação.
-  - **Retorno**: Não possui retorno, mas define o estado interno da classe.
+### Propriedades Calculadas e de Validação
+Não há propriedades que utilizem lógica no método `get` ou validação no método `set` nesta classe.
 
-## Propriedades Calculadas e de Validação
-- **Filtros**: Propriedade que armazena uma lista de objetos do tipo `FiltroBusca`. Não contém lógica adicional no getter e setter.
-- **FiltroAnd**: Propriedade booleana que define se os filtros devem ser aplicados com a lógica AND ou OR. Não há validação adicional.
+### Navigations Property
+- [FiltroBusca](FiltroBusca.md): Representa as diferentes condições de filtragem que podem ser aplicadas na busca de produtos.
 
-## Navigations Property
-- `[FiltroBusca](FiltroBusca.md)`: Representa a classe que define os filtros individuais que podem ser aplicados nas buscas.
+### Tipos Auxiliares e Dependências
+- Não há enumeradores ou classes estáticas/helpers utilizadas pela classe `FiltrosAdicionaisBusca`.
 
-## Tipos Auxiliares e Dependências
-- `[FiltroBusca](FiltroBusca.md)`: Classe utilizada como um dos componentes da lista de filtros.
-  
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FiltrosAdicionaisBusca {
@@ -33,7 +25,12 @@ classDiagram
         +bool FiltroAnd
     }
     class FiltroBusca {
-        <<enumeration>>
+        <<interface>>
     }
-    FiltrosAdicionaisBusca --> FiltroBusca
-```
+    
+    FiltrosAdicionaisBusca --> FiltroBusca : usa
+``` 
+
+Esta documentação fornece uma visão clara da função e estrutura da classe `FiltrosAdicionaisBusca`, além de indicar como ela se relaciona com outros elementos do domínio.
+---
+Gerada em 29/12/2025 21:48:00

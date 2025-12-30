@@ -1,4 +1,4 @@
-#Documentação - Extensions
+# Extensions
 ## Conteúdo
 - [HttpResponseExtensions](HttpResponseExtensions.md)
 - [StorageExtensions](StorageExtensions.md)

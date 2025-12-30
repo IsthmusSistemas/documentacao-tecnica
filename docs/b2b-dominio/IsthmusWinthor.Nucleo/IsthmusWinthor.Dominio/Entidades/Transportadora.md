@@ -3,34 +3,41 @@
 **Nome do Arquivo**: Transportadora.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Transportadora` representa uma entidade no domínio responsável por gerenciar informações sobre transportadoras que estão associadas a distribuidoras. Esta classe é fundamental para o gerenciamento adequado da logística, garantindo que cada transportadora esteja devidamente vinculada a uma distribuidora específica e que suas informações, como nome e contato, sejam mantidas de forma organizada e acessível. Ela assegura que a lógica de transporte pode ser implementada de forma eficaz no sistema.
+A classe `Transportadora` atua como um modelo rico no domínio, representando uma entidade que faz a gestão das informações de transportadoras dentro do sistema. O problema de negócio que ela resolve envolve a organização e manutenção dos dados relacionados às transportadoras que realizam entregas para diferentes distribuidoras, assegurando que informações cruciais como o nome, código e status (ativo ou não) estejam corretamente geridas para facilitar operações logísticas.
 
 ## Métodos de Negócio
-Atualmente, a classe `Transportadora` não possui métodos de negócios com lógicas complexas implementadas, além das operações padrão para manipulação de suas propriedades.
+### Título: (não há métodos disponíveis com lógica complexa)
+
+No momento, esta classe não apresenta métodos com lógica de negócio além de getters e setters padrão para suas propriedades.
 
 ## Propriedades Calculadas e de Validação
-Nesta classe, todas as propriedades são de natureza simples e não possuem lógica adicional no `get` ou validação no `set`.
+### Propriedades
+- `Ativo`: Representa o estado da transportadora (ativa ou inativa). A regra por trás do uso dessa propriedade é que, quando marcada como `false`, a transportadora não deve ser considerada em futuras operações logísticas ou alocação de entregas.
 
 ## Navigation Property
-- `[Distribuidora](Distribuidora.md)`: Representa a distribuidora associada a esta transportadora. É uma classe do domínio que contém detalhes adicionais sobre a distribuidora.
+- [Distribuidora](Distribuidora.md): Representa a associação entre `Transportadora` e `Distribuidora`, indicando a ligação entre as transportadoras e suas respectivas distribuidoras.
 
 ## Tipos Auxiliares e Dependências
-Atualmente, a classe faz uso da interface `IEntidade`, que define características comuns para todas as entidades do domínio.
+- `IEntidade`: Interface que pode definir uma identidade para as entidades no domínio.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Transportadora {
-        +long Id
-        +long DistribuidoraId
-        +long Codigo
-        +string Nome
-        +string Email
-        +bool Ativo
+        long Id
+        long Codigo
+        string Nome
+        string Email
+        bool Ativo
     }
+    
     class Distribuidora {
-        <<interface>>
+        // Propriedades da distribuidora
     }
-    Transportadora --> Distribuidora : associa
+    
+    Transportadora --> Distribuidora : possui
 ```
-Este diagrama ilustra a relação da classe `Transportadora` com a classe `Distribuidora`, representando a associação entre elas no contexto do domínio.
+
+Esta documentação é uma representação clara das responsabilidades e regras de negócio envolvidas na classe `Transportadora`, facilitando o entendimento e a manutenção do sistema por parte da equipe de desenvolvimento.
+---
+Gerada em 29/12/2025 20:50:47

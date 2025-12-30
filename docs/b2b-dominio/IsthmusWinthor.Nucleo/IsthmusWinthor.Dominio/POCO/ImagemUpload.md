@@ -3,55 +3,62 @@
 **Nome do Arquivo**: ImagemUpload.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ImagemUpload` atua como um modelo para gerenciar imagens carregadas, suas propriedades e suas representações em diferentes formatos. Ela resolve o problema de manipulação e armazenamento de arquivos de imagem provenientes de diversas fontes, garantindo que as imagens sejam convertidas, acessadas e identificadas adequadamente mediante suas características.
+A classe `ImagemUpload` é responsável por gerenciar a manipulação de imagens de forma a garantir a integridade e a correta formatação dos dados associados a imagens que são enviadas ou processadas. Ela resolve o problema de como armazenar, converter e gerar informações relevantes sobre imagens, como nome do arquivo e hash, assegurando que as imagens estejam sempre em um estado adequado para os processos do sistema.
 
 ## Métodos de Negócio
 
-### Título: `GetNomeArquivo` - `public`
-- **Objetivo**: Garante que o nome do arquivo gerado seja único e siga a formatação necessária para identificação.
-- **Comportamento**: 
-  1. Combina as propriedades `DistribuidoraId`, `TipoImagem`, `Codigo`, a representação em caixa baixa de `TamanhoImagem` e um GUID para criar um nome de arquivo.
-  2. Usa a extensão da imagem para finalizar o nome do arquivo.
-- **Retorno**: Retorna uma string que representa o nome do arquivo formatado.
+### Método: GetNomeArquivo()
+- **Visibilidade**: Público
+- **Objetivo**: Garante que o nome do arquivo gerado tenha um formato consistente com base nos metadados da imagem, incluindo a ID da distribuidora, tipo da imagem, código, tamanho e tipo de extensão.
+- **Comportamento**: O método constrói o nome do arquivo concatenando a `DistribuidoraId`, `TipoImagem`, `Codigo`, `GetTamanho()` e um GUID exclusivo, seguido pela extensão da imagem. 
+- **Retorno**: Retorna uma string que representa o nome completo do arquivo a ser salvo.
 
-### Título: `GetHashArquivo` - `public`
-- **Objetivo**: Garante a integridade da imagem gerando um hash que pode ser utilizado na verificação de dados.
-- **Comportamento**: 
-  1. Cria um objeto `SHA1CryptoServiceProvider` para calcular um hash da imagem armazenada em `ImagemOriginalByte`.
-  2. Retorna uma string codificada em Base64 que representa o hash da imagem.
-- **Retorno**: Retorna uma string que é o hash da imagem, codificado para URL.
+### Método: GetHashArquivo()
+- **Visibilidade**: Público
+- **Objetivo**: Garante uma representação única da imagem através de seu hash, útil para verificar a integridade e a singularidade do arquivo.
+- **Comportamento**: O método utiliza o algoritmo SHA-1 para calcular o hash da imagem original em bytes. Ele codifica esse hash em Base64 e aplica URL encoding para assegurar que o valor resultante é seguro para uso em URLs.
+- **Retorno**: Retorna uma string representando o hash codificado da imagem.
 
-### Título: `StreamToArray` - `private`
-- **Objetivo**: Conversão de um `Stream` para um array de bytes.
-- **Comportamento**:
-  1. Verifica se o stream não é nulo e tem conteúdo. 
-  2. Cria um `MemoryStream` e copia o conteúdo do stream original.
-  3. Retorna um array de bytes representando o conteúdo do stream.
-- **Retorno**: Retorna um array de bytes ou nulo se o stream estiver vazio ou inválido.
+### Método: SetConteudoImagem(Stream stream)
+- **Visibilidade**: Público
+- **Objetivo**: Armazena o conteúdo de uma imagem a partir de um fluxo de dados.
+- **Comportamento**: O método simplesmente atribui o fluxo recebido à propriedade interna `conteudoImagemUpload`.
+- **Retorno**: Não possui retorno.
 
-### Título: `Base64ToArray` - `private`
-- **Objetivo**: Converter uma string Base64 para um array de bytes.
-- **Comportamento**: 
-  1. Verifica se a string Base64 não é nula ou vazia.
-  2. Tenta converter a string usando `Convert.FromBase64String`.
-  3. Retorna um array de bytes ou nulo em caso de erro.
-- **Retorno**: Retorna o array de bytes gerado ou nulo se a conversão falhar.
+### Método: GetConteudoImagem()
+- **Visibilidade**: Público
+- **Objetivo**: Retorna o conteúdo da imagem armazenado.
+- **Comportamento**: O método retorna o valor do fluxo interno `conteudoImagemUpload`.
+- **Retorno**: Retorna um objeto do tipo `Stream` que contém o conteúdo da imagem.
+
+### Método: StreamToArray(Stream stream)
+- **Visibilidade**: Privado
+- **Objetivo**: Converte um fluxo de dado de imagem em um array de bytes.
+- **Comportamento**: O método verifica se o fluxo é nulo ou vazio. Se válido, o método copia o fluxo para um novo `MemoryStream` e converte seu conteúdo em um array de bytes.
+- **Retorno**: Retorna um array de bytes que representa os dados da imagem ou nulo em caso de falha.
+
+### Método: Base64ToArray(string stringBase64)
+- **Visibilidade**: Privado
+- **Objetivo**: Converte uma string codificada em Base64 para um array de bytes.
+- **Comportamento**: O método tenta converter a string fornecida em um array de bytes. Em caso de falha, retorna nulo.
+- **Retorno**: Retorna um array de bytes ou nulo se a conversão falhar.
 
 ## Propriedades Calculadas e de Validação
 
-### `ExtensaoImagem`
-- **Regra**: Retorna "png" como valor padrão se nenhum valor tiver sido atribuído. Pode ser validada e definida com base em uma extensão de arquivo fornecida.
+### Propriedade: ExtensaoImagem
+- **Regra**: Se a extensão da imagem não for definida, assume-se que a extensão padrão é "png". Durante a definição, se a string estiver vazia, também será definida como "png".
 
-### `ContentType`
-- **Regra**: Retorna o tipo de conteúdo correspondente à extensão da imagem usando um helper de conteúdo. A extensão é validada quando definida.
+### Propriedade: ContentType
+- **Regra**: A propriedade retorna o tipo de conteúdo correspondente à extensão da imagem, utilizando um helper que determina o `ContentType` com base no valor de `ExtensaoImagem`.
 
-## Navigation Properties
-- Nenhuma propriedade de navegação complexa mapeada.
+## Navegação Properties
+- `TipoImagem`: [TipoImagem](TipoImagem.md)
+- `TamanhoImagem`: [TamanhoImagem](TamanhoImagem.md)
 
 ## Tipos Auxiliares e Dependências
-- Enum: `[TipoImagem](TipoImagem.md)`
-- Enum: `[TamanhoImagem](TamanhoImagem.md)`
-- Classe Helper: `[ContentTypeHelper](ContentTypeHelper.md)`
+- Enum: [TipoImagem](TipoImagem.md)
+- Enum: [TamanhoImagem](TamanhoImagem.md)
+- Classe Helper: [ContentTypeHelper](ContentTypeHelper.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -71,18 +78,17 @@ classDiagram
         +string ContentType
         +string GetNomeArquivo()
         +string GetHashArquivo()
+        +void SetConteudoImagem(Stream stream)
+        +Stream GetConteudoImagem()
+        +void SetTamanho(TamanhoImagem tamanho)
+        +TamanhoImagem GetTamanho()
     }
-    
-    class TipoImagem {
-        <<Enum>>
-    }
-    
-    class TamanhoImagem {
-        <<Enum>>
-    }
+    class TipoImagem
+    class TamanhoImagem
 
-    ImagemUpload o-- TipoImagem
-    ImagemUpload o-- TamanhoImagem
-``` 
+    ImagemUpload --> TipoImagem
+    ImagemUpload --> TamanhoImagem
+```
 
-Essa estrutura documenta as principais regras de negócio da classe `ImagemUpload`, além de suas propriedades e a interconexão com enums relevantes, seguindo rigorosamente as diretrizes apresentadas.
+---
+Gerada em 29/12/2025 21:35:12

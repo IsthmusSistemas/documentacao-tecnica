@@ -4,34 +4,37 @@
 **Nome do Arquivo**: Regiao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Regiao` representa uma região associada a uma filial e uma distribuidora no sistema. Ela é fundamental para a organização geográfica e operacional dentro da aplicação, permitindo que as operações comerciais sejam realizadas em regiões específicas. Sua função principal é gerenciar a relação entre os dados da região, garantindo que cada região esteja devidamente vinculada a uma filial e uma distribuidora.
+A classe `Regiao` é um Rich Domain Model que representa uma região geográfica dentro do sistema, associada a uma distribuidora e a uma filial. Sua responsabilidade principal é garantir a integridade dos dados relacionados à identificação e vinculação de regiões com as entidades de `Distribuidora` e `Filial`, assegurando que cada região possua um código único dentro do contexto de sua distribuidora. Além disso, ela implementa regras de igualdade que são essenciais para a comparação de instâncias de regiões.
 
 ## Métodos de Negócio
 
-### Título: `Equals` (override)
-- **Objetivo**: Garante que a comparação entre duas instâncias de `Regiao` considere apenas os atributos que definem a identidade da região, que são `Codigo` e `DistribuidoraId`.
+### Título: Equals (override) 
+- **Visibilidade**: Public  
+- **Objetivo**: Garante que duas instâncias de `Regiao` sejam consideradas iguais se compartilham o mesmo `Codigo` e `DistribuidoraId`.  
 - **Comportamento**: 
-  1. Recebe um objeto como parâmetro e verifica se ele é do tipo `Regiao`.
-  2. Compara o `Codigo` e `DistribuidoraId` do objeto atual com os valores do objeto recebido.
-  3. Retorna `true` se ambos os atributos forem iguais, indicando que as regiões são consideradas iguais; caso contrário, retorna `false`.
-- **Retorno**: Um valor booleano que indica se as duas instâncias de `Regiao` são equivalentes.
+  1. Verifica se o objeto comparado é uma instância de `Regiao`.
+  2. Compara o `Codigo` da instância atual com o `Codigo` da instância comparada.
+  3. Compara o `DistribuidoraId` da instância atual com o `DistribuidoraId` da instância comparada.
+  4. Retorna `true` se ambos os critérios acima forem atendidos, caso contrário, retorna `false`.
+- **Retorno**: Um valor booleano que indica se as duas regiões são iguais.
 
-### Título: `GetHashCode` (override)
-- **Objetivo**: Garante que o cálculo do código hash de uma instância de `Regiao` considera os atributos que definem sua identidade, que são `Codigo` e `DistribuidoraId`, permitindo o uso correto da classe em coleções que utilizam hashing.
+### Título: GetHashCode (override) 
+- **Visibilidade**: Public  
+- **Objetivo**: Garante que a implementação do hash code da classe combine o `Codigo` e o `DistribuidoraId` para permitir uma busca consistente em coleções que utilizam hash.  
 - **Comportamento**: 
-  1. Utiliza `HashCode.Combine` para combinar os valores de `Codigo` e `DistribuidoraId`.
-  2. Retorna o valor do código hash resultante.
-- **Retorno**: Um inteiro representando o código hash da instância de `Regiao`.
+  1. Combina o `Codigo` e o `DistribuidoraId` usando o método estático `HashCode.Combine`.
+  2. Retorna um valor inteiro que representa o hash da região.
+- **Retorno**: Um valor numérico que é usado como identificador hash da instância.
 
 ## Propriedades Calculadas e de Validação
-- **Propriedades**: Não há propriedades com lógica no `get` ou validação no `set` identificadas nesta classe.
+As propriedades não contêm lógica de cálculo ou validação em `get` ou `set`.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`
-- `[Filial](Filial.md)`
+- `Distribuidora`: [Distribuidora](Distribuidora.md)
+- `Filial`: [Filial](Filial.md)
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe estática/helper utilizada nesta classe.
+- Não há enumeradores ou classes estáticas/helpers referenciadas diretamente na classe `Regiao`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -41,18 +44,17 @@ classDiagram
         +string Nome
         +long Codigo
         +bool Ativo
-        +Distribuidora Distribuidora
-        +long DistribuidoraId
-        +Filial Filial
-        +long FilialId
     }
-
     class Distribuidora {
+        +long Id
+        +string Nome
     }
-
     class Filial {
+        +long Id
+        +string Nome
     }
-
-    Regiao --> Distribuidora : "possui"
-    Regiao --> Filial : "pertence"
+    Regiao --> Distribuidora : "pertence a"
+    Regiao --> Filial : "pertence a"
 ```
+---
+Gerada em 29/12/2025 20:46:34

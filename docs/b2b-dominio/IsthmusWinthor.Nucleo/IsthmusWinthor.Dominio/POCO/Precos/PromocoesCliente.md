@@ -3,20 +3,21 @@
 **Nome do Arquivo**: PromocoesCliente.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PromocoesCliente` representa as promoções associadas a um cliente em uma distribuidora. Ela rastreia as promoções aplicáveis ​​aos produtos comprados pelo cliente e à relação do cliente com a distribuidora, facilitando a gestão e aplicação de ofertas personalizadas.
+A classe `PromocoesCliente` representa a associação entre um cliente e suas promoções ativadas por uma distribuidora. Ela é responsável por gerenciar as promoções aplicáveis a um cliente específico, possibilitando a visualização e manipulação de tais dados dentro do sistema, contribuindo para a implementação de estratégias de marketing e promoções direcionadas.
 
 ## Métodos de Negócio
-Esta classe não possui métodos de negócio com lógica complexa. Portanto, não há métodos a serem detalhados nesta seção.
+Não há métodos com lógica complexa na classe `PromocoesCliente`.
 
 ## Propriedades Calculadas e de Validação
-Esta classe não apresenta propriedades com lógica no `get` ou validação no `set`. Todas as propriedades são anêmicas e servem, principalmente, para transportar dados.
+Não existem propriedades calculadas ou de validação na classe `PromocoesCliente`.
 
 ## Navigations Property
-- `PromocaoEncarte`: [PromocaoEncarte](PromocaoEncarte.md)
-- `ProdutoPromocao`: [ProdutoPromocao](ProdutoPromocao.md)
+- `List<PromocaoEncarte> Promocoes`: [PromocaoEncarte](PromocaoEncarte.md)
+- `List<ProdutoPromocao> ProdutosPromocao`: [ProdutoPromocao](ProdutoPromocao.md)
 
 ## Tipos Auxiliares e Dependências
-- Enumerador: [TipoPromocaoEnum](TipoPromocaoEnum.md)
+- **Enumeradores**:
+  - [TipoPromocaoEnum](TipoPromocaoEnum.md)
 
 ---
 
@@ -25,33 +26,19 @@ Esta classe não apresenta propriedades com lógica no `get` ou validação no `
 **Nome do Arquivo**: ProdutoPromocao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ProdutoPromocao` representa informações detalhadas de um produto que participa de uma promoção. Ela encapsula dados relevantes ao produto e a lógica de igualdade, ajudando a garantir a integridade e singularidade dos produtos em promoções.
+A classe `ProdutoPromocao` encapsula as características e identificações de produtos que estão em promoção. Sua responsabilidade é garantir que todas as informações relevantes de um produto durante uma promoção sejam armazenadas corretamente e possam ser utilizadas para avaliação de ofertas e gestão de estoques.
 
 ## Métodos de Negócio
-### Título: Equals (public override)
-- **Objetivo**: Garante que dois objetos `ProdutoPromocao` sejam considerados iguais se todos os seus atributos relevantes forem iguais.
-- **Comportamento**:
-  1. Verifica se o objeto comparado é uma instância de `ProdutoPromocao`.
-  2. Compara cada propriedade relevante (`ProdutoId`, `NomeProduto`, `CodigoProduto`, etc.).
-  3. Retorna `true` se todas as propriedades corresponderem, caso contrário, retorna `false`.
-- **Retorno**: Um valor booleano indicando se os dois objetos são iguais ou não.
-
-### Título: GetHashCode (public override)
-- **Objetivo**: Garante que o objeto possa ser usado como chave em coleções hash, gerando um código hash válido baseado em seus atributos.
-- **Comportamento**:
-  1. Cria um novo objeto `HashCode`.
-  2. Adiciona cada propriedade relevante ao hash.
-  3. Retorna o código hash resultante.
-- **Retorno**: Um inteiro representando o código hash do objeto.
+Não há métodos com lógica complexa na classe `ProdutoPromocao`.
 
 ## Propriedades Calculadas e de Validação
-Esta classe não possui propriedades com lógica complexa em seu `get` ou `set`. As propriedades servem para armazenar informações puramente de dados.
+Não existem propriedades calculadas ou de validação na classe `ProdutoPromocao`.
 
 ## Navigations Property
-Esta classe não possui propriedades que são classes complexas do domínio.
+Não existem propriedades de navegação complexas na classe `ProdutoPromocao`.
 
 ## Tipos Auxiliares e Dependências
-Esta classe não depende de tipos auxiliares ou enumeradores.
+Nenhum tipo auxiliar ou dependência é utilizado diretamente na classe `ProdutoPromocao`.
 
 ---
 
@@ -60,38 +47,30 @@ Esta classe não depende de tipos auxiliares ou enumeradores.
 **Nome do Arquivo**: PromocaoEncarte.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PromocaoEncarte` representa uma promoção específica e suas características associadas, incluindo o tipo de promoção, as datas de início e fim, e o desconto aplicável. O objetivo é fornecer uma estrutura para a gestão e visualização das promoções oferecidas.
+A classe `PromocaoEncarte` representa as promoções específicas que podem ser associadas aos produtos, contendo informações sobre a condição e o tipo da promoção. Ela é responsável por controlar e descrever as ofertas a serem apresentadas ao cliente, considerando a lógica de descontos que podem variar ao longo do tempo.
 
 ## Métodos de Negócio
-### Título: Equals (public override)
-- **Objetivo**: Garante que duas instâncias de `PromocaoEncarte` sejam consideradas iguais se os códigos de promoção e tipo de promoção forem idênticos.
-- **Comportamento**:
-  1. Verifica se o objeto comparado é uma instância de `PromocaoEncarte`.
-  2. Compara `CodigoPromocao` e `TipoPromocao`.
-  3. Retorna `true` se ambos forem iguais, caso contrário, retorna `false`.
-- **Retorno**: Um valor booleano indicando igualdade entre os dois objetos.
-
-### Título: GetHashCode (public override)
-- **Objetivo**: Garante um código hash único para instâncias de `PromocaoEncarte`.
-- **Comportamento**:
-  1. Combina `CodigoPromocao` e `TipoPromocao` para gerar o código hash.
-  2. Retorna o código hash resultante.
-- **Retorno**: Um inteiro representando o código hash do objeto.
+Não há métodos com lógica complexa na classe `PromocaoEncarte`.
 
 ## Propriedades Calculadas e de Validação
-### Título: DescricaoDescontoPromocao (public string)
-- **Objetivo**: Gera uma descrição do desconto aplicado com base nos percentuais de desconto.
-- **Comportamento**:
-  1. Verifica se `PercentualDescontoInicial` e `PercentualDescontoFinal` são ambos menores ou iguais a 0; caso sim, retorna uma string vazia.
-  2. Se os percentuais forem diferentes, retorna uma cadeia de texto formatada informando o desconto máximo.
-  3. Se os percentuais forem iguais, retorna a porcentagem única informando o desconto.
-- **Retorno**: Uma string que descreve a promoção.
+### `DescricaoDescontoPromocao`
+- **Objetivo**: Fornecer uma descrição formatada do desconto disponível para a promoção.
+- **Comportamento**: A lógica verifica se os percentuais de desconto são válidos (maiores que zero). Se ambos forem zero, retorna uma string vazia. Se os percentuais forem diferentes, retorna uma descrição que inclui o percentual final; caso contrário, retorna uma descrição com o percentual único.
+- **Retorno**: Descrição do desconto aplicável.
+
+```mermaid
+flowchart TD
+    A[Percentuais de Desconto] -->|Percentual Inicial <= 0 e Percentual Final <= 0| B[Retorna ""]
+    A -->|Percentual Inicial != Percentual Final| C[Retorna "Até {PercentualDescontoFinal} % OFF"]
+    A -->|Caso Contrário| D[Retorna "{PercentualDescontoFinal} % OFF"]
+```
 
 ## Navigations Property
-- `ProdutoPrincipal`: [ProdutoPrincipal](ProdutoPrincipal.md)
+- `List<ProdutoPrincipal> ProdutosPrincipais`: [ProdutoPrincipal](ProdutoPrincipal.md)
 
 ## Tipos Auxiliares e Dependências
-- Enumerador: [TipoPromocaoEnum](TipoPromocaoEnum.md)
+- **Enumeradores**:
+  - [TipoPromocaoEnum](TipoPromocaoEnum.md)
 
 ---
 
@@ -100,19 +79,19 @@ A classe `PromocaoEncarte` representa uma promoção específica e suas caracter
 **Nome do Arquivo**: ProdutoPrincipal.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ProdutoPrincipal` representa um produto que é central em uma promoção, contendo informações específicas sobre o produto que podem ser relevantes para a exibição ou nesta promoção.
+A classe `ProdutoPrincipal` agrupa informações de identificação de produtos que se destacam nas promoções. Seu papel é fornecer dados como nome e códigos que são usados para associar produtos em campanhas promocionais, permitindo uma melhor organização e apresentação dos produtos ao cliente.
 
 ## Métodos de Negócio
-Esta classe não possui métodos de negócio com lógica complexa.
+Não há métodos com lógica complexa na classe `ProdutoPrincipal`.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica no `get` ou validação no `set`, pois a classe é predominantemente de transporte de dados.
+Não existem propriedades calculadas ou de validação na classe `ProdutoPrincipal`.
 
 ## Navigations Property
-Esta classe não possui propriedades que são classes complexas do domínio.
+Não existem propriedades de navegação complexas na classe `ProdutoPrincipal`.
 
 ## Tipos Auxiliares e Dependências
-Esta classe não depende de tipos auxiliares ou enumeradores.
+Nenhum tipo auxiliar ou dependência é utilizado diretamente na classe `ProdutoPrincipal`.
 
 ---
 
@@ -124,6 +103,20 @@ classDiagram
         +long CodigoCliente
         +List<PromocaoEncarte> Promocoes
         +List<ProdutoPromocao> ProdutosPromocao
+    }
+
+    class PromocaoEncarte {
+        +long CodigoPromocao
+        +long CodigoPromocaoMedicamentos
+        +string Nome
+        +DateTime? DataInicio
+        +DateTime? DataFim
+        +string CondicaoPromocao
+        +TipoPromocaoEnum TipoPromocao
+        +string Descricao
+        +decimal PercentualDescontoInicial
+        +decimal PercentualDescontoFinal
+        +List<ProdutoPrincipal> ProdutosPrincipais
     }
 
     class ProdutoPromocao {
@@ -141,19 +134,6 @@ classDiagram
         +long CodigoLinhaProd
     }
 
-    class PromocaoEncarte {
-        +long CodigoPromocao
-        +long CodigoPromocaoMedicamentos
-        +string Nome
-        +DateTime? DataInicio
-        +DateTime? DataFim
-        +string CondicaoPromocao
-        +TipoPromocaoEnum TipoPromocao
-        +string Descricao
-        +decimal PercentualDescontoInicial
-        +decimal PercentualDescontoFinal
-    }
-
     class ProdutoPrincipal {
         +long CodigoProduto
         +string NomeProduto
@@ -162,7 +142,9 @@ classDiagram
         +string CodigoSubCategoriaSite
     }
 
-    PromocoesCliente --> "0..*" PromocaoEncarte : contém
-    PromocaoEncarte --> "0..*" ProdutoPrincipal : inclui
-    PromocoesCliente --> "0..*" ProdutoPromocao : contém
+    PromocoesCliente --> PromocaoEncarte
+    PromocoesCliente --> ProdutoPromocao
+    PromocaoEncarte --> ProdutoPrincipal
 ```
+---
+Gerada em 29/12/2025 21:54:10

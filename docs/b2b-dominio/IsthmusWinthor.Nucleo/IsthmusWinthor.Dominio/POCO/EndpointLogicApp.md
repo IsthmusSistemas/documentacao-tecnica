@@ -1,75 +1,77 @@
 # EndpointLogicApp
 **Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: EndpointLogicApp.cs
+**Nome do Arquivo**: EndpointLogicApp.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `EndpointLogicApp` representa uma configuração de um endpoint em um sistema de integração via Logic Apps. Seu papel é gerenciar as propriedades do endpoint, como a necessidade de autenticação, o método HTTP a ser utilizado e a URL do endpoint, além de gerenciar a serialização do corpo da requisição e a substituição de variáveis dinâmicas. Ela resolve o problema de integração de dados entre diferentes aplicações, garantindo que as informações necessárias sejam formatadas e substituídas corretamente antes do envio.
+A classe `EndpointLogicApp` é responsável por definir a lógica de um endpoint em uma aplicação, incluindo a configuração de autenticação, método HTTP, endereço, corpo da requisição e validação das variáveis utilizadas nas URLs e no corpo. Isso permite que o sistema efetue chamadas a outros serviços de maneira dinâmica, assegurando que as variáveis relevantes sejam substituídas corretamente, de acordo com as regras de negócio definidas, aumentando a flexibilidade e a integridade dos dados manipulados.
 
 ## Métodos de Negócio
 
-### Título: `IsValid` (Visibilidade: Pública)
-- **Objetivo**: Garante que as informações do endpoint (URL e corpo) estejam devidamente preenchidas e que todas as variáveis necessárias foram substituídas corretamente.
+### Título: `IsValid` (Propriedade)
+- **Objetivo**: Garante que o endpoint possui um endereço válido e que o corpo e o endereço não contêm variáveis não substituídas.
 - **Comportamento**:
-  1. Obtém as variáveis que podem ser substituídas através do método `ObterVariaveisParaSubstituicao`.
-  2. Se o `Body` não está vazio, valida se todas as variáveis necessárias foram substituídas.
-  3. Verifica se o `Endereco` não está vazio e se todas as suas variáveis foram também validadas.
-- **Retorno**: Retorna `true` se o endpoint é válido, ou `false` caso contrário.
+  1. Obtém a lista de variáveis que podem ser substituídas através do método `ObterVariaveisParaSubstituicao()`.
+  2. Se o corpo (`Body`) não estiver vazio, valida se todas as variáveis foram corretamente substituídas utilizando o método `ValidarVariaveisSubstituidas()`.
+  3. Retorna `false` se o corpo tiver variáveis não substituídas.
+  4. Valida o `Endereco` utilizando o mesmo método de validação e retorna `true` apenas se todas as condições forem atendidas.
+- **Retorno**: `bool` - `true` se o endpoint for válido (endereço preenchido e variável de corpo substituídas), `false` caso contrário.
 
 ```mermaid
 flowchart TD
     A[Início] --> B{Body é vazio?}
-    B -- Sim --> C{Endereco é vazio?}
-    C -- Sim --> D[Retorna false]
-    C -- Não --> D[Retorna true]
-    B -- Não --> E[Validar variáveis do Body]
-    E --> F{Variáveis válidas?}
-    F -- Não --> G[Retorna false]
-    F -- Sim --> H{Endereco é vazio?}
-    H -- Sim --> D[Retorna false]
-    H -- Não --> D[Retorna true]
+    B -- Sim --> C[Validar Endereço]
+    C --> D{Endereço é válido?}
+    D -- Sim --> F[Retornar true]
+    D -- Não --> G[Retornar false]
+    B -- Não --> E[Validar Variáveis do Body]
+    E --> H{Variáveis não substituídas?}
+    H -- Sim --> I[Retornar false]
+    H -- Não --> J[Validar Endereço]
+    J --> D
 ```
 
-### Título: `SerializarBody` (Visibilidade: Pública)
-- **Objetivo**: Serializa um objeto para JSON e o atribui à propriedade `Body`.
-- **Comportamento**: Utiliza a biblioteca `JsonConvert` para converter o objeto fornecido em uma string JSON e a armazena em `Body`.
+### Título: `SerializarBody` (Público)
+- **Objetivo**: Transforma um objeto em formato JSON e o armazena na propriedade `Body`.
+- **Comportamento**: Utiliza o `JsonConvert.SerializeObject()` para serializar o objeto passado como parâmetro e atribui o resultado à propriedade `Body`.
 - **Retorno**: Não retorna valor.
 
-### Título: `SubstituirVariaveis` (Visibilidade: Pública)
-- **Objetivo**: Substitui variáveis no `Body` e no `Endereco` por valores específicos de ID.
+### Título: `SubstituirVariaveis` (Público)
+- **Objetivo**: Substitui as variáveis dentro do `Body` e `Endereco` com os valores apropriados, usando o ID da sincronização e o ID da distribuidora.
 - **Comportamento**:
-  1. Cria um dicionário de variáveis com os IDs fornecidos.
-  2. Substitui as variáveis correspondentes no `Body` e no `Endereco` utilizando o método `SubstituirVariaveis`.
+  1. Chama `CriarDicionario()` para obter um dicionário com os IDs.
+  2. Utiliza o método `SubstituirVariaveis()` para substituir as variáveis no `Body` e no `Endereco` com seus respectivos valores.
 - **Retorno**: Não retorna valor.
 
-### Título: `ValidarVariaveisSubstituidas` (Visibilidade: Privada)
-- **Objetivo**: Verifica se todas as variáveis necessárias foram substituídas na informação fornecida.
-- **Comportamento**: Itera sobre as variáveis para confirmar que nenhuma delas permanece na informação.
-- **Retorno**: Retorna `true` se todas as variáveis foram substituídas, ou `false` caso contrário.
+### Título: `ValidarVariaveisSubstituidas` (Privado)
+- **Objetivo**: Verifica se todas as variáveis presentes em uma string foram substituídas.
+- **Comportamento**: Para cada variável no dicionário de variáveis, verifica se a string contém a variável não substituída e retorna `false` se alguma for encontrada.
+- **Retorno**: `bool` - `true` se todas as variáveis foram substituídas, `false` caso contrário.
 
-### Título: `SubstituirVariaveis` (Visibilidade: Privada)
-- **Objetivo**: Realiza a substituição das variáveis no texto fornecido.
-- **Comportamento**: Utiliza um `StringBuilder` para realizar substituições das variáveis por seus respectivos valores.
-- **Retorno**: Retorna a string modificada com as variáveis substituídas.
+### Título: `SubstituirVariaveis` (Privado)
+- **Objetivo**: Substitui todas as ocorrências das variáveis em uma string pelos seus valores correspondentes.
+- **Comportamento**: Cria um `StringBuilder` para manipulação eficiente de strings e substitui cada variável na string original pelo seu valor correspondente.
+- **Retorno**: `string` - Retorna a string modificada.
 
-### Título: `CriarDicionario` (Visibilidade: Privada)
-- **Objetivo**: Cria um dicionário com as variáveis e seus valores correspondentes.
-- **Comportamento**: Preenche um dicionário com os IDs recebidos e as respectivas chaves.
-- **Retorno**: Retorna um dicionário contendo as variáveis com seus valores.
+### Título: `CriarDicionario` (Privado)
+- **Objetivo**: Cria um dicionário com as variáveis necessárias para substituição e seus valores correspondentes.
+- **Comportamento**: Adiciona as variáveis relacionadas ao `pipelineId` e `distribuidoraId` ao dicionário e o retorna.
+- **Retorno**: `Dictionary<string, string>` - Um dicionário com as variáveis e valores.
 
-### Título: `ObterVariaveisParaSubstituicao` (Visibilidade: Privada)
-- **Objetivo**: Obtém uma lista de chaves das variáveis que podem ser substituídas.
-- **Comportamento**: Chamando o método `CriarDicionario`, extrai as chaves dessas variáveis para uma lista.
-- **Retorno**: Retorna uma coleção de strings representando as variáveis que precisam ser substituídas.
+### Título: `ObterVariaveisParaSubstituicao` (Privado)
+- **Objetivo**: Obtém uma lista das variáveis que podem ser utilizadas na substituição.
+- **Comportamento**: Chama `CriarDicionario()` e seleciona as chaves (variáveis) desse dicionário, retornando-as como uma lista.
+- **Retorno**: `IEnumerable<string>` - Uma lista de strings representando as variáveis.
 
 ## Propriedades Calculadas e de Validação
-- **IsValid**: A propriedade realiza validações na URL e no corpo, assegurando que nenhum placeholder permaneça sem substituição antes que o endpoint seja considerado válido.
+- **IsValid**: Verifica se o `Endereco` não é vazio e se todas as variáveis de `Body` e `Endereco` foram devidamente substituídas, garantindo a integridade da informação antes de uma requisição ser realizada.
 
 ## Navigations Property
-- Esta classe não contém propriedades que sejam classes complexas do domínio.
+- [HttpMetodoEnum](HttpMetodoEnum.md)
+- [AplicacaoDestinoEnum](AplicacaoDestinoEnum.md)
 
 ## Tipos Auxiliares e Dependências
-- `[HttpMetodoEnum](HttpMetodoEnum.md)`
-- `[AplicacaoDestinoEnum](AplicacaoDestinoEnum.md)`
+- [HttpMetodoEnum](HttpMetodoEnum.md)
+- [AplicacaoDestinoEnum](AplicacaoDestinoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -81,16 +83,11 @@ classDiagram
         +string Endereco
         +string Body
         +bool IsValid
-        +void SerializarBody(object objeto)
-        +void SubstituirVariaveis(long pipelineSincronizacaoId, long distribuidoraId)
+        +void SerializarBody(objeto)
+        +void SubstituirVariaveis(pipelineSincronizacaoId, distribuidoraId)
     }
-
-    class HttpMetodoEnum {
-    }
-
-    class AplicacaoDestinoEnum {
-    }
-
-    EndpointLogicApp o-- HttpMetodoEnum
-    EndpointLogicApp o-- AplicacaoDestinoEnum
+    EndpointLogicApp --|> HttpMetodoEnum
+    EndpointLogicApp --|> AplicacaoDestinoEnum
 ```
+---
+Gerada em 29/12/2025 21:33:56

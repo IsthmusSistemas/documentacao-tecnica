@@ -2,24 +2,23 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoFonteDados.cs  
 
-O `TipoFonteDados` é um enumerador que define as fontes de dados suportadas pelo sistema. Sua principal finalidade é categorizar as origens de dados que o sistema pode manipular, garantindo que as operações e interações sejam direcionadas corretamente conforme o tipo de fonte selecionada.
+O enum `TipoFonteDados` é responsável por categorizar as fontes de dados utilizadas no sistema, permitindo que a aplicação identifique de maneira clara a origem dos dados que manipula. Essa categorização é essencial para garantir a integridade e a correta interpretação dos dados provenientes de diferentes fontes.
 
-## Propriedades Calculadas e de Validação
-Não há propriedades calculadas ou de validação nesta classe, pois trata-se de um enumerador simples e direto.
+---
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**: 
-  - `[TipoFonteDados](TipoFonteDados.md)`
+- **Enumeradores**:
+  - [TipoFonteDados](TipoFonteDados.md)
+
+---
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoFonteDados {
-        <<enumeration>>
-        +Winthor
-        +B2BMonolito
+        + Winthor: int
+        + B2BMonolito: int
     }
-``` 
-
-O diagrama acima representa o enumerador `TipoFonteDados`, que não possui relações com outras classes ou propriedades complexas, sendo um componente autônomo de categorização de fontes de dados.
-
+```
+---
+Gerada em 29/12/2025 21:04:10

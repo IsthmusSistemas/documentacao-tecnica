@@ -3,38 +3,39 @@
 **Nome do Arquivo**: AutorizacaoCliente.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `AutorizacaoCliente` representa a autorização de um cliente em relação a um sistema consumidor B2B. Ela tem a responsabilidade de validar se um cliente tem acesso a operações específicas em um sistema baseado em certas regras de negócio. Este modelo é crucial para garantir que apenas clientes autorizados possam interagir com serviços que requerem tal autorização, minimizando o risco de acessos não autorizados.
+A classe `AutorizacaoCliente` representa uma autorização concedida a um cliente por um sistema consumidor em um contexto B2B. Ela tem a responsabilidade de gerenciar e validar o acesso de um cliente a recursos específicos com base em diversas regras de negócio. Através desta classe, o sistema garante que apenas clientes ativos e devidamente autorizados consigam acessar funcionalidades sensíveis, preservando a segurança e a integridade dos dados.
 
 ## Métodos de Negócio
-### Método: `AcessoValido` (Propriedade)
-- **Objetivo**: Garante que o acesso de um cliente a um sistema consumidor seja validado com base em regras de negócio específicas.
+### Título: `AcessoValido` (Visibilidade: Public)
+- **Objetivo**: Garante que o acesso ao sistema é concedido somente se determinadas condições forem atendidas, promovendo a integridade dos dados e adequação de acesso.
 - **Comportamento**: 
-  1. Verifica se o `AcessoLiberado` é verdadeiro.
-  2. Confirma que o cliente está ativo (`Cliente.Ativo`).
-  3. Chama o método `PossuiAcessoDistribuidora` da classe `SistemaConsumidorB2B` para checar se a distribuidora do cliente possui acesso liberado.
-- **Retorno**: Retorna um booleano indicando se o acesso do cliente é válido (`true`) ou não (`false`), baseado na validação das condições acima.
+    1. Verifica se `AcessoLiberado` é verdadeiro.
+    2. Confirma se o `Cliente` está ativo (`Cliente.Ativo`).
+    3. Utiliza o método `PossuiAcessoDistribuidora` do `SistemaConsumidorB2B` para verificar se há acesso liberado baseado na distribuidora do cliente.
+- **Retorno**: Retorna um valor booleano (`true` ou `false`) que indica se o cliente possui acesso válido ao sistema.
 
 ```mermaid
 flowchart TD
     A[AcessoLiberado == true] -->|Sim| B[Cliente.Ativo == true]
-    A -->|Não| C[Acesso é inválido]
-    B -->|Sim| D[SistemaConsumidorB2B.PossuiAcessoDistribuidora()]
+    A -->|Não| C[Retorna false]
+    B -->|Sim| D[SistemaConsumidorB2B.PossuiAcessoDistribuidora(Cliente.DistribuidoraId)]
     B -->|Não| C
-    D -->|Sim| E[Acesso é válido]
+    D -->|Sim| E[Retorna true]
     D -->|Não| C
 ```
 
 ## Propriedades Calculadas e de Validação
-### Propriedades
-- **AcessoValido**: Acesso é considerado válido se o `AcessoLiberado` é verdadeiro, o cliente está ativo e a distribuidora do cliente tem acesso liberado.
+- **AcessoValido**: Esta propriedade calcula se um cliente tem acesso ao sistema com base nas seguintes regras:
+  - O cliente deve ser ativo.
+  - O acesso deve estar liberado.
+  - O sistema consumidor deve ter acesso à distribuidora vinculada ao cliente ou a distribuidora deve ter acesso liberado.
 
-## Navigation Property
-- **Cliente**: `[Cliente](Cliente.md)` — Referencia à classe que representa os dados do cliente.
-- **SistemaConsumidorB2B**: `[SistemaConsumidorB2B](SistemaConsumidorB2B.md)` — Referencia a classe que representa o sistema consumidor B2B.
+## Navigation Properties
+- [Cliente](Cliente.md)
+- [SistemaConsumidorB2B](SistemaConsumidorB2B.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enums e Classes Auxiliares**:
-  - `[SistemaConsumidorB2BDistribuidora](SistemaConsumidorB2BDistribuidora.md)` — Utilizada para controles de acesso.
+- Nenhum tipo auxiliar ou enum específico é utilizado diretamente nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -56,14 +57,9 @@ classDiagram
         +bool SistemaInterno
         +bool PossuiAcessoDistribuidora(long distribuidoraId)
     }
-    class SistemaConsumidorB2BDistribuidora {
-        +long Id
-        +bool AcessoLiberado
-    }
-    
-    AutorizacaoCliente --> Cliente
-    AutorizacaoCliente --> SistemaConsumidorB2B
-    SistemaConsumidorB2B --> SistemaConsumidorB2BDistribuidora
-```  
 
-Esta documentação fornece uma visão clara das regras de negócio que a classe `AutorizacaoCliente` implementa, assegurando que a integridade dos dados e as operações de acesso sejam geridas de forma eficaz.
+    AutorizacaoCliente --> Cliente : "Possui"
+    AutorizacaoCliente --> SistemaConsumidorB2B : "Pertence a"
+```
+---
+Gerada em 29/12/2025 20:16:38

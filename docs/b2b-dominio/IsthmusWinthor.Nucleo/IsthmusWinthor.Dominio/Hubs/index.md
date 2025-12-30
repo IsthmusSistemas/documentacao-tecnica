@@ -1,4 +1,4 @@
-#Documentação - Hubs
+# Hubs
 ## Conteúdo
 - [IHubVerbasGerente](IHubVerbasGerente.md)
 - [IHubVerbasIndustria](IHubVerbasIndustria.md)

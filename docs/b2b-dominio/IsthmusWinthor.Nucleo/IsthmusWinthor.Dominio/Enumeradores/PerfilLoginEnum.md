@@ -4,55 +4,50 @@
 **Nome do Arquivo**: PerfilLogin.cs
 
 ## Visão Geral e Responsabilidade
-A classe `PerfilLogin` é responsável por gerenciar os perfis de login utilizados na plataforma, categorizando-os em dois grupos principais: perfis padrão e perfis de parceiros. Esta estrutura é fundamental para o controle de acesso e as permissões dentro do sistema, definindo quais funcionalidades estão disponíveis para cada tipo de usuário em diferentes contextos.
+A classe `PerfilLogin` é responsável pela gestão dos perfis de login utilizados na plataforma, que incluem tanto logins padrão para usuários internos da base de clientes quanto logins solicitados por plataformas externas através de um processo de autorização. Esta gestão é crucial para garantir que diferentes tipos de usuários tenham acesso adequado às funcionalidades da aplicação, promovendo uma experiência consistente e segura.
 
 ## Métodos de Negócio
 
-### Título: PerfisLoginPadrao (Público)
-- **Objetivo**: Garante que os perfis de login padrão que podem ser utilizados na plataforma sejam apresentados de forma consistente.
-- **Comportamento**: 
-  1. Verifica se a lista `_perfisLoginPadrao` já foi inicializada.
-  2. Se não, inicializa a lista com os perfis de login padrão.
-  3. Retorna a lista de perfis de login padrão.
-- **Retorno**: Uma lista de `PerfilLoginEnum` representando os perfis de login padrão (Cliente, ContatoB2B, Vendedor, Supervisor, Gerente, VendaDireta).
+### Título: PerfisLoginPadrao (Visibilidade: Pública)
+- **Objetivo**: Garantir que a lista de perfis de login padrão esteja sempre disponível e atualizada para usuários internos.
+- **Comportamento**: Verifica se a lista `_perfisLoginPadrao` está inicializada. Se não estiver, inicializa essa lista com os perfis padrão (Cliente, ContatoB2B, Vendedor, Supervisor, Gerente e VendaDireta). 
+- **Retorno**: Retorna uma lista dos perfis de login padrão representados pelo enumerador `PerfilLoginEnum`.
 
-### Título: PerfisLoginParceiros (Público)
-- **Objetivo**: Garante que os perfis de login solicitados por plataformas externas, que requerem autorização, sejam apresentados de forma consistente.
-- **Comportamento**: 
-  1. Verifica se a lista `_perfisLoginParceiros` já foi inicializada.
-  2. Se não, inicializa a lista com os perfis de login de parceiros.
-  3. Retorna a lista de perfis de login de parceiros.
-- **Retorno**: Uma lista de `PerfilLoginEnum` representando os perfis de login de parceiros (Autorizacao, Chatbot).
+### Título: PerfisLoginParceiros (Visibilidade: Pública)
+- **Objetivo**: Fornecer acesso à lista de perfis de login parceiros que requerem autorização externa.
+- **Comportamento**: Realiza uma verificação para garantir que a lista `_perfisLoginParceiros` esteja inicializada. Se não estiver, inicializa-a com os perfis de login que requerem autorização (Autorizacao e Chatbot). 
+- **Retorno**: Retorna uma lista dos perfis de login associados a plataformas externas.
 
 ## Propriedades Calculadas e de Validação
-- `PerfisLoginPadrao`: Garante que apenas perfis de login padrão válidos e necessários para a operação do sistema sejam disponibilizados.
-- `PerfisLoginParceiros`: Garante que apenas perfis de login de parceiros válidos sejam disponibilizados conforme especificado.
+Não existem propriedades calculadas ou de validação que implementem lógica adicional.
 
 ## Navigations Property
-Não há propriedades de navegação complexas para esta classe.
+Não há propriedades que sejam classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- Enumerador: 
-  - `[PerfilLoginEnum](PerfilLoginEnum.md)`
+- **Enumeradores**:
+  - [PerfilLoginEnum](PerfilLoginEnum.md): Utilizado para definir os diferentes tipos de perfis de login.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PerfilLogin {
+        <<Static>>
         +List<PerfilLoginEnum> PerfisLoginPadrao
         +List<PerfilLoginEnum> PerfisLoginParceiros
     }
     class PerfilLoginEnum {
-        <<enumeration>>
-        Cliente
-        ContatoB2B
-        Vendedor
-        Supervisor
-        Gerente
-        Autorizacao
-        VendaDireta
-        Chatbot
+        <<Enum>>
+        +Cliente
+        +ContatoB2B
+        +Vendedor
+        +Supervisor
+        +Gerente
+        +Autorizacao
+        +VendaDireta
+        +Chatbot
     }
-    
-    PerfilLogin --|> PerfilLoginEnum : contém
+    PerfilLogin --> PerfilLoginEnum
 ```
+---
+Gerada em 29/12/2025 20:58:53

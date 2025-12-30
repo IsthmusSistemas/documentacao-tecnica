@@ -1,6 +1,7 @@
 # RegistroProdutoCliente
+- **Namespace**: IsthmusWinthor.Dominio.Analytics.Produtos
+- **Nome do Arquivo**: RegistroProdutoCliente.cs
 
-**Namespace**: IsthmusWinthor.Dominio.Analytics.Produtos  
-**Nome do Arquivo**: RegistroProdutoCliente.cs
-
-> A classe `RegistroProdutoCliente` serve como uma estrutura de transporte de dados, especificamente projetada para encapsular informações relacionadas ao registro de acesso ao produto por um cliente, que será enviado para a fila de processamento.
+> Classe DTO para transporte de dados relacionada ao registro de acesso ao produto, contendo informações de distribuição e cliente.
+---
+Gerada em 29/12/2025 20:08:56

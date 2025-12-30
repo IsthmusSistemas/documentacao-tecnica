@@ -1,5 +1,7 @@
 # PesquisaAvancadaMonitoramentoPix
-**Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: PesquisaAvancadaMonitoramentoPix.cs  
+- **Namespace**: IsthmusWinthor.Dominio.POCO
+- **Nome do Arquivo**: PesquisaAvancadaMonitoramentoPix.cs
 
-Esta classe atua como um Data Transfer Object (DTO) usado para transportar informações relacionadas à pesquisa avançada de monitoramento de transações via Pix. Ela é utilizada para facilitar a comunicação de dados entre diferentes camadas do sistema, mas não contém lógica de negócio.
+Esta classe é um Data Transfer Object (DTO) que serve para transportar os dados relacionados à pesquisa avançada de monitoramento de transações Pix no sistema.
+---
+Gerada em 29/12/2025 21:37:11

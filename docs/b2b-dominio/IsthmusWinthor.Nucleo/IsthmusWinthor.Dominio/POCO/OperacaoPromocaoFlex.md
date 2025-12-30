@@ -2,4 +2,6 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: OperacaoPromocaoFlex.cs  
 
-Esta classe é um Data Transfer Object (DTO) que tem como finalidade o transporte de dados relacionados às operações de promoção flexíveis em um sistema de gestão comercial.
+Esta classe é um DTO (Data Transfer Object) que serve para transportar dados relacionados a uma operação de promoção flexível em um sistema de gestão de produtos e distribuidoras.
+---
+Gerada em 29/12/2025 21:36:56

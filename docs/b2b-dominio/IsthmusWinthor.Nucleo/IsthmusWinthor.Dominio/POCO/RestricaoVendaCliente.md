@@ -1,39 +1,32 @@
 # RestricaoVendaCliente
 
-- **Namespace**: IsthmusWinthor.Dominio.POCO
-- **Nome do Arquivo**: RestricaoVendaCliente.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO  
+**Nome do Arquivo**: RestricaoVendaCliente.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `RestricaoVendaCliente` representa as restrições aplicáveis às vendas de um cliente específico em uma distribuidora. Ela armazena informações sobre restrições de produtos e valores mínimos de venda, garantindo que as transações comerciais sejam realizadas de acordo com as regras de negócios predefinidas. Assim, assegura que a empresa não participe de vendas que não atendem os critérios estabelecidos, minimizando riscos financeiros e promovendo a conformidade de vendas.
+A classe `RestricaoVendaCliente` é responsável por gerenciar as restrições aplicáveis às vendas por cliente em uma distribuidora. Ela é fundamental para garantir que as vendas estejam em conformidade com políticas específicas, permitindo que o sistema controle quais produtos e condições de pagamento são válidos para cada cliente. Isso minimiza riscos financeiros e melhora a eficiência do processo de vendas.
 
 ## Métodos de Negócio
 
-### Título: Key() - Público
-**Objetivo**: Garante uma chave única para armazenar em cache restrições de venda para um cliente específico.  
-**Comportamento**: 
-1. Recebe `DistribuidoraId` e `CodigoCliente` como parâmetros.
-2. Gera uma chave no formato que possibilita o fácil acesso às restrições no armazenamento em cache Redis.
-
-**Retorno**: Retorna uma string que representa a chave única para acessar as restrições de venda do cliente.
-
----
+### Título: Key() – Public
+- **Objetivo**: Gera uma chave única para armazenar e recuperar dados em cache relacionados a uma restrição de venda de um cliente.
+- **Comportamento**: A chave é construída utilizando a `DistribuidoraId` e o `CodigoCliente`, permitindo a identificação rápida de informações em um sistema de cache.
+- **Retorno**: Retorna uma string que serve como chave de cache específica para as restrições de venda deste cliente na distribuidora.
 
 ## Propriedades Calculadas e de Validação
-- **`RestricoesProdutos`**: Possui lógica no método `IsValido()`, que valida as restrições de um produto.
-  - **Regra**: Para que uma restrição de produto seja considerada válida, pelo menos um dos campos: `CodigoProduto`, `CodigoSeção`, `CodigoMarca`, `CodigoBarras`, `ClasseProduto`, `CodigoDepartamento`, `CodigoFornecedor`, `CodigoRegiao`, ou `CodigoFilial` deve ser preenchido.
+- **RestricoesProdutos**: Esta lista contém objetos do tipo `RestricaoProduto`, que devem ser validados através do método `IsValido()`. Esse método garante que pelo menos uma propriedade de restrição relacionada ao produto esteja preenchida para considerar que a restrição é válida.
 
 ## Navigations Property
-- **`RestricoesProdutos`**: Uma lista de restrições de produtos vinculados à venda do cliente. 
-  - [RestricaoProduto](RestricaoProduto.md)
-  
-- **`RestricoesValorMinimo`**: Uma lista de objetos que define os valores mínimos para os planos de pagamento utilizados pelo cliente.
-  - [RestricaoValorMinimo](RestricaoValorMinimo.md)
-
-## Tipos Auxiliares e Dependências
 - [RestricaoProduto](RestricaoProduto.md)
 - [RestricaoValorMinimo](RestricaoValorMinimo.md)
 
+## Tipos Auxiliares e Dependências
+- **Enumeradores**: Nenhum enumerador encontrado nesta classe.
+- **Classes Estáticas/Helpers**: 
+   - [RedisKeys](RedisKeys.md)
+   
 ## Diagrama de Relacionamentos
+
 ```mermaid
 classDiagram
     class RestricaoVendaCliente {
@@ -44,9 +37,8 @@ classDiagram
         +List<RestricaoValorMinimo> RestricoesValorMinimo
         +string Key()
     }
-    
+
     class RestricaoProduto {
-        +long Codigo
         +long CodigoProduto
         +long CodigoSecao
         +long CodigoMarca
@@ -59,12 +51,14 @@ classDiagram
         +long CodigoVendedor
         +bool IsValido()
     }
-    
+
     class RestricaoValorMinimo {
         +long CodigoPlanoPagamento
         +decimal ValorMinimoVenda
     }
-    
-    RestricaoVendaCliente --> "0..*" RestricaoProduto : contém
-    RestricaoVendaCliente --> "0..*" RestricaoValorMinimo : possui
+
+    RestricaoVendaCliente --> "0..*" RestricaoProduto : contains
+    RestricaoVendaCliente --> "0..*" RestricaoValorMinimo : contains
 ```
+---
+Gerada em 29/12/2025 21:38:40

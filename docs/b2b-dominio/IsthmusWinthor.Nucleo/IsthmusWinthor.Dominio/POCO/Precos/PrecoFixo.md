@@ -3,51 +3,62 @@
 **Nome do Arquivo**: PrecoFixo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PrecoFixo` representa uma estrutura de preços aplicáveis aos medicamentos e produtos, incorporando lógicas específicas para cálculo de descontos e condições promocionais. Seu objetivo principal é gerenciar e calcular preços promocionais com base em regras de negócio, levando em consideração condições como quantidade e promoções específicas para distribuidoras ou produtos.
+A classe `PrecoFixo` representa a modelagem de preços fixos de produtos, integrando diferentes códigos de promoção e permitindo o cálculo de descontos baseado em condições comerciais específicas. Ela resolve o problema de aplicação de promoções múltiplas, cálculos de percentuais de desconto e a adaptação dinâmica do preço baseado em condições variadas de venda.
 
 ## Métodos de Negócio
 
-### Título: `CalcularPercentualDesconto` (public)
-- **Objetivo**: Garante a correta determinação do percentual de desconto aplicável ao preço de venda promocional com base no preço do cliente.
+### CalcularPercentualDesconto (public)
+- **Objetivo**: Este método garante que o percentual de desconto a ser aplicado no preço do cliente considere quaisquer acréscimos ou descontos adicionais definidos no objeto `PrecoFixo`.
 - **Comportamento**:
-  1. Verifica se o `PercentualDescontoFaixaQuantidade` é diferente de zero.
-  2. Se houver um desconto aplicado, reduz o `precoCliente` de acordo com esse percentual.
-  3. Calcula o percentual de desconto considerando a diferença entre o preço do cliente e o preço promocional.
-  4. Armazena o valor calculado em `PercentualDesconto`, arredondando-o para o número de casas decimais especificado.
-- **Retorno**: Este método não retorna valor, mas atualiza a propriedade `PercentualDesconto`.
+  1. Verifica se existe um percentual de desconto baseado em faixas de quantidade.
+  2. Se existir, ajusta o `precoCliente` subtraindo o desconto aplicado.
+  3. Calcula o percentual de desconto em relação ao `PrecoPromocional`.
+  4. Armazena o percentual arredondado na propriedade `PercentualDesconto`, garantindo que não seja negativo.
+- **Retorno**: O método não retorna um valor, mas atualiza a propriedade `PercentualDesconto`.
 
-### Título: `AplicarCondicaoPharmalink` (public)
-- **Objetivo**: Aplica um desconto específico relacionado ao Pharmalink no preço promocional.
+```mermaid
+flowchart TD
+    A[Início] --> B{PercentualDescontoFaixaQuantidade != 0m}
+    B -- Sim --> C[Ajustar precoCliente]
+    C --> D[Calcular percentual]
+    B -- Não --> D
+    D --> E[Verificar percentual > 0]
+    E -- Sim --> F[Armazenar percentual arredondado]
+    E -- Não --> G[Definir percentual como 0]
+    F --> H[Fim]
+    G --> H
+```
+
+### AplicarCondicaoPharmalink (public)
+- **Objetivo**: Aplica um desconto específico baseado em condições Pharmlink ao preço promocional do produto.
 - **Comportamento**:
-  1. Calcula o novo `PrecoPromocional` considerando o desconto recebido.
+  1. Calcula o novo `PrecoPromocional` subtraindo o percentual de desconto fornecido.
   2. Armazena o valor do desconto aplicado na propriedade `DescontoPharmalink`.
-- **Retorno**: Este método não retorna valor, mas atualiza as propriedades `PrecoPromocional` e `DescontoPharmalink`.
+- **Retorno**: O método não retorna um valor, mas atualiza `PrecoPromocional` e `DescontoPharmalink`.
 
-### Título: `AplicarCondicaoIsthmusIndustria` (public)
-- **Objetivo**: Aplica um desconto específico relacionado à Isthmus na indústria ao preço promocional.
+### AplicarCondicaoIsthmusIndustria (public)
+- **Objetivo**: Aplica um desconto específico fornecido pela indústria ao preço promocional do produto.
 - **Comportamento**:
-  1. Similar ao método anterior, recalcula o `PrecoPromocional` com base no desconto fornecido.
-  2. Armazena o valor do desconto na propriedade `DescontoIsthmusIndustria`.
-- **Retorno**: Este método não retorna valor, mas atualiza as propriedades `PrecoPromocional` e `DescontoIsthmusIndustria`.
+  1. Calcula o novo `PrecoPromocional` subtraindo o percentual de desconto fornecido.
+  2. Armazena o valor do desconto aplicado na propriedade `DescontoIsthmusIndustria`.
+- **Retorno**: O método não retorna um valor, mas atualiza `PrecoPromocional` e `DescontoIsthmusIndustria`.
 
 ## Propriedades Calculadas e de Validação
 
-### Propriedade: `CodigoPromocao`
-- **Regra**: Retorna o `CodigoPromocaoMedicamento` se este for maior que zero, caso contrário, fornece o `CodigoPromocaoDistribuidor`.
+### DescricaoVencimetoPromocao
+- **Regra**: Retorna uma string formatada que representa a data de término da promoção caso exista. Se não houver uma data final, retorna uma string vazia.
 
-### Propriedade: `DescricaoCondicaoPromocao`
-- **Regra**: Retorna uma descrição das condições promocionais em função da quantidade, utilizando lógica interna da classe.
+### DescricaoCondicaoPromocao
+- **Regra**: Verifica se a promoção se aplica por quantidade, retornando uma descrição formatada que indica as condições de quantidade para a promoção.
 
-### Propriedade: `DescricaoVencimetoPromocao`
-- **Regra**: Retorna uma descrição de vencimento da promoção formatada, se `DataFim` estiver definida.
-
-## Navigation Properties
-
-- `TributacaoErp`: `[TributacaoErp](TributacaoErp.md)`
+## Navigations Property
+- [TributacaoErp](TributacaoErp.md)
 
 ## Tipos Auxiliares e Dependências
-
-- `TributacaoErp`: `[TributacaoErp](TributacaoErp.md)`
+- **Enums**:
+  - Nenhum
+- **Classes Estáticas/Helpers**:
+  - [TributacaoErp](TributacaoErp.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -60,12 +71,10 @@ classDiagram
         +decimal PrecoPromocional
         +TributacaoErp TributacaoErp
         +decimal PercentualDesconto
-        ...
+        +decimal DescontoPharmalink
+        +decimal DescontoIsthmusIndustria
     }
-
-    class TributacaoErp {
-        ...
-    }
-
-    PrecoFixo --> TributacaoErp
+    PrecoFixo --> TributacaoErp : utiliza
 ```
+---
+Gerada em 29/12/2025 21:51:44

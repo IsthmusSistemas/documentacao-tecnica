@@ -1,22 +1,25 @@
 # DistribuidoraEmail
+
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: DistribuidoraEmail.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DistribuidoraEmail` representa um modelo do domínio que encapsula informações sobre os e-mails de contato de uma distribuidora. Ela é responsável por garantir que os e-mails estejam vinculados a uma distribuidora específica e categorizados de acordo com o tipo de contato. O objetivo principal é facilitar a gestão e a comunicação por e-mail dentro do sistema.
+A classe `DistribuidoraEmail` representa a entidade que relaciona um endereço de e-mail a uma distribuidora específica. Essa classe é fundamental para o gerenciamento dos contatos de e-mail das distribuidoras, permitindo que o sistema mantenha registros de comunicação de forma organizada e eficiente. O problema de negócio que ela resolve é garantir que cada distribuidora tenha um ou mais e-mails associados, permitindo que a comunicação com clientes e fornecedores possa ser feita de maneira eficaz.
+
+## Métodos de Negócio
+- **Título**: Nenhum método de negócio complexo encontrado.  
+  - **Objetivo**: N/A  
+  - **Comportamento**: N/A  
+  - **Retorno**: N/A  
 
 ## Propriedades Calculadas e de Validação
-- **Endereco**
-  - Esta propriedade deve armazenar um e-mail válido. A validação deve ser implementada para garantir que o formato do e-mail esteja correto antes de ser atribuído.
-
-- **TipoEmail**
-  - Esta propriedade deve assegurar que o tipo de contato associado ao e-mail seja apropriado para a função específica no contexto da distribuidora.
+- `Endereco`: Esta propriedade armazena o endereço de e-mail e deve ser validada no momento da inserção ou atualização, garantindo que o formato do e-mail esteja correto. Regra de validação: um endereço de e-mail deve conter um "@" e um domínio válido.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`: Esta propriedade representa a relação com a classe `Distribuidora`, indicando que a `DistribuidoraEmail` está associada a uma única distribuidora.
+- [Distribuidora](Distribuidora.md): Representa a classe que define a distribuidora associada a este e-mail.
 
 ## Tipos Auxiliares e Dependências
-- `[TipoContato](TipoContato.md)`: Este enumerador define os possíveis tipos de e-mail de contato (ex: Comercial, Suporte, etc.) utilizados na classe `DistribuidoraEmail`.
+- [TipoContato](TipoContato.md): Enum que categoriza o tipo de contato do e-mail (por exemplo, comercial, suporte).
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -30,11 +33,18 @@ classDiagram
         +string Identificador
     }
     class Distribuidora {
-        +...
+        +long Id
+        +string Nome
     }
     class TipoContato {
-        +...
+        <<enumeration>>
+        COMERCIAL
+        SUPORTE
+        OUTRO
     }
+    
     DistribuidoraEmail --> Distribuidora
     DistribuidoraEmail --> TipoContato
 ```
+---
+Gerada em 29/12/2025 20:28:29

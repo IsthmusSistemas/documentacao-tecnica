@@ -1,8 +1,11 @@
 # DistribuidoraLogada
-
 **Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: DistribuidoraLogada.cs
+**Nome do Arquivo**: DistribuidoraLogada.cs  
 
-A classe `DistribuidoraLogada` é um DTO (Data Transfer Object) que serve para o transporte de dados relacionados à autenticação de uma distribuidora no sistema. Ela encapsula informações essenciais que identificam o estado e branding da distribuidora logada.
+Esta classe funciona como um DTO (Data Transfer Object), responsável pelo transporte de dados relacionados à autenticação de uma distribuidora em um sistema. 
 
+--- 
+
+Como a classe se qualifica como um DTO, não contém lógica de negócios, validações ou cálculos. A documentação se limita a descrever sua finalidade de transporte de dados.
 ---
+Gerada em 29/12/2025 21:32:36

@@ -2,19 +2,10 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: OpenErpStatusAutenticacaoEnum.cs  
 
-Este enum é utilizado para representar os diferentes estados de autenticação em um processo relacionado ao Open ERP. Ele fornece uma maneira de identificar facilmente a situação atual do fluxo de autenticação, permitindo que o sistema atue de acordo com cada status definido.
+Este enumerador contém os diferentes status de autenticação no sistema Open ERP, servindo como um meio de transporte para representar os estados em que o processo de autenticação pode se encontrar. 
 
 ## Tipos Auxiliares e Dependências
-- **Enums**:
-  - `[OpenErpStatusAutenticacaoEnum](OpenErpStatusAutenticacaoEnum.md)`
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class OpenErpStatusAutenticacaoEnum {
-        +Unauthorized
-        +EscolherDistribuidora
-        +GerarTokenJwt
-        +Autenticado
-    }
-```
+- **Enumeradores**:
+  - [OpenErpStatusAutenticacaoEnum](OpenErpStatusAutenticacaoEnum.md)
+---
+Gerada em 29/12/2025 20:58:04

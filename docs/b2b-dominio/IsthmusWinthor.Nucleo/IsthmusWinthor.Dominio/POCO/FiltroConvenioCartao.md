@@ -1,6 +1,9 @@
 # FiltroConvenioCartao
-- **Namespace**: IsthmusWinthor.Dominio.POCO
-- **Nome do Arquivo**: FiltroConvenioCartao.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO  
+**Nome do Arquivo**: FiltroConvenioCartao.cs  
 
-### Citação
-A classe `FiltroConvenioCartao` é um Data Transfer Object (DTO) utilizada para transportar informações de filtro relacionadas ao convênio de cartão em operações de sistema.
+O `FiltroConvenioCartao` é uma classe utilizada como um objeto de transporte de dados (DTO) para encapsular informações relacionadas ao filtro de convênios de cartão por filial. 
+
+Este DTO é responsável por transportar a propriedade `CodigoFilial`, que identifica uma filial específica e que pode ser utilizada em diferentes operações dentro do sistema, mas não contém lógica de negócio própria.
+---
+Gerada em 29/12/2025 21:34:13

@@ -1,6 +1,9 @@
 # IQueueMessage
 
-**Namespace**: IsthmusWinthor.Dominio  
-**Nome do Arquivo**: IQueueMessage.cs  
+- **Namespace**: IsthmusWinthor.Dominio
+- **Nome do Arquivo**: IQueueMessage.cs
 
-> A interface `IQueueMessage` é destinada ao transporte de dados de identificadores de mensagens e contagem de enfileiramento em implementações de filas.
+### Citação
+Esta interface define a estrutura básica para mensagens de fila, visando o transporte de dados relacionados às operações de enfileiramento.
+---
+Gerada em 29/12/2025 20:05:20

@@ -1,19 +1,26 @@
 # TipoImagem
-
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoImagem.cs  
 
-`TipoImagem` é um enumerador que representa os diferentes tipos de imagens que podem ser utilizados no sistema. Cada valor enum possui um conhecimento semântico específico, ajudando a definir a finalidade e o contexto de uso da imagem dentro do domínio da aplicação.
+O `TipoImagem` é um enumerador que define os diferentes tipos de imagens utilizados dentro do sistema. Sua finalidade é proporcionar uma forma clara e padronizada de identificar e categorizar as imagens em um sistema, permitindo que diferentes partes da aplicação tratem essas imagens de forma consistente e entendível.
+
+## Métodos de Negócio
+- Este enumerador não contém métodos com lógica de negócio; ele é puramente uma definição de tipos.
+
+## Propriedades Calculadas e de Validação
+- Não aplicável, pois este é um enumerador sem propriedades que contenham lógica de cálculo ou validação.
+
+## Navigation Property
+- Não há propriedades de navegação, uma vez que este é um tipo enumerado.
 
 ## Tipos Auxiliares e Dependências
-- Nenhuma classe estática ou helper especial.
-- Enum: `[TipoImagem](TipoImagem.md)`
+- Nenhum tipo auxiliar adicional ou dependências são listados para este enumerador.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoImagem {
-        <<enum>>
+        <<enumeration>>
         +Banner
         +Faixa
         +Logotipo
@@ -36,4 +43,5 @@ classDiagram
         +LogotipoAplicativo
     }
 ```
-
+---
+Gerada em 29/12/2025 21:04:37

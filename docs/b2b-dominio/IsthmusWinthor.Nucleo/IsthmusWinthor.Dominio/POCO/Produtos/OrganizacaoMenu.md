@@ -1,36 +1,35 @@
 # OrganizacaoMenu
-
 **Namespace**: IsthmusWinthor.Dominio.POCO.Produtos  
 **Nome do Arquivo**: OrganizacaoMenu.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `OrganizacaoMenu` atua como um modelo para gerenciar as informações de menu relacionadas à organização de produtos em um sistema de distribuição. Ela é responsável por fornecer dados relevantes sobre a distribuidora associada e os departamentos que estão disponíveis para o cliente logado. Este modelo é fundamental para garantir que os usuários tenham acesso adequado às informações de produtos de acordo com sua organização e seu perfil.
+A classe `OrganizacaoMenu` representa a estrutura de informações para organizar o menu de um sistema de distribuição de produtos. Ela desempenha um papel crítico em garantir que as informações da distribuidora e do cliente logado estejam disponíveis para a construção da interface de navegação do sistema. Isso permite que o sistema personalize a visualização e as opções de menu com base na distribuidora e tipo de cliente, assegurando uma experiência mais adequada e segmentada.
 
 ## Métodos de Negócio
-A classe `OrganizacaoMenu` é composta interamente por propriedades e não contém métodos de negócio com lógica implementada, portanto não há métodos a serem documentados nesta seção.
+Nenhum método com lógica de negócio foi identificado nesta classe.
 
 ## Propriedades Calculadas e de Validação
-A classe não possui propriedades que implementem lógica em seu `get` ou validação em seu `set`.
+Nenhuma propriedade com lógica de cálculo ou validação foi identificada nesta classe.
 
 ## Navigations Property
-- `Departamentos`: lista de departamentos que são classes complexas do domínio. Presumindo que existe uma classe `DepartamentoSite`, o link para ela é: [DepartamentoSite](DepartamentoSite.md).
+- `Departamentos`: [DepartamentoSite](DepartamentoSite.md)
 
 ## Tipos Auxiliares e Dependências
-Não existem enumeradores ou classes estáticas/helpers utilizadas diretamente na classe `OrganizacaoMenu`.
+Nenhum enumerador ou classe estática foi identificado como dependência nesta classe.  
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class OrganizacaoMenu {
-        +long DistribuidoraId
-        +long ClienteLogadoId
-        +List<DepartamentoSite> Departamentos
-        +bool DistribuidoraDeMedicamentos
+        + long DistribuidoraId
+        + long ClienteLogadoId
+        + List<DepartamentoSite> Departamentos
+        + bool DistribuidoraDeMedicamentos
     }
-
     class DepartamentoSite {
-        <<class>>
+        + // Definições de propriedades
     }
-
-    OrganizacaoMenu --> DepartamentoSite : possui
+    OrganizacaoMenu "1" -- "*" DepartamentoSite : contém
 ```
+---
+Gerada em 29/12/2025 22:00:23

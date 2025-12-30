@@ -3,34 +3,41 @@
 **Nome do Arquivo**: FiltroBusca.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `FiltroBusca` representa uma estrutura de filtragem utilizada na pesquisa de produtos. Seu papel é encapsular as condições de busca que o sistema deve aplicar ao executar consultas relacionadas a produtos. Isso inclui determinar qual campo pesquisar, o valor a ser buscado e a natureza da comparação (se a busca deve considerar igualdade ou diferença). Essa abordagem ajuda a garantir que as operações de busca sejam flexíveis e adaptáveis às necessidades do usuário.
+A classe `FiltroBusca` representa um filtro utilizado na busca de produtos em um sistema, permitindo que as consultas sejam realizadas com base em campos específicos e valores fornecidos. Essa classe é fundamental para facilitar a localização de produtos dentro de um catálogo, promovendo uma pesquisa mais eficiente e dirigida, atendendo à necessidade do usuário de encontrar rapidamente itens que atendam a critérios específicos.
 
 ## Métodos de Negócio
-### Construtores
-#### Construtor: `FiltroBusca()`
-- **Objetivo**: Inicializa um novo objeto `FiltroBusca` sem parâmetros, permitindo a configuração posterior.
-- **Comportamento**: Cria uma instância vazia da classe.
-- **Retorno**: Não retorna valor; é um construtor.
 
-#### Construtor: `FiltroBusca(CampoBuscaProduto campoFiltrar, string valorFiltrar, bool filtroIgualdade)`
-- **Objetivo**: Permite a criação de um novo filtro com parâmetros configurados, definindo qual campo filtrar e o valor de filtragem com uma condição de igualdade.
-- **Comportamento**: Atribui `CampoFiltrar`, `ValorFiltrar` e `FiltroIgualdade` conforme os parâmetros fornecidos.
-- **Retorno**: Não retorna valor; é um construtor.
+### Construtor: `FiltroBusca()`
+**Objetivo**: Inicializa uma nova instância da classe `FiltroBusca` com valores padrão.  
+**Comportamento**: Este construtor não recebe parâmetros e simplesmente cria um objeto vazio, possibilitando que suas propriedades sejam configuradas posteriormente.  
+**Retorno**: Não aplica.
 
-#### Construtor: `FiltroBusca(CampoBuscaProduto campoFiltrar, string valorFiltrar)`
-- **Objetivo**: Inicializa o filtro utilizando um campo e um valor, com a condição de igualdade padrão para `true`.
-- **Comportamento**: Atribui `CampoFiltrar` e `ValorFiltrar`, definindo automaticamente `FiltroIgualdade` como `true`.
-- **Retorno**: Não retorna valor; é um construtor.
+### Construtor: `FiltroBusca(CampoBuscaProduto campoFiltrar, string valorFiltrar, bool filtroIgualdade)`
+**Objetivo**: Inicializa uma nova instância da classe `FiltroBusca` configurando os campos de filtragem, o valor a ser filtrado e o modo de comparação.  
+**Comportamento**: Este construtor recebe como parâmetros:
+ - `campoFiltrar`: O campo do produto a ser utilizado para a pesquisa.
+ - `valorFiltrar`: O valor que será comparado no filtro.
+ - `filtroIgualdade`: Determina se a busca será realizada por igualdade ou por diferença.  
+**Retorno**: Não aplica.
+
+### Construtor: `FiltroBusca(CampoBuscaProduto campoFiltrar, string valorFiltrar)`
+**Objetivo**: Inicializa uma nova instância da classe `FiltroBusca` definindo o campo e o valor para a busca, utilizando o modo de comparação padrão (igualdade).  
+**Comportamento**: Este construtor chama o outro, configurando o `FiltroIgualdade` como `true`, garantindo que a busca seja feita por igualdade.  
+**Retorno**: Não aplica.
 
 ## Propriedades Calculadas e de Validação
-- **FiltroIgualdade**: Indica se a filtragem deve ser feita considerando igualdade (`true`) ou diferença (`false`). A lógica por trás dessa propriedade garante que, quando o campo buscado for de tipo booleano, a comparação sempre será considerada como uma busca por igualdade, assegurando que o comportamento do filtro seja intuitivo.
+
+### `FiltroIgualdade`
+Esta propriedade determina como a busca é realizada. Se `true`, o filtro busca por igualdade (ex: produtos que têm exatamente o valor especificado). Se `false`, a busca retorna itens que não correspondem ao valor, exceto quando o campo buscado for do tipo `bool`, onde o filtro é sempre aplicado por igualdade.
 
 ## Navigations Property
-Nenhuma propriedade corresponde a classes complexas do domínio.
+
+- [CampoBuscaProduto](CampoBuscaProduto.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - [`CampoBuscaProduto`](CampoBuscaProduto.md): Enumerador que representa os diferentes campos que podem ser utilizados para filtrar produtos.
+
+- [CampoBuscaProduto](CampoBuscaProduto.md)
+- Considerações sobre tipos de filtro em `CampoBuscaProduto`, que lista os possíveis campos que podem ser utilizados para filtrar produtos.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -40,5 +47,10 @@ classDiagram
         +string ValorFiltrar
         +bool FiltroIgualdade
     }
+    class CampoBuscaProduto {
+        <<enumerador>>
+    }
     FiltroBusca --> CampoBuscaProduto
 ```
+---
+Gerada em 29/12/2025 21:47:52

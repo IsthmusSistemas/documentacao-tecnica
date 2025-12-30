@@ -1,26 +1,28 @@
 # IndiceLogicApp
-**Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: IndiceLogicApp.cs  
+- **Namespace**: IsthmusWinthor.Dominio.POCO
+- **Nome do Arquivo**: IndiceLogicApp.cs
 
 ## Visão Geral e Responsabilidade
-A classe `IndiceLogicApp` atua como um modelo de domínio que encapsula uma coleção de itens do tipo `IndiceItemLogicApp`, oferecendo uma estrutura para agrupamento e manipulação dessas entidades, garantindo assim a integridade e a coesão dos dados. Ela é responsável por gerenciar o acesso aos itens e fornecer uma chave única para cache através de seu método `Key()`, fundamental para o armazenamento eficiente em sistemas baseados em cache, como Redis. Essa funcionalidade é essencial para otimizar a performance da aplicação que consome estes dados.
+A classe `IndiceLogicApp` atua como um agregador para uma coleção de itens do tipo `IndiceItemLogicApp`. Sua responsabilidade principal é fornecer uma interface para acesso a esta coleção, além de implementar a funcionalidade de cache através da interface `ICacheable`. Este design promove a eficiência no acesso e gerenciamento dos itens de índice em um contexto de aplicação lógica.
 
 ## Métodos de Negócio
 
-### Método: `Key()` (public)
-- **Objetivo**: Garante a geração de uma chave única para a instância da classe, que pode ser utilizada para armazenamento em cache.
-- **Comportamento**: O método invoca a função `RedisKeys.IndiceLogicApp()` para obter a chave específica do índice. Esta chave é utilizada para identificar de forma única o conjunto de dados representado por esta instância no cache, o que é crítico em operações que exigem alta performance.
-- **Retorno**: Retorna uma string que representa a chave de cache para a instância do `IndiceLogicApp`.
+### Título: Key() - Público
+- **Objetivo**: Este método gera e retorna uma chave única para o cache de instâncias de `IndiceLogicApp`. Ele garante que cada instância possa ser identificada de forma consistente no sistema de cache.
+- **Comportamento**: 
+  1. O método chama a função `RedisKeys.IndiceLogicApp()` que gera uma chave referencial para armazenar e recuperar esta coleção de itens em um cache Redis.
+- **Retorno**: Retorna uma string que representa a chave única do cache para essa instância de `IndiceLogicApp`.
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades com lógica complexa no `get` ou validação no `set` nesta classe.
+Não há propriedades calculadas ou de validação que contenham lógica de cálculo no `get` ou validação no `set`.
 
-## Navigation Property
-- `Itens`: Este é um conjunto de itens do tipo `[IndiceItemLogicApp](IndiceItemLogicApp.md)`, representando os elementos que compõem o índice. 
+## Navigations Property
+- `Itens`: Propriedade que contém uma coleção de classes complexas do domínio:
+  - [IndiceItemLogicApp](IndiceItemLogicApp.md)
 
 ## Tipos Auxiliares e Dependências
-- `IndiceItemLogicApp`: [IndiceItemLogicApp](IndiceItemLogicApp.md)
-- `RedisKeys`: Classe que fornece métodos para geração de chaves para cache.
+- Interface: [ICacheable](ICacheable.md)
+- Classe: [RedisKeys](RedisKeys.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -29,11 +31,24 @@ classDiagram
         +IEnumerable<IndiceItemLogicApp> Itens
         +string Key()
     }
-    class IndiceItemLogicApp
-    class RedisKeys {
-        +static string IndiceLogicApp()
+
+    class IndiceItemLogicApp {
+        <<entity>>
     }
-    
-    IndiceLogicApp --> IndiceItemLogicApp
-    IndiceLogicApp --> RedisKeys
+
+    class ICacheable {
+        <<interface>>
+        +string Key()
+    }
+
+    class RedisKeys {
+        <<static>>
+        +string IndiceLogicApp()
+    }
+
+    IndiceLogicApp "1" -- "0..*" IndiceItemLogicApp : contém
+    IndiceLogicApp -- ICacheable
+    IndiceLogicApp -- RedisKeys
 ```
+---
+Gerada em 29/12/2025 21:35:42

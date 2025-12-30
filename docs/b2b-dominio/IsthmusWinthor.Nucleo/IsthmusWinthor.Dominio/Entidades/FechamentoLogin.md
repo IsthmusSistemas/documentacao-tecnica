@@ -1,21 +1,21 @@
 # FechamentoLogin
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: FechamentoLogin.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: FechamentoLogin.cs
 
 ## Visão Geral e Responsabilidade
-A classe `FechamentoLogin` atua como um modelo de domínio que representa o fechamento de sessão de um login para um sistema, associado a uma `Distribuidora`. A responsabilidade principal desta classe é registrar o início e o fim das sessões de login, além de fornecer informações como título e mensagem associadas ao fechamento. Ela endereça a necessidade de rastrear e gerenciar sessões de login de forma estruturada, essencial para auditoria e controle de acesso.
+A classe `FechamentoLogin` representa um modelo de domínio que encapsula a lógica relacionada ao fechamento de uma sessão de login em uma distribuidora. Sua principal responsabilidade é efetuar o controle e registro dos períodos em que a distribuidora está logada no sistema, permitindo assim uma melhor gestão do tempo de operação e análise de dados referentes aos acessos.
 
 ## Métodos de Negócio
-*Este modelo não possui métodos que apresentem lógica complexa ou relevantes, portanto, não foram detalhados neste documento.*
+Atualmente, a classe `FechamentoLogin` não possui métodos com lógica de negócios incluída, além de getters e setters simples.
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades na classe que apresentem lógica no `get` ou validação no `set`.
+A classe não contém propriedades com lógica complexa no `get` ou validações significativas no `set`, dado que todas as propriedades são anêmicas e, portanto, carecem de regras específicas de negócio neste nível.
 
 ## Navigations Property
-- [Distribuidora](Distribuidora.md)
+- `Distribuidora`: [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-- Não utiliza tipos auxiliares ou enumeradores, exceto o tipo nativo `DateTime`.
+- Nenhum enumerador ou classe auxiliar específica é utilizada nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -27,10 +27,11 @@ classDiagram
         +string Titulo
         +string Mensagem
     }
-
     class Distribuidora {
-        +Id
-    } 
+        <<interface>>
+    }
 
-    FechamentoLogin --> Distribuidora : Associacao
+    FechamentoLogin --> Distribuidora : relacional
 ```
+---
+Gerada em 29/12/2025 20:31:16

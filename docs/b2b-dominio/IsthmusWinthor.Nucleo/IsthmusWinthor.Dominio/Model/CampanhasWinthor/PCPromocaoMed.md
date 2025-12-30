@@ -1,49 +1,56 @@
 # PCPromocaoMed
 
-- **Namespace**: IsthmusWinthor.Dominio.Model.CampanhasWinthor
-- **Nome do Arquivo**: PCPromocaoMed.cs
+**Namespace**: IsthmusWinthor.Dominio.Model.CampanhasWinthor  
+**Nome do Arquivo**: PCPromocaoMed.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PCPromocaoMed` representa uma promoção no sistema, gerenciando as informações relacionadas a campanhas promocionais específicas. Ela define as regras para a criação, validade e características de uma promoção, permitindo que o sistema gerencie promoções de forma coerente e controlada. O principal problema de negócio que ela resolve é a necessidade de ter uma estrutura organizada e validada para campanhas promocionais, garantindo que os dados estejam corretos e as promoções sigam as regras predefinidas.
+A classe `PCPromocaoMed` representa uma promoção médica, que possui uma validade pré-definida e uma série de atributos específicos relacionados ao gerenciamento de promoções dentro de um sistema corporativo. Esta classe é fundamental para o gerenciamento eficiente das operações promocionais, assegurando que as regras de negócio sejam seguidas, como a validade das promoções e as restrições associadas a elas.
 
 ## Métodos de Negócio
+### Método: Construtor `PCPromocaoMed` (public)
+**Objetivo**: Este método garante a criação de uma nova instância de promoção médica com as informações necessárias para identificação e condição de uso da promoção.
 
-### `PCPromocaoMed(string descricaoResumida, string descricaoDetalhada, int codigoFuncionario)`
-- **Objetivo**: Inicializa uma nova instância da promoção médica com os detalhes básicos e a data de validade da promoção.
-- **Comportamento**:
-  1. Define a data inicial da promoção como a data atual.
-  2. Adiciona 7 dias à data inicial para definir a data final da promoção.
-  3. Atribui as descrições, código do funcionário e as datas para as propriedades correspondentes.
-  4. Inicializa o identificador da promoção como um valor fixo definido na classe `PCPromocaoMedIdentificador`.
-- **Retorno**: A classe não retorna um valor, mas cria uma nova instância da promoção com as propriedades definidas.
+**Comportamento**:
+1. Inicializa a data inicial como o dia atual.
+2. Define a data final adicionando 7 dias à data inicial, estabelecendo o período de validade da promoção.
+3. Atribui os parâmetros de descrição resumida e detalhada fornecidos, assim como o código do funcionário responsável pela criação da promoção.
+4. Define as propriedades de identificação, tipo, e as regras padrão da promoção.
 
-### `ValidarIntervaloValidadeProd`
-**Nota**: A propriedade `ValidarIntervaloValidadeProd` parece estar pendente de implementação, não há lógica explícita descrita no código fornecido.
+**Retorno**: Este método não retorna valor, mas cria uma instância da promoção médica com as propriedades definidas.
 
 ## Propriedades Calculadas e de Validação
-- `DataFinal`: Esta propriedade é calculada a partir `DataInicial` adicionando um período fixo de 7 dias. Isso garante que a promoção tenha um período de validade bem definido.
-  
-## Navigations Property
-Não há propriedades que sejam classes complexas do domínio nesta classe.
+- **IdentificadorPromocao**: Identifica a promoção utilizando um valor fixo "WVERB".
+- **DataFinal**: Cálculo baseado na data atual e no período de validade definido.
+
+## Navigation Property
+- `CodFuncLanc`: O código do funcionário que lançou a promoção.
+- `CodFuncUltAlterBloq`: O código do funcionário responsável pela última alteração que bloqueou a promoção.
+- `CodSolicitante`: O código do funcionário solicitante da promoção.
 
 ## Tipos Auxiliares e Dependências
-- `[PCPromocaoMedIdentificador](PCPromocaoMedIdentificador.md)`: Classe auxiliar que define o identificador da promoção médica.
+- Enumeradores e Classes Auxiliares não especificadas diretamente no código, mas a classe depende do sistema que a envolvem, como gerenciamento de promoções e usuários.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PCPromocaoMed {
         +string CodPromocaoMed
+        +string IdentificadorPromocao
+        +string TipoPolitica
         +string DescricaoResumida
         +string DescricaoDetalhada
         +DateTime DataInicial
         +DateTime DataFinal
-        +string IdentificadorPromocao
+        +string TipoPromocao
+        +int CodFuncLanc
+        +string Bloqueio
+        +int CodFuncUltAlterBloq
+        +DateTime DtUltAlterBloq
+        +int CodSolicitante
     }
-    
-    class PCPromocaoMedIdentificador {
-        +string IdentificadorPromocao
-    }
-    
-    PCPromocaoMed o-- PCPromocaoMedIdentificador : usa >
+    PCPromocaoMed --> CodFuncLanc
+    PCPromocaoMed --> CodFuncUltAlterBloq
+    PCPromocaoMed --> CodSolicitante
 ```
+---
+Gerada em 29/12/2025 21:20:24

@@ -2,19 +2,22 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoCalculoEntrega.cs  
 
-`TipoCalculoEntrega` é um enumerador que define os tipos de cálculo de entrega disponíveis no sistema. Ele é utilizado para modularizar e controlar a lógica relacionada ao planejamento de entregas, permitindo que o sistema escolha diferentes estratégias de cálculo com base na natureza da entrega.
+O `TipoCalculoEntrega` é um enumerador que define os diferentes tipos de cálculo disponíveis para a entrega de produtos. Este enum é fundamental para o sistema, pois permite ao negócio distinguir entre diferentes métodos de entrega, garantindo assim uma maior flexibilidade e controle sobre as operações de logística.
 
 ## Tipos Auxiliares e Dependências
-- Enumeradores utilizados:
-  - `[TipoCalculoEntrega](TipoCalculoEntrega.md)`
+- Classes Utilizadas: Não há dependências de classes complexas.  
+- Enumeradores:
+  - [TipoCalculoEntrega](TipoCalculoEntrega.md)  
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoCalculoEntrega {
-        <<enumeration>>
-        Nenhum
-        Rota
-        Cidade
+        +Nenhum
+        +Rota
+        +Cidade
     }
 ```
+
+---
+Gerada em 29/12/2025 21:02:59

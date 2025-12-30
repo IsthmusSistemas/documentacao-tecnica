@@ -1,22 +1,21 @@
 # CredencialIsthmusIndustria
-- **Namespace**: IsthmusWinthor.Dominio.Entidades  
-- **Nome do Arquivo**: CredencialIsthmusIndustria.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: CredencialIsthmusIndustria.cs
 
 ## Visão Geral e Responsabilidade
-A classe `CredencialIsthmusIndustria` representa as credenciais de acesso de uma indústria associada a uma distribuidora no contexto do sistema. Seu papel é garantir a integridade e a segurança dos dados de autenticação e autorização para as interações entre a indústria e a plataforma, abordando o problema de como gerenciar e armazenar de forma segura as credenciais necessárias para acessos variados dentro do sistema.
+A classe `CredencialIsthmusIndustria` representa uma entidade que armazena informações sensíveis relacionadas a credenciais de acesso de indústrias a um sistema específico. Ela é responsável por gerenciar dados como identificador da indústria, chave e senha do cliente, além de definir se as credenciais estão ativas. Isto é crítico para a segurança e integridade do sistema ao permitir o acesso à distribuição de produtos ou serviços.
 
 ## Métodos de Negócio
-- **Título**: (Não existem métodos com lógica na classe)
-  
+*Não há métodos com lógica complexa implementadas nesta classe, apenas propriedades simples de armazenamento.*
+
 ## Propriedades Calculadas e de Validação
-- Nenhuma propriedade na classe possui lógica no `get` ou validação no `set`.
+*Não existem propriedades com lógica de cálculo ou validação presentes dentro dos getters ou setters nesta classe.*
 
 ## Navigations Property
-- Não há propriedades que representam classes complexas do domínio na classe `CredencialIsthmusIndustria`.
+- `CredencialIsthmusIndustriaTipo`: [CredencialIsthmusIndustriaTipo](CredencialIsthmusIndustriaTipo.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores Utilizados**:
-  - `[CredencialIsthmusIndustriaTipo](CredencialIsthmusIndustriaTipo.md)`
+- `CredencialIsthmusIndustriaTipo`: [CredencialIsthmusIndustriaTipo](CredencialIsthmusIndustriaTipo.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -32,6 +31,6 @@ classDiagram
         +string SenhaCliente
     }
     CredencialIsthmusIndustria --> CredencialIsthmusIndustriaTipo
-```  
-
-Esta documentação fornece uma visão clara e organizada sobre a classe `CredencialIsthmusIndustria`, destacando suas responsabilidades e os elementos que a compõem, promovendo entendimento e manutenção adequados.
+```
+---
+Gerada em 29/12/2025 20:26:06

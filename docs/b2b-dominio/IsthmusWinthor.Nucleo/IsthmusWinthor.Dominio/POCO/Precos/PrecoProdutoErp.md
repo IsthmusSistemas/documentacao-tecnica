@@ -1,84 +1,88 @@
-```markdown
 # PrecoProdutoErp
-- **Namespace**: IsthmusWinthor.Dominio.POCO.Precos
-- **Nome do Arquivo**: PrecoProdutoErp.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO.Precos  
+**Nome do Arquivo**: PrecoProdutoErp.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PrecoProdutoErp` representa a entidade que encapsula as informações de preços de produtos dentro do sistema ERP. Sua principal responsabilidade é calcular e gerenciar os preços dos produtos considerando tributações, condições comerciais e promoções, permitindo que as empresas determinem estratégias de preços adequados em função de diversas regras de negócio.
+A classe `PrecoProdutoErp` representa a estrutura que define os preços de produtos dentro do sistema, levando em consideração diferentes parâmetros, como taxas, promoções e condições comerciais. Esta classe é responsável por garantir a integridade dos dados relacionados aos preços, além de realizar os cálculos necessários para representar corretamente o preço final ao consumidor, somando tributações e ajustando de acordo com as condições comerciais definidas.
 
 ## Métodos de Negócio
 
 ### AdicionarCondicaoComercialPharmalink (public)
-- **Objetivo**: Adicionar uma condição comercial específica da Pharmalink ao objeto atual. Garante que a condição comercial esteja definida corretamente na estrutura do preço do produto.
+- **Objetivo**: Este método atribui uma condição comercial específica ao atributo `Pharmalink`. Ele garante que uma condição comercial válida seja estabelecida ou inicializa com um novo objeto caso o argumento seja nulo.
 - **Comportamento**: 
-  1. Recebe uma instância da classe `PharmalinkCondicaoComercial`.
-  2. Se a instância não for nula, a condição comercial é atualizada. Caso contrário, uma nova instância padrão é criada e atribuída.
-- **Retorno**: Este método não retorna um valor, mas altera o estado interno da classe `PrecoProdutoErp`.
+  1. Verifica se `condicaoComercial` não é nulo.
+  2. Se não for nulo, atribui `condicaoComercial` à propriedade `Pharmalink`.
+  3. Caso contrário, inicializa `Pharmalink` com um novo objeto.
+- **Retorno**: Não retorna valor; o método altera o estado da propriedade `Pharmalink`.
 
 ### RemoverCondicaoComercialPharmalink (public)
-- **Objetivo**: Remover a condição comercial específica da Pharmalink do objeto atual.
-- **Comportamento**:
-  1. Chama o método `AdicionarCondicaoComercialPharmalink` passando `null`, o que resulta na definição de uma nova instância padrão da condição comercial.
-- **Retorno**: Este método não retorna um valor, mas altera o estado interno da classe.
+- **Objetivo**: Este método remove a condição comercial atual do atributo `Pharmalink`, utilizando o método `AdicionarCondicaoComercialPharmalink`.
+- **Comportamento**: 
+  1. Chama o método `AdicionarCondicaoComercialPharmalink` passando `null` como argumento.
+- **Retorno**: Não retorna valor.
 
 ### AdicionarCondicoesComerciaisIsthmusIndustria (public)
-- **Objetivo**: Adicionar múltiplas condições comerciais do tipo `ICondicaoIsthmusIndustria` ao objeto atual.
-- **Comportamento**:
-  1. Recebe uma coleção de condições comerciais e um dicionário que associa filial a preços.
-  2. Chama o método que adiciona as condições comerciais, utilizando o preço associado à filial atual, se existir.
-- **Retorno**: Este método não retorna um valor, mas altera o estado interno da classe.
+- **Objetivo**: Adiciona múltiplas condições comerciais para Isthmus Indústria, baseando-se em um dicionário que contém as filiais de preço do cliente.
+- **Comportamento**: 
+  1. Chama o método `AdicionarCondicoesComerciais` na propriedade `CondicoesIsthmusIndustria`.
+  2. Verifica se a `CodigoFilial` existe no dicionário fornecido.
+  3. Se existir, atribui o preço associado da filial; senão, atribui uma string vazia.
+- **Retorno**: Não retorna valor.
 
 ### RemoverCondicaoComercialIsthmusIndustria (public)
-- **Objetivo**: Remover todas as condições comerciais do tipo Isthmus Indústria.
+- **Objetivo**: Este método reseta as condições comerciais para Isthmus Indústria.
 - **Comportamento**: 
-  1. Chama o método `Reset` da propriedade `CondicoesIsthmusIndustria`, restaurando seu estado inicial.
-- **Retorno**: Este método não retorna um valor, mas altera o estado interno da classe.
+  1. Chama o método `Reset` na propriedade `CondicoesIsthmusIndustria`.
+- **Retorno**: Não retorna valor.
 
 ### InativarCacheObjeto (public)
-- **Objetivo**: Inativar o cache do objeto atual.
+- **Objetivo**: Desabilita o cache do objeto, configurando a propriedade `PermiteCacheamento`.
 - **Comportamento**: 
-  1. Define a propriedade `PermiteCacheamento` como falsa, garantindo que o objeto não seja mais cacheado.
-- **Retorno**: Este método não retorna um valor, mas altera o estado interno da classe.
+  1. Altera a propriedade `PermiteCacheamento` para `false`.
+- **Retorno**: Não retorna valor.
 
 ## Propriedades Calculadas e de Validação
-
-### PrecoBaseComImposto
-- **Regra**: O preço base com impostos é calculado somando o preço base ao total de tributação aplicado (`TributacaoErp.TotalTributacao`). Esta propriedade garante que sempre que o preço base é acessado, ele inclui automaticamente os tributos.
-
-### TaxaVarejo
-- **Regra**: Essa propriedade calcula a taxa de varejo com base na lógica de que, se o índice de preço e a quantidade de atacado forem maiores que 1, retorna a diferença entre o preço baseado em índice e o preço base. Caso contrário, retorna 0. Isso ajuda a definir uma regra de cálculo condicional que impacta diretamente o preço de venda ao consumidor.
+- **PrecoBaseComImposto**: Este é um cálculo que soma o `PrecoBase` com o valor total da tributação. Isso reflete o preço final do produto para o cliente, considerando impostos aplicáveis.
+- **TaxaVarejo**: Calcula a diferença entre o preço base multiplicado pelo `IndicePreco` e o `PrecoBase`, somente se `IndicePreco` e `QuantidadeAtacado` forem superiores a 1. Isso reflete o desconto aplicável para compras em atacado.
 
 ## Navigations Property
-
 - [TributacaoErp](TributacaoErp.md)
 - [PromocoesErp](PromocoesErp.md)
 - [PharmalinkCondicaoComercial](PharmalinkCondicaoComercial.md)
 - [CondicaoIsthmusIndustriaPrecoProdutoERP](CondicaoIsthmusIndustriaPrecoProdutoERP.md)
-- [PrecoErp](PrecoErp.md)
 
 ## Tipos Auxiliares e Dependências
-- [ICondicaoIsthmusIndustria](ICondicaoIsthmusIndustria.md)
 - [TaxaComercial](TaxaComercial.md)
+- [ICondicaoIsthmusIndustria](ICondicaoIsthmusIndustria.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PrecoProdutoErp {
         +long CodigoProduto
-        +decimal PrecoBase
-        +decimal PrecoBaseComImposto
-        +bool PermiteCacheamento
+        +decimal PercentualSimplesNacional
+        +decimal QuantidadeAtacado
+        +string DescricaoAtacadoVarejo
+        +decimal PercentualPessoaFisica
+        +List<PrecoErp> Precos
+        +long CodigoRegiao
+        +string CodigoFilial
+        +decimal PrecoMaximoConsumidor
+        +decimal PrecoFabrica
+        +boolean PermiteCacheamento
     }
+
     class TributacaoErp
     class PromocoesErp
     class PharmalinkCondicaoComercial
     class CondicaoIsthmusIndustriaPrecoProdutoERP
-    class PrecoErp
 
-    PrecoProdutoErp --> TributacaoErp
-    PrecoProdutoErp --> PromocoesErp
-    PrecoProdutoErp --> PharmalinkCondicaoComercial
-    PrecoProdutoErp --> CondicaoIsthmusIndustriaPrecoProdutoERP
-    PrecoProdutoErp --> PrecoErp
+    PrecoProdutoErp --> "1" TributacaoErp
+    PrecoProdutoErp --> "1" PromocoesErp
+    PrecoProdutoErp --> "1" PharmalinkCondicaoComercial
+    PrecoProdutoErp --> "1" CondicaoIsthmusIndustriaPrecoProdutoERP
+    PrecoProdutoErp --> "0..*" PrecoErp
 ```
-```
+
+---
+Gerada em 29/12/2025 21:52:56

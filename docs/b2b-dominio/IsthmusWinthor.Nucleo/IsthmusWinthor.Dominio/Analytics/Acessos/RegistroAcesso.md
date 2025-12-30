@@ -1,6 +1,10 @@
 # RegistroAcesso
+- **Namespace**: IsthmusWinthor.Dominio.Analytics.Acessos
+- **Nome do Arquivo**: RegistroAcesso.cs
 
-**Namespace**: IsthmusWinthor.Dominio.Analytics.Acessos  
-**Nome do Arquivo**: RegistroAcesso.cs  
+> A classe `RegistroAcesso` é um DTO responsável pelo transporte de dados relacionados ao registro de acessos a páginas.
 
-> A classe `RegistroAcesso` é utilizada para transporte de dados relacionados aos acessos registrados para análise, contendo informações como IDs de distribuidora e cliente, data de registro e URL da página acessada.
+### Observações
+Como a `RegistroAcesso` não contém lógica de negócio, privilégios ou validações, a documentação é concisa e se limita a identificar sua finalidade.
+---
+Gerada em 29/12/2025 20:06:38

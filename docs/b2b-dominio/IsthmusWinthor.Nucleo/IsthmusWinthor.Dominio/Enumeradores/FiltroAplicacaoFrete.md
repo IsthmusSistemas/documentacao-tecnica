@@ -1,21 +1,21 @@
 # FiltroAplicacaoFrete
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: FiltroAplicacaoFrete.cs
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: FiltroAplicacaoFrete.cs  
 
-Este enum é utilizado para representar os diferentes filtros que podem ser aplicados no cálculo de frete, facilitando a personalização das regras de negócio associadas ao transporte e entrega de produtos.
+Este enum é utilizado para categorizar diferentes tipos de filtros aplicáveis em cálculos de frete dentro do sistema, permitindo uma flexibilidade nas opções de consulta e cálculo de custos logísticos. Ele foi marcado como obsoleto e está destinado a ser removido em uma versão futura, conforme a tarefa B2BW-2283.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[FiltroAplicacaoFrete](FiltroAplicacaoFrete.md)`
+- Enumerador: [FiltroAplicacaoFrete](FiltroAplicacaoFrete.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FiltroAplicacaoFrete {
-        <<enumerador>>
-        + Todos
-        + Regiao
-        + FaixaCEP
-        + RamosAtividade
+        +Todos
+        +Regiao
+        +FaixaCEP
+        +RamosAtividade
     }
 ```
+---
+Gerada em 29/12/2025 20:54:29

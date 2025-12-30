@@ -2,20 +2,10 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoEtapaSincronizacaoEnum.cs  
 
-Esta enumeração é utilizada para categorizar as etapas de sincronização, facilitando o entendimento e o controle sobre o fluxo de dados em um sistema de ETL (Extract, Transform, Load).
+Este enumerador é utilizado para representar os diferentes tipos de etapas de sincronização no processo de ETL (Extract, Transform, Load) de dados.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[TipoEtapaSincronizacaoEnum](TipoEtapaSincronizacaoEnum.md)`
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class TipoEtapaSincronizacaoEnum {
-        +Extract
-        +Load
-        +Delta
-        +Etl
-        +LoadMultiplos
-    }
-```
+- Enumeradores:
+  - [TipoEtapaSincronizacaoEnum](TipoEtapaSincronizacaoEnum.md)
+---
+Gerada em 29/12/2025 21:03:38

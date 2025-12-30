@@ -1,5 +1,7 @@
 # MariaDbProperties
 **Namespace**: IsthmusWinthor.Dominio.PropertiesConfig  
-**Nome do Arquivo**: MariaDbProperties.cs  
+**Nome do Arquivo**: MariaDbProperties.cs
 
-A classe `MariaDbProperties` é uma representação básica de um objeto de transferência de dados (DTO) que tem como objetivo transportar a string de conexão para o banco de dados MariaDB. Esta classe contém somente propriedades anêmicas, sem lógica de negócio ou validações implementadas.
+Esta classe serve como um Data Transfer Object (DTO), cuja finalidade é transportar dados relacionados à configuração da conexão com o banco de dados MariaDB.
+---
+Gerada em 29/12/2025 22:02:40

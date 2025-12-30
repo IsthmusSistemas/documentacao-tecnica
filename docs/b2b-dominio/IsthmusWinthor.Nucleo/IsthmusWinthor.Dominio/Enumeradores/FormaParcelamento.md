@@ -2,20 +2,25 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FormaParcelamento.cs  
 
-O `FormaParcelamento` é um enumerador que define as possíveis formas de parcelamento disponíveis no sistema, permitindo que diferentes opções sejam aplicadas em transações financeiras. Este recurso é crucial para a flexibilidade nas condições de pagamento.
+Este enumerador define as formas de parcelamento disponíveis no sistema, permitindo ao usuário escolher entre diferentes opções de pagamento ao adquirir um produto ou serviço.
 
-## Tipos Auxiliares e Dependências
-- `FormaParcelamento` é um enum que define:
-  - `Indefinido`: Representa uma forma de parcelamento não especificada.
-  - `Mensal`: Indica que o parcelamento será mensal.
-  - `Customizado`: Permite um parcelamento que pode ser adaptado conforme necessidades específicas.
+---
 
-## Diagrama de Relacionamentos
+### Tipos Auxiliares e Dependências
+- **Enums**:
+  - [FormaParcelamento](FormaParcelamento.md)
+
+---
+
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FormaParcelamento {
-        + Indefinido
-        + Mensal
-        + Customizado
+        <<enumerator>>
+        +Indefinido
+        +Mensal
+        +Customizado
     }
 ```
+---
+Gerada em 29/12/2025 20:55:27

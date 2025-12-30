@@ -3,51 +3,55 @@
 **Nome do Arquivo**: RestricaoVenda.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `RestricaoVenda` é responsável por gerenciar as restrições aplicáveis às vendas em um sistema corporativo, permitindo a definição de condições que influenciam a viabilidade da venda de produtos. Essa lógica é vital para assegurar que as vendas sejam realizadas somente em conformidade com as regras e condições específicas que podem incluir fatores como marca, praça, tipo de cliente, e outros, ajudando a prevenir transações indevidas ou não autorizadas.
+A classe `RestricaoVenda` atua como uma representação das restrições que impactam as vendas em um sistema. Ela modela as diversas condições que podem afetar a capacidade de venda, como o código de cobrança, condição de venda, e valores mínimos de venda, entre outros. A necessidade desta classe surge da complexidade envolvida na gestão de diferentes regras que governam as transações comerciais, assegurando que todas as vendas sejam realizadas dentro de conformidades especificadas.
 
 ## Métodos de Negócio
-### Método: N/A
-- **Objetivo**: Não há métodos expostos com lógica de negócio na classe.
-- **Comportamento**: A classe serve principalmente como um contêiner de dados (DTO) para eventualmente encapsular regras em outro processo.
-- **Retorno**: N/A
+Não há métodos complexos definidos nesta classe, apenas propriedades de dados.
 
 ## Propriedades Calculadas e de Validação
-N/A
+Não há propriedades com lógica de cálculo ou validação explicitamente definidas com lógica complexa detectada.
 
 ## Navigations Property
-- [Distribuidora](Distribuidora.md)
+- [Distribuidora](Distribuidora.md) - Referência para a classe `Distribuidora`, que representa a organização responsável pela distribuição dos produtos.
 
 ## Tipos Auxiliares e Dependências
-N/A
+Não há enumeradores ou classes estáticas mencionadas nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class RestricaoVenda {
-        long Id
-        long Codigo
-        string CodigoCobranca
-        long CodigoSecao
-        string TipoPessoa
-        long CondicaoVenda
-        long CodigoMarca
-        long CodigoPraca
-        string CodigoBarras
-        string ClasseProduto
-        string CodigoFilial
-        long CodigoDepartamento
-        long CodigoRegiao
-        decimal ValorMinimoVenda
-        long CodigoVendedor
-        long CodigoCliente
-        long CodigoFornecedor
-        long CodigoRamoAtividade
-        long CodigoSupervisor
-        long CodigoPlanoPagamento
-        long CodigoProduto
-        string GuidSincronizacao
+        +long Id
+        +long Codigo
+        +string CodigoCobranca
+        +long CodigoSecao
+        +string TipoPessoa
+        +long CondicaoVenda
+        +long CodigoMarca
+        +long CodigoPraca
+        +string CodigoBarras
+        +string ClasseProduto
+        +string CodigoFilial
+        +long CodigoDepartamento
+        +long CodigoRegiao
+        +decimal ValorMinimoVenda
+        +long CodigoVendedor
+        +long CodigoCliente
+        +long CodigoFornecedor
+        +long CodigoRamoAtividade
+        +long CodigoSupervisor
+        +long CodigoPlanoPagamento
+        +long CodigoProduto
+        +Distribuidora Distribuidora
+        +long DistribuidoraId
+        +string GuidSincronizacao
     }
-    RestricaoVenda --> Distribuidora
-``` 
 
-Esta documentação oferece uma visão clara e organizada das funcionalidades e responsabilidades da classe `RestricaoVenda`, enfatizando sua importância dentro do contexto de Controladoria de Vendas em um sistema corporativo.
+    class Distribuidora {
+        <<entity>>
+    }
+
+    RestricaoVenda --> Distribuidora : tem
+```
+---
+Gerada em 29/12/2025 20:48:03

@@ -1,23 +1,28 @@
 # DataFactoryJson
-- **Namespace**: IsthmusWinthor.Dominio.EntidadesAzure
-- **Nome do Arquivo**: DataFactoryJson.cs
+**Namespace**: IsthmusWinthor.Dominio.EntidadesAzure  
+**Nome do Arquivo**: DataFactoryJson.cs  
 
-> A classe `DataFactoryJson` atua como um objeto de transporte de dados que encapsula a propriedade `JsonNames`, que é utilizada para representar um conjunto de nomes em formato JSON.
+## Visão Geral e Responsabilidade
+A classe `DataFactoryJson` representa uma entidade que encapsula informações relativas a nomes de JSON utilizados na integração com o ambiente Azure. Seu principal papel é armazenar e gerenciar esses nomes, garantindo a integridade dos dados que serão utilizados em operações de processamento e análise. Esta classe soluciona a necessidade de um modelo que centraliza a identificação e o uso de arquivos JSON dentro do contexto da aplicação.
 
-### Propriedades Calculadas e de Validação
-- `JsonNames`
-  - Esta propriedade contém um string que representa nomes em formato JSON. Embora esta propriedade seja simples e anêmica, o uso dela deve ser validado em contextos onde se espera que os dados estejam corretamente formatados segundo a especificação JSON.
+## Métodos de Negócio
+Não há métodos de negócio complexos definidos nesta classe, apenas um `getter` e `setter` simples para a propriedade `JsonNames`.
 
-### Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar é utilizado nesta classe.
+## Propriedades Calculadas e de Validação
+- **JsonNames**: Esta propriedade mantém uma lista de nomes de JSON. Não existe lógica de validação ou cálculo associada a ela dentro dessa implementação atual.
 
-### Diagrama de Relacionamentos
+## Navigations Property
+- Não existem propriedades de navegação complexas nesta classe.
+
+## Tipos Auxiliares e Dependências
+- **Nenhum**: A classe não depende de enumeradores ou classes estáticas/helpers adicionais.
+
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class DataFactoryJson {
         +string JsonNames
     }
-    class EntidadeAzureAbstract {
-    }
-    DataFactoryJson --|> EntidadeAzureAbstract
 ```
+---
+Gerada em 29/12/2025 20:51:57

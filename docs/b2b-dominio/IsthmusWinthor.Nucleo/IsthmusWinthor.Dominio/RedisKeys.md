@@ -1,67 +1,69 @@
 # RedisKeys
 
-- **Namespace**: IsthmusWinthor.Dominio
-- **Nome do Arquivo**: RedisKeys.cs
+**Namespace**: IsthmusWinthor.Dominio  
+**Nome do Arquivo**: RedisKeys.cs  
 
-1. Visão Geral e Responsabilidade
-   - A classe `RedisKeys` é um utilitário estático que fornece métodos para gerar chaves específicas de Redis para armazenamentos e acessos dinâmicos. Ela resolve problemas de nomenclatura e organização das chaves utilizadas nos serviços de cache Redis, proporcionando uma maneira padronizada e consistente de geração dessas chaves para diferentes entidades e cenários no contexto empresarial.
+## Visão Geral e Responsabilidade
+A classe `RedisKeys` é um utilitário que gera chaves para acesso a dados armazenados no Redis, permitindo que outros componentes do sistema recuperem informações específicas de acordo com as regras de negócio. Seu papel é estabelecer um padrão de nomenclatura e organização para as chaves, facilitando a integridade dos dados e a implementação de funcionalidades que dependem do armazenamento em cache.
 
-2. Métodos de Negócio
+## Métodos de Negócio
 
-   _Não aplicável para métodos em classes utilitárias estáticas como esta. Todos os métodos fornecem strings formatadas sem lógica condicional complexa._
+### 1. Título: LayoutSite (public)
+- **Objetivo**: Gera a chave para o layout do site de uma distribuidora específica.
+- **Comportamento**: Constrói uma string formatada com o `distribuidoraId`, utilizando a nomenclatura padrão para o layout do site.
+- **Retorno**: Retorna a chave representando o layout da distribuidora em forma de string.
 
-3. Propriedades Calculadas e de Validação
+### 2. Título: IndiceLogicApp (public)
+- **Objetivo**: Gera a chave padrão para identificação de configurações ou ações relacionadas ao aplicativo lógico.
+- **Comportamento**: Retorna uma string fixa que serve como referência para as operações do aplicativo lógico.
+- **Retorno**: Retorna a chave "indicelogicapp".
 
-   - _Não aplicável. A classe não possui getters/setters calculados; apenas métodos estáticos para cálculo de chaves._
+### 3. Título: RedisModulosAssinadosDistribuidora (public)
+- **Objetivo**: Cria a chave que identifica os módulos assinados por uma distribuidora.
+- **Comportamento**: Formata a string incluindo o `distribuidoraId`, que permite recuperar a informação de quais módulos estão ativos para a distribuidora.
+- **Retorno**: Retorna a chave dos módulos assinados da distribuidora.
 
-4. Navigations Property
+### 4. Título: ChaveAuthClienteOpenErp (public)
+- **Objetivo**: Cria uma chave para autenticação de clientes em um sistema Open Erp.
+- **Comportamento**: Constrói a chave utilizando o `distribuidoraId`, `clienteId` e `codigoCliente`, assegurando que cada cliente tenha uma chave única baseada nos seus identificadores.
+- **Retorno**: Retorna a chave de autenticação específica do cliente no contexto Open Erp.
 
-   - _Não há propriedades de navegação, a classe não faz referência a objetos complexos do domínio._
+### 5. Título: Cabecalho (public)
+- **Objetivo**: Gera a chave para o cabeçalho do cliente dependendo do seu estado de login.
+- **Comportamento**: Utiliza o `distribuidoraId` e o estado de login do cliente para formatar a chave. Se o cliente estiver logado, gera uma chave de compras, caso contrário, gera uma chave de catálogo.
+- **Retorno**: Retorna a chave do cabeçalho, relativa ao estado de autenticação do cliente.
 
-5. Tipos Auxiliares e Dependências
-   - Esta classe utiliza os seguintes enumeradores:
-     - `[Enumeradores.PerfilLoginEnum](PerfilLoginEnum.md)`
-     - `[Enumeradores.TipoSolucao](TipoSolucao.md)`
-     - `[TipoRegraRcaEnum](TipoRegraRcaEnum.md)`
+```mermaid
+flowchart TD
+    A[Verificação de Login] -->|Logado| B[Gerar chave de compras]
+    A -->|Não Logado| C[Gerar chave de catálogo]
+```
 
-6. Diagrama de Relacionamentos
+## Propriedades Calculadas e de Validação
+N/A
 
+## Navigations Property
+N/A
+
+## Tipos Auxiliares e Dependências
+- **Enumeradores**
+  - [PerfilLoginEnum](PerfilLoginEnum.md)
+  - [TipoSolucao](TipoSolucao.md)
+  - [TipoRegraRcaEnum](TipoRegraRcaEnum.md)
+
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class RedisKeys {
-        +static string LayoutSite(long distribuidoraId)
-        +static string IndiceLogicApp()
-        +static string RedisModulosAssinadosDistribuidora(long distribuidoraId)
-        +static string DaDistribuidoraB2B(long distribuidoraId)
-        +static string ChaveAuthClienteOpenErp(long distribuidoraId, long clienteId, long codigoCliente)
-        +static string ContaCartaoReceber(long distribuidoraId)
-        +static string ImagensDistribuidora(long distribuidoraId)
-        +static string Rodape(long distribuidoraId)
-        +static string BandeirasCartaoDisponiveis(long distribuidoraId)
-        +static string Semaforo(long pipelineId, long distribuidoraId)
-        +static string CarrinhoCompras(long distribuidoraId, long codigoCliente, PerfilLoginEnum perfilLogin, string identificadoPerfilLogin)
-        +static string ResumoCarrinhoCompras(long distribuidoraId, long codigoCliente, PerfilLoginEnum perfilLogin, string identificadoPerfilLogin)
-        +static string FretesCarrinhoCompras(long distribuidoraId, long codigoCliente, PerfilLoginEnum perfilLogin, string identificadoPerfilLogin)
-        +static string AgendamentoLogicApp(long pipelineId, long distribuidoraId)
-        +static string OrganizacaoMenuDistribuidora(long distribuidoraId, long clienteId)
-        +static string Cabecalho(long distribuidoraId, bool logado)
-        +static string DaConfiguracao(long distribuidoraId, TipoSolucao tipoSolucao)
-        +static string DasLinhasPrazoDosVendedoresDoCliente(long id)
-        +static string MontagemMenuDistribuidora(long distribuidoraId, long id)
-        +static string ConfiguracoesSistema(long distribuidoraId)
-        +static string RestricaoVendaCliente(long distribuidoraId, long codigoCliente)
-        +static string Solucoes()
-        +static string VendedoresRegra(long distribuidoraId, long codigoCliente, TipoRegraRcaEnum tipoRegraRca)
-        +static string CuponsDisponiveis(long distribuidoraId, long codigoCliente)
-        +static string ConfiguracoesAplicativo(long distribuidoraId)
-        +static string PesquisaProdutosInteligente(long distribuidoraId, string identificadorPesquisa)
-        +static string TokenClientService(string aplicacao)
-        +static string AuthClienteIsthmusIndustria(long distribuidoraId, long clienteId, string identificadorIndustria)
-        +static string CredenciaisIsthmusIndustriaDaDistribuidora(long distribuidoraId)
+        +string LayoutSite(long distribuidoraId)
+        +string IndiceLogicApp()
+        +string RedisModulosAssinadosDistribuidora(long distribuidoraId)
+        +string ChaveAuthClienteOpenErp(long distribuidoraId, long clienteId, long codigoCliente)
+        +string Cabecalho(long distribuidoraId, bool logado)
     }
-    
     RedisKeys --> PerfilLoginEnum
     RedisKeys --> TipoSolucao
     RedisKeys --> TipoRegraRcaEnum
 ```
-
+---
+Gerada em 29/12/2025 20:06:15

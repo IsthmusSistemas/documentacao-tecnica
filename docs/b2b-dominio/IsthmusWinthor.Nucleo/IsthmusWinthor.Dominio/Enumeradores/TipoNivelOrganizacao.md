@@ -1,19 +1,17 @@
 # TipoNivelOrganizacao
-
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoNivelOrganizacao.cs  
 
-O enum `TipoNivelOrganizacao` define os diferentes níveis de organização disponíveis dentro de um sistema de categorização. Ele é utilizado para especificar a hierarquia e a estrutura organizacional, facilitando a classificação e a busca de entidades relevantes ao negócio.
+O `TipoNivelOrganizacao` é um enumerador que define diferentes níveis hierárquicos de organização em um sistema corporativo. Ele categoriza as entidades de negócios em distintos grupos, facilitando a identificação e a segmentação de informações dentro da estrutura organizacional.
 
 ## Tipos Auxiliares e Dependências
-- Nenhuma classe complexa ou DTO/ViewModel associada.  
-- Enum utilizado: `[TipoNivelOrganizacao](TipoNivelOrganizacao.md)`.
+- Este enumerador é utilizado para categorizar diversos elementos de organização dentro do sistema. 
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoNivelOrganizacao {
-        <<enumeration>>
+        <<enumerator>>
         Departamento
         Categoria
         Subcategoria
@@ -24,3 +22,5 @@ classDiagram
         Fornecedor
     }
 ```
+---
+Gerada em 29/12/2025 21:05:36

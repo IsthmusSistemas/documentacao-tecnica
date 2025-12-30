@@ -3,32 +3,33 @@
 **Nome do Arquivo**: ItemOrcamento.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ItemOrcamento` representa um item de um orçamento, encapsulando detalhes sobre o produto, suas quantidades e informações da filial e região. Ela é responsável por garantir a integridade e a equivalência de dados referentes a itens orçamentários, atuando como uma entidade essencial dentro do contexto de orçamentos em um sistema de gestão.
+A classe `ItemOrcamento` representa um item dentro de um orçamento, encapsulando informações essenciais sobre um produto específico em um contexto de vendas, tais como identificadores, quantidade e preço de venda. Essa classe é fundamental para o gerenciamento de orçamentos, permitindo o alinhamento entre os produtos, suas características e os locais de venda. Seu papel é garantir a integridade dos dados e a correta identificação dos itens orçados.
 
 ## Métodos de Negócio
-### Título: Equals (public override)
-- **Objetivo**: Garante que dois itens de orçamento sejam considerados iguais se possuírem o mesmo `ProdutoId`, `CodigoProduto` e `Quantidade`.
-- **Comportamento**: 
-  - Verifica se o objeto passado é do tipo `ItemOrcamento`.
-  - Compara os valores de `ProdutoId`, `CodigoProduto` e `Quantidade` entre o objeto atual e o objeto passado como parâmetro.
-  - Retorna `true` se todos os valores forem iguais, caso contrário, retorna `false`.
-- **Retorno**: Um valor booleano que indica se os itens orçamentários são equivalentes.
 
-### Título: GetHashCode (public override)
-- **Objetivo**: Garante que dois itens de orçamento iguais tenham o mesmo valor de hash, o que é fundamental para o funcionamento correto em coleções hash.
+### Título: Equals (Protected)
+- **Objetivo**: Garantir a equivalência lógica entre dois objetos `ItemOrcamento`.
 - **Comportamento**: 
-  - Utiliza o método `HashCode.Combine` para gerar um valor de hash baseado nos campos `ProdutoId`, `CodigoProduto` e `Quantidade`.
-- **Retorno**: Um inteiro que representa o hash da instância do `ItemOrcamento`.
+  1. Verifica se o objeto passado (`obj`) é um `ItemOrcamento`.
+  2. Compara os valores das propriedades `ProdutoId`, `CodigoProduto` e `Quantidade`.
+  3. Retorna `true` se todas as propriedades relevantes forem iguais; caso contrário, retorna `false`.
+- **Retorno**: Indica se dois objetos são considerados equivalentes baseados nas propriedades-chave que definem um item orçamentário.
+
+### Título: GetHashCode (Protected)
+- **Objetivo**: Fornecer um código de hash único para o objeto `ItemOrcamento`.
+- **Comportamento**: 
+   1. Combina os valores das propriedades `ProdutoId`, `CodigoProduto` e `Quantidade` em um código de hash único.
+   2. O resultado é utilizado para operações em coleções baseadas em hash, como tabelas de hash.
+- **Retorno**: Um valor inteiro que representa o código de hash do objeto, garantindo a integridade de operações que baseiam-se em hash.
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades com lógica de cálculo no `get` ou validação no `set` nesta classe.
+- Não existem propriedades com lógica no `get` ou validação no `set` nesta classe.
 
 ## Navigations Property
-- `Embalagem EmbalagemSelecionada`: Esta propriedade referencia uma embalagem associada ao item de orçamento.
-  - [Embalagem](Embalagem.md)
+- `EmbalagemSelecionada`: [Embalagem](Embalagem.md)
 
 ## Tipos Auxiliares e Dependências
-- Não há enums ou classes estáticas auxiliares sendo utilizadas diretamente nesta classe.
+- `Embalagem`: [Embalagem](Embalagem.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -42,13 +43,15 @@ classDiagram
         +long CodigoRegiao
         +decimal PrecoVenda
         +Embalagem EmbalagemSelecionada
+        +bool Equals(object obj)
+        +int GetHashCode()
     }
+    
     class Embalagem {
-        <<enumeration>>
+        <<interface>>
     }
-    ItemOrcamento --> Embalagem : EmbalagemSelecionada
-``` 
 
---- 
-
-A documentação acima fornece uma visão técnica das regras de negócios, integridade de dados e visualização de fluxos relacionados ao `ItemOrcamento`, seguindo os padrões estabelecidos.
+    ItemOrcamento --> Embalagem : contains
+```
+---
+Gerada em 29/12/2025 21:45:37

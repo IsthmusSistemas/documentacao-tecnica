@@ -2,16 +2,20 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoAlertaDestinatario.cs  
 
-Este enumerador define os tipos de destinatários de alertas no sistema, esclarecendo se o alerta é destinado a um Cliente ou a um Usuário. 
+O `TipoAlertaDestinatario` é um enumerador que define os tipos de destinatários para alertas no sistema. Ele especifica as categorizações possíveis para os destinatários, facilitando a identificação e manuseio de notificações destinadas a diferentes perfis de usuários.
 
 ## Tipos Auxiliares e Dependências
-- `TipoAlertaDestinatario`
+- Enumeradores:
+  - [TipoAlertaDestinatario](TipoAlertaDestinatario.md) 
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoAlertaDestinatario {
-        +Cliente
-        +Usuario
+        <<enumeration>>
+        Cliente
+        Usuario
     }
 ```
+---
+Gerada em 29/12/2025 21:02:21

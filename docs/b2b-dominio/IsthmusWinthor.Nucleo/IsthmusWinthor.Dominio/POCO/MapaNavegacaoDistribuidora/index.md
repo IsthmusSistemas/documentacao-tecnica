@@ -1,4 +1,4 @@
-#Documentação - MapaNavegacaoDistribuidora
+# MapaNavegacaoDistribuidora
 ## Conteúdo
 - [MapaNavegacao](MapaNavegacao.md)
 - [MapaNavegacaoItem](MapaNavegacaoItem.md)

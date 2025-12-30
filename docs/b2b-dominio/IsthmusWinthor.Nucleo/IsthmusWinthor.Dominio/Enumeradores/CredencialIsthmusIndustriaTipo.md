@@ -1,21 +1,21 @@
 # CredencialIsthmusIndustriaTipo
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: CredencialIsthmusIndustriaTipo.cs  
+**Nome do Arquivo**: CredencialIsthmusIndustriaTipo.cs
 
-## Visão Geral e Responsabilidade
-O `CredencialIsthmusIndustriaTipo` é um enumerador que define os tipos de credenciais associadas ao sistema de gerenciamento de campanhas e a profissionais responsáveis pela alocação de verba. Este enum proporciona uma forma estruturada de categorizar os diferentes tipos de credenciais necessárias para a operação de diferentes funções no sistema. A sua implementação ajuda a garantir que os valores utilizados no código sejam consistentes e compreensíveis.
+Este é um enumerador que define os tipos de credenciais disponíveis para uso no sistema. Ele transporta informações de tipo de credencial e facilita a validação e o gerenciamento de permissões de acesso associadas a diferentes funcionalidades relacionadas à indústria da plataforma Isthmus Winthor.
 
 ## Tipos Auxiliares e Dependências
 - **Enumeradores**:
-  - `[CredencialIsthmusIndustriaTipo](CredencialIsthmusIndustriaTipo.md)`
+  - [CredencialIsthmusIndustriaTipo](CredencialIsthmusIndustriaTipo.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CredencialIsthmusIndustriaTipo {
-        <<enumerator>>
-        +Campanhas
-        +AnalistasVerbas
+        <<enum>>
+        Campanhas
+        AnalistasVerbas
     }
 ```
-
+---
+Gerada em 29/12/2025 20:53:58

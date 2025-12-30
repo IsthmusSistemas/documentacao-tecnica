@@ -3,16 +3,19 @@
 **Nome do Arquivo**: Rede.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Rede` representa uma entidade do domínio que modela as redes comerciais relacionadas a distribuidoras. O papel dessa classe é gerenciar as informações básicas sobre redes, atuando como uma raiz de agregado que permite a manipulação e consulta das características de uma rede em relação a sua distribuidora associada. Esta implementação garante a integridade dos dados ao assegurar que cada rede está vinculada a uma única distribuidora, facilitando operações relacionadas a conexões e relações comerciais.
+A classe `Rede` representa uma estrutura que encapsula informações sobre redes dentro do contexto de uma distribuidora de produtos. Ela atua como um modelo de domínio que liga a entidade `Rede` a uma `Distribuidora`, permitindo o gerenciamento e a identificação das redes de distribuição que a empresa possui. Isso é crucial para garantir que as operações de distribuição sejam eficazes e que a informação sobre cada rede esteja organizada e acessível.
+
+## Métodos de Negócio
+### (Nenhum método com lógica foi encontrado nesta classe)
 
 ## Propriedades Calculadas e de Validação
-A classe `Rede` não possui propriedades calculadas ou de validação complexas, já que suas propriedades são simples e não incluem lógica adicional na definição.
+### (Nenhuma propriedade com lógica no get ou validação no set foi encontrada nesta classe)
 
-## Navigation Properties
-- [`Distribuidora`](Distribuidora.md): Representa a distribuidora associada a esta rede. Propriedade complexa essencial que estabelece a relação entre uma rede e a distribuidora.
+## Navigations Property
+- [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enums e Classes Auxiliares**: Esta classe não depende de enums ou classes estáticas/hackers específicas.
+- Nenhum enumerador ou classe auxiliar foi identificado dentro da classe `Rede`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -21,9 +24,16 @@ classDiagram
         +long Id
         +long Codigo
         +string Nome
+        +Distribuidora Distribuidora
+        +long DistribuidoraId
     }
-    
-    class Distribuidora
 
-    Rede --> Distribuidora : contém
+    class Distribuidora {
+        <<entity>>
+        // Propriedades da classe Distribuidora
+    }
+
+    Rede --> Distribuidora : "associação"
 ```
+---
+Gerada em 29/12/2025 20:46:23

@@ -3,20 +3,20 @@
 **Nome do Arquivo**: CashBackItemPedidoReceber.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CashBackItemPedidoReceber` representa um item de um pedido que gera um retorno financeiro para o cliente, conhecido como cashback. Este modelo de domínio é responsável por gerir as relações entre um item de pedido específico e o cashback a ser recebido, garantindo que o valor gerado seja corretamente associado ao item do pedido e às suas respectivas quantidades. O problema de negócio que esta classe resolve é o controle e a integração de informação entre pedidos e o sistema de cashback, permitindo uma gestão eficiente das recompensas aos clientes.
+A classe `CashBackItemPedidoReceber` representa um item relacionado ao recebimento de cashback em um pedido. Ela desempenha um papel crucial na gestão de pagamentos de cashback, assegurando que os valores correspondentes aos itens do pedido sejam corretamente rastreados e gerenciados. O problema de negócio que esta classe resolve é a necessidade de associar e calcular informações de cashback de forma precisa e eficiente, garantindo que os valores sejam atribuídos corretamente aos itens do pedido.
 
 ## Métodos de Negócio
-Nenhum método com lógica de negócio foi identificado nesta classe.
+Essa classe não contém métodos com lógica de negócio, focando apenas em armazenar o estado e as relações entre os objetos.
 
 ## Propriedades Calculadas e de Validação
-Nenhuma propriedade com lógica no `get` ou validação no `set` foi identificada nesta classe.
+- **ValorGerado**: Esta propriedade pode ser calculada com base em regras que definem como o cashback é gerado em relação ao valor do item e à quantidade. É importante garantir que o cashback gerado não ultrapasse limites definidos pela política da empresa.
 
-## Navigation Property
-- [`ItemPedido`](ItemPedido.md): Representa o item associado ao pedido que gerou o cashback.
-- [`CashBackReceber`](CashBackReceber.md): Representa a oportunidade de cashback a ser recebida associada a este item de pedido.
+## Navigations Property
+- [ItemPedido](ItemPedido.md)
+- [CashBackReceber](CashBackReceber.md)
 
 ## Tipos Auxiliares e Dependências
-Nenhum enumerador ou classe estática/helper foi identificado como utilizado nesta classe.
+Nenhum enumerador ou classe estática/helper está diretamente associado a esta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -27,15 +27,17 @@ classDiagram
         +decimal ValorGerado
         +decimal Quantidade
     }
-    
+
     class ItemPedido {
-        <<Entidade>>
+        // Propriedades de ItemPedido
     }
 
     class CashBackReceber {
-        <<Entidade>>
+        // Propriedades de CashBackReceber
     }
 
-    CashBackItemPedidoReceber --> ItemPedido : ItemPedido
-    CashBackItemPedidoReceber --> CashBackReceber : CashBackReceber
+    CashBackItemPedidoReceber --> ItemPedido : contém
+    CashBackItemPedidoReceber --> CashBackReceber : associado a
 ```
+---
+Gerada em 29/12/2025 20:19:10

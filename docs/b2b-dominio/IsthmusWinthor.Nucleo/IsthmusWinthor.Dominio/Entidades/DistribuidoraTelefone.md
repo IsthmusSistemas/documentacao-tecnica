@@ -3,53 +3,55 @@
 **Nome do Arquivo**: DistribuidoraTelefone.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DistribuidoraTelefone` representa um número de telefone associado a uma distribuidora. Sua responsabilidade principal é garantir que o formato e a estrutura dos números de telefone estejam corretos, incluindo a manipulação de DDDs e a formatação de números, de acordo com as regras de negócio estabelecidas. Este modelo é essencial no contexto de comunicação da distribuidora, onde informações de contato precisas são necessárias para interações comerciais.
+A classe `DistribuidoraTelefone` representa as informações de contato telefônico associadas a uma distribuidora, gerenciando a formatação e a validação do número de telefone. Ela resolve o problema de inconsistências na apresentação de números telefônicos e fornece métodos para manipulação e extração dos números formatados ou não, garantindo que as informações de contato sejam armazenadas e acessadas de forma correta.
 
 ## Métodos de Negócio
 
-### TelefoneFormatado() 
-- **Objetivo**: Garante que o número de telefone esteja formatado corretamente para apresentação e utilização em contextos de comunicação.
+### TelefoneFormatado() - Public
+- **Objetivo**: Garante que o número de telefone seja retornado em um formato consistente e legível, tanto para números fixos quanto para celulares, além de lidar com números 0800 e 0900 que não precisam de formatação.
 - **Comportamento**: 
-  1. Verifica se o número começa com "0800" ou "0900", retornando-o caso afirmativo, pois esses números têm formatação específica.
-  2. Chama o método `RemoverMascaras()` para obter o número sem formatação.
-  3. Com base no comprimento do número, aplica a formatação adequada. 
-     - Se o número tiver 8 dígitos, insere um hífen na posição correta.
-     - Se o número tiver 9 dígitos, insere um hífen na posição correta.
-  4. Verifica se o DDD está vazio e, caso contrário, retorna o número formatado com o DDD; se estiver vazio, retorna somente o número.
+  1. Verifica se o número começa com "0800" ou "0900", retornando-o inalterado se sim.
+  2. Chama o método `RemoverMascaras()` para obter o número e DDD sem caracteres especiais.
+  3. Avalia o comprimento do número:
+     - Se tem 8 dígitos, insere um hífen após o quarto dígito.
+     - Se tem 9 dígitos, insere um hífen após o quinto dígito.
+  4. Se o DDD está vazio, retorna somente o número formatado; caso contrário, retorna o número com o DDD formatado.
 - **Retorno**: Retorna o número de telefone formatado como uma string.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Numero começa com 0800 ou 0900?}
-    B -- Sim --> C[Retorna Numero]
-    B -- Não --> D[Chama RemoverMascaras()]
-    D --> E{Telefone possui DDD?}
-    E -- Sim --> F[Retorna "(DDD) TelefoneFormatado"]
-    E -- Não --> G[Retorna "TelefoneFormatado"]
+    A[Início] --> B{Número Começa com 0800 ou 0900?}
+    B -- Sim --> C[Retorna Número]
+    B -- Não --> D[Remove Máscaras]
+    D --> E{Comprimento do Telefone}
+    E -- 8 Dígitos --> F[Insere hífen após 4º dígito]
+    E -- 9 Dígitos --> G[Insere hífen após 5º dígito]
+    E -- Outro --> H[Remove DDD se vazio]
+    H --> I[Retorna Telefone sem DDD]
+    I --> J[Retorna Telefone com DDD]
 ```
 
-### FoneSemMascara()
-- **Objetivo**: Garante que o número de telefone e DDD sejam retornados em uma forma bruta, sem formatação.
-- **Comportamento**: 
-  1. Chama o método `RemoverMascaras()` para obter o número e DDD sem caracteres não numéricos.
-  2. Concatenando o DDD e o telefone, retorna a string resultante.
-- **Retorno**: Retorna o número de telefone e DDD concatenados como uma string.
+### FoneSemMascara() - Public
+- **Objetivo**: Fornece o número de telefone concatenado sem máscara, útil para armazenamento ou processamento onde a formatação não é necessária.
+- **Comportamento**: Chama o método `RemoverMascaras()` e concatena o DDD e o número, retornando uma string sem formatação.
+- **Retorno**: Retorna o número de telefone sem máscara como uma string.
 
-### RemoverMascaras()
-- **Objetivo**: Internaliza a lógica de remoção de caracteres não numéricos, facilitando a extração do DDD e do número do telefone.
-- **Comportamento**:
-  1. Remove todos os caracteres não numéricos do número e do DDD.
-  2. Se o número sem máscara já contiver um DDD (no caso de ter 10 ou 11 dígitos), ele é extraído e o número é ajustado.
-- **Retorno**: Retorna uma tupla com DDD e telefone sem máscaras na forma de strings.
+### RemoverMascaras() - Private
+- **Objetivo**: Elimina caracteres não numéricos do DDD e do número de telefone para facilitar a manipulação futura.
+- **Comportamento**: 
+  1. Verifica se o número e o DDD estão presentes e remove as máscaras.
+  2. Avalia se o telefone contém DDD:
+     - Se sim, separa o DDD dos números; caso contrário, trata o telefone como fixo ou celular.
+- **Retorno**: Retorna uma tupla contendo o DDD e o número sem máscara, prontos para uso.
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades com lógica no `get` ou validação no `set` na classe `DistribuidoraTelefone`.
+- As propriedades `Ddd` e `Numero` possuem a lógica de validação pela estrutura dos métodos. A classe garante que apenas números válidos sejam processados.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`: Propriedade que representa a associação da classe `Distribuidora`.
+- [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-- `[TipoContato](TipoContato.md)`: Enum utilizado para especificar o tipo de telefone (ex: fixo, celular, etc.).
+- [TipoContato](TipoContato.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -65,10 +67,12 @@ classDiagram
         +string TelefoneFormatado()
         +string FoneSemMascara()
     }
-    class Distribuidora {
-        +long Id
-        ...
-    }
+    
+    class TipoContato
+    class Distribuidora
+
     DistribuidoraTelefone --> Distribuidora
     DistribuidoraTelefone --> TipoContato
 ```
+---
+Gerada em 29/12/2025 20:29:01

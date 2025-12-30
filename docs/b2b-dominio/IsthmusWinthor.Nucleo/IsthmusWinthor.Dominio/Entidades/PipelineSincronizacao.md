@@ -3,46 +3,48 @@
 **Nome do Arquivo**: PipelineSincronizacao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PipelineSincronizacao` desempenha um papel crucial na gestão e agendamento de processos de sincronização de dados entre diferentes sistemas. Ela encapsula todas as configurações necessárias para realizar chamadas de APIs, bem como as condições que determinam a periodicidade e o estado dessas chamadas. Esse modelo é fundamental para assegurar que as integrações aconteçam de maneira organizada e eficiente, respeitando as regras de negócio definidas.
+A classe `PipelineSincronizacao` representa um modelo de domínio rico que gerencia o comportamento e a lógica de um pipeline de sincronização de dados. Seu papel principal é coordenar a execução de etapas de sincronização com intervalos definidos, além de manejar a autenticação, o método HTTP e a configuração de endereços. Ela serve como uma solução para integrar sistemas de forma eficiente, garantindo que os dados sejam transferidos de maneira programada e sob condições controladas.
 
 ## Métodos de Negócio
 
 ### ObterIntervaloParaDistribuidora (public)
-- **Objetivo**: Garantir que um intervalo de sincronização específico seja retornado para uma distribuidora. Caso não exista um intervalo específico, o padrão deve ser retornado.
+- **Objetivo**: Garante que o intervalo correto seja recuperado para uma distribuidora específica, ou que um padrão seja utilizado caso não haja um agendamento atribuído a essa distribuidora.
 - **Comportamento**:
-  1. O método filtra a coleção de intervalos (`Intervalos`) para encontrar um que corresponda ao `id` da distribuidora.
-  2. Se nenhum intervalo específico for encontrado, retorna o intervalo padrão que é definido com a propriedade `Padrao`.
-- **Retorno**: Retorna um objeto `IntervaloLogicApp` correspondente à distribuidora ou ao intervalo padrão quando apropriado.
+  1. Busca dentre os intervalos disponíveis aquele que corresponde ao `DistribuidoraId` informado.
+  2. Se nenhum intervalo foi encontrado, a lógica busca o intervalo padrão.
+  3. Retorna o intervalo correspondente ou o padrão.
+- **Retorno**: O método retorna um objeto `IntervaloLogicApp`, que representa o intervalo de tempo ajustado para a distribuidora ou o padrão caso não haja um disponível.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Encontrar intervalo para distribuidora}
-    B -- Sim --> C[Retornar intervalo]
-    B -- Não --> D[Retornar intervalo padrão]
-    D --> C
-    C --> E[Fim]
+    A[Início] --> B{Distribuidora com o ID informado}
+    B -->|Sim| C[Retornar o intervalo correspondente]
+    B -->|Não| D[Buscar intervalo padrão]
+    D --> E[Retornar intervalo padrão]
 ```
 
 ### DefinirTodosOsIntervalos (private)
-- **Objetivo**: Gerar a lista completa de intervalos de sincronização com base nas propriedades de configuração do pipeline.
+- **Objetivo**: Cria uma lista de intervalos para o pipeline, incluindo um intervalo padrão e outros específicos de distribuidoras, se existir.
 - **Comportamento**:
-  1. Cria uma nova lista de `IntervaloLogicApp`.
-  2. Adiciona o intervalo básico, utilizando as propriedades `DataInicialPadrao`, `TempoIntervaloPadrao`, `TipoIntervaloPadrao` e outras.
-  3. Se houver agendamentos de distribuidoras, esses agendamentos são transformados em intervalos e adicionados à lista.
-- **Retorno**: Retorna uma coleção de `IntervaloLogicApp` que representa todos os intervalos configurados.
+  1. Cria uma nova lista de objetos `IntervaloLogicApp`.
+  2. Adiciona um intervalo padrão com base nas configurações do pipeline (DataInicialPadrao, TempoIntervaloPadrao, etc.).
+  3. Se existirem agendamentos associados às distribuidoras, eles são convertidos em objetos `IntervaloLogicApp` e adicionados à lista.
+  4. Retorna todos os intervalos definidos.
+- **Retorno**: Uma coleção de `IntervaloLogicApp` que contém todos os intervalos criados.
 
 ## Propriedades Calculadas e de Validação
+
 ### FiltroAgendamento
-- **Regra**: Esta propriedade determina o tipo de agendamento, retornando:
-  - `Distribuidora`, se houver distribuidoras exclusivas.
-  - `Modulo`, se houver módulos exclusivos.
-  - `Padrao`, caso contrário.
+- Garante que o tipo de agendamento retornado seja baseado nas distribuidoras e módulos exclusivos presentes.
+- Regra: Se houver distribuidoras exclusivas, retorna `Distribuidora`; caso contrário, se houver módulos, retorna `Modulo`; senão, retorna `Padrao`.
 
 ### Endpoint
-- **Regra**: Esta propriedade cria um `EndpointLogicApp` a partir das configurações do pipeline, unificando informações sobre autenticação, método HTTP, destino e corpo da requisição.
+- Cria um novo objeto `EndpointLogicApp` com os parâmetros de autenticação, método HTTP, aplicação de destino, endereço e corpo da requisição.
+- Regra: Assegura que o endpoint de chamada seja formado corretamente com base nos dados do pipeline.
 
 ### Intervalos
-- **Regra**: Esta propriedade garante que a lista de intervalos é inicializada apenas uma vez e retorna todos os intervalos definidos para o pipeline, incluindo aqueles baseados em agendamentos específicos de distribuidoras.
+- Avalia e inicializa a coleção de intervalos quando necessário.
+- Regra: Garante que os intervalos sejam definidos na primeira vez que são acessados, utilizando a configuração do pipeline e quaisquer agendamentos existentes.
 
 ## Navigations Property
 - [PipelineSincronizacaoEncadeada](PipelineSincronizacaoEncadeada.md)
@@ -78,13 +80,23 @@ classDiagram
         +long? PipelineSincronizacaoEncadeadaId
         +PipelineSincronizacaoTipoAgendamentoEnum FiltroAgendamento
         +EndpointLogicApp Endpoint
+        +IEnumerable<IntervaloLogicApp> Intervalos
+    }
+    
+    class PipelineSincronizacaoEncadeada {
     }
 
-    class PipelineSincronizacaoEncadeada
-    class PipelineSincronizacaoEtapa
-    class PipelineSincronizacaoDistribuidora
-    class PipelineSincronizacaoModulo
-    class PipelineSincronizacaoAgendamentoDistribuidora
+    class PipelineSincronizacaoEtapa {
+    }
+
+    class PipelineSincronizacaoDistribuidora {
+    }
+
+    class PipelineSincronizacaoModulo {
+    }
+
+    class PipelineSincronizacaoAgendamentoDistribuidora {
+    }
 
     PipelineSincronizacao --> PipelineSincronizacaoEncadeada
     PipelineSincronizacao --> PipelineSincronizacaoEtapa
@@ -92,3 +104,5 @@ classDiagram
     PipelineSincronizacao --> PipelineSincronizacaoModulo
     PipelineSincronizacao --> PipelineSincronizacaoAgendamentoDistribuidora
 ```
+---
+Gerada em 29/12/2025 20:43:16

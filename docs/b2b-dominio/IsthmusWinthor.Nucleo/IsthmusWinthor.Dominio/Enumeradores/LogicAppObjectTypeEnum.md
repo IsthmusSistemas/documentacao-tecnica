@@ -2,12 +2,11 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: LogicAppObjectTypeEnum.cs  
 
-Este enumerador é utilizado para definir os tipos de objetos que podem ser manipulados em uma aplicação de lógica, facilitando a segregação dos diferentes tipos de dados que podem ser processados.
+Este enumerador é utilizado como um tipo auxiliar, definindo os diferentes tipos de objetos que podem ser utilizados na lógica de operação dentro da aplicação. Sua finalidade é contribuir para a implementação de regras de negócio relacionadas ao processamento e execução de operações em fluxo de trabalho.
 
 ## Tipos Auxiliares e Dependências
-- Nenhuma classe complexa ou navegação associada está presente.
-- Enumeradores utilizados:
-  - `[LogicAppObjectTypeEnum](LogicAppObjectTypeEnum.md)` 
+- **Enumeradores**:
+  - [LogicAppObjectTypeEnum](LogicAppObjectTypeEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -18,4 +17,5 @@ classDiagram
         +AgendamentoLogicAppDTO
     }
 ```
-
+---
+Gerada em 29/12/2025 20:57:43

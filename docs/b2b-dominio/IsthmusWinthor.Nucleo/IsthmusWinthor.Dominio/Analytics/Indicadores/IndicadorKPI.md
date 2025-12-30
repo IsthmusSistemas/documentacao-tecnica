@@ -1,52 +1,66 @@
 # IndicadorKPI
-
 **Namespace**: IsthmusWinthor.Dominio.Analytics.Indicadores  
 **Nome do Arquivo**: IndicadorKPI.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `IndicadorKPI` atua como um motor de cálculo para indicadores chave de desempenho (KPIs) no contexto corporativo. Destina-se a analisar o crescimento percentual e fornecer formatações específicas dos valores de indicadores, permitindo comparações precisas entre períodos de tempo. Resolve o problema de apresentar dados analíticos complexos de maneira facilmente entendível para o usuário.
+A classe `IndicadorKPI` representa um indicador de desempenho (KPI) que fornece dados críticos sobre o desempenho de uma entidade em um determinado período. O problema de negócio que essa classe resolve é a necessidade de calcular e comparar o desempenho através de métricas quantitativas, permitindo que os stakeholders compreendam o crescimento ou a variação em relação a um dia de comparação específico.
 
 ## Métodos de Negócio
+### Título: PercentualCrescimento (Público)
+- **Objetivo**: Calcular o percentual de crescimento entre o valor atual e um valor de comparação.
+- **Comportamento**:
+  1. Verifica se ambos `ValorComparacao` e `Valor` são iguais a zero, retornando 0%.
+  2. Se o `Valor` for maior que zero e `ValorComparacao` for zero, retorna 100%.
+  3. Se `Valor` é igual a `ValorComparacao`, retorna 0%.
+  4. Calcula o percentual de crescimento utilizando a fórmula: \(((Valor - ValorComparacao) * 100) / ValorComparacao\).
+  5. Arredonda o resultado para duas casas decimais.
+- **Retorno**: Retorna um decimal que representa o percentual de crescimento em relação ao valor de comparação.
 
-### PercentualCrescimento (Getter)
-- **Objetivo**: Calcula o percentual de crescimento entre dois valores de tempo separados: `Valor` e `ValorComparacao`.
-- **Comportamento**:  
-  1. Se ambos `Valor` e `ValorComparacao` forem zero, retorna 0.
-  2. Se `Valor` é maior que 0 e `ValorComparacao` é zero, retorna 100% indicando crescimento total.
-  3. Se `Valor` é igual a `ValorComparacao`, retorna 0.
-  4. Caso contrário, calcula o percentual usando a fórmula: `((Valor - ValorComparacao) * 100 / ValorComparacao)`.
-  5. Arredonda o resultado para duas casas decimais, considerando a aproximação para cima.
-- **Retorno**: Percentual de crescimento formatado como decimal.
-
-### **VISUALIZAÇÃO:**
 ```mermaid
 flowchart TD
-    A([Início]) -->|ValorComparacao == 0 e Valor == 0| B[Retorna 0]
-    A -->|Valor > 0 e ValorComparacao == 0| C[Retorna 100]
-    A -->|Valor == ValorComparacao| D[Retorna 0]
-    A -->|Nenhuma das anteriores| E[Calcula percentual de crescimento]
+    A[ValorComparacao == 0 && Valor == 0] -->|Sim| B[Retorne 0]
+    A -->|Não| C[Valor > 0 && ValorComparacao == 0]
+    C -->|Sim| D[Retorne 100]
+    C -->|Não| E[Valor == ValorComparacao]
+    E -->|Sim| F[Retorne 0]
+    E -->|Não| G[Calcule percentual]
+    G --> H[Retorne percentual]
 ```
 
+### Título: ValorFormatado (Público)
+- **Objetivo**: Formatar o valor do indicador com base no tipo de KPI.
+- **Comportamento**:
+  1. Verifica se o `Indicador` é igual a `KPIEnum.ValorTotal` ou `KPIEnum.TicketMedio`.
+  2. Se sim, formata o valor como dinheiro.
+  3. Se não, usa a parte inteira do valor.
+- **Retorno**: Retorna uma string que representa o valor formatado.
+
+### Título: PercentualCrescimentoFormatado (Público)
+- **Objetivo**: Formatar o percentual de crescimento como uma string em porcentagem.
+- **Comportamento**:
+  1. Chama o método `Math.Round` para arredondar o percentual de crescimento para duas casas decimais.
+  2. Concatena o símbolo de porcentagem '%' ao resultado.
+- **Retorno**: Retorna uma string que representa o percentual formatado.
+
 ## Propriedades Calculadas e de Validação
+- **PercentualCrescimento**: Calcula o percentual de crescimento entre `Valor` e `ValorComparacao`, seguindo regras de negócios bem definidas.
+- **ValorFormatado**: Aplica diferentes formatações no valor do KPI, dependendo do tipo do indicador.
 
-- **PercentualCrescimento**: Valor calculado conforme a lógica de negócio acima, representando o crescimento percentual entre dois pontos de dados.
-- **ValorFormatado**: Formatação condicional baseada no tipo de `Indicador`. Arredonda e formata valores monetários adequadamente.
-- **PercentualCrescimentoFormatado**: Formata o valor de `PercentualCrescimento` anexando o símbolo de porcentagem.
-
-## Navigations Property
-- **Indicador**: Tipo de KPI gerenciado, vinculado ao enumeração `KPIEnum`.
+## Navigation Property
+- **Indicador**: Link para o arquivo presumido [KPIEnum](KPIEnum.md).
 
 ## Tipos Auxiliares e Dependências
-- [KPIEnum](KPIEnum.md): Enumeração utilizada para identificar o tipo de indicador.
-- Utiliza métodos de extensão para formatação de valores, presumivelmente de uma classe estática utilitária.
+- **Enumerador**: [KPIEnum](KPIEnum.md)
+- **Classes Estáticas/Helpers**: 
+  - `ToMoney()`: Método de extensão que formata valores para moeda.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IndicadorKPI {
-        -KPIEnum Indicador
-        -decimal Valor
-        -decimal ValorComparacao
+        +KPIEnum Indicador
+        +decimal Valor
+        +decimal ValorComparacao
         +decimal PercentualCrescimento
         +string Descricao
         +string ValorFormatado
@@ -54,3 +68,5 @@ classDiagram
     }
     IndicadorKPI --> KPIEnum
 ```
+---
+Gerada em 29/12/2025 20:08:00

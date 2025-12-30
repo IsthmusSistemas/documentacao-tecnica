@@ -1,26 +1,34 @@
 # LogotipoDistribuidoraMessage
-**Namespace**: IsthmusWinthor.Dominio.QueueMessages  
-**Nome do Arquivo**: LogotipoDistribuidoraMessage.cs  
+- **Namespace**: IsthmusWinthor.Dominio.QueueMessages
+- **Nome do Arquivo**: LogotipoDistribuidoraMessage.cs
 
 ## Visão Geral e Responsabilidade
-A classe `LogotipoDistribuidoraMessage` representa uma mensagem que encapsula informações sobre o logotipo de uma distribuidora. Ela é utilizada para transmitir dados através de uma fila de mensagens, assegurando que somente informações válidas sejam criadas e manipuladas. Sua responsabilidade primária é garantir a integridade dos dados que compõem a mensagem, evitando a criação de objetos com valores inválidos.
+A classe `LogotipoDistribuidoraMessage` é responsável por encapsular mensagens relacionadas ao logotipo de uma distribuidora em um sistema de fila. Ela garante que os dados essenciais do logotipo sejam transportados de forma segura, validando informações críticas como o ID da distribuidora, o nome virtual e a URL do logotipo. A ausência de dados válidos resulta em uma exceção, garantindo a integridade dos dados e evitando que informações inválidas sejam processadas.
 
 ## Métodos de Negócio
 
-### Título: Construtor (visibilidade: pública)
-- **Objetivo**: Garantir que os dados da mensagem sejam válidos no momento da criação do objeto, evitando inconsistências e erros na aplicação.
-- **Comportamento**: O construtor recebe três parâmetros. Ele verifica se o `distribuidoraId` é maior que zero e se `nomeVirtual` e `urlLogotipo` não são nulos ou vazios. Caso alguma dessas condições não seja atendida, uma exceção é lançada através de `DominioException.ThrowWhen`.
-- **Retorno**: Não retorna um valor. Se os dados não forem válidos, uma exceção é gerada, interrompendo a instância da classe.
+### Construtor: `LogotipoDistribuidoraMessage(long distribuidoraId, string nomeVirtual, string urlLogotipo)`
+- **Objetivo**: Garante que as informações do logotipo da distribuidora sejam válidas antes de serem armazenadas.
+- **Comportamento**:
+  1. Chama `DominioException.ThrowWhen` para validar se o `distribuidoraId` é maior que zero e se `nomeVirtual` e `urlLogotipo` não são nulos ou vazios.
+  2. Se qualquer uma das condições de validação falhar, uma exceção é lançada com a mensagem "Logotipo inválido!".
+  3. Se as validações forem bem-sucedidas, as propriedades `DistribuidoraId`, `NomeVirtual` e `UrlLogotipo` são inicializadas com os valores fornecidos.
+- **Retorno**: Não possui um retorno explícito, mas gerencia a criação do objeto com propriedades válidas, ou lança uma exceção no caso contrário.
 
 ## Propriedades Calculadas e de Validação
-- **MessageId**: Retorna o `NomeVirtual`, que atua como um identificador único na fila. É uma concatenação utilizada para garantir que a mensagem tenha uma forma identificadora.
-- **QueuedCount**: Retorna sempre o valor `1`, indicando que a mensagem é contada como uma única instância na fila.
+
+### Propriedades:
+- `MessageId`: Retorna o `NomeVirtual`, que é usado como identificação da mensagem na fila.
+  - **Regra**: O `MessageId` sempre deve refletir o nome virtual do logotipo, assegurando um vínculo claro entre a mensagem e a distribuidora.
+
+- `QueuedCount`: Retorna um valor constante de 1, indicando que esta mensagem representa uma única instância de logotipo na fila.
 
 ## Navigations Property
-Não existem propriedades que sejam classes complexas do domínio a serem listadas nesta classe.
+Não há navigations properties que sejam classes complexas do domínio neste caso.
 
 ## Tipos Auxiliares e Dependências
-- **Exceção**: Dependência de `DominioException` para validação de dados.
+- **Exceções**:
+  - `DominioException`: Classe responsável por lançar exceções específicas do domínio quando as validações falham.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -31,6 +39,12 @@ classDiagram
         +string UrlLogotipo
         +string MessageId
         +int QueuedCount
+        +LogotipoDistribuidoraMessage(long distribuidoraId, string nomeVirtual, string urlLogotipo)
     }
-    LogotipoDistribuidoraMessage --> DominioException : validacoes
+    class DominioException {
+        +static ThrowWhen(bool condition, string message)
+    }
+    LogotipoDistribuidoraMessage --> DominioException
 ```
+---
+Gerada em 29/12/2025 22:04:17

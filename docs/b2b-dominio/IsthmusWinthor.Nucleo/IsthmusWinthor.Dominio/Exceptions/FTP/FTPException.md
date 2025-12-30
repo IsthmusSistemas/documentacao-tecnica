@@ -1,37 +1,40 @@
 # FTPException
+
 **Namespace**: IsthmusWinthor.Dominio.Exceptions.FTP  
 **Nome do Arquivo**: FTPException.cs  
 
-A classe `FTPException` é utilizada para encapsular erros relacionados a operações de FTP (File Transfer Protocol). Sua principal responsabilidade é fornecer uma exceção específica que possa ser lançada quando ocorrem falhas durante a comunicação ou transferência de arquivos via FTP, auxiliando no tratamento de erros em aplicações que dependem deste protocolo.
+A classe `FTPException` é uma exceção personalizada que é lançada para indicar condições de erro específicas relacionadas ao uso do protocolo FTP. Ela permite que o sistema trate erros associados a operações de FTP de maneira controlada e consistente, melhorando a robustez da aplicação.
 
 ## Métodos de Negócio
 
-### Construtor: FTPException(string mensagem)
-- **Objetivo**: Criar uma nova instância da exceção, proporcionando uma mensagem detalhada sobre o erro ocorrido.
-- **Comportamento**: Quando este construtor é invocado, ele armazena a mensagem de erro que pode ser recuperada posteriormente, permitindo que o contexto do erro seja compreendido no ponto de captura da exceção.
-- **Retorno**: Não aplica, pois é um construtor.
+### Título: FTPException(string mensagem) - Público
+- **Objetivo**: Este construtor serve para criar uma instância da exceção com uma mensagem de erro específica. Ele permite que a lógica de tratamento de exceção capture detalhes importantes do erro ocorrido durante operações de FTP, como falhas de conexão ou de autenticação.
+- **Comportamento**: 
+  1. O construtor recebe uma string `mensagem` que descreve o erro.
+  2. Ele chama o construtor base da classe `Exception`, passando a mensagem para o construtor da classe pai.
+- **Retorno**: Não retorna um valor, mas cria uma nova instância da exceção com a mensagem designada para que possa ser lançada durante o fluxo de execuções do sistema.
 
-### Construtor: FTPException(SerializationInfo info, StreamingContext context)
-- **Objetivo**: Permitir a serialização e desserialização da exceção, o que é fundamental para o tratamento de exceções em ambientes distribuídos.
-- **Comportamento**: Este construtor é invocado durante o processo de serialização, recuperando os detalhes da exceção a partir dos parâmetros fornecidos.
-- **Retorno**: Não aplica, pois é um construtor.
-
-## Propriedades Calculadas e de Validação
-Não há propriedades calculadas ou de validação nesta classe, uma vez que sua função primária é a de lançar exceções.
-
-## Navigations Property
-Não possui propriedades complexas do domínio.
-
-## Tipos Auxiliares e Dependências
-Não há enumeradores ou classes auxiliares utilizadas nesta classe.
+### Título: FTPException(SerializationInfo info, StreamingContext context) - Protegido
+- **Objetivo**: Este construtor é usado durante a desserialização para reidratar a exceção a partir de um stream de dados. Ele garante que a exceção possa ser restaurada em um estado válido durante as operações de serialização e desserialização, que podem ser essenciais em sistemas distribuídos.
+- **Comportamento**: 
+  1. Recebe dois parâmetros: `info`, que contém os dados de serialização, e `context`, que fornece a informação do contexto de streaming.
+  2. Chama o construtor da classe base `Exception`, passando os parâmetros para restaurar o estado da exceção.
+- **Retorno**: Não retorna um valor, mas reconstitui a exceção a partir do estado serializado.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FTPException {
-        +String mensagem
+        +FTPException(string mensagem)
+        +FTPException(SerializationInfo info, StreamingContext context)
     }
-    FTPException --> Exception : "herda"
-``` 
+    class Exception {
+        <<abstract>>
+    }
+    FTPException --> Exception : Inherits
+```
 
-Esta documentação fornece uma visão clara e estruturada sobre a classe `FTPException`, seus métodos e sua função no contexto do sistema.
+## Tipos Auxiliares e Dependências
+- Nenhum tipo auxiliar ou enumerador externo é utilizado na classe `FTPException`.
+---
+Gerada em 29/12/2025 21:11:28

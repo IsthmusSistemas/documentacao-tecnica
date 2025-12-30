@@ -3,43 +3,49 @@
 **Nome do Arquivo**: IContaPixPagamentoRepositorio.cs  
 
 ## Visão Geral e Responsabilidade
-A interface `IContaPixPagamentoRepositorio` é responsável por definir as operações de persistência relacionadas a pagamentos realizados através do sistema de Conta Pix. O principal objetivo da interface é facilitar a manutenção e atualização dos registros de pagamentos, garantindo que as informações estejam sempre atualizadas e disponíveis para conciliação. Este repositório desempenha um papel crítico na integridade e disponibilidade dos dados relacionados a transações financeiras.
+A interface `IContaPixPagamentoRepositorio` define a estrutura para operações relacionadas aos pagamentos de contas via Pix. Seu papel é puramente de abstração de acesso a dados, permitindo a atualização e a consulta dos registros de pagamentos. Este repositório é fundamental para garantir que as informações financeiras sejam processadas e manipuladas de forma segura e eficiente, assegurando a integridade dos dados relacionados aos pagamentos através da ferramenta de conciliação.
 
 ## Métodos de Negócio
 
-### AtualizarPagamentos
-- **Título**: AtualizarPagamentos (Visibilidade: public)
-- **Objetivo**: Garante que os pagamentos recebidos sejam atualizados no sistema, refletindo qualquer alteração necessária.
-- **Comportamento**: Este método aceita uma coleção de pagamentos (`IEnumerable<PagamentoContaPix>`) e atualiza os registros correspondentes no banco de dados. A lógica inclui iterar sobre cada pagamento, aplicar as modificações e persistir estas mudanças no repositório de dados. É essencial garantir que os dados atualizados não causem inconsistências.
-- **Retorno**: Este método não retorna um valor, mas espera-se que, ao final de sua execução, os pagamentos no repositório tenham sido corretamente atualizados.
+### 1. AtualizarPagamentos
+- **Visibilidade**: Público
+- **Objetivo**: Garante que uma coleção de pagamentos de contas Pix seja preservada de forma atualizada no sistema.
+- **Comportamento**: 
+  1. Recebe uma coleção de objetos `PagamentoContaPix` que representam pagamentos.
+  2. Realiza a operação de atualização no armazenamento persistente, modificando os registros existentes conforme necessário.
+  3. Pode incluir validações adicionais ou exceções em implementações concretas para preservar a consistência dos dados.
+- **Retorno**: Este método não retorna nenhum valor, mas lança exceções em casos de falha na atualização.
 
-### PagamentosPixConciliar
-- **Título**: PagamentosPixConciliar (Visibilidade: public)
-- **Objetivo**: Extrai pagamentos específicos para conciliação, baseando-se no `distribuidoraId`, para permitir a verificação e o alinhamento de registros financeiros.
-- **Comportamento**: Este método recebe um identificador de distribuidora como parâmetro e realiza uma busca por todos os pagamentos de Conta Pix associados a essa distribuidora. O retorno é uma lista de pagamentos que precisam ser conciliados, permitindo o trabalho de reconciliação financeira para evitar discrepâncias.
-- **Retorno**: Retorna uma coleção (`IEnumerable<PagamentoContaPix>`) de objetos `PagamentoContaPix` que representam pagamentos que estão prontos para ou necessitam de conciliação.
+### 2. PagamentosPixConciliar
+- **Visibilidade**: Público
+- **Objetivo**: Extrai registros de pagamentos realizados via Pix para uma distribuidora específica, facilitando o processo de conciliação.
+- **Comportamento**:
+  1. Recebe a identificação da distribuidora (`distribuidoraId`) como parâmetro.
+  2. Consulta a base de dados para recuperar todos os pagamentos associados a esta distribuidora.
+  3. Retorna uma coleção de objetos `PagamentoContaPix`, permitindo que outras partes do sistema efetuem a conciliação necessária.
+- **Retorno**: Retorna uma coleção de `PagamentoContaPix` que representa os pagamentos que devem ser conciliados.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades calculadas ou de validação a serem listadas nesta interface, pois ela apenas define contratos para métodos de negócio.
+Não existem propriedades dentro desta interface, uma vez que se trata de um contrato para repositório sem implementação de lógica ou propriedades a serem calculadas ou validadas.
 
 ## Navigations Property
-Não há propriedades de navegação a serem listadas nesta interface, pois se trata de uma interface focada em operações sobre pagamentos.
+Não existem propriedades complexas do domínio diretamente associadas a esta interface. Os métodos fazem uso de `PagamentoContaPix`, que é uma entidade que poderia ser explorada, mas não são propriedades dentro de `IContaPixPagamentoRepositorio`.
 
 ## Tipos Auxiliares e Dependências
-- **Dependências**: 
-  - `PagamentoContaPix` (Classe auxiliar representando um pagamento via Conta Pix).
+- **Classes Dependentes**: 
+  - [PagamentoContaPix](PagamentoContaPix.md) - Representa um pagamento via Pix.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IContaPixPagamentoRepositorio {
-        +void AtualizarPagamentos(IEnumerable<PagamentoContaPix> pagamentosContasPix)
-        +IEnumerable<PagamentoContaPix> PagamentosPixConciliar(long distribuidoraId)
+      +void AtualizarPagamentos(IEnumerable<PagamentoContaPix> pagamentosContasPix)
+      +IEnumerable<PagamentoContaPix> PagamentosPixConciliar(long distribuidoraId)
     }
 
-    class PagamentoContaPix {
-        <<Entity>>
-    }
+    class PagamentoContaPix
 
     IContaPixPagamentoRepositorio --> PagamentoContaPix
 ```
+---
+Gerada em 29/12/2025 21:15:28

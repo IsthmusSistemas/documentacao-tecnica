@@ -3,40 +3,38 @@
 **Nome do Arquivo**: PipelineSincronizacaoModulo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PipelineSincronizacaoModulo` representa uma entidade do domínio que serve como um elo entre os módulos do Isthmus e os processos de sincronização de pipeline. Ela aborda a necessidade de associar um módulo específico a uma sincronização de pipeline, garantindo que os dados e os comportamentos relacionados à sincronização sejam corretamente vinculados aos módulos relevantes. Essa modelagem é fundamental para manter a integridade dos dados dentro do sistema.
+A classe `PipelineSincronizacaoModulo` representa a associação entre um módulo específico do sistema e um processo de sincronização definido no pipeline. Essa entidade é crucial para a estruturação do processo de integração e sincronização de módulos, permitindo o rastreamento de quais módulos estão vinculados a cada sincronização. A classe ajuda a garantir a integridade dos dados relacionados a módulos e suas respectivas sincronizações.
 
 ## Métodos de Negócio
-Esta classe não apresenta métodos com lógica de negócios implementada além das propriedades de associação.
+A classe apresentada não contém métodos de negócio com lógica interna. O foco é o armazenamento de informações e referências a outras entidades.
 
 ## Propriedades Calculadas e de Validação
-Esta classe possui apenas propriedades anêmicas sem lógica no `get` ou validações no `set`. As propriedades são simples representações de dados que estabelecem a conexão entre `PipelineSincronizacao` e `ModuloIsthmus`.
+A classe `PipelineSincronizacaoModulo` possui apenas propriedades anêmicas, portanto não há propriedades com lógica de cálculo ou validades que valham a pena relatar.
 
-## Navigation Properties
-- [PipelineSincronizacao](PipelineSincronizacao.md)
-- [ModuloIsthmus](ModuloIsthmus.md)
+## Navigation Property
+- [`PipelineSincronizacao`](PipelineSincronizacao.md) - Referencia o objeto de sincronização do pipeline.
+- [`ModuloIsthmus`](ModuloIsthmus.md) - Referencia o módulo específico no contexto da sincronização.
 
 ## Tipos Auxiliares e Dependências
-Nenhum tipo auxiliar ou enumerador significativo é utilizado diretamente por esta classe.
+Não existem Enums ou Classes Estáticas/Helpers utilizadas diretamente nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PipelineSincronizacaoModulo {
-        +long Id
-        +long PipelineSincronizacaoId
-        +long ModuloId
+        long Id
+        long PipelineSincronizacaoId
+        long ModuloId
+    }
+    class PipelineSincronizacao {
+        // Definições de propriedades
+    }
+    class ModuloIsthmus {
+        // Definições de propriedades
     }
     
-    class PipelineSincronizacao {
-        +long Id
-    }
-
-    class ModuloIsthmus {
-        +long Id
-    }
-
-    PipelineSincronizacaoModulo --> PipelineSincronizacao : "associa"
-    PipelineSincronizacaoModulo --> ModuloIsthmus : "associa"
-``` 
-
-Esta documentação fornece uma visão clara da classe `PipelineSincronizacaoModulo` e suas interações dentro do domínio, essencial para facilitar a manutenção e entendimento do sistema corporativo.
+    PipelineSincronizacaoModulo --> PipelineSincronizacao : associa
+    PipelineSincronizacaoModulo --> ModuloIsthmus : associa
+```
+---
+Gerada em 29/12/2025 20:44:07

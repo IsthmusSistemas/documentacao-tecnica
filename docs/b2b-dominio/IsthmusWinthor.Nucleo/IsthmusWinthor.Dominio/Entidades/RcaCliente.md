@@ -3,31 +3,40 @@
 **Nome do Arquivo**: RcaCliente.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `RcaCliente` representa uma entidade que mapeia a relação entre um representante (RCA) e um cliente no sistema. Ela é responsável por armazenar as informações relevantes que permitem a gestão do relacionamento entre distribuidoras e seus clientes, garantindo que as operações essenciais de envio de pedidos sejam realizadas de forma adequada, com base em permissões definidas.
+A classe `RcaCliente` representa uma entidade no domínio que associa um representante de vendas (RCA) a um cliente específico, incluindo informações sobre o perfil do representante e as permissões de envio de pedidos. Este modelo é crucial para garantir que apenas RCAs autorizados possam realizar ações específicas em nome de determinados clientes, ajudando a manter a integridade dos processos de vendas e distribuição.
 
 ## Métodos de Negócio
-A classe `RcaCliente` não possui métodos de negócio com lógica complexa, pois se limita a encapsular dados relacionados a um cliente e suas permissões.
+- **Título**: (Nenhum método de negócio implementado para esta classe)
 
 ## Propriedades Calculadas e de Validação
-As propriedades em `RcaCliente` não possuem lógica complexa em seus acessadores, mas a propriedade `PodeEnviarPedidoCliente` determina se um representante pode ou não enviar pedidos em nome de um cliente, sendo uma propriedade booleana que reflete essa regra.
+- **PodeEnviarPedidoCliente**: Essa propriedade booleana determina se o representante de vendas (RCA) tem permissão para enviar pedidos em nome do cliente. A lógica de validação não está explicitada no código, mas seu estado deve ser definido de acordo com regras de negócio que possam incluir condições relacionadas ao perfil do representante e ao estado do cliente.
 
 ## Navigations Property
-- [Cliente](Cliente.md)
-- [Distribuidora](Distribuidora.md)
+- `Cliente`: [Cliente](Cliente.md) - Representa o cliente associado ao RCA.
+- `Distribuidora`: [Distribuidora](Distribuidora.md) - Representa a distribuidora associada ao RCA.
 
 ## Tipos Auxiliares e Dependências
-- [PerfilRepresentanteEnum](PerfilRepresentanteEnum.md)
+- `PerfilRepresentanteEnum`: [PerfilRepresentanteEnum](PerfilRepresentanteEnum.md) - Enum que define os diferentes perfis que um representante pode ter.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class RcaCliente {
-        +long Id
-        +long RcaId
-        +long ClienteId
-        +long DistribuidoraId
-        +bool PodeEnviarPedidoCliente
+        long Id
+        long RcaId
+        long ClienteId
+        PerfilRepresentanteEnum PerfilRepresentante
+        long DistribuidoraId
+        bool PodeEnviarPedidoCliente
     }
-    RcaCliente --> Cliente : "associação"
-    RcaCliente --> Distribuidora : "associação"
+    RcaCliente --> Cliente
+    RcaCliente --> Distribuidora
+    class Cliente {
+    }
+    class Distribuidora {
+    }
+    class PerfilRepresentanteEnum {
+    }
 ```
+---
+Gerada em 29/12/2025 20:46:17

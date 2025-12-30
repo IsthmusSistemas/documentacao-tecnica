@@ -1,32 +1,28 @@
 # Claims
-
 **Namespace**: IsthmusWinthor.Dominio.Util  
 **Nome do Arquivo**: Claims.cs  
 
-A classe `Claims` é uma classe estática que serve como ponto central para definições de constantes relacionadas a permissões e reivindicações de usuário na aplicação. Ela facilita a gestão e o uso de constantes, garantindo que o acesso e as validações de usuários sejam feitos de maneira consistente em todo o sistema.
+Como uma classe estática, `Claims` é utilizada para centralizar e gerenciar as constantes relacionadas a identidades e permissões de usuários no contexto de um sistema de negócios B2B, facilitando a manutenção e a integração de regras de acesso.
 
-### Métodos de Negócio
-- **Título**: `CLAIM_USUARIO_B2B` (Constante)
-  - **Objetivo**: Define a reivindicação para usuários do tipo Business-to-Business (B2B), permitindo que o sistema reconheça e diferencie esse tipo de usuário em suas operações.
-  - **Comportamento**: Esta constante é utilizada nas regras de autorização e autenticação para garantir que somente usuários B2B possam acessar recursos específicos. Sua utilização padroniza o código através da chamada dessa constante, evitando strings mágicas que podem levar a erros e facilitar a manutenção do código no futuro.
-  - **Retorno**: A constante em si não retorna um valor executável, mas é uma chave que representa um tipo específico de usuário no sistema, tendo impacto direto nas funcionalidades de controle de acesso.
+## Métodos de Negócio
+Não há métodos de negócio definidos além de constantes, logo, não são aplicáveis.
 
-### Propriedades Calculadas e de Validação
-Não há propriedades a serem listadas, uma vez que a classe `Claims` consiste apenas em constantes.
+## Propriedades Calculadas e de Validação
+Não existem propriedades com lógica de cálculo ou validação, pois a classe é composta apenas por constantes.
 
-### Navigations Property
-Não há propriedades navegacionais, já que a classe `Claims` é estática e não contém instâncias de classes complexas do domínio.
+## Navigation Property
+Não há classes complexas do domínio associadas a esta classe, pois ela serve apenas como um repositório para constantes.
 
-### Tipos Auxiliares e Dependências
-- Embora esta classe não dependa de nenhum tipo auxiliar diretamente, ela pode ser referenciada em outros componentes do sistema que lidam com segurança e autorização.
+## Tipos Auxiliares e Dependências
+- Não existem enumeradores ou classes auxiliares/utilitárias adicionais referenciadas nesta classe.
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Claims {
         <<static>>
-        +const string CLAIM_USUARIO_B2B
+        + CLAIM_USUARIO_B2B : string
     }
-``` 
-
-Este diagrama ilustra a `Claims` como uma classe estática, destacando a única constante definida que pode ser utilizada em outros componentes que necessitam realizar verificações ou validações relacionadas a usuários B2B.
+```
+---
+Gerada em 29/12/2025 22:07:02

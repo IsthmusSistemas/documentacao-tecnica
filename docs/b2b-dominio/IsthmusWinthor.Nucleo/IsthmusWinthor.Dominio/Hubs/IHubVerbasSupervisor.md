@@ -4,16 +4,26 @@
 **Nome do Arquivo**: HubVerbasSupervisorMessage.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `HubVerbasSupervisorMessage` é responsável por encapsular as mensagens que serão enviadas através do hub para supervisores relacionados a verbas. O objetivo é proporcionar um meio estruturado de comunicação que inclui um identificador único, um tipo de mensagem e o conteúdo da mensagem. Essa classe atende ao problema de comunicação eficiente e organiza as informações necessárias para que supervisores possam responder ou tomar ações pertinentes com base nas notificações recebidas.
+A classe `HubVerbasSupervisorMessage` atua como um modelo de mensagem que é utilizado para passar informações sobre eventos relevantes ocorrendo em um hub de comunicação de um sistema. Esta classe encapsula dados como identificadores, tipo de evento e a mensagem correspondente, facilitando a comunicação eficiente entre diferentes partes do sistema em tempo real.
+
+## Métodos de Negócio
+### Título: Construtor (Visibilidade: Público)
+- **Objetivo**: Garante a construção de um objeto que contém os dados essenciais para uma mensagem a ser transmitida através do hub.
+- **Comportamento**: 
+  1. O construtor recebe três parâmetros: `identificadorSync`, `tipo` e `mensagem`.
+  2. Cada parâmetro é atribuído à propriedade correspondente, que são somente leitura e devem ser informadas devido às suas naturezas necessárias para a mensagem.
+- **Retorno**: Não retorna valor, apenas instancia um objeto `HubVerbasSupervisorMessage` que contém os valores fornecidos.
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades com lógica no `get` ou validação no `set` nesta classe, pois as propriedades estão diretamente ligadas aos valores passados no construtor e são somente leitura.
+- `IdentificadorSync`: Este valor é utilizado para garantir que a mensagem possa ser identificada de forma única e sincronizada em diferentes partes do sistema.
+- `Tipo`: Define o tipo do evento que a mensagem está representando, sendo crucial para a manipulação correta da mensagem em funções posteriores.
+- `Mensagem`: O conteúdo da mensagem, que oferece o contexto necessário para o evento que está sendo notificado.
 
 ## Navigations Property
-Não existem propriedades que são classes complexas do domínio nesta classe.
+- Não existem propriedades que sejam classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-Não existem enumeradores, classes estáticas ou helpers utilizados.
+- Nenhum enumeration ou classe estática/helper é utilizada diretamente na classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -23,51 +33,6 @@ classDiagram
         +string Tipo
         +string Mensagem
     }
-``` 
-
+```
 ---
-
-# IHubVerbasSupervisor
-
-**Namespace**: IsthmusWinthor.Dominio.Hubs  
-**Nome do Arquivo**: IHubVerbasSupervisor.cs  
-
-## Visão Geral e Responsabilidade
-A interface `IHubVerbasSupervisor` define o contrato para operações relacionadas à comunicação com usuários em um hub. Ela é crucial para a implementação de uma funcionalidade robusta de notificação e gerenciamento de usuários dentro da aplicação. A interface é projetada para permitir que qualquer classe que a implemente possa adicionar usuários e enviar notificações de forma assíncrona.
-
-## Métodos de Negócio
-
-### AdicionarUser (public)
-- **Objetivo:** Este método garante que um novo usuário seja adicionado ao contexto do hub.
-- **Comportamento:** 
-  1. Recebe uma string que representa o usuário a ser adicionado.
-  2. O método deve conectar o usuário ao hub especificado.
-- **Retorno:** Retorna uma `Task`, sinalizando a conclusão da operação no contexto assíncrono.
-
-### Notificar (public)
-- **Objetivo:** Este método assegura que uma notificação seja enviada a todos os usuários conectados ao hub.
-- **Comportamento:**
-  1. Recebe um objeto `HubVerbasSupervisorMessage` que contém a mensagem a ser transmitida.
-  2. A mensagem é formatada e convertida para um formato adequado para transporte.
-  3. Em seguida, é distribuída para todos os usuários conectados ao hub que estão escutando por este tipo de mensagem.
-- **Retorno:** Retorna uma `Task`, sinalizando a conclusão da operação no contexto assíncrono.
-
-## Propriedades Calculadas e de Validação
-Não aplicável, pois a interface não possui propriedades.
-
-## Navigations Property
-Não existem propriedades que são classes complexas do domínio nesta interface.
-
-## Tipos Auxiliares e Dependências
-Não existem enumeradores, classes estáticas ou helpers utilizados.
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class IHubVerbasSupervisor {
-        +Task AdicionarUser(string user)
-        +Task Notificar(HubVerbasSupervisorMessage message)
-    }
-``` 
-
-Neste formato, a documentação dos dois componentes apresentados fornece uma visão clara e estruturada sobre suas responsabilidades e comportamentos, facilitando a compreensão e manutenção do sistema.
+Gerada em 29/12/2025 21:13:21

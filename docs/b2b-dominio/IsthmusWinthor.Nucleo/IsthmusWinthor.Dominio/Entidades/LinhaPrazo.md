@@ -3,26 +3,22 @@
 **Nome do Arquivo**: LinhaPrazo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `LinhaPrazo` atua como uma entidade no domínio que representa uma linha temporal obrigatória ou opcional dentro de um contexto comercial. Ela gerencia informações relacionadas a prazos específicos, como descrição e utilização pela distribuidora. Esta classe é fundamental para garantir que as regras de negócio associadas a produtos e clientes em relação a prazos sejam aplicadas corretamente, possibilitando que a aplicação atenda às necessidades de planejamento e comunicação entre distribuidoras e seus clientes.
+A classe `LinhaPrazo` é um componente central na modelagem de prazos associados a distribuidoras. Ela representa uma linha que define prazos específicos que podem ser aplicados a produtos e clientes. O seu propósito de negócio é assegurar que as regras referentes a prazos obrigatórios e suas associações com distribuidoras e produtos sejam respeitadas, facilitando o controle de condições comerciais entre os participantes do sistema.
 
 ## Métodos de Negócio
-- **Título:** Não há métodos adicionais com lógica condicional complexa nesta classe.
+(Atualmente, a classe não apresenta métodos com lógica de negócio, todos os seus métodos evidentes são conformes a propriedades assumidas.)
 
 ## Propriedades Calculadas e de Validação
-- **Propriedade:** `Obrigatorio`
-  - **Regra:** Indica se a linha de prazo é obrigatória ou não. Essa propriedade deve ser validada para garantir que os prazos essenciais sejam sempre respeitados na lógica de negócios, impactando diretamente a operação.
+- **Descrição**: embora a descrição seja uma propriedade simples, ela deve ser validada em um cenário de aplicação onde uma descrição não pode ser vazia ou nula, dependendo das regras de negócio.
+- **Obrigatorio**: esta propriedade booleana deve ser verificada para determinar se a linha de prazo deve ser obrigatória em termos de aplicações práticas. 
 
-## Navigation Property
-- **Distribuidora**: Representa a distribuidora associada a esta linha de prazo. 
-  - Relacionamento: `[Distribuidora](Distribuidora.md)`
-- **LinhaPrazoClientes**: Representa os clientes associados a esta linha de prazo.
-  - Relacionamento: `[LinhaPrazoCliente](LinhaPrazoCliente.md)`
-- **Produtos**: Representa os produtos que estão vinculados a esta linha de prazo.
-  - Relacionamento: `[Produto](Produto.md)`
+## Navigations Property
+- [Distribuidora](Distribuidora.md)
+- [LinhaPrazoCliente](LinhaPrazoCliente.md)
+- [Produto](Produto.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enum Dependente**: Nenhum enum é utilizado diretamente nesta classe.
-- **Classes de Helper**: Nenhuma classe estática de helper é referenciada diretamente. 
+- Nenhum enumerador ou classe estática/helper é utilizado diretamente por esta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -33,17 +29,13 @@ classDiagram
         +string Descricao
         +bool Obrigatorio
     }
-    
-    class Distribuidora {
-    }
+    class Distribuidora
+    class LinhaPrazoCliente
+    class Produto
 
-    class LinhaPrazoCliente {
-    }
-    
-    class Produto {
-    }
-
-    LinhaPrazo --> Distribuidora : distribuidora
-    LinhaPrazo --> LinhaPrazoCliente : linhaPrazoClientes
-    LinhaPrazo --> Produto : produtos
+    LinhaPrazo "1" --> "1" Distribuidora : possui >
+    LinhaPrazo "1" --> "*" LinhaPrazoCliente : contém >
+    LinhaPrazo "1" --> "*" Produto : associa >
 ```
+---
+Gerada em 29/12/2025 20:38:41

@@ -3,59 +3,74 @@
 **Nome do Arquivo**: PrecoProdutoCashBack.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PrecoProdutoCashBack` representa uma campanha de cashback preferencial associada a um produto. O objetivo principal dessa classe é calcular e gerenciar os descontos disponíveis para produtos em campanhas de cashback, permitindo ao sistema determinar se um produto qualifica para cashback e qual é o maior desconto disponível.
+A classe `PrecoProdutoCashBack` representa uma campanha de cashback preferencial para produtos. O objetivo principal dessa classe é gerenciar e fornecer informações relacionadas a diferentes faixas de desconto associadas a uma campanha de cashback. Isso permite que o sistema determine se um produto é elegível para cashback, qual a maior faixa de desconto disponível e descreva essa informação de forma apropriada.
 
 ## Métodos de Negócio
 
-### Título: `TemCashBack` (Propriedade)
-- **Objetivo**: Determinar se o produto participa de uma campanha de cashback com um desconto aplicável.
+### 1. MaiorDesconto (Propriedade)
+- **Objetivo**: Garante que a maior faixa de desconto dentro das faixas de cashback seja sempre retornada, permitindo decisões de negócios informadas sobre a oferta de cashback.
 - **Comportamento**: 
-  1. Avalia se a propriedade `MaiorDesconto` possui um valor.
-  2. Checa se o desconto daquele valor é maior que 0.
-  3. Retorna `true` se o desconto é maior que 0, caso contrário retorna `false`.
-- **Retorno**: `true` indica que o produto tem cashback ativo, enquanto `false` indica que não tem.
+  1. Verifica se há faixas na lista `Faixas`.
+  2. Se não existir nenhuma faixa, retorna uma nova instância de `PrecoProdutoCashBackFaixa`.
+  3. Caso haja faixas, ordena as faixas de desconto em ordem decrescente e retorna a primeira (a maior).
+- **Retorno**: Retorna um objeto do tipo `PrecoProdutoCashBackFaixa`, representando a faixa de desconto com o maior valor.
 
-### Título: `MaiorDesconto` (Propriedade)
-- **Objetivo**: Encontrar e retornar a faixa de desconto com o maior valor disponível para o produto.
-- **Comportamento**:
-  1. Verifica se a coleção `Faixas` contém elementos.
-  2. Se não houver faixas, retorna uma nova instância padrão de `PrecoProdutoCashBackFaixa`.
-  3. Caso haja faixas, ordena-as por desconto de forma decrescente e retorna a primeira da lista, que representa a maior.
-- **Retorno**: Retorna uma instância de `PrecoProdutoCashBackFaixa` que representa a faixa de desconto mais alta ou uma nova faixa padrão se não houver faixas disponíveis.
+### 2. TemCashBack (Propriedade)
+- **Objetivo**: Determina se o produto tem qualquer cashback associado.
+- **Comportamento**: 
+  - Verifica se o desconto da maior faixa (`MaiorDesconto`) é maior que zero.
+- **Retorno**: Retorna um valor booleano (`true` ou `false`) que indica a presença de cashback para o produto.
 
-### Título: `DescricaoParaSelo` (Propriedade)
-- **Objetivo**: Fornecer uma descrição formatada do maior desconto que pode ser utilizada em etiquetas promocionais.
-- **Comportamento**:
-  1. Verifica se o produto tem um cashback ativo usando `TemCashBack`.
-  2. Se não houver cashback, retorna uma string vazia.
-  3. Se houver, obtém a descrição do maior desconto utilizando `MaiorDesconto.DescricaoDesconto`.
-  4. Retorna a string formatada "até {descricao}" onde {descricao} é o texto representando o maior desconto.
-- **Retorno**: Uma string que representa a descrição do desconto ou uma string vazia se não houver cashback.
+### 3. DescricaoParaSelo (Propriedade)
+- **Objetivo**: Fornece uma descrição formatada para exibir um selo de promoção de cashback.
+- **Comportamento**: 
+  1. Verifica se existe cashback (`TemCashBack`).
+  2. Se não houver, retorna uma string vazia.
+  3. Se houver cashback, obtém a descrição da maior faixa de desconto (`MaiorDesconto.DescricaoDesconto`).
+  4. Formata a string resultante como “até {descricao}”.
+- **Retorno**: Retorna uma string que representa a descrição do cashback se aplicável.
+
+```mermaid
+flowchart TD
+    A[TemCashBack]
+    B{MaiorDesconto}
+    C[Desconto > 0]
+    D[Descrição retornada]
+    E[""]
+    
+    A --> B
+    B -->|Maior Desconto| C
+    C -->|Sim| D
+    C -->|Não| E
+```
 
 ## Propriedades Calculadas e de Validação
-- **Maior Desconto**: A propriedade `MaiorDesconto` calcula a faixa que possui o maior desconto através de uma operação de ordenação na lista de `Faixas`. Essa lógica garante que sempre seja apresentado o melhor desconto disponível.
+- `TemCashBack`: Valida se existe uma faixa de desconto maior que zero garantindo a lógica do cashback.
+- `MaiorDesconto`: Calcula a maior faixa de desconto dentre as disponíveis.
 
 ## Navigations Property
-- `[PrecoProdutoCashBackFaixa](PrecoProdutoCashBackFaixa.md)`: A classe `PrecoProdutoCashBackFaixa` representa as diversas faixas de desconto que um produto pode ter sob a campanha de cashback.
+- `Faixas`: Representa uma coleção de faixas de cashback. Cada faixa é do tipo [PrecoProdutoCashBackFaixa](PrecoProdutoCashBackFaixa.md).
 
 ## Tipos Auxiliares e Dependências
-- `[PrecoProdutoCashBackFaixa](PrecoProdutoCashBackFaixa.md)`: Utilizada para representar as faixas de desconto associadas ao cashback.
-  
+- [PrecoProdutoCashBackFaixa](PrecoProdutoCashBackFaixa.md)
+
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PrecoProdutoCashBack {
         +long CashBackCampanhaId
         +bool TemCashBack
-        +IEnumerable<PrecoProdutoCashBackFaixa> Faixas
-        +PrecoProdutoCashBackFaixa MaiorDesconto
         +string DescricaoParaSelo
+        +PrecoProdutoCashBackFaixa MaiorDesconto
+        +IEnumerable<PrecoProdutoCashBackFaixa> Faixas
     }
-
+    
     class PrecoProdutoCashBackFaixa {
         +decimal Desconto
         +string DescricaoDesconto
     }
-
-    PrecoProdutoCashBack --> PrecoProdutoCashBackFaixa : contém
+    
+    PrecoProdutoCashBack --> "0..*" PrecoProdutoCashBackFaixa : tem >
 ```
+---
+Gerada em 29/12/2025 21:52:22

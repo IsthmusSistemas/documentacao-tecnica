@@ -1,23 +1,23 @@
 # AviseQuandoChegar
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: AviseQuandoChegar.cs
+**Nome do Arquivo**: AviseQuandoChegar.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `AviseQuandoChegar` representa uma entidade do domínio cuja responsabilidade é a notificação de clientes quando um produto se torna disponível. Essa funcionalidade atende uma demanda de negócio em que clientes manifestam interesse em produtos fora de estoque e desejam ser informados tão logo eles estejam disponíveis novamente. Assim, esta classe permite gerenciar eficientemente as notificações através de dados como distribuidora, cliente, e produto, além de acompanhar a data de cadastro e a data de aviso.
+A classe `AviseQuandoChegar` representa um mecanismo de notificação que permite que um cliente se inscreva para receber uma notificação por e-mail quando um produto estiver disponível por meio de uma distribuidora. Este modelo é crucial para o gerenciamento de expectativas de clientes e para aumentar a satisfação do consumidor ao saber que produtos com demanda alta ou esgotados estão disponíveis novamente.
 
 ## Métodos de Negócio
-Este modelo não possui métodos de negócios explícitos documentados, focando mais na estrutura de dados para a notificação.
+*Não há métodos com lógica complexa nesta classe que requerem documentação detalhada.*
 
 ## Propriedades Calculadas e de Validação
-Esta classe não possui propriedades calculadas ou validações notáveis no getter ou setter de suas propriedades.
+*Não há propriedades que possuam lógica no `get` ou validação no `set` que necessitem de documentação neste contexto.*
 
-## Navigations Property
-- **Distribuidora**: `[Distribuidora](Distribuidora.md)`
-- **Cliente**: `[Cliente](Cliente.md)`
-- **Produto**: `[Produto](Produto.md)`
+## Navigation Property
+- [Distribuidora](Distribuidora.md)
+- [Cliente](Cliente.md)
+- [Produto](Produto.md)
 
 ## Tipos Auxiliares e Dependências
-Esta classe não apresenta dependências evidentes a enumeradores (Enums) ou classes estáticas/helpers.
+*Não há enumeradores ou classes estáticas/helpers usadas diretamente nesta classe que necessitem de documentação.*
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -28,20 +28,13 @@ classDiagram
         +DateTime? DataAviso
         +string EnderecoEmail
     }
+    class Distribuidora
+    class Cliente
+    class Produto
     
-    class Distribuidora {
-        +long Id
-    }
-    
-    class Cliente {
-        +long Id
-    }
-
-    class Produto {
-        +long Id
-    }
-
-    AviseQuandoChegar --> Distribuidora : "possui"
-    AviseQuandoChegar --> Cliente : "pertence a"
-    AviseQuandoChegar --> Produto : "referencia"
+    AviseQuandoChegar --> Distribuidora
+    AviseQuandoChegar --> Cliente
+    AviseQuandoChegar --> Produto
 ```
+---
+Gerada em 29/12/2025 20:16:52

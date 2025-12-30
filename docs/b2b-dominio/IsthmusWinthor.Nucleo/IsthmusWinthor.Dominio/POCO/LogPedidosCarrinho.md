@@ -1,38 +1,31 @@
 # LogPedidosCarrinho
-**Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: LogPedidosCarrinho.cs  
+- **Namespace**: IsthmusWinthor.Dominio.POCO
+- **Nome do Arquivo**: LogPedidosCarrinho.cs
 
-### Visão Geral e Responsabilidade
-A classe `LogPedidosCarrinho` atua como um registro de pedidos associados a um carrinho de compras específico. Ela tem a responsabilidade de manter uma lista de pedidos e vinculá-los ao carrinho correspondente, essencial para o processamento e histórico de compras de um usuário em um sistema de e-commerce. Isso permite que a aplicação gerencie os pedidos de forma coerente dentro do contexto da experiência de compra.
+## Visão Geral e Responsabilidade
+A classe `LogPedidosCarrinho` serve como um container que falha em consolidar informações relacionadas a pedidos e o carrinho de compras de um cliente. Sua principal responsabilidade é permitir o rastreamento e gerenciamento dos pedidos que foram adicionados ao carrinho, facilitando a visualização e controle das seleções de compras antes da finalização da compra. Isso é crucial para a integridade das operações de venda e para garantir que o cliente tenha uma experiência de usuário fluida ao finalizarem suas compras.
 
-### Métodos de Negócio
-**Neste caso, a classe não contém métodos de negócio com lógica significativa, focando apenas em propriedades de transporte de dados. Portanto, esta seção está vazia.**
+## Navegação de Propriedades
+- `CarrinhoCompras`: [CarrinhoCompras](CarrinhoCompras.md)
+- `Pedidos`: [Pedido](Pedido.md)
 
-### Propriedades Calculadas e de Validação
-**Neste caso, a classe não possui propriedades com lógica no `get` ou validação no `set`, focando apenas em propriedades simples. Portanto, esta seção está vazia.**
+## Tipos Auxiliares e Dependências
+- `Pedido`: [Pedido](Pedido.md)
+- `CarrinhoCompras`: [CarrinhoCompras](CarrinhoCompras.md)
 
-### Navigation Property
-- `CarrinhoCompras` - Representa a classe que contém os detalhes do carrinho de compras.
-  - [CarrinhoCompras](CarrinhoCompras.md)
-  
-- `Pedidos` - Uma lista de pedidos que são instâncias da classe `Pedido`.
-  - [Pedido](Pedido.md)
-
-### Tipos Auxiliares e Dependências
-- Nenhum enumerador (Enum) ou classe estática/helper é utilizado nesta classe. Portanto, esta seção está vazia.
-
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class LogPedidosCarrinho {
         +List<Pedido> Pedidos
         +CarrinhoCompras CarrinhoCompras
     }
-
-    class Pedido {}
-
-    class CarrinhoCompras {}
-
-    LogPedidosCarrinho --|> CarrinhoCompras : composicao
-    LogPedidosCarrinho o-- Pedido : agregacao
+    class Pedido
+    
+    class CarrinhoCompras
+    
+    LogPedidosCarrinho --> "0..*" Pedido
+    LogPedidosCarrinho --> CarrinhoCompras
 ```
+---
+Gerada em 29/12/2025 21:36:52

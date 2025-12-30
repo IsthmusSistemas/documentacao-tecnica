@@ -3,40 +3,38 @@
 **Nome do Arquivo**: BannerEncarte.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `BannerEncarte` representa um componente do sistema relacionado à promoção de produtos ou serviços através de banners distribuídos por diversas distribuidoras. Ela é responsável por armazenar e processar informações relevantes para a criação, identificação e controle das promoções ativas, assegurando que os dados referentes a cada campanha promocional estejam integrados com as entidades de distribuição.
+A classe `BannerEncarte` representa uma entidade no domínio que modela um banner publicitário associado a uma distribuidora. Seu papel fundamental é registrar informações sobre banners promocionais que são utilizados em campanhas de marketing, incluindo detalhes sobre a distribuidora, o código de promoção e o tipo de promoção associado. Essa classe ajuda a garantir a integridade e consistência dos dados promocionais dentro do sistema.
 
 ## Métodos de Negócio
-Esta classe não possui métodos de negócio com lógica complexa; todos os métodos implementados são simples getters e setters.
+_Não há métodos com lógica complexa definidos nesta classe._
 
 ## Propriedades Calculadas e de Validação
-Esta classe não possui propriedades que implementem lógica de validação ou cálculos em seus getters ou setters.
+- Neste caso, não há propriedades que realizem cálculos ou validações complexas.
 
 ## Navigation Property
-- [`Distribuidora`](Distribuidora.md): Representa a distribuidora associada ao banner encarregado.
+- [Distribuidora](Distribuidora.md): Representa a distribuidora associada ao banner, permitindo a navegação para informações adicionais sobre a entidade distribuidora.
 
 ## Tipos Auxiliares e Dependências
-- [`TipoPromocaoEnum`](TipoPromocaoEnum.md): Enum responsável por definir os tipos de promoção disponíveis, categorizando as diferentes ofertas que podem ser aplicadas.
+- [TipoPromocaoEnum](TipoPromocaoEnum.md): Enumeração que define os diferentes tipos de promoção que podem estar associados ao `BannerEncarte`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class BannerEncarte {
-        +long Id
-        +long DistribuidoraId
-        +long CodigoPromocao
-        +TipoPromocaoEnum TipoPromocao
-        +string Identificador
+        + long Id
+        + long DistribuidoraId
+        + long CodigoPromocao
+        + TipoPromocaoEnum TipoPromocao
+        + string Identificador
     }
     
     class Distribuidora {
-        <<entity>>
+        + long Id
     }
     
-    class TipoPromocaoEnum {
-        <<enum>>
-    }
-    
-    BannerEncarte --> Distribuidora : "associado a"
-    BannerEncarte --> TipoPromocaoEnum : "usa"
-```
+    BannerEncarte --> Distribuidora : "associada"
+``` 
 
+Esta documentação tem a finalidade de elucidar as regras de negócio e integridade de dados que a classe `BannerEncarte` estabelece dentro do contexto do sistema, assegurando uma comunicação clara e precisa sobre seu funcionamento.
+---
+Gerada em 29/12/2025 20:17:22

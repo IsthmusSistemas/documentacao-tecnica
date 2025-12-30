@@ -2,11 +2,11 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: StatusContaTBanksEnum.cs  
 
-Esta enumeração é utilizada para representar o status de uma conta em uma aplicação bancária, permitindo um controle e visualização claros das diferentes etapas no ciclo de vida de uma conta.
+O `StatusContaTBanksEnum` é um enumerador que define os diferentes estados possíveis de uma conta no sistema. Ele é utilizado para gerenciar o ciclo de vida das contas, possibilitando a identificação clara de em que fase cada conta se encontra, facilitando assim a tomada de decisão e o controle de fluxos operacionais.
 
 ## Tipos Auxiliares e Dependências
 - **Enumeradores**:
-  - `[StatusContaTBanksEnum](StatusContaTBanksEnum.md)`
+  - [StatusContaTBanksEnum](StatusContaTBanksEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -19,3 +19,5 @@ classDiagram
         + Cancelada
     }
 ```
+---
+Gerada em 29/12/2025 21:01:02

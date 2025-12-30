@@ -3,55 +3,60 @@
 **Nome do Arquivo**: Vendedor.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Vendedor` atua como uma representação do vendedor no sistema, armazenando informações essenciais que são críticas para o processo de venda. Seu papel é garantir que sejam inicializadas propriedades relevantes, além de fornecer mecanismos para validação de condições como o atendimento a filiais específicas. A classe resolve o problema de negócio de identificar e gerenciar a relação e o contexto do vendedor em transações comerciais, facilitando a aplicação de regras de negócio associadas.
+A classe `Vendedor` representa um vendedor dentro do sistema, encapsulando informações relevantes como código, nome, tipo de vendedor e dados de contato. Ela resolve a necessidade de organizar e manipular dados de vendedores em um contexto de aplicação comercial, permitindo assim o gerenciamento eficaz das vendas e a associação com clientes.
 
 ## Métodos de Negócio
 
-### AtendeFilial: Público
-- **Objetivo**: Garante que o vendedor possa ser associado a uma filial específica e que aplicabilidades sejam cohentes com a lógica de negócios.
-- **Comportamento**: 
-  1. O método recebe um `codigoFilial` como parâmetro.
-  2. Ele verifica se o `CodigoFilial` do vendedor é igual ao código de filial geral (`CODIGO_FILIAL_GERAL`).
-  3. Se for igual, retorna `true`, permitindo que o vendedor atenda a qualquer filial.
-  4. Caso contrário, compara `CodigoFilial` com o `codigoFilial` informado, retornando `true` se forem iguais ou `false` se não forem.
-  
-- **Retorno**: Retorna um valor booleano que indica se o vendedor pode atender a filial informada.
+### Título: AtendeFilial (public)
+- **Objetivo**: Garante que o vendedor possa ser verificado quanto à sua capacidade de atender a uma filial específica.
+- **Comportamento**:
+  1. O método verifica se o `CodigoFilial` do vendedor é igual ao `CODIGO_FILIAL_GERAL`.
+  2. Se for verdadeiro, retorna `true`, indicando que o vendedor atende a todas as filiais.
+  3. Caso contrário, compara o `CodigoFilial` do vendedor com o código da filial fornecida como parâmetro.
+  4. Retorna `true` se o vendedor atende à filial específica; caso contrário, retorna `false`.
+- **Retorno**: Um valor booleano indicando se o vendedor tem permissão para atender à filial fornecida.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Código Filial é Geral?}
+    A[Início] --> B{CodigoFilial = CODIGO_FILIAL_GERAL?}
     B -- Sim --> C[Retorna true]
-    B -- Não --> D{Código Filial atende?}
-    D -- Sim --> C[Retorna true]
-    D -- Não --> E[Retorna false]
+    B -- Não --> D{CodigoFilial == codigoFilial?}
+    D -- Sim --> E[Retorna true]
+    D -- Não --> F[Retorna false]
 ```
 
 ## Propriedades Calculadas e de Validação
 
-### CodigoFilial
-- A propriedade `CodigoFilial` tem uma lógica de validação no `set` que atribui um valor padrão de `CODIGO_FILIAL_GERAL` caso o valor fornecido seja nulo ou vazio. Isso permite que a aplicação sempre tenha um código de filial válido para os vendedores.
+### Propriedade: `CodigoFilial`
+- **Regra**: Se a propriedade `_codigoFilial` estiver vazia ou nula, deve retornar um código padrão (CODIGO_FILIAL_GERAL). Se um valor válido for atribuído ao `set`, ele deve substituir o código padrão.
 
 ## Navigations Property
-- Não existem propriedades que sejam classes complexas do domínio nesta classe.
+- [ClienteVendedor](ClienteVendedor.md): Classe associada que define a relação entre um vendedor e um cliente.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[TipoVendedor](TipoVendedor.md)`
+- [TipoVendedor](TipoVendedor.md): Enumerador que categoriza o tipo de vendedor.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Vendedor {
-        +long Id
-        +long Codigo
-        +string Nome
-        +TipoVendedor TipoVendedor
-        +int OrdemAplicacao
-        +string Telefone
-        +long? VendedorExternoId
-        +string Email
-        +string CodigoFilial
-        +bool AtendeFilial(string codigoFilial)
+        long Id
+        long Codigo
+        string Nome
+        TipoVendedor TipoVendedor
+        int OrdemAplicacao
+        string Telefone
+        long? VendedorExternoId
+        string Email
+        string CodigoFilial
     }
+    
+    class ClienteVendedor {
+        <<interface>>
+    }
+
+    Vendedor --> ClienteVendedor
     Vendedor --> TipoVendedor
 ```
+---
+Gerada em 29/12/2025 21:39:31

@@ -3,90 +3,75 @@
 **Nome do Arquivo**: ItemOrcamento.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ItemOrcamento` representa um item dentro de um orçamento, vinculando um produto ao orçamento e contendo informações relevantes para a sua venda, como preços e verbas (descontos ou bonificações). Ela é responsável por garantir que as regras de negócio relacionadas a verbas e preços sejam seguidas, permitindo a correta integração e cálculo de valores finais em processos de vendas.
+A classe `ItemOrcamento` é uma representação de um item dentro de um orçamento, gerenciando a relação entre um orçamento específico e um produto. Ela é responsável por calcular valores relacionados ao preço e à quantidade do produto, bem como gerenciar regras para a aplicação de verbas e promoções. São tratadas specificidades de descontos e bonificações, assegurando a integridade dos dados financeiros através de validações lógicas.
 
 ## Métodos de Negócio
 
-### PrecoTotal
-- **Título**: `PrecoTotal` (public)
-- **Objetivo**: Calcula o preço total do item com base na quantidade e no preço de venda, garantindo que o resultado esteja arredondado corretamente.
-- **Comportamento**: 
+### PrecoTotal() - Público
+- **Objetivo**: Garante o cálculo correto do preço total de um item orçamentário, considerando a quantidade e o preço de venda.
+- **Comportamento**:
   1. Multiplica o `PrecoVenda` pela `Quantidade`.
-  2. Arredonda o resultado para duas casas decimais usando a regra de arredondamento "afastando do zero".
-  3. Retorna o preço total arredondado.
-- **Retorno**: Valor do preço total do item como um `decimal`.
-
+  2. Arredonda o resultado para duas casas decimais utilizando a regra de arredondamento "AwayFromZero".
+- **Retorno**: Retorna o valor total do item orçado.
+  
 ```mermaid
 flowchart TD
-    A[Início] --> B{PreçoVenda e Quantidade}
-    B -->|Valor válida| C[Multiplicar PreçoVenda * Quantidade]
-    B -->|Valor inválida| D[Retornar 0]
-    C --> E[Arredondar para 2 casas decimais]
-    E --> F[Fim]
+    A[PrecoTotal] --> B{PrecoVenda}
+    B -->|>= 0| C[Quantidade]
+    B -->|< 0| D[Erro]
+    C --> E[PrecoVenda * Quantidade]
+    E --> F[Arredondar para 2 casas decimais]
 ```
 
-### DefinirPromocaoParaIntegracao
-- **Título**: `DefinirPromocaoParaIntegracao` (public)
-- **Objetivo**: Define o código de promoção para o item, garantindo que a promoção só seja aplicada se o preço tiver sido alterado por verbas.
+### DefinirPromocaoParaIntegracao(long codigoPromocao) - Público
+- **Objetivo**: Define um código de promoção para um item orçamentário, mas apenas se a lógica de alteração de preço estiver ativa.
 - **Comportamento**:
-  1. Verifica se o método `PrecoAlteradoPeloModuloVerbas` retorna `false`; se sim, não faz nada.
-  2. Se o preço foi alterado, atribui o `codigoPromocao` ao item.
-- **Retorno**: Nenhum.
+  1. Verifica se o preço foi alterado pelo módulo de verbas.
+  2. Se não houve alteração, o método finaliza a execução sem aplicar a promoção.
+  3. Caso contrário, o código da promoção é definido.
+- **Retorno**: Este método não retorna valor; sua execução é a alteração do estado interno da classe.
 
 ## Propriedades Calculadas e de Validação
 
 ### Embalagem
-- **Regra**: A propriedade `Embalagem` converte um objeto `Embalagem` em JSON e vice-versa.
-- **Validação**: Verifica se a string `EmbalagemJson` não está vazia antes de tentar desserializar e trata exceções que podem ocorrer.
+- **Cálculo**: A propriedade `Embalagem` possui um `get` que tenta desserializar um objeto JSON armazenado em `EmbalagemJson`. Se a desserialização falhar ou o JSON estiver vazio, retorna `null`. O `set` converte um objeto `Embalagem` em JSON e armazena em `EmbalagemJson`, garantindo a integridade dos dados.
 
 ### ValidoParaIntegracaoVerbas
-- **Regra**: Determina se o item é válido para integração de verbas com base na alteração de preço e na presença de um código promocional.
+- **Regra**: Retorna verdadeiro se a propriedade `PrecoAlteradoPeloModuloVerbas` for falsa ou se houver um código de promoção válido.
 
 ### PrecoAlteradoPeloModuloVerbas
-- **Regra**: Indica se o preço do item foi alterado por alguma verba, considerando bonificações ou acréscimos.
-
-### VerbaAplicada
-- **Regra**: Identifica se uma verba foi aplicada ao item, seja como desconto ou bonificação.
-
-### VerbaBonificacaoAplicada
-- **Regra**: Indica que uma bonificação foi aplicada se o percentual de verba for 100%.
-
-### VerbaDescontoAplicado
-- **Regra**: Indica que um desconto foi aplicado se o percentual de verba está entre 0 e 99,99%, garantindo que bonificação não é considerada desconto.
-
-### AcrescimoAplicado
-- **Regra**: Indica se houve um acréscimo se o percentual de verba for negativo.
-
-### MensagemVerba
-- **Regra**: Retorna uma mensagem de texto que descreve a aplicação da verba, dependendo de qual tipo de verba foi aplicada.
+- **Regra**: Verifica se alguma verba foi aplicada (desconto ou bonificação) e, portanto, se o preço foi alterado.
 
 ## Navigations Property
-
-- **Orcamento**: [Orcamento](Orcamento.md)
-- **Produto**: [Produto](Produto.md)
+- [Orcamento](Orcamento.md)
+- [Produto](Produto.md)
 
 ## Tipos Auxiliares e Dependências
 - [POCO.Embalagem](POCO.Embalagem.md)
-- [EnumVerba](EnumVerba.md) (presumido)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ItemOrcamento {
         +long Id
+        +decimal Quantidade
+        +decimal PrecoVenda
+        +decimal PercentualVerba
+        +bool ValidoParaIntegracaoVerbas
         +decimal PrecoTotal()
         +void DefinirPromocaoParaIntegracao(long codigoPromocao)
-        +bool ValidoParaIntegracaoVerbas
-        ...
     }
+
     class Orcamento {
         +long Id
-        ...
     }
+
     class Produto {
         +long Id
-        ...
     }
-    ItemOrcamento --> Orcamento
-    ItemOrcamento --> Produto
+
+    ItemOrcamento --> Orcamento : contido em
+    ItemOrcamento --> Produto : refere-se a
 ```
+---
+Gerada em 29/12/2025 20:38:08

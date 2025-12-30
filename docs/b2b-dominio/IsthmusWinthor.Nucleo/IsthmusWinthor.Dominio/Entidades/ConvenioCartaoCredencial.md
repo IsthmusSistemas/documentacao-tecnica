@@ -1,39 +1,41 @@
 # ConvenioCartaoCredencial
-
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: ConvenioCartaoCredencial.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: ConvenioCartaoCredencial.cs
 
 ## Visão Geral e Responsabilidade
-A classe `ConvenioCartaoCredencial` representa a entidade que gerencia as credenciais associadas a um convênio de cartão de crédito. Ela atua como um ponto central para armazenar e manipular informações críticas sobre a operação de pagamento, incluindo dados do convênio e da operadora do cartão. Isso permite a integração adequada de diferentes operadoras de cartões com o sistema, assegurando que as transações sejam capturadas e processadas corretamente.
+A classe `ConvenioCartaoCredencial` representa as credenciais de um convênio de cartão de crédito e está encarregada de gerenciar as informações relacionadas a convênios e operadoras de cartões. Ela garante que podem ser armazenadas e recuperadas informações relevantes como o identificador do comerciante, a chave do comerciante, e os códigos das filiais de forma segura e eficiente. A classe resolve o problema de integrar diferentes convênios e suas respectivas operadoras, permitindo uma operação ágil em sistemas financeiros.
 
 ## Métodos de Negócio
 
-### 1. Método: `CodigosFiliais` (Propriedade)
-- **Objetivo**: Garante que a manipulação dos códigos das filiais seja realizada de forma segura e prática, convertendo uma string JSON em uma lista de strings.
+### Título: CodigosFiliais (get/set) - Visibilidade: Público
+- **Objetivo**: Garante a conversão correta entre um formato JSON armazenado e uma lista de códigos de filiais, garantindo a integridade dos dados ao realizar a serialização e deserialização.
 - **Comportamento**:
-  - O getter tenta desserializar a string `CodigosFiliaisJson` em uma `List<string>`. Se não houver dados ou ocorrer um erro, retorna uma lista vazia.
-  - O setter serializa uma lista de códigos de filiais fornecida em formato JSON, garantindo que os dados estejam sempre no formato adequado.
-- **Retorno**: O getter retorna uma lista de códigos de filiais como strings, enquanto o setter não retorna valores.
+  1. **Get**: Verifica se `CodigosFiliaisJson` está vazio ou nulo.
+     - Se sim, retorna uma nova lista vazia.
+     - Se não, tenta desserializar o JSON em uma lista de strings. Se ocorrer uma exceção, retorna uma lista vazia.
+  2. **Set**: Recebe uma lista de strings e a serializa em uma string JSON.
+     - Se a lista for nula, inicializa como uma lista vazia.
+     - Armazena a string JSON resultante em `CodigosFiliaisJson`.
+
+- **Retorno**: O método `get` retorna uma lista de códigos de filiais, enquanto o `set` armazena essa lista em formato JSON no campo correspondente.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{CodigosFiliaisJson está vazio?}
-    B -->|Sim| C[Retorna lista vazia]
-    B -->|Não| D[Tentar desserializar]
-    D --> E{Erro na desserialização?}
-    E -->|Sim| C[Retorna lista vazia]
-    E -->|Não| F[Retorna lista deserializada]
+    A[Códigos Filiais JSON está vazio?] -->|Sim| B[Retorna nova lista vazia]
+    A -->|Não| C[Tenta desserializar JSON]
+    C -->|Sucesso| D[Retorna lista de códigos]
+    C -->|Falha| E[Retorna lista vazia]
 ```
 
 ## Propriedades Calculadas e de Validação
-- **CodigosFiliais**: Esta propriedade tem lógica na sua manipulação. Ela garante que, ao acessar os códigos de filiais, o sistema forneça uma lista vazia em caso de erro ou ausência de dados, evitando falhas durante a operação.
+- `CodigosFiliais`: Esta propriedade possui lógica no `get` e no `set`. O `get` deserializa um JSON armazenado, enquanto o `set` o serializa, garantindo que os dados sempre sejam convertidos corretamente entre os dois formatos.
 
 ## Navigation Property
-- [ConvenioCartao](ConvenioCartao.md)
-- [OperadoraCartao](OperadoraCartao.md)
+- `ConvenioCartao` - [ConvenioCartao](ConvenioCartao.md)
+- `OperadoraCartao` - [OperadoraCartao](OperadoraCartao.md)
 
 ## Tipos Auxiliares e Dependências
-Nenhum enumerador ou classe auxiliar está presente nesta classe.
+- `IEntidade` - [IEntidade](IEntidade.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -47,10 +49,15 @@ classDiagram
         +string CodigosFiliaisJson
         +List<string> CodigosFiliais
     }
+    
+    class ConvenioCartao {
+    }
 
-    class ConvenioCartao
-    class OperadoraCartao
-
-    ConvenioCartaoCredencial --> ConvenioCartao
-    ConvenioCartaoCredencial --> OperadoraCartao
+    class OperadoraCartao {
+    }
+    
+    ConvenioCartaoCredencial --> ConvenioCartao : has
+    ConvenioCartaoCredencial --> OperadoraCartao : has
 ```
+---
+Gerada em 29/12/2025 20:25:17

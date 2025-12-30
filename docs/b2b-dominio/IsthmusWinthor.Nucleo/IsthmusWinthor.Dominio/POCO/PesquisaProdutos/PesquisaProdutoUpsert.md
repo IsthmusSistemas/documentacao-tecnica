@@ -3,36 +3,21 @@
 **Nome do Arquivo**: PesquisaProdutoUpsert.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PesquisaProdutoUpsert` é responsável por encapsular as informações necessárias para a inserção ou atualização de produtos em um sistema de pesquisa. Ela garante a integridade e a coerência dos dados de produtos, permitindo o gerenciamento eficiente de informações como identificação, descrição, categorização e status de disponibilidade de produtos. Essa classe é essencial para a sincronização de dados de produtos entre sistemas e para a apresentação correta das informações ao usuário final.
-
-## Métodos de Negócio
-### Título: `PrefixoNome` (get)
-* **Objetivo**: Extrair e retornar o primeiro nome do produto, caso o nome esteja disponível. Isso é utilizado para categorizar rapidamente os produtos com base em seu nome.
-* **Comportamento**: 
-  - Verifica se a propriedade `Nome` está vazia.
-  - Se não estiver vazia, divide a string do `Nome` em um array utilizando o espaço como delimitador e retorna o primeiro elemento.
-  - Se estiver vazia, retorna uma string vazia.
-* **Retorno**: Retorna uma string representando o prefixo do nome do produto ou uma string vazia se o nome não estiver definido.
-
-### Visualização
-```mermaid
-flowchart TD
-    A[Nome está vazio?] -->|Sim| B[Retorna ""]
-    A -->|Não| C[Dividir Nome com espaço]
-    C --> D[Retorna o primeiro elemento]
-```
+A classe `PesquisaProdutoUpsert` é responsável por transportar dados relacionados à pesquisa e atualização de produtos em um sistema corporativo. Ela serve como um modelo que encapsula as informações pertinentes de um produto, permitindo que operações de inserção e atualização sejam realizadas de forma consistente e válida. O objetivo principal é facilitar a gestão dos dados de produtos, garantindo que todos os atributos necessários para a pesquisa e atualização sejam devidamente encapsulados e acessíveis.
 
 ## Propriedades Calculadas e de Validação
-### `PrefixoNome`
-- **Regra**: Esta propriedade calcula o prefixo do nome do produto. Se o nome for definido, ela extrai a primeira palavra. Essa informação pode ser utilizada, por exemplo, para pesquisas ou listagens que exigem o uso do primeiro termo do nome do produto.
-
+- **PrefixoNome**: 
+  - **Regra**: Extraí o primeiro nome do campo `Nome`, retornando uma string vazia se `Nome` for nulo ou vazio. Esta propriedade é usada para fins de categorização ou agrupamento no sistema.
+  
 ## Navigations Property
-- N/A: A classe `PesquisaProdutoUpsert` não possui propriedades que referenciam classes complexas do domínio.
+- As seguintes propriedades representam classes complexas ou conjuntos de dados no sistema:
+  - Não há propriedades complexas do domínio diretamente associadas a `PesquisaProdutoUpsert`.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar externa referenciada.
+- Nenhum enumerador ou classe estática/helper é utilizado diretamente por esta classe.
 
 ## Diagrama de Relacionamentos
+
 ```mermaid
 classDiagram
     class PesquisaProdutoUpsert {
@@ -71,7 +56,6 @@ classDiagram
         +bool Medicamento
         +string CodigoProdutoPrincipal
         +string NumeroOriginal
-        +string PrefixoNome
         +bool ProibidoVenda
         +DateTime? DataPrimeiraCompra
         +decimal AvaliacaoMedia
@@ -80,3 +64,5 @@ classDiagram
         +string[] FiliaisComEstoque
     }
 ```
+---
+Gerada em 29/12/2025 21:48:14

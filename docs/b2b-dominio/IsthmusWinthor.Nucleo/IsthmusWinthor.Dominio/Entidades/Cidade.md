@@ -3,20 +3,23 @@
 **Nome do Arquivo**: Cidade.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Cidade` representa uma entidade do domínio que encapsula informações sobre uma cidade. Sua principal responsabilidade é modelar a relação entre uma cidade, sua distribuidora associada e seu estado. O problema de negócio que esta classe resolve é a necessidade de manter dados coerentes e integrados sobre cidades, permitindo consultas e operações que envolvam a estrutura geográfica e administrativa necessária para o sistema.
+A classe `Cidade` representa uma entidade dentro do domínio que encapsula as informações relacionadas a uma cidade específica. Ela está vinculada a uma `Distribuidora` e um `Estado`, permitindo assim a agregação de dados pertinentes à geolocalização e à estrutura organizacional da distribuidora. O principal problema de negócio que esta classe resolve é a necessidade de representar e validar informações críticas sobre localidades geográficas de forma que se possa gerir a distribuição de produtos ou serviços efetivamente.
 
 ## Métodos de Negócio
-Nenhum método de negócio foi identificado nesta classe que contenha lógica complexa ou de validação que requeira documentação detalhada.
+### Título: (Métodos não identificados)
+**Objetivo**: Não há métodos com lógica de negócios complexa.
 
 ## Propriedades Calculadas e de Validação
-Nenhuma propriedade calculada ou de validação foi encontrada nesta classe.
+- **Código**: Representa um código único para a cidade, possivelmente destinado à identificação interna. A validação deste valor deve garantir que não haja duplicidade.
+- **Nome**: Deve ser validado para não aceitar valores nulos ou vazios, garantindo que uma cidade sempre tenha um nome reconhecível.
+- **CodigoIBGE**: Semelhante ao `Código`, deve ser validado para assegurar que reflita as normas do IBGE e não contenha números inválidos.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`
-- `[Estado](Estado.md)`
+- [`Distribuidora`](Distribuidora.md): Representa a relação com a distribuidora associada à cidade.
+- [`Estado`](Estado.md): Representa a relação com o estado em que a cidade está localizada.
 
 ## Tipos Auxiliares e Dependências
-Nenhum enumerador ou classe estática/helper foi identificado nas dependências desta classe.
+- [IEntidade](IEntidade.md): Interface que a classe `Cidade` implementa, garantindo que siga o contrato de entidades do domínio.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -29,15 +32,15 @@ classDiagram
         +int CodigoIBGE
         +long EstadoId
     }
-
+    
     class Distribuidora {
-        +long Id
     }
-
+    
     class Estado {
-        +long Id
     }
 
-    Cidade "1" --> "1" Distribuidora
-    Cidade "1" --> "1" Estado
+    Cidade --> Distribuidora : "associada a"
+    Cidade --> Estado : "localizada em"
 ```
+---
+Gerada em 29/12/2025 20:20:01

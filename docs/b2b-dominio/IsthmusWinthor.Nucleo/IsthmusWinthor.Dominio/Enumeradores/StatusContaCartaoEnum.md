@@ -2,13 +2,13 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: StatusContaCartaoEnum.cs  
 
-### Visão Geral e Responsabilidade
-O `StatusContaCartaoEnum` é um enumerador que define os diferentes estados que uma conta de cartão pode assumir ao longo do seu ciclo de vida. Este enumerador é fundamental para garantir que a aplicação tratá as contas de cartão corretamente em relação a suas operações e estados, permitindo controle e rastreamento adequados ao longo de processos de pagamento e integração.
+Este enumerador é utilizado para representar os diferentes estados de uma conta vinculada a um cartão, facilitando a identificação e o gerenciamento do fluxo de processamento do pagamento.
 
-### Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou dependência complexa.
+## Tipos Auxiliares e Dependências
+- **Enumeradores:**
+  - [StatusContaCartaoEnum](StatusContaCartaoEnum.md)
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class StatusContaCartaoEnum {
@@ -21,9 +21,5 @@ classDiagram
         +FalhaIntegracao
     }
 ```
-
-### Propriedades Calculadas e de Validação
-- Nenhuma propriedade com lógica de cálculo ou validação. 
-
-### Navigations Property
-- Nenhuma propriedade de navegação.
+---
+Gerada em 29/12/2025 21:00:47

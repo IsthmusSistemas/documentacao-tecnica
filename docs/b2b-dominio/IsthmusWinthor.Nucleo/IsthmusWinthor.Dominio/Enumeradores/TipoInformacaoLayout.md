@@ -2,26 +2,29 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoInformacaoLayout.cs  
 
-O enum `TipoInformacaoLayout` define uma série de constantes que representam diferentes tipos de informações que podem ser utilizadas para a configuração de layouts em uma aplicação. Esses tipos de informação são essenciais para a personalização da interface do usuário e a formatação de conteúdo apresentado na aplicação.
+O enum `TipoInformacaoLayout` tem como finalidade categorizar diferentes tipos de informações que podem ser utilizadas em layouts de interface, facilitando a configuração e a personalização visual.
 
 ## Tipos Auxiliares e Dependências
-- Nenhuma classe estática ou helper, além do próprio enum, é utilizada por esta classe. 
+- **Enumeradores**:
+  - `TipoInformacaoLayout`: Enum que define os tipos de informação que podem ser aplicados em um layout. 
 
-Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoInformacaoLayout {
         <<enumeration>>
-        +CorBotao
-        +CorFundo
-        +CorFonteTexto
-        +CorLink
-        +ConteudoHtml
-        +Imagem
-        +TextoBotao
-        +Texto
-        +CorFonteBotao
-        +FormaExibicaoConteudo
-        +QuantidadeImagensCarrossel
+        + CorBotao
+        + CorFundo
+        + CorFonteTexto
+        + CorLink
+        + ConteudoHtml
+        + Imagem
+        + TextoBotao
+        + Texto
+        + CorFonteBotao
+        + FormaExibicaoConteudo
+        + QuantidadeImagensCarrossel
     }
 ```
+---
+Gerada em 29/12/2025 21:04:51

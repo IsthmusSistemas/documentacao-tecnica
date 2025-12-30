@@ -3,20 +3,20 @@
 **Nome do Arquivo**: GrupoAlertaUsuario.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `GrupoAlertaUsuario` representa a relação entre usuários e grupos de alerta dentro do sistema. Ela é responsável por mapear quais usuários estão associados a quais grupos de alerta, facilitando a gestão e a emitindo as notificações apropriadas para os usuários em resposta a eventos relacionados aos grupos de alerta. Esta classe é fundamental para garantir que a comunicação esteja configurada corretamente entre o sistema e os usuários, permitindo um melhor gerenciamento de alertas e notificações.
+A classe `GrupoAlertaUsuario` representa a associação entre um usuário e um grupo de alerta na aplicação. Ela estabelece uma relação de pertencimento, onde um usuário pode estar vinculado a um ou mais grupos de alerta. Essa relação é importante para gerenciar a configuração e o recebimento de notificações pertinentes a cada grupo, auxiliando na organização e na priorização das informações que os usuários recebem.
 
 ## Métodos de Negócio
-Atualmente, a classe não contém métodos de negócio com lógica complexa uma vez que se trata de uma classe enfocada em relacionamentos. Portanto, não há métodos a serem documentados.
+*(Não há métodos com lógica na classe fornecida)*
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades calculadas ou validações específicas definidas na classe, dado que as propriedades são simples e se limitam ao mapeamento de dados.
+*(Não há propriedades com lógica no `get` ou validação no `set` na classe fornecida)*
 
-## Navigation Property
-- `Usuario`: Representa a associação a um objeto da classe complexa `[Usuario](Usuario.md)`.
-- `GrupoAlerta`: Representa a associação a um objeto da classe complexa `[GrupoAlerta](GrupoAlerta.md)`.
+## Navigations Property
+- [Usuario](Usuario.md)
+- [GrupoAlerta](GrupoAlerta.md)
 
 ## Tipos Auxiliares e Dependências
-- Não há enums ou classes estáticas/helpers sendo utilizadas diretamente nesta classe.
+*(Não há enumeradores ou classes estáticas/helpers utilizadas nesta classe)*
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -28,11 +28,15 @@ classDiagram
         +GrupoAlerta GrupoAlerta
         +long GrupoAlertaId
     }
+
     class Usuario {
     }
+
     class GrupoAlerta {
     }
-    
+
     GrupoAlertaUsuario --> Usuario
     GrupoAlertaUsuario --> GrupoAlerta
 ```
+---
+Gerada em 29/12/2025 20:36:10

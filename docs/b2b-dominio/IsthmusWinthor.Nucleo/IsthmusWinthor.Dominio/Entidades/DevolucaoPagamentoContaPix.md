@@ -1,24 +1,21 @@
 # DevolucaoPagamentoContaPix
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: DevolucaoPagamentoContaPix.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: DevolucaoPagamentoContaPix.cs
 
 ## Visão Geral e Responsabilidade
-A classe `DevolucaoPagamentoContaPix` representa uma devolução de pagamento realizada através do sistema de pagamentos Pix. Ela desempenha um papel crucial na gestão e rastreamento das devoluções de pagamentos, oferecendo uma estrutura para registrar informações essenciais como o valor da devolução, a distribuidora associada e o status da devolução. Resolve a necessidade de rastrear devoluções, permitindo ao sistema analisar e administrar processos financeiros de maneira eficaz.
+A classe `DevolucaoPagamentoContaPix` representa uma devolução de pagamento realizada via conta Pix. Sua principal responsabilidade é gerenciar informações relacionadas ao processo de devolução, como identificação do usuário que criou a devolução, valor devolvido, e o status da devolução. Essa classe é essencial para garantir que as transações de devolução sejam controladas e registradas corretamente, evitando inconsistências financeiras e possibilitando uma gestão efetiva dos pagamentos devolvidos.
 
 ## Métodos de Negócio
-
 ### Título: ConciliacaoRealizada (Propriedade)
-- **Objetivo**: Esta propriedade calcula se uma conciliação foi realizada com base nas condições definidas.
+- **Objetivo**: Garantir se uma conciliação foi realizada com sucesso basendo-se nas regras definidas.
 - **Comportamento**: 
-  1. Verifica se `PermiteConciliacao` é verdadeiro.
-  2. Confirma se a propriedade `Conciliacao` não é nula (ou seja, existe um objeto de conciliação).
-  3. Avalia se `NumeroConciliacao` da conciliação é maior que 0.
-- **Retorno**: Retorna `true` se a conciliação foi realizada; caso contrário, retorna `false`.
+  1. Verifica se a propriedade `PermiteConciliacao` é verdadeira.
+  2. Verifica se a propriedade `Conciliacao` não é nula.
+  3. Verifica se o `NumeroConciliacao` da `Conciliacao` é maior que 0.
+- **Retorno**: Retorna um valor booleano que indica se a conciliação foi realizada.
 
 ## Propriedades Calculadas e de Validação
-
-### Propriedade: ConciliacaoRealizada
-- **Regra**: A propriedade verifica condições de conciliação: a devolução pode ser conciliada se a flag `PermiteConciliacao` for verdadeira, houver um objeto de `Conciliacao` existente e o número de conciliação for maior que 0. Caso contrário, a conciliação não é considerada realizada.
+- **ConciliacaoRealizada**: Essa propriedade calcula se a conciliação foi efetivamente realizada com base nas condições de permissão estabelecidas para a conciliação e a existência de um número de conciliação. Essa validação é essencial para assegurar que apenas devoluções que possibilitem conciliação sejam consideradas.
 
 ## Navigations Property
 - [Distribuidora](Distribuidora.md)
@@ -47,10 +44,13 @@ classDiagram
     class PagamentoContaPix
     class Usuario
     class Conciliacao
-    class StatusDevolucaoPixEnum
 
-    DevolucaoPagamentoContaPix --> Distribuidora : "Associado"
-    DevolucaoPagamentoContaPix --> PagamentoContaPix : "Referenciado"
-    DevolucaoPagamentoContaPix --> Usuario : "Criado por"
-    DevolucaoPagamentoContaPix --> Conciliacao : "Associado"
-```
+    DevolucaoPagamentoContaPix --> Distribuidora : "tem"
+    DevolucaoPagamentoContaPix --> PagamentoContaPix : "relacionado a"
+    DevolucaoPagamentoContaPix --> Usuario : "criado por"
+    DevolucaoPagamentoContaPix --> Conciliacao : "pode conter"
+``` 
+
+Esta documentação técnica visa fornecer uma visão clara sobre as regras de negócio e funcionalidades associadas à classe `DevolucaoPagamentoContaPix`, facilitando a compreensão e o uso adequado no sistema corporativo.
+---
+Gerada em 29/12/2025 20:27:44

@@ -1,5 +1,9 @@
 # RedisProperties
 **Namespace**: IsthmusWinthor.Dominio.PropertiesConfig  
-**Nome do Arquivo**: RedisProperties.cs
+**Nome do Arquivo**: RedisProperties.cs  
 
-O `RedisProperties` é um DTO (Data Transfer Object) que serve para transportar dados relacionados à configuração da instância do Redis, como seu nome e a string de conexão.
+Esta classe é um DTO que serve como um modelo de transporte para as propriedades de configuração do Redis, incluindo o nome da instância e a conexão.
+
+
+---
+Gerada em 29/12/2025 22:02:58

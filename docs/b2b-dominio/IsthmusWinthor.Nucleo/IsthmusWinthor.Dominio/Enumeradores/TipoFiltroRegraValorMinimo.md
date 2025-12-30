@@ -2,23 +2,22 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoFiltroRegraValorMinimo.cs  
 
-## Visão Geral e Responsabilidade
-O enum `TipoFiltroRegraValorMinimo` define os diferentes tipos de filtros que podem ser aplicados na determinação de regras de valor mínimo dentro do domínio do sistema. Esta definição é crucial para a aplicação de lógica de negócio, garantindo que os valores sejam filtrados e validados adequadamente conforme as regras específicas do contexto corporativo. A responsabilidade deste enum é centralizar e padronizar as opções de filtro, permitindo um código mais legível e evitando o uso de números mágicos.
+### Visão Geral e Responsabilidade
+A enumeração `TipoFiltroRegraValorMinimo` define um conjunto de constantes que representam diferentes categorias de filtros utilizados nas regras de negócio de valor mínimo. Este modelo é essencial para garantir a flexibilidade e a clareza na aplicação de filtros durante o processo de tomada de decisão, permitindo que o sistema trate diversas condições de forma coerente.
 
-## Tipos Auxiliares e Dependências
-- Nenhum
+### Tipos Auxiliares e Dependências
+- **Enumeradores**:
+  - [TipoFiltroRegraValorMinimo](TipoFiltroRegraValorMinimo.md)
 
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoFiltroRegraValorMinimo {
-        +PlanoPagamento
-        +GrupoFaturamento
-        +Rca
-        +Fornecedor
-        +Regiao
-        +Praca
-        +RamoAtividade
-        +Rede
+        <<enumeration>>
     }
 ```
+
+### Observações
+Esta enumeração serve como um ponto de referência estruturado para os filtros, facilitando a extensão futura do sistema, adicionando novos tipos de filtro conforme necessário sem impactar os componentes existentes.
+---
+Gerada em 29/12/2025 21:04:05

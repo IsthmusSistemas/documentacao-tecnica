@@ -3,26 +3,25 @@
 **Nome do Arquivo**: RegistroSincronizacao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `RegistroSincronizacao` atua como um modelo de domínio responsável pelo gerenciamento do estado e informações relativas à sincronização de fotos em um sistema. Seu propósito é registrar detalhes sobre cada operação de sincronização, permitindo rastreamento e auditoria dos processos de integração de dados de imagens, o que é fundamental para garantir a integridade e sucesso dessas operações.
+A classe `RegistroSincronizacao` é um Rich Domain Model que registra informações sobre o processo de sincronização de fotos. Ela é responsável por manter o histórico de sincronizações, capturando detalhes como o estado da operação (sucesso ou falha), tempos de início e término, além de mensagens de log que podem ser úteis para auditoria e diagnóstico de problemas. Este modelo permite que a aplicação monitore e gerencie as operações de sincronização eficazmente.
 
 ## Métodos de Negócio
-A classe `RegistroSincronizacao` não possui métodos de negócio com lógica complexa atrelados a regras específicas, portanto, não há métodos detalhados a serem descritos.
+Não há métodos com lógica de negócios implementados nesta classe. Todas as propriedades descritas são simples e não contêm lógica complexa.
 
 ## Propriedades Calculadas e de Validação
-A classe contém propriedades aninhadas simples e não tem propriedades que implementem lógica de cálculo em seus getters ou validações em seus setters.
+As propriedades da classe `RegistroSincronizacao` não contêm lógica com validações ou cálculos em seus getters ou setters. Todas as propriedades são anêmicas, apenas mantendo o estado.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`: Representa a distribuidora associada ao registro de sincronização, permitindo a ligação entre as informações de sincronização e a entidade distribuidora.
+- `Distribuidora`: [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-- `[TipoSincronizacao](TipoSincronizacao.md)`: Enum que define os diferentes tipos de sincronização possíveis, utilizados para categorizar cada registro de sincronização.
+- `TipoSincronizacao`: [TipoSincronizacao](TipoSincronizacao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class RegistroSincronizacao {
         +long Id
-        +Distribuidora Distribuidora
         +TipoSincronizacao Identificador
         +string PipelineRunId
         +DateTime DataInicio
@@ -30,14 +29,13 @@ classDiagram
         +bool Sucesso
         +string MensagemLog
     }
+    
     class Distribuidora {
-        // Define as propriedades e métodos da classe Distribuidora
+        <<interface>>
     }
-    class TipoSincronizacao {
-        // Define os tipos de sincronização
-    }
-    RegistroSincronizacao --> Distribuidora
-    RegistroSincronizacao --> TipoSincronizacao
-```  
 
-Esta documentação foi elaborada para fornecer clareza sobre o propósito e a estrutura da classe `RegistroSincronizacao`, visando facilitar o entendimento das regras de negócio e a integridade de dados em relação à sincronização de fotos no sistema.
+    RegistroSincronizacao --> Distribuidora
+    RegistroSincronizacao ..> TipoSincronizacao
+```
+---
+Gerada em 29/12/2025 20:46:42

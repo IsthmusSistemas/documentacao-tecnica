@@ -3,64 +3,48 @@
 **Nome do Arquivo**: LoginUnificado.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `LoginUnificado` representa um modelo de domínio que centraliza informações relacionadas ao processo de autenticação de usuários associados a uma distribuidora. Seu principal papel é gerenciar e facilitar o login de usuários prioritários, garantir a validação de preços em filiais, e manter a integridade dos dados dos logins associados. Este modelo é crucial para assegurar que apenas usuários autorizados acessem funcionalidades específicas do sistema, promovendo a segurança e a eficiência operacional.
+A classe `LoginUnificado` representa a entidade responsável por gerenciar informações de login de forma unificada para diferentes distribuidoras dentro do sistema. Seu papel é facilitar a autenticação, considerando tanto a entidade principal `Distribuidora` como suas filiais, caso existam. Esta classe é essencial para garantir que os usuários sejam validados corretamente, permitindo flexibilidade na autenticação e no controle de acesso às informações da distribuidora.
 
 ## Métodos de Negócio
-### Autenticar
-- **Objetivo**: Garante que uma autenticação adequada seja realizada para usuários prioritários.
-- **Comportamento**: 
-  1. Verifica se a propriedade `AutenticarApenasPrioritario` está ativada.
-  2. Se sim, autentica apenas usuários designados como prioritários, caso contrário, permite o login de qualquer usuário.
-  3. Confirma se a distribuidora associada está ativa.
-  4. Em caso de erro, registra uma mensagem apropriada na propriedade `Mensagem`.
-- **Retorno**: Retorna `true` se a autenticação for bem-sucedida; `false` caso contrário.
-
-```mermaid
-flowchart TD
-    A[Início] --> B{AutenticarApenasPrioritario}
-    B -->|Sim| C[Autenticar usuário prioritário]
-    B -->|Não| D[Autenticar qualquer usuário]
-
-    C --> E{Distribuidora Ativa?}
-    D --> E
-
-    E -->|Sim| F[Login bem-sucedido]
-    E -->|Não| G[Registrar falha]
-
-    F --> H[Fim]
-    G --> H
-```
+*(Nenhum método de negócio com lógica foi identificado nesta classe específica.)*
 
 ## Propriedades Calculadas e de Validação
-- **Mensagem**: Esta propriedade é usada para armazenar mensagens de erro durante o processo de autenticação. É definida somente quando ocorre uma falha no login e assegura que informações relevantes sejam fornecidas ao usuário.
+- **Ativo**: Propriedade booleana que indica se o login unificado está ativo. É necessário que esta propriedade seja validada na aplicação, garantindo que apenas entidades ativas possam ser utilizadas para autenticação.
+- **Mensagem**: Armazena mensagens relacionadas ao processo de autenticação ou estado da entidade, podendo ser utilizada para informar o usuário durante o login.
+- **AutenticarApenasPrioritario**: Flag que determina se apenas os logins prioritários devem ser autenticados. Esta propriedade garante que o sistema permita uma autenticação diferenciada para usuários que possuem prioridade.
+- **ValidarFiliaisDePreco**: Propriedade que indica se as filiais devem ser validadas em relação ao preço, assegurando que as variações de preço sejam adequadamente tratadas na hora da autenticação e autorização.
 
-## Navigation Properties
+## Navigations Property
 - [Distribuidora](Distribuidora.md): Representa a distribuidora associada ao login unificado.
-- [LoginUnificadoFilho](LoginUnificadoFilho.md): Representa os logins filhos que são associados ao `LoginUnificado`. Esta coleção permite gerenciar múltiplos logins relacionados a uma única distribuidora.
+- [LoginUnificadoFilho](LoginUnificadoFilho.md): Coleção de logins das filiais que estão associados ao login unificado.
 
 ## Tipos Auxiliares e Dependências
-- **Enums e Classes**:
-  - Não há enums ou classes auxiliares utilizadas diretamente nesta classe.
+- `IEntidade`: Interface que define um contrato para entidades. 
+- `LoginUnificadoFilho`: Classe utilizada para gerenciar informações de logins das filiais.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class LoginUnificado {
-        long Id
-        bool Ativo
-        string Mensagem
-        bool AutenticarApenasPrioritario
-        bool ValidarFiliaisDePreco
+        +long Id
+        +bool Ativo
+        +string Mensagem
+        +bool AutenticarApenasPrioritario
+        +bool ValidarFiliaisDePreco
     }
     
     class Distribuidora {
-        <<entity>>
-    }
-    
-    class LoginUnificadoFilho {
-        <<entity>>
+        +long Id
+        +string Nome
     }
 
-    LoginUnificado --> "1" Distribuidora : "associado a"
-    LoginUnificado --> "*" LoginUnificadoFilho : "possui"
+    class LoginUnificadoFilho {
+        +long Id
+        +long LoginUnificadoId
+    }
+
+    LoginUnificado "1" --> "1" Distribuidora : possui
+    LoginUnificado "1" --> "*" LoginUnificadoFilho : contém
 ```
+---
+Gerada em 29/12/2025 20:39:02

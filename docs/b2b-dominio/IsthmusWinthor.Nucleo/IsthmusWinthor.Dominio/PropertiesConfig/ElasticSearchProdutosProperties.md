@@ -2,4 +2,6 @@
 **Namespace**: IsthmusWinthor.Dominio.PropertiesConfig  
 **Nome do Arquivo**: ElasticSearchProdutosProperties.cs  
 
-Esta classe serve como um Data Transfer Object (DTO) para transportar as propriedades de configuração necessárias para conectar-se ao ElasticSearch, incluindo a URL, o usuário e a senha.
+Esta classe é um Data Transfer Object (DTO) responsável por transportar as configurações necessárias para a conexão ao ElasticSearch, incluindo URL, usuário e senha.
+---
+Gerada em 29/12/2025 22:02:12

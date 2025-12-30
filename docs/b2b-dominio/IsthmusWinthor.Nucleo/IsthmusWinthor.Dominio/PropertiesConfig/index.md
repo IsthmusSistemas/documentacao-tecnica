@@ -1,4 +1,4 @@
-#Documentação - PropertiesConfig
+# PropertiesConfig
 ## Conteúdo
 - [AlertaEmailProperties](AlertaEmailProperties.md)
 - [AnalyticsProperties](AnalyticsProperties.md)

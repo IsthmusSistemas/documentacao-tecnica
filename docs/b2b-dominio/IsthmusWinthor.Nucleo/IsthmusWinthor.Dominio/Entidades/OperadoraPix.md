@@ -1,25 +1,28 @@
 # OperadoraPix
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: OperadoraPix.cs
+**Nome do Arquivo**: OperadoraPix.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `OperadoraPix` representa uma operadora de pagamentos via PIX dentro do sistema. Ela é responsável por armazenar informações essenciais relacionadas à integração com as APIs das operadoras, incluindo credenciais de autenticação e detalhes de configuração para ambientes de produção e sandbox. O problema de negócio que esta classe resolve é a centralização das informações necessárias para comunicação segura e eficaz com diferentes operadoras de pagamento, garantindo que a integração com APIs externas funcione de maneira uniforme.
+A classe `OperadoraPix` representa uma entidade que encapsula as informações e credenciais necessárias para integração com operadoras de pagamento utilizando a tecnologia Pix. Seu papel é gerenciar os dados de configuração, como identificação dos clientes e senhas de certificados, necessários para interações com APIs de pagamento. Essa classe é crucial para garantir que a aplicação consiga realizar transações financeiras de forma segura e eficaz através de diferentes operadoras.
 
 ## Métodos de Negócio
-### Título: ParceiraIsthmus (Visibilidade: NotMapped)
-- **Objetivo**: Determinar se a operadora PIX é uma parceira exclusivamente da Isthmus.
-- **Comportamento**: O método verifica se a propriedade `Operadora` é igual a `OperadoraPixEnum.TBanks`. Se for verdade, o retorno é `true`, indicando que a operadora utiliza as credenciais da Isthmus para transações; caso contrário, retorna `false`, indicando que a operadora pode utilizar credenciais próprias.
-- **Retorno**: Retorna um valor booleano que indica se a operação é realizada exclusivamente com credenciais da Isthmus.
+### Título: ParceiraIsthmus (Propriedade)
+- **Objetivo**: Determinar se a operadora é uma parceira exclusiva da Isthmus, o que implica que as credenciais utilizadas serão sempre as da Isthmus.
+- **Comportamento**: 
+  1. Avalia se a propriedade `Operadora` é igual a `OperadoraPixEnum.TBanks`.
+  2. Retorna `true` se a condição for satisfeita, indicando que a operadora está trabalhando exclusivamente com a Isthmus; caso contrário, retorna `false`.
+- **Retorno**: Um valor booleano que representa se a operadora é parceira da Isthmus.
 
 ## Propriedades Calculadas e de Validação
-- **ParceiraIsthmus**: Esta propriedade computa a relação da operadora com a Isthmus, retornando `true` se a `Operadora` for `TBanks`. Essa validação é crucial para controlar o fluxo de autenticação e permitir um tratamento diferenciado de credenciais, garantindo que a segurança dos dados seja mantida.
+### ParceiraIsthmus
+- **Regra**: A propriedade `ParceiraIsthmus` calcula se a operadora é TBanks, retornando `true` nesse caso e `false` em outras situações.
 
-## Navigation Property
-- Nenhuma propriedade complexa de domínio é encontrada nesta classe.
+## Navigations Property
+- Nenhuma propriedade complexa do domínio foi identificada nesta classe.
 
 ## Tipos Auxiliares e Dependências
 - **Enumeradores**:
-  - `[OperadoraPixEnum](OperadoraPixEnum.md)`: Enum que define as operadoras PIX disponíveis.
+  - [OperadoraPixEnum](OperadoraPixEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -36,9 +39,11 @@ classDiagram
         +string ClientSecretSandBox
         +string SenhaCertificado
         +string SenhaCertificadoSandBox
-        +string ChaveAplicacaoSandBox
         +bool ParceiraIsthmus
+        +string ChaveAplicacaoSandBox
     }
     
-    OperadoraPix --> OperadoraPixEnum
+    OperadoraPix --> OperadoraPixEnum : uses
 ```
+---
+Gerada em 29/12/2025 20:40:34

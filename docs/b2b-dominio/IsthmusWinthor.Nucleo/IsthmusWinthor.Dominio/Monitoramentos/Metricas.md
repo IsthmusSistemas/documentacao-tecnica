@@ -3,44 +3,51 @@
 **Nome do Arquivo**: Metricas.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Metricas` serve como um coletor de métricas de desempenho, especificamente para medir a latência das consultas realizadas em bancos de dados Oracle e SQL Server. Ela garante que a aplicação possa monitorar e registrar o tempo de execução das queries, permitindo análises de performance e identificação de gargalos. Esta rastreabilidade é crucial para a otimização da aplicação, especialmente em cenários que exigem alta disponibilidade e eficiência.
+A classe `Metricas` é responsável por coletar e registrar métricas de desempenho para consultas em bancos de dados Oracle e SQL Server. O objetivo principal é monitorar o tempo de execução das queries, fornecendo dados que ajudam na análise de desempenho e na identificação de possíveis gargalos no sistema. A coleta dessas métricas é essencial para manter a eficiência e a responsividade das aplicações que interagem com os bancos de dados.
 
 ## Métodos de Negócio
 
-### SqlServerLatency (public)
-- **Objetivo**: Registra a latência de consultas realizadas no SQL Server, garantindo que os desenvolvedores tenham dados sobre o desempenho dessas operações.
+### Método: `SqlServerLatency(double tempoMs, KeyValuePair<string, object>[] tags)`
+- **Objetivo**: Garantir que o tempo de execução das consultas no SQL Server seja registrado corretamente.
 - **Comportamento**: 
-  1. Chama o método `Record` do objeto `_sqlQueryLatency` para armazenar a latência.
-  2. O tempo em milissegundos (`tempoMs`) e as tags relatas são passados como parâmetros.
-  3. A latência é registrada junto com os dados adicionais fornecidos nas tags, permitindo uma análise mais diferenciada nas métricas.
-- **Retorno**: Não retorna valor; o método é uma ação que integra dados de performance ao sistema de monitoramento.
+  1. O método aceita o tempo de execução em milissegundos (`tempoMs`) e um array de tags (`tags`) que podem conter informações adicionais sobre a consulta.
+  2. Utiliza o histograma `_sqlQueryLatency` para registrar o tempo de execução, associando-o com as tags informadas.
+- **Retorno**: Este método não retorna um valor. Ele apenas registra a métrica.
 
-### OracleLatency (public)
-- **Objetivo**: Registra a latência de consultas feitas ao banco de dados Oracle, assegurando que informações críticas sobre performance estejam disponíveis.
+### Método: `OracleLatency(double tempoMs, long distribuidoraId)`
+- **Objetivo**: Assegurar que o tempo de execução das consultas no banco de dados Oracle seja registrado junto com a identificação da distribuidora.
 - **Comportamento**:
-  1. Chama o método `Record` do objeto `_oracleQueryLatency` para registrar a latência.
-  2. O tempo em milissegundos (`tempoMs`) e um `KeyValuePair` contendo o ID da distribuidora e o tipo de banco de dados são passados como argumentos.
-  3. A latência é armazenada com informações adicionais que permitem a segmentação por distribuidora e tipo de banco.
-- **Retorno**: Não retorna valor; o método é uma ação que adiciona dados de monitoramento ao sistema.
+  1. O método aceita o tempo de execução em milissegundos (`tempoMs`) e a identificação da distribuidora (`distribuidoraId`).
+  2. Registra o tempo de execução no histograma `_oracleQueryLatency`, utilizando o `distribuidoraId` e um identificador de banco de dados fixo ("oracle") como tags.
+- **Retorno**: Este método não retorna um valor. Ele realiza um registro da métrica.
 
 ## Propriedades Calculadas e de Validação
-Nenhuma propriedade com lógica de cálculo ou validação foi identificada nesta classe.
+Não existem propriedades com lógica de cálculo ou validação nesta classe.
 
 ## Navigations Property
-Nenhuma propriedade complexa do domínio (navegação) foi identificada nesta classe.
+Não existem propriedades que sejam classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- `TagsTelemetria` - Classe estática que fornece tags predefinidas para Telemetria.
+- Dependência: `TagsTelemetria` (betagens para telemetria).
+  
+### Links
+- [TagsTelemetria](TagsTelemetria.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Metricas {
-        +void SqlServerLatency(double tempoMs, KeyValuePair<string, object>[] tags)
-        +void OracleLatency(double tempoMs, long distribuidoraId)
+        +static void SqlServerLatency(double tempoMs, KeyValuePair<string, object>[] tags)
+        +static void OracleLatency(double tempoMs, long distribuidoraId)
     }
+
     class TagsTelemetria {
-        <<static>>
+        <<enum>>
+        +DISTRIBUIDORA_ID
+        +BANCO_DADOS
     }
-    Metricas --> TagsTelemetria : utiliza >
+
+    Metricas --> TagsTelemetria
 ```
+---
+Gerada em 29/12/2025 21:28:22

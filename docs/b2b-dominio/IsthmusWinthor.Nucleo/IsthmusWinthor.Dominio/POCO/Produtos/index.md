@@ -1,4 +1,4 @@
-#Documentação - Produtos
+# Produtos
 ## Conteúdo
 - [AgrupamentoInformacoesAdicionais](AgrupamentoInformacoesAdicionais.md)
 - [InformacoesProduto](InformacoesProduto.md)

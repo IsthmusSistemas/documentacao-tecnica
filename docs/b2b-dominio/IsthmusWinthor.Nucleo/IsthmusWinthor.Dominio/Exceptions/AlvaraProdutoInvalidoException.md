@@ -1,42 +1,40 @@
 # AlvaraProdutoInvalidoException
-**Namespace**: IsthmusWinthor.Dominio.Exceptions  
-**Nome do Arquivo**: AlvaraProdutoInvalidoException.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Exceptions
+- **Nome do Arquivo**: AlvaraProdutoInvalidoException.cs
 
-A classe `AlvaraProdutoInvalidoException` é uma exceção personalizada que representa um erro específico relacionado à invalidação de um alvará de produto. Essa classe é importante para o sistema, pois fornece uma maneira de sinalizar problemas que ocorrem quando um alvará de produto não atende às exigências necessárias, ajudando a manter a integridade dos processos de validação de dados e regras de negócio.
+Esta classe é uma exceção personalizada que representa um erro relacionado à validade de um alvará de produto. Seu principal objetivo é tratar casos de falhas na validação de alvarás, permitindo uma gestão de erros mais informativa e controlada dentro da aplicação.
 
 ## Métodos de Negócio
 
-### Construtor: `AlvaraProdutoInvalidoException(string mensagem)`
+### 1. Título: Construtor Público
+- **Objetivo**: Esta classe garante que as mensagens de erro fornecidas ao instanciar a exceção sejam transmitidas adequadamente para o sistema, facilitando a identificação da causa do erro.
+- **Comportamento**: Quando um novo objeto `AlvaraProdutoInvalidoException` é criado, o construtor chama o construtor da classe base `Exception`, passando a mensagem recebida. Isso assegura que, ao capturar a exceção, a mensagem correta sobre o erro de alvará será exibida.
+- **Retorno**: Não há valor retornado, uma vez que se trata de um construtor de exceção; ele simplesmente instância um novo objeto de erro.
 
-- **Objetivo**: Garante que mensagens de erro precisas e contextuais sejam disponibilizadas quando há uma violação relacionada a um alvará de produto.
-- **Comportamento**: 
-  1. Recebe uma mensagem que descreve a razão pela qual o alvará de produto é considerado inválido.
-  2. Chama o construtor da classe base `Exception` com a mensagem fornecida, registrando a condição de erro que ocorreu.
-- **Retorno**: Não possui retorno, mas inicializa uma instância de `AlvaraProdutoInvalidoException` com a mensagem passada para a descrição do erro.
-
-### Construtor protegido: `AlvaraProdutoInvalidoException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)`
-
-- **Objetivo**: Permite a desserialização da exceção, importante para cenários onde as exceções precisam ser recuperadas de um armazenamento persistente.
-- **Comportamento**:
-  1. Recebe informações de serialização e um contexto de streaming.
-  2. Chama o construtor da classe base `Exception` para garantir que todos os dados necessários sejam corretamente configurados em caso de manuseio de exceções durante a transição entre processos.
-- **Retorno**: Não possui retorno, mas garante que a exceção possa ser corretamente restaurada a partir de um estado serializado.
+### 2. Título: Construtor Protected
+- **Objetivo**: Este construtor permite a desserialização de exceções em cenários onde a aplicação pode estar lidando com exceções obtidas de outras fontes, mantendo a integridade das informações da exceção original.
+- **Comportamento**: Utilizando a classe `SerializationInfo`, este construtor respeita o contexto de serialização para criar uma exceção que pode ser reconstruída em um estado válido, incluindo todas as informações relevantes, como a mensagem de erro e o contexto de streaming.
+- **Retorno**: Assim como o construtor público, este construtor não tem um retorno; é utilizado para construir a exceção a partir de dados serializados.
 
 ## Propriedades Calculadas e de Validação
-Esta classe não possui propriedades calculadas ou bibliotecas internas de validação, uma vez que sua função é exclusivamente de controle de exceção e não possui lógicas de negócio adicionais.
+- Não há propriedades calculadas ou de validação nesta classe, já que se trata de uma exceção.
 
 ## Navigations Property
-Este tipo de classe não possui propriedades complexas de domínio, dado que a natureza dela é de exceção e não de um modelo de entidade.
+- Não há propriedades de navegação nesta classe, pois ela é uma exceção simples utilizada para a propagação de erros.
 
 ## Tipos Auxiliares e Dependências
-Não existem enumeradores ou classes auxiliares, pois `AlvaraProdutoInvalidoException` é uma exceção simples que não se relaciona com outros tipos de classe.
+- Não há enumeradores ou classes auxiliares externas utilizadas nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class AlvaraProdutoInvalidoException {
         <<Exception>>
+        +AlvaraProdutoInvalidoException(string mensagem)
+        +AlvaraProdutoInvalidoException(SerializationInfo info, StreamingContext context)
     }
 ``` 
 
-Este documento fornece uma visão abrangente da classe `AlvaraProdutoInvalidoException`, sua responsabilidade em relação à validação de alvarás de produtos, e a forma como se encaixa no sistema global de exceções.
+A classe `AlvaraProdutoInvalidoException` é uma ferramenta essencial para a validação e gestão de erros, assegurando que problemas relacionados a alvarás de produtos sejam tratados de forma clara e informativa.
+---
+Gerada em 29/12/2025 21:09:15

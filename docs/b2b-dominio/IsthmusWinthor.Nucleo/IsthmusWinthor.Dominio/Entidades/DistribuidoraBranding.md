@@ -1,25 +1,43 @@
 # DistribuidoraBranding
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: DistribuidoraBranding.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: DistribuidoraBranding.cs
 
-## Visão Geral e Responsabilidade  
-A classe `DistribuidoraBranding` representa uma entidade de domínio responsabilidade de manter informações sobre a configuração de branding de uma distribuidora específica. Ela resolve a necessidade de gestão de branding associada a cada distribuidora, armazenando os dados de autenticação e as características específicas do branding.
+## Visão Geral e Responsabilidade
+A classe `DistribuidoraBranding` representa uma entidade no contexto de branding de distribuidoras, unindo informações relacionadas à distribuição de produtos e aos seus respectivos branding. O problema de negócio que esta classe resolve está relacionado ao gerenciamento e autenticação de marcas associadas a distribuidoras, permitindo que diferentes usuários acessem e administrem o branding de suas distribuidoras de forma segura.
 
-## Métodos de Negócio  
-Esta classe não possui métodos de negócio que realizem lógica significativa além das operações básicas de acesso aos dados.
+## Métodos de Negócio
+- **Título**: (Nenhum método com lógica de negócio foi encontrado nesta classe.)
+  
+## Propriedades Calculadas e de Validação
+- Nenhuma propriedade com lógica no `get` ou validação no `set` foi identificada nesta classe.
 
-## Propriedades Calculadas e de Validação  
-- Nenhuma propriedade possui lógica no `get` ou validação no `set` nesta classe.
+## Navigations Property
+- Distribuidora: [Distribuidora](Distribuidora.md)
 
-## Navigation Properties  
-- [`Distribuidora`](Distribuidora.md): Representa a relação com a entidade `Distribuidora`, que contém informações detalhadas sobre a distribuidora associada.
+## Tipos Auxiliares e Dependências
+- DistribuidoraBrandingEnum: [DistribuidoraBrandingEnum](DistribuidoraBrandingEnum.md)
 
-## Tipos Auxiliares e Dependências  
-- [`DistribuidoraBrandingEnum`](DistribuidoraBrandingEnum.md): Enum que define os possíveis tipos de branding que podem ser aplicados a uma distribuidora.
-
-## Diagrama de Relacionamentos  
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
+    class DistribuidoraBranding {
+        +long Id
+        +Distribuidora Distribuidora
+        +long DistribuidoraId
+        +DistribuidoraBrandingEnum DistribuidoraBrandingEnum
+        +string Usuario
+        +string Senha
+    }
+    class Distribuidora {
+        +long Id
+        +string Nome
+    }
+    class DistribuidoraBrandingEnum {
+        +int Valor
+    }
+    
     DistribuidoraBranding --> Distribuidora
     DistribuidoraBranding --> DistribuidoraBrandingEnum
 ```
+---
+Gerada em 29/12/2025 20:28:17

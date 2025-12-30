@@ -1,13 +1,14 @@
 # OperacaoContaCorrenteEnum
-**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: OperacaoContaCorrenteEnum.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
+- **Nome do Arquivo**: OperacaoContaCorrenteEnum.cs
 
-O `OperacaoContaCorrenteEnum` é um enumerador que serve para classificar as operações financeiras realizadas em uma conta corrente, facilitando a distinção entre entradas e saídas de valores.
+### Descrição
+O `OperacaoContaCorrenteEnum` é uma enumeração utilizada para categorizar as operações financeiras realizadas em uma conta corrente, apoiando a identificação clara de transações de débito e crédito.
 
-## Tipos Auxiliares e Dependências
-- Enum: `[OperacaoContaCorrenteEnum](OperacaoContaCorrenteEnum.md)`
+### Tipos Auxiliares e Dependências
+- Enum: [OperacaoContaCorrenteEnum](OperacaoContaCorrenteEnum.md)
 
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class OperacaoContaCorrenteEnum {
@@ -15,3 +16,5 @@ classDiagram
         +Credito
     }
 ```
+---
+Gerada em 29/12/2025 20:58:07

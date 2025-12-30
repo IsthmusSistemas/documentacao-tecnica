@@ -1,22 +1,23 @@
 # Praca
+
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: Praca.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Praca` representa uma entidade dentro do contexto da aplicação que está relacionada a uma região e uma distribuidora. Seu papel principal é modelar a relação entre esses dois componentes, permitindo a organização e gestão de espaços onde um serviço pode ser disponibilizado, como, por exemplo, zonas de distribuição de produtos. Essa classe facilita o entendimento e a gestão das regiões em que as distribuidoras operam, garantindo a integridade das associações entre as entidades.
+A classe `Praca` representa uma entidade que modela uma praça de distribuição dentro do domínio de negócios da empresa. Ela encapsula informações sobre a localização, codificação e a relação com uma região e uma distribuidora associadas. Essa modelagem é crucial para garantir a integridade dos dados relacionados à distribuição e ao gerenciamento eficiente das operações logísticas.
 
 ## Métodos de Negócio
-Não existem métodos com lógica de negócio complexa na classe `Praca`. 
+Esta classe não contém métodos de negócio com lógica, pois se trata de um modelo anêmico. Portanto, não há métodos a serem detalhados neste momento.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica de cálculo ou validação de entrada na classe `Praca`.
+Esta classe não possui propriedades que realizam cálculos no `get` ou validações no `set`. Todas as propriedades são anêmicas e simplesmente armazenam dados.
 
-## Navigation Property
+## Navigations Property
 - [Regiao](Regiao.md)
 - [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-Não há enumeradores ou classes auxiliares diretamente utilizadas pela classe `Praca`.
+Não há enumeradores ou classes estáticas/helpers utilizadas diretamente nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -28,8 +29,8 @@ classDiagram
         +long RegiaoId
         +long DistribuidoraId
     }
-    class Regiao
-    class Distribuidora
-    Praca --> Regiao : "associado a"
-    Praca --> Distribuidora : "associado a"
+    Praca --> Regiao
+    Praca --> Distribuidora
 ```
+---
+Gerada em 29/12/2025 20:44:45

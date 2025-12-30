@@ -2,19 +2,21 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoServicoWebServiceFinanceiro.cs  
 
-Esta enumeração define os tipos de serviços disponíveis para interações com um Web Service financeiro, funcionando como uma referência para identificar cada tipo de serviço que pode ser solicitado.
+Este enumerador define os tipos de serviços oferecidos por um Web Service Financeiro, servindo para facilitar a identificação e o uso adequado em operações relacionadas a serviços financeiros no sistema.
 
-### Tipos Auxiliares e Dependências
-- Enumeradores: `[TipoServicoWebServiceFinanceiro](TipoServicoWebServiceFinanceiro.md)`
+## Tipos Auxiliares e Dependências
+- **Enumeradores**:
+  - [TipoServicoWebServiceFinanceiro](TipoServicoWebServiceFinanceiro.md)
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoServicoWebServiceFinanceiro {
-        <<enumeration>>
         +Boleto
         +Danfe
         +Xml
         +Login
     }
 ```
+---
+Gerada em 29/12/2025 21:07:09

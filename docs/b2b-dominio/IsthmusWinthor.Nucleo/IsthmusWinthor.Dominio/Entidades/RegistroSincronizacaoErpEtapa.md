@@ -3,78 +3,76 @@
 **Nome do Arquivo**: RegistroSincronizacaoErpEtapa.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `RegistroSincronizacaoErpEtapa` é responsável por gerenciar os registros de sincronização de etapas em um sistema de integração com um ERP. Ela estabelece a lógica para controlar o status e o progresso de cada etapa de sincronização, permitindo determinar se as operações foram realizadas com sucesso e gerenciar a lista de documentos a serem processados durante a sincronização. O problema de negócio que ela resolve é tornar o processo de sincronização mais eficiente e rastreável.
+A classe `RegistroSincronizacaoErpEtapa` atua como uma representação de uma etapa de sincronização entre um sistema ERP e outra entidade de dados. Ela gerencia o ciclo de vida da sincronização, incluindo a inicialização, o processamento e a conclusão das etapas. Esta classe é fundamental para garantir que a sincronização ocorra de forma ordenada e que todas as etapas sejam monitoradas com precisão, buscando resolver problemas de integridade e rastreabilidade dos dados durante processos de integração.
 
 ## Métodos de Negócio
 
-### UrlRequisicao (public)
-- **Objetivo**: Garante que uma URL de requisição válida seja gerada a partir de uma URL base.
+### UrlRequisicao
+- **Visibilidade**: `public`
+- **Objetivo**: Garante que a URL gerada para o servidor esteja no formato correto.
 - **Comportamento**:
-  1. Verifica se a `urlBase` é nula ou vazia e lança uma exceção se for.
+  1. Verifica se a `urlBase` está vazia ou nula, lançando uma exceção caso afirmativo.
   2. Remove a barra final da `urlBase`, se existir.
-  3. Remove a barra inicial da propriedade `Url`, se existir.
-  4. Combina `urlServidor` e `urlRequest` para formar a URL final para a requisição.
-- **Retorno**: Retorna a URL formatada.
+  3. Remove a barra inicial da `Url`, se existir.
+  4. Retorna a URL formatada concatenando a `urlBase` e a `Url`.
+- **Retorno**: Retorna uma string representando a URL requisição formatada para o servidor.
 
-### ProximoDocumento (public)
-- **Objetivo**: Garante que o próximo documento a ser processado em uma etapa de Load seja retornado.
+### ProximoDocumento
+- **Visibilidade**: `public`
+- **Objetivo**: Determina qual é o próximo documento a ser processado na etapa de sincronização.
 - **Comportamento**:
-  1. Verifica se a lista de `Documentos` está vazia ou se a `TipoEtapa` não é 'Load'. Se qualquer uma dessas condições for verdadeira, retorna nulo.
-  2. Cria uma lista de documentos que já foram processados por meio das `RegistroSincronizacaoErpEtapaLoads`.
-  3. Filtra os documentos que ainda não foram processados e retorna o primeiro documento da lista filtrada.
-- **Retorno**: Retorna o próximo documento a ser processado ou nulo.
+  1. Verifica se a lista de `Documentos` é nula ou está vazia, ou se a `TipoEtapa` não é do tipo `Load`. Se sim, retorna `null`.
+  2. Coleta os documentos que já foram processados através da lista `RegistroSincronizacaoErpEtapaLoads`.
+  3. Filtra a lista de `Documentos` para excluir aqueles que já foram processados.
+  4. Retorna o primeiro documento da lista filtrada ou `null` se não houver documentos restantes.
+- **Retorno**: Retorna uma string representando o próximo documento a ser processado ou `null`.
 
-```mermaid
-flowchart TD
-    A[Início] --> B{Documentos nulos ou vazios?}
-    B -- Sim --> C[Retorno nulo]
-    B -- Não --> D{TipoEtapa é Load?}
-    D -- Não --> C
-    D -- Sim --> E[Cria documentos processados]
-    E --> F[Filtra documentos ainda não processados]
-    F --> G[Retorna primeiro documento]
-```
+## Propriedades Calculadas e de Validação
 
-### Propriedades Calculadas e de Validação
+### Sucesso
+- **Nota**: Esta propriedade retorna `true` se a etapa foi finalizada com sucesso.
+- **Regra**: Considera que a etapa foi concluída com sucesso quando o `StatusEtapaSincronizacao` é igual a `Finalizada` e se todos os documentos na etapa de `Load` foram processados com sucesso.
 
-#### Sucesso (bool)
-- **Regra**: Determina se a etapa de sincronização foi completada com sucesso. Considera-se bem-sucedida se o `StatusEtapaSincronizacao` for 'Finalizada' e se todos os loads da etapa foram executados com sucesso.
-
-#### LoadsExecutados (bool)
-- **Regra**: Indica se todas as etapas de Load foram executadas corretamente. Para etapas que não são do tipo Load, retorna verdadeiro automaticamente. Para as etapas de Load, verifica se não há documentos restantes a serem processados e se todos os registros da etapa de Load tiveram sucesso.
+### LoadsExecutados
+- **Nota**: Esta propriedade informa se todos os loads foram executados com sucesso.
+- **Regra**: Retorna `true` se a etapa atual não é um tipo de load ou se não há próximo documento a ser processado e todos os loads foram marcados como bem-sucedidos.
 
 ## Navigations Property
-- [RegistroSincronizacaoErp](RegistroSincronizacaoErp.md)
+- [RegistroSincronizacaoErp](RegistroSincronizacaoErp.md) 
 - [RegistroSincronizacaoErpEtapaLoad](RegistroSincronizacaoErpEtapaLoad.md)
 
 ## Tipos Auxiliares e Dependências
-- [TipoSincronizacao](TipoSincronizacao.md)
-- [TipoEtapaSincronizacaoEnum](TipoEtapaSincronizacaoEnum.md)
-- [StatusSincronizacaoEnum](StatusSincronizacaoEnum.md)
+- [TipoSincronizacao](TipoSincronizacao.md) 
+- [TipoEtapaSincronizacaoEnum](TipoEtapaSincronizacaoEnum.md) 
+- [StatusSincronizacaoEnum](StatusSincronizacaoEnum.md) 
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class RegistroSincronizacaoErpEtapa {
-        long Id
-        DateTime? DataInicio
-        DateTime? DataFim
-        string Url
-        int Ordem
-        string Mensagem
-        List<string> Documentos
-    }
-
-    class RegistroSincronizacaoErp {
         +long Id
-    }
-
-    class RegistroSincronizacaoErpEtapaLoad {
-        +long Id
-        +string Documento
+        +DateTime? DataInicio
+        +DateTime? DataFim
+        +string Url
+        +int Ordem
+        +string DocumentosJson
+        +string Mensagem
+        +List<string> Documentos
+        +string UrlRequisicao(string urlBase)
+        +string ProximoDocumento()
         +bool Sucesso
+        +bool LoadsExecutados
     }
-
-    RegistroSincronizacaoErpEtapa "1" --> "1" RegistroSincronizacaoErp
-    RegistroSincronizacaoErpEtapa "1" --> "*" RegistroSincronizacaoErpEtapaLoad
+    class RegistroSincronizacaoErp {
+        <<Entity>>
+    }
+    class RegistroSincronizacaoErpEtapaLoad {
+        <<Entity>>
+        +bool Sucesso
+        +string Documento
+    }
+    RegistroSincronizacaoErpEtapa --> RegistroSincronizacaoErp
+    RegistroSincronizacaoErpEtapa --> RegistroSincronizacaoErpEtapaLoad
 ```
+---
+Gerada em 29/12/2025 20:47:20

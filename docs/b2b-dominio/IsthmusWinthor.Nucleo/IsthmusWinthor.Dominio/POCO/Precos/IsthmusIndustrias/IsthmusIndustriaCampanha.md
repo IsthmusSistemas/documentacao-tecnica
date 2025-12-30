@@ -1,35 +1,40 @@
 # IsthmusIndustriaCampanha
-- **Namespace**: IsthmusWinthor.Dominio.POCO.Precos.IsthmusIndustrias
-- **Nome do Arquivo**: IsthmusIndustriaCampanha.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO.Precos.IsthmusIndustrias  
+**Nome do Arquivo**: IsthmusIndustriaCampanha.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `IsthmusIndustriaCampanha` representa uma campanha de preços para indústrias, sendo um componente fundamental no gerenciamento de promoções e descontos. Seu papel é centralizar as regras e condições que definem como os descontos devem ser aplicados, considerando valores mínimos e máximos envolvidos na operação. A classe é responsável por garantir a integridade dos dados ao validar e calcular os descontos aplicáveis a partir de uma lista associada de descontos (`Descontos`).
+A classe `IsthmusIndustriaCampanha` representa uma campanha promocional industrial que encapsula as regras e condições sob as quais descontos podem ser aplicados a produtos ou serviços. O problema de negócio que ela resolve é a necessidade de gerenciar e calcular os descontos aplicáveis nos tickets de vendas, garantindo que os descontos oferecidos sejam sempre os mais vantajosos para a empresa, respeitando o valor mínimo de ticket e o máximo faturado.
 
 ## Métodos de Negócio
 
-### MaiorDesconto: Propriedade Calculada
-- **Objetivo**: Determinar o maior percentual de desconto disponível na campanha.
-- **Comportamento**: A propriedade acessa a coleção de descontos e ordena os itens de forma decrescente com base no percentual de desconto. Em seguida, retorna o valor do desconto mais alto ou zero se não houver descontos cadastrados.
-- **Retorno**: Retorna o maior percentual de desconto encontrado na lista ou zero se não houver descontos.
+### Título: MaiorDesconto (Acessível)
+- **Objetivo**: Garantir que a aplicação da lógica de desconto retorne o maior percentual de desconto disponível nas campanhas.
+- **Comportamento**: 
+  1. A lista de descontos (`Descontos`) é ordenada em ordem decrescente de percentual de desconto (`PercentualDesconto`).
+  2. O primeiro desconto da lista ordenada é selecionado.
+  3. Se houver descontos na lista, o percentual do desconto é retornado; caso contrário, 0 é retornado.
+- **Retorno**: Retorna o maior percentual de desconto encontrado na lista de descontos ou 0 se não houver descontos.
 
 ```mermaid
 flowchart TD
     A[Início] --> B{Existem Descontos?}
-    B -- Sim --> C[Ordena Descontos]
-    C --> D{Tem Desconto?}
-    D -- Sim --> E[Retorna Maior Percentual de Desconto]
-    D -- Não --> F[Retorna 0]
-    B -- Não --> F
+    B -- Sim --> C[Ordenar Descontos]
+    C --> D[Selecionar o Primeiro Desconto]
+    D --> E[Retornar Percentual do Desconto]
+    B -- Não --> F[Retornar 0]
+    F --> E
 ```
 
 ## Propriedades Calculadas e de Validação
-- **MaiorDesconto**: Calcula e retorna o maior percentual de desconto entre os descontos associados à campanha.
+
+### Propriedades
+- **MaiorDesconto**: Retorna o maior percentual de desconto entre os disponíveis. A regra é que essa propriedade deve assegurar que o percentual mais alto seja retornado, priorizando a lógica de seleção e ordenação dos descontos.
 
 ## Navigations Property
-- **Descontos**: Representa uma coleção de descontos associados à campanha. A classe relacionada é `[IsthmusIndustriaDesconto](IsthmusIndustriaDesconto.md)`.
+- [IsthmusIndustriaDesconto](IsthmusIndustriaDesconto.md): Representa os objetos de desconto que estão associados a esta campanha.
 
 ## Tipos Auxiliares e Dependências
-- Classe Relacionada: `[IsthmusIndustriaDesconto](IsthmusIndustriaDesconto.md)`
+- [IsthmusIndustriaDesconto](IsthmusIndustriaDesconto.md): Classe utilizada para representar o desconto aplicado dentro da campanha.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -44,10 +49,7 @@ classDiagram
         +List<IsthmusIndustriaDesconto> Descontos
         +decimal MaiorDesconto
     }
-    class IsthmusIndustriaDesconto {
-        +decimal PercentualDesconto
-    }
-    IsthmusIndustriaCampanha "1" --> "0..*" IsthmusIndustriaDesconto : contém
-``` 
-
-Esta documentação técnica proporciona uma visão clara e concisa sobre a classe `IsthmusIndustriaCampanha`, abordando suas responsabilidades de negócio, definindo claramente as regras de cálculo e as interações com outras classes do domínio.
+    IsthmusIndustriaCampanha --> IsthmusIndustriaDesconto : associa
+```
+---
+Gerada em 29/12/2025 21:57:09

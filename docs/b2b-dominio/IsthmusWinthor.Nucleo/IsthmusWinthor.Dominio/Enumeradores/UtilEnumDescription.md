@@ -1,82 +1,67 @@
 # UtilEnumDescription
 
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: UtilEnumDescription.cs
+**Nome do Arquivo**: UtilEnumDescription.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `UtilEnumDescription` fornece métodos utilitários para enriquecer enums com descrições adicionais, suportando a recuperação de metadados através de atributos customizados. Isso resolve o problema de obter descrições legíveis para enums, melhorando a apresentação e a manutenção do código na camada de apresentação e na documentação.
+A classe `UtilEnumDescription` serve como uma ferramenta utilitária para extrair descrições de enumeradores (Enums) em C#. Ela resolve o problema de proporcionar uma descrição amigável para os valores dos Enums, utilizando o atributo `[Description]`. Isso permite que as aplicações exibam representações compreensíveis e mais informativas dos Enums para os usuários, ao invés de utilizações diretas dos valores numéricos ou das chaves.
 
 ## Métodos de Negócio
 
-### Título: Description<T> (Público)
-- **Objetivo**: Garantir que o valor de um enum seja mapeado para uma descrição legível através de um atributo `DescriptionAttribute`, permitindo uma melhor compreensão em interfaces e relatórios.
-- **Comportamento**: 
-  1. Verifica se o parâmetro `e` é um enum.
-  2. Obtém o tipo do enum e seus valores possíveis.
-  3. Para cada valor, compara com o valor do enum passado.
-  4. Recupera o membro correspondente e procura um `DescriptionAttribute`.
-  5. Retorna a descrição se encontrada; caso contrário, retorna uma string vazia.
-- **Retorno**: Uma string que representa a descrição do enum, ou uma string vazia se não houver.
+### Título: Description<T> (public)
+- **Objetivo**: Este método garante a obtenção da descrição associada a um valor de Enum, se disponível.
+- **Comportamento**:
+    1. Verifica se o objeto passado como argumento é um Enum. Se não, retorna uma string vazia.
+    2. Obtém o tipo do Enum e todas os seus valores.
+    3. Itera sobre cada valor do Enum.
+    4. Se o valor do Enum corresponde ao valor recebido como argumento, recupera os metadados do membro do Enum utilizando `GetMember`.
+    5. Verifica se existe um atributo `DescriptionAttribute` associado ao membro.
+    6. Se encontrado, retorna a descrição.
+    7. Se não, retorna uma string vazia após a iteração.
+- **Retorno**: Retorna a descrição do Enum como uma string, ou uma string vazia se não houver descrição disponível.
 
 ```mermaid
 flowchart TD
-    A[Inicio] --> B{É um Enum?}
-    B -- Sim --> C[Obter valores do Enum]
-    B -- Não --> D[Retornar String Vazia]
-    C --> E{Valor Encontrado?}
-    E -- Sim --> F[Obter Membro do Enum]
-    F --> G[Procurar DescriptionAttribute]
-    G --> H{Atributo Encontrado?}
-    H -- Sim --> I[Retornar Descrição]
-    H -- Não --> J[Retornar String Vazia]
-    E -- Não --> J
+    A[Início] --> B{É um Enum?}
+    B -- Sim --> C[Obtém tipo do Enum]
+    B -- Não --> D[Retorna string vazia]
+    C --> E[Obtém valores do Enum]
+    E --> F{Iterar pelos valores}
+    F --> G{É igual ao valor recebido?}
+    G -- Sim --> H[Recupera metadados]
+    G -- Não --> F
+    H --> I{Tem DescriptionAttribute?}
+    I -- Sim --> J[Retorna descrição]
+    I -- Não --> F
     D --> K[Fim]
     J --> K
-    I --> K
-```
-
-### Título: GetDisplayDescription (Público)
-- **Objetivo**: Recuperar uma descrição formatada para um valor de enum, utilizando `DisplayAttribute` ou o próprio nome do enum, garantindo que sempre uma representação legível seja retornada.
-- **Comportamento**:
-  1. Obtém o campo correspondente ao valor do enum.
-  2. Verifica se há um `DisplayAttribute` associado ao campo.
-  3. Retorna a descrição ou nome configurado no `DisplayAttribute`, ou, se não disponível, o valor do enum em forma de string.
-- **Retorno**: Uma string que representa a descrição do valor do enum, priorizando o `DisplayAttribute` se estiver disponível.
-
-```mermaid
-flowchart TD
-    A[Inicio] --> B[Obter Campo do Enum]
-    B --> C{Há DisplayAttribute?}
-    C -- Sim --> D[Retornar Descrição ou Nome do Atributo]
-    C -- Não --> E[Retornar Nome do Enum]
-    E --> F[Fim]
-    D --> F
 ```
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades com lógica de validação ou cálculo nesta classe, uma vez que ela é composta apenas por métodos utilitários.
+- Não existem propriedades calculadas ou de validação nesta classe.
 
-## Navigation Property
-- Não existem propriedades de navegação complexas nesta classe, pois não faz parte de um objeto de domínio com relacionamentos.
+## Navigation Properties
+- Não existem propriedades de navegação nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- A classe faz uso de:
-  - `[DescriptionAttribute](System.ComponentModel.DescriptionAttribute.md)`
-  - `[DisplayAttribute](System.ComponentModel.DataAnnotations.DisplayAttribute.md)`
-  - `[Enum](System.Enum.md)`
+- [DescriptionAttribute](https://docs.microsoft.com/dotnet/api/system.componentmodel.descriptionattribute)
+- [IConvertible](https://docs.microsoft.com/dotnet/api/system.iconvertible)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class UtilEnumDescription {
-        +Description<T>(e: T): string
-        +GetDisplayDescription(value: Enum): string
+        +string Description<T>(T e)
     }
-    class DescriptionAttribute
-    class DisplayAttribute
-    class Enum
+
+    class DescriptionAttribute {
+    }
+
+    class IConvertible {
+    }
 
     UtilEnumDescription --> DescriptionAttribute
-    UtilEnumDescription --> DisplayAttribute
-    UtilEnumDescription --> Enum
+    UtilEnumDescription --> IConvertible
 ```
+---
+Gerada em 29/12/2025 21:08:04

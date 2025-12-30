@@ -2,34 +2,39 @@
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: CupomDescontoFiltroProduto.cs  
 
-## Visão Geral e Responsabilidade
-A classe `CupomDescontoFiltroProduto` representa a relação entre um cupom de desconto e o filtro de produtos ao qual ele se aplica. Essa classe é responsável por armazenar informações detalhadas que determinam quais produtos podem ser comprados com um cupom específico, facilitando a promoção e gerenciamento de descontos no sistema. O objetivo é garantir que os códigos de desconto sejam aplicados apenas a produtos adequados, conforme definido por regras de negócio específicas.
+### Visão Geral e Responsabilidade
+A classe `CupomDescontoFiltroProduto` representa a entidade de filtragem de produtos associados a um cupom de desconto. Sua principal responsabilidade é determinar quais produtos são elegíveis para um desconto específico, conforme as regras de negócio definidas por meio do `FiltroProdutoEnum`. Isso permite que a aplicação gerencie descontos de forma granular, garantindo que apenas os produtos que atendem a certas condições sejam beneficiados, evitando assim a aplicação de descontos indevidos.
 
-## Propriedades Calculadas e de Validação
-- **Filtro**: Esta propriedade armazena o tipo de filtro que é aplicado ao produto (ex: categoria, marca). O valor determina quais produtos estão incluídos na aplicação do desconto. A regra por trás do cálculo é assegurar que apenas produtos que correspondam ao filtro definido possam ser comprados com o cupom específico.
+### Métodos de Negócio
+Atualmente, a classe não possui métodos de negócio com lógica complexa, portanto, essa seção não se aplicará.
 
-## Navigations Property
-- [CupomDesconto](CupomDesconto.md): A classe `CupomDesconto` representa o cupom de desconto atribuído a este filtro.
+### Propriedades Calculadas e de Validação
+- **Valor**: Esta propriedade deve validar se o valor atribuído está de acordo com o tipo de filtro especificado pela propriedade `Filtro`. Por exemplo, se o filtro é um tipo numérico, o valor deve ser um número. 
+- **CupomDesconto**: Esta propriedade é uma navegação para a entidade `CupomDesconto`, representando a relaciona entre o cupom e seu filtro.
 
-## Tipos Auxiliares e Dependências
-- [FiltroProdutoEnum](FiltroProdutoEnum.md): Enum que define os diferentes tipos de filtros que podem ser aplicados a produtos.
+### Navigation Property
+- [CupomDesconto](CupomDesconto.md)
 
-## Diagrama de Relacionamentos
+### Tipos Auxiliares e Dependências
+- [FiltroProdutoEnum](FiltroProdutoEnum.md)
+
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CupomDescontoFiltroProduto {
         +long Id
-        +long CupomDescontoId
         +FiltroProdutoEnum Filtro
         +string Valor
     }
-
+    
     class CupomDesconto {
         +long Id
-        +string Codigo
+        // Outras propriedades relevantes
     }
-
-    CupomDescontoFiltroProduto --> CupomDesconto
+    
+    CupomDescontoFiltroProduto --> CupomDesconto : "associado a"
 ```  
 
-A classe `CupomDescontoFiltroProduto` indica que um "Filtro de Produto" pode estar associado a um "Cupom de Desconto", formando parte de um sistema de gestão de promoções que assegura a integridade dos dados ao aplicar regras em relação aos produtos elegíveis para descontos.
+Esta documentação técnica fornece uma visão clara sobre a classe `CupomDescontoFiltroProduto`, destacando suas responsabilidades dentro da camada de domínio e como ela se integra a outras partes do sistema.
+---
+Gerada em 29/12/2025 20:26:40

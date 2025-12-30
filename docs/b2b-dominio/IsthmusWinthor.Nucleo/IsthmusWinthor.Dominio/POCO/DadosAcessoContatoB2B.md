@@ -1,5 +1,7 @@
 # DadosAcessoContatoB2B
-**Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: DadosAcessoContatoB2B.cs  
+- **Namespace**: IsthmusWinthor.Dominio.POCO
+- **Nome do Arquivo**: DadosAcessoContatoB2B.cs
 
-Esta classe é um DTO (Data Transfer Object) que serve para transportar dados relacionados ao contato de um cliente B2B (business-to-business), contendo informações básicas como o nome, email e função do contato.
+Esta classe serve como um modelo de transporte de dados (DTO) para representar as informações de contato de acesso em um contexto B2B (Business to Business).
+---
+Gerada em 29/12/2025 21:31:13

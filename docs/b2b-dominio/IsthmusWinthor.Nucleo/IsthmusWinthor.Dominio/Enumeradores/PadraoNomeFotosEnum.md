@@ -2,20 +2,26 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: PadraoNomeFotosEnum.cs  
 
-O `PadraoNomeFotosEnum` define uma enumeração de valores que são utilizados para padronizar os nomes das fotos de produtos em um sistema corporativo. Cada constante representa uma forma distinta de identificação de um produto.
+Este enumerador é utilizado para definir padrões de nomenclatura para fotos dentro do sistema, oferecendo uma forma eficiente de referenciar diferentes formatos de nome que podem ser associados a produtos e fornecedores. 
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[PadraoNomeFotosEnum](PadraoNomeFotosEnum.md)`: Define os padrões disponíveis para nomeação de fotos.
+- Nenhuma classe complexa ou propriedade de navegação.
+- Utilizado por classes que gerenciam a nomenclatura de fotos.
+
+### Enumeradores
+- [PadraoNomeFotosEnum](PadraoNomeFotosEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PadraoNomeFotosEnum {
-        +CodigoProduto : int
-        +CodigoBarras : int
-        +CodigoFabrica : int
-        +CodigoProdutoPrincipal : int
-        +CodigoFornecedorCodigoFabrica : int
+        <<enumeration>>
+        CodigoProduto
+        CodigoBarras
+        CodigoFabrica
+        CodigoProdutoPrincipal
+        CodigoFornecedorCodigoFabrica
     }
 ```
+---
+Gerada em 29/12/2025 20:58:32

@@ -1,61 +1,38 @@
 # CachePrecoClienteKey
-
 **Namespace**: IsthmusWinthor.Dominio.CacheKeys  
-**Nome do Arquivo**: CachePrecoClienteKey.cs  
+**Nome do Arquivo**: CachePrecoClienteKey.cs
 
 ## Visão Geral e Responsabilidade
-A classe `CachePrecoClienteKey` atua como um gerador de chaves de cache específicas para o armazenamento e recuperação de preços de produtos personalizados para clientes no contexto de uma distribuidora. Este componente é crucial para garantir alta eficiência e rapidez no acesso a dados frequentemente requisitados por operações de preço, integrando informações de cliente, produto e outros parâmetros relevantes.
+A classe `CachePrecoClienteKey` é responsável por representar uma chave de cache que facilita o armazenamento e recuperação de informações de preços de produtos para clientes. Ela encapsula vários dados relevantes, como códigos de cliente, distribuidora, produto e plano de pagamento, além de informações específicas sobre o perfil do cliente. Essa estrutura é essencial para garantir a integridade dos dados em cache, promovendo operações eficientes de busca e atualizações de preços, com base nas especificações de cada cliente e produto.
 
 ## Métodos de Negócio
 
-### CachePrecoClienteKey (Construtor) - Público
-* **Objetivo**: Inicializar uma chave que será utilizada no cache para identificar unicamente os preços associados a um cliente específico.
-* **Comportamento**: 
-  1. Recebe parâmetros como código do cliente, ID da distribuidora, código do produto, código do plano de pagamento, tipo de perfil e identificador do perfil de login.
-  2. Atribui estes valores às propriedades correspondentes da classe.
-
-### Conversão Implícita de Tupla (PesquisaPrecoProduto, ClienteLogado) para CachePrecoClienteKey - Pública
-* **Objetivo**: Facilitar a geração de uma chave de cache a partir de instâncias de `PesquisaPrecoProduto` e `ClienteLogado`.
-* **Comportamento**:
-  1. Extrai informações necessárias de `PesquisaPrecoProduto` e `ClienteLogado`.
-  2. Constrói uma nova instância de `CachePrecoClienteKey`, popula seus campos com os valores extraídos.
-
-### Conversão Implícita de Tupla (PrecosProdutoCliente, ClienteLogado) para CachePrecoClienteKey - Pública
-* **Objetivo**: Criar uma chave de cache a partir dos objetos `PrecosProdutoCliente` e `ClienteLogado`.
-* **Comportamento**:
-  1. Recupera dados de `PrecosProdutoCliente` e `ClienteLogado`.
-  2. Instancia `CachePrecoClienteKey`, inicializando com os valores destes objetos.
+### Título: Key (Propriedade pública)
+- **Objetivo**: Garante a geração de uma chave única de cache que identifica de forma exclusiva a combinação de dados fornecidos ao cliente, ao produto e ao perfil.
+- **Comportamento**: Constrói a chave utilizando os atributos `DistribuidoraId`, `CodigoCliente`, `CodigoPlanoPagamento`, `CodigoProduto`, `TipoPerfil` e `IdentificadorPerfilLogin`, concatenando-os com o caractere `:` como delimitador.
+- **Retorno**: Retorna uma string que representa a chave formada a partir da combinação dos valores atribuídos às propriedades da classe.
 
 ## Propriedades Calculadas e de Validação
-
-### Key (get) - Pública
-* **Objetivo**: Fornecer uma chave de string única baseada nas propriedades da classe.
-* **Comportamento**:
-  - Combina os valores das propriedades `DistribuidoraId`, `CodigoCliente`, `CodigoPlanoPagamento`, `CodigoProduto`, `TipoPerfil` e `IdentificadorPerfilLogin` em uma string formatada como "DistribuidoraId:CodigoCliente:CodigoPlanoPagamento:CodigoProduto:TipoPerfil:IdentificadorPerfilLogin".
+N/A (a classe apenas possui propriedades de dados e não contém lógicas de cálculo ou validação nas operações de `get` ou `set`).
 
 ## Navigations Property
-- **ClienteLogado**: Presume-se um link implícito a essa classe para gerar a chave de cache.
-- **PesquisaPrecoProduto**: Utilizado para conversão implícita.
-- **PrecosProdutoCliente**: Utilizado para conversão implícita.
+N/A (não há propriedades que referenciem classes complexas do domínio).
 
 ## Tipos Auxiliares e Dependências
-- `[ClienteLogado](ClienteLogado.md)`
-- `[PesquisaPrecoProduto](PesquisaPrecoProduto.md)`
-- `[PrecosProdutoCliente](PrecosProdutoCliente.md)`
+- Nenhum enumerador ou classe auxiliar utilizada nesse contexto.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CachePrecoClienteKey {
-        - long CodigoCliente
-        - long DistribuidoraId
-        - long CodigoProduto
-        - long CodigoPlanoPagamento
-        - int TipoPerfil
-        - string IdentificadorPerfilLogin
-        + string Key
+        +long CodigoCliente
+        +long DistribuidoraId
+        +long CodigoProduto
+        +long CodigoPlanoPagamento
+        +int TipoPerfil
+        +string IdentificadorPerfilLogin
+        +string Key
     }
-    CachePrecoClienteKey --> ClienteLogado
-    CachePrecoClienteKey --> PesquisaPrecoProduto
-    CachePrecoClienteKey --> PrecosProdutoCliente
 ```
+---
+Gerada em 29/12/2025 20:09:54

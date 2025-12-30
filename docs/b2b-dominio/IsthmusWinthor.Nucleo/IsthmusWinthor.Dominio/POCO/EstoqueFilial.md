@@ -1,5 +1,9 @@
 # EstoqueFilial
-- **Namespace**: IsthmusWinthor.Dominio.POCO
-- **Nome do Arquivo**: EstoqueFilial.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO  
+**Nome do Arquivo**: EstoqueFilial.cs  
 
-> A classe `EstoqueFilial` é um Data Transfer Object (DTO) utilizada para transportar dados relacionados ao estoque de uma filial específica, sem lógica de negócio ou validação interna.
+Esta classe é um DTO/ViewModel que serve para transportar dados relacionados ao estoque de uma filial. 
+
+
+---
+Gerada em 29/12/2025 21:33:57

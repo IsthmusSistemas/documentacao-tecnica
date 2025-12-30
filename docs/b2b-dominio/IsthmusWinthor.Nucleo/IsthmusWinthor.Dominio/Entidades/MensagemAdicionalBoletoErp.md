@@ -1,21 +1,22 @@
 # MensagemAdicionalBoletoErp
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: MensagemAdicionalBoletoErp.cs
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: MensagemAdicionalBoletoErp.cs
 
 ## Visão Geral e Responsabilidade
-A classe `MensagemAdicionalBoletoErp` representa uma entidade de domínio que encapsula informações adicionais a serem incluídas em boletos gerados para um ERP. Ela tem como responsabilidade principal conectar a `Distribuidora` às mensagens adicionais que podem ser impressas no boleto, garantindo que informações relevantes estejam disponíveis para o processamento financeiro.
+A classe `MensagemAdicionalBoletoErp` representa uma entidade no contexto de um sistema de gestão de boletos. Sua principal responsabilidade é armazenar informações adicionais relacionadas a boletos gerados para uma distribuidora, como o código do banco e uma mensagem adicional que pode ser utilizada para fins de comunicação ou instruções específicas. A classe é essencial para garantir que todas as informações necessárias sejam agrupadas e acessíveis em um único lugar, facilitando a geração e a visualização de boletos.
 
-## Métodos de Negócio
-Esta classe não possui métodos com lógica de negócio complexa, apenas propriedades de acesso direto.
-
-## Propriedades Calculadas e de Validação
-Esta classe não possui propriedades com lógica nos `getters` ou validações nos `setters`.
+## Propriedades
+- `Id`: Identificador único da mensagem adicional do boleto. 
+- `Distribuidora`: Referência a uma distribuidora que está associada a essa mensagem adicional.
+- `DistribuidoraId`: Identificador da distribuidora no sistema.
+- `CodigoBanco`: Código que identifica o banco associado a essa mensagem adicional.
+- `MensagemAdicional`: Texto que contém informações extra a serem exibidas no boleto.
 
 ## Navigations Property
-- `Distribuidora`: [Distribuidora](Distribuidora.md)
+- [Distribuidora](Distribuidora.md): Representa a entidade que está relacionada à mensagem adicional do boleto.
 
 ## Tipos Auxiliares e Dependências
-- `IEntidade`: [IEntidade](IEntidade.md)
+- `IEntidade`: Interface que esta classe implementa, evidenciando que ela é uma entidade do domínio.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -26,11 +27,11 @@ classDiagram
         +string CodigoBanco
         +string MensagemAdicional
     }
-
     class Distribuidora {
         +long Id
-        +string Nome
     }
-
-    MensagemAdicionalBoletoErp --> Distribuidora : " pertence a "
+    
+    MensagemAdicionalBoletoErp --> Distribuidora : estabelecimento
 ```
+---
+Gerada em 29/12/2025 20:39:33

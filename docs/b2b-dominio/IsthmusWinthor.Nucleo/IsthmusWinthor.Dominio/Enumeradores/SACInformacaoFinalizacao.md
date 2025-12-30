@@ -2,18 +2,24 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: SACInformacaoFinalizacao.cs  
 
-Este enum representa as possíveis classificações de uma informação finalizada em um Sistema de Atendimento ao Cliente, permitindo a identificação se uma reclamação ou solicitação é considerada procedente ou improcedente.
+Enumeração que representa as informações de finalização de um Serviço de Atendimento ao Cliente (SAC).
 
-## Tipos Auxiliares e Dependências
+---
+
+### Tipos Auxiliares e Dependências
 - Enumeradores:
-  - `[SACInformacaoFinalizacao](SACInformacaoFinalizacao.md)` 
+  - [SACInformacaoFinalizacao](SACInformacaoFinalizacao.md)
 
-## Diagrama de Relacionamentos
+---
+
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class SACInformacaoFinalizacao {
         <<enumeration>>
-        + Procedente
-        + Improcedente
+        +Procedente
+        +Improcedente
     }
 ```
+---
+Gerada em 29/12/2025 21:00:13

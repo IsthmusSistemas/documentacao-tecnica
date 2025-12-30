@@ -3,107 +3,100 @@
 **Nome do Arquivo**: CarrinhoCompras.cs
 
 ## Visão Geral e Responsabilidade
-A classe `CarrinhoCompras` representa o modelo de domínio do carrinho de compras de um cliente. Ela é responsável por gerenciar os itens que o cliente deseja comprar, aplicar descontos, calcular o total do pedido e validar condições de venda específicas. O modelo busca resolver o problema de controle e processamento de compras, permitindo o manejo de brindes, fretes e diferentes condições de pagamento.
+A classe `CarrinhoCompras` representa o comportamento do carrinho de compras em um sistema de e-commerce. Ela encapsula toda a lógica de manipulação dos itens que o cliente deseja adquirir, além de gerenciar endereços de entrega, fretes, condições de venda e pagamento. Este modelo é crucial para garantir que as regras de negócio relacionadas ao carrinho sejam atendidas de forma válida, como aplicação de descontos, cálculo do total do pedido e gerenciamento de fretes.
 
 ## Métodos de Negócio
 
-### 1. DefinirCondicaoVenda(CondicaoVendaEnum? condicaoVenda)
-- **Objetivo**: Garantir que a condição de venda definida para um carrinho seja válida.
-- **Comportamento**: 
-  1. Recebe uma condição de venda.
-  2. Se a condição for nula, define como padrão `Revenda`.
-  3. Verifica se a nova condição é válida (somente `Consumo` ou `Revenda` são aceitas).
-  4. Caso a condição fornecida seja inválida, lança uma exceção.
-- **Retorno**: Não retorna valor.
+### Título: DefinirCondicaoVenda (public)
+**Objetivo**: Garantir que a condição de venda atribuída ao carrinho esteja dentro do conjunto de condições válidas.  
 
-### 2. ObterCondicaoVenda()
-- **Objetivo**: Retornar a condição de venda atual do carrinho, assegurando que ela seja válida.
-- **Comportamento**: 
-  1. Obtém a condição de venda, ou utiliza `Revenda` como padrão se não estiver definida.
-  2. Se a condição for `Brinde`, redefine para `Revenda` e lança uma exceção.
-- **Retorno**: Um valor do tipo `CondicaoVendaEnum` representando a condição de venda.
+**Comportamento**: 
+1. Se `condicaoVenda` recebido for nulo, define como `Revenda`.
+2. Verifica se a condição de venda é pertinente (não pode ser "Consumo" ou "Brinde").
+3. Caso contrário, lança uma exceção informando que a condição de venda é inválida.
+
+**Retorno**: Não há retorno, mas o estado interno do carrinho é atualizado.
+
+### Título: ObterCondicaoVenda (public)
+**Objetivo**: Retornar a condição de venda atual do carrinho, garantindo que ela não seja inconsistente.  
+
+**Comportamento**: 
+1. Se `CondicaoVenda` for nulo, define como `Revenda`.
+2. Verifica se a condição é "Brinde".
+3. Se sim, redefine para `Revenda` e lança uma exceção informando que a condição era inválida.
+
+**Retorno**: Retorna a condição de venda válida.
+
+### Título: CalcularTotalPedido (private)
+**Objetivo**: Calcular o total do pedido com base nos itens do carrinho, considerando descontos e frete.  
+
+**Comportamento**: 
+1. Obtém a soma total dos itens do carrinho.
+2. Adiciona o total do frete.
+3. Subtrai o valor de desconto do cupom, se presente.
+
+**Retorno**: Retorna o valor total calculado do pedido.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{CondicaoVenda}
-    B -->|Null| C[Padrão: Revenda]
-    B -->|Brinde| D[Definir para Revenda]
-    D --> E[Lançar Exceção]
-    B -->|Válida| F[Retornar CondicaoVenda]
+    A[Calcular Total Pedido]
+    B[Somar Total dos Itens]
+    C[Adicionar Total do Frete]
+    D[Subtrair Desconto do Cupom]
+    A --> B --> C --> D
 ```
 
-### 3. PlanoPagamento(ItemCarrinho itemCarrinho)
-- **Objetivo**: Encontrar e retornar o plano de pagamento associado a um item específico no carrinho.
-- **Comportamento**: 
-  1. Recebe um item de carrinho.
-  2. Verifica se o item é nulo; se for, retorna nulo.
-  3. Busca na lista de planos de pagamento associados ao carrinho, comparando o código do item.
-- **Retorno**: Retorna um objeto `PlanoPagamento` correspondente ao item, ou nulo.
+### Título: FretesValidar (public)
+**Objetivo**: Validar e retornar a lista de fretes aplicáveis ao carrinho de acordo com as condições definidas.  
 
-### 4. CalcularTotalPedido()
-- **Objetivo**: Calcular o total do pedido com base nos itens, frete e descontos aplicados.
-- **Comportamento**: 
-  1. Soma os totais de todos os itens do carrinho.
-  2. Adiciona o total de frete.
-  3. Subtrai o valor do cupom de desconto, se presente.
-- **Retorno**: Um valor decimal representando o total do pedido.
+**Comportamento**:
+1. Verifica se permite fretes por agrupamento.
+2. Extrai identificadores de agrupamento dos itens do carrinho.
+3. Para cada identificador, retorna um frete associado ou um frete nulo se não houver.
 
-### 5. FretesValidar()
-- **Objetivo**: Validar e retornar a lista de fretes disponíveis, considerando se fretes por agrupamento são permitidos.
-- **Comportamento**: 
-  1. Identifica agrupamentos de itens, dependendo da configuração de frete.
-  2. Gera uma lista de objetos `FreteCarrinho` para cada agrupamento.
-- **Retorno**: Uma lista de `FreteCarrinho` que contém fretes válidos para o carrinho.
+**Retorno**: Lista de objetos `FreteCarrinho` que representam os fretes válidos.
 
 ## Propriedades Calculadas e de Validação
 
-### 1. TotalPedido
-- **Regra**: Calcula automaticamente o total do pedido ao acessar a propriedade `TotalPedido`, somando os itens, frete e aplicando qualquer desconto.
+### Propriedade: TotalPedido
+**Regra**: Calcula o total do pedido somando os valores dos itens, frete e subtraindo os descontos. É uma propriedade de leitura.
 
-### 2. CarrinhoGeraCashBack
-- **Regra**: Determina se o carrinho gera cashback verificando se algum item atingiu as condições de cashback.
+### Propriedade: CarrinhoGeraCashBack
+**Regra**: Verifica se algum item do carrinho gerou cashback, retornando `true` se há pelo menos um item que atingiu a campanha de cashback.
 
-## Navigations Property
+### Propriedade: TotalFrete
+**Regra**: Calcula o total dos fretes inseridos no carrinho, somando os valores de cada frete.
 
-- `[ItemCarrinho](ItemCarrinho.md)`
-- `[Brinde](Brinde.md)`
-- `[EnderecoEntrega](EnderecoEntrega.md)`
-- `[CupomDescontoCarrinho](CupomDescontoCarrinho.md)`
-- `[PlanoPagamento](PlanoPagamento.md)`
-- `[FreteCarrinho](FreteCarrinho.md)`
-- `[CashBackCampanha](CashBackCampanha.md)`
+## Navigation Property
+
+- [ItemCarrinho](ItemCarrinho.md) - Representa um item no carrinho.
+- [Brinde](Brinde.md) - Representa brindes aplicáveis ao carrinho.
+- [EnderecoEntrega](EnderecoEntrega.md) - Representa o endereço de entrega vinculado ao carrinho.
+- [PlanoPagamento](PlanoPagamento.md) - Representa as opções de planos de pagamento disponíveis.
+- [Cobranca](Cobranca.md) - Representa os dados de cobrança associados ao pedido.
 
 ## Tipos Auxiliares e Dependências
 
-- `[CondicaoVendaEnum](CondicaoVendaEnum.md)`
-- `[OpcaoPagamento](OpcaoPagamento.md)`
-- `[DadosPagamentoCartao](DadosPagamentoCartao.md)`
-- `[PerfilLoginEnum](PerfilLoginEnum.md)`
+- [CondicaoVendaEnum](CondicaoVendaEnum.md) - Enum que define as condições de venda aplicáveis a uma transação.
+- [OpcaoPagamento](OpcaoPagamento.md) - Enum que define as opções de pagamento disponíveis.
+- [FreteCarrinho](FreteCarrinho.md) - Representa um frete aplicável ao carrinho.
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class CarrinhoCompras {
         +long ClienteId
+        +DateTime DataAbertura
         +decimal TotalPedido
-        +EnderecoEntrega EnderecoEntrega
-        +List<ItemCarrinho> Itens
-        +List<Brinde> Brindes
-        ...
     }
-    class ItemCarrinho
-    class Brinde
-    class EnderecoEntrega
-    class CupomDescontoCarrinho
-    class PlanoPagamento
-    class FreteCarrinho
-    class CashBackCampanha
-    CarrinhoCompras --> "0..*" ItemCarrinho
-    CarrinhoCompras --> "0..*" Brinde
-    CarrinhoCompras --> "1" EnderecoEntrega
-    CarrinhoCompras --> "0..1" CupomDescontoCarrinho
-    CarrinhoCompras --> "0..*" PlanoPagamento
-    CarrinhoCompras --> "0..*" FreteCarrinho
-    CarrinhoCompras --> "0..*" CashBackCampanha
+    CarrinhoCompras --> ItemCarrinho
+    CarrinhoCompras --> Brinde
+    CarrinhoCompras --> EnderecoEntrega
+    CarrinhoCompras --> PlanoPagamento
+    CarrinhoCompras --> Cobranca
+    CarrinhoCompras --> OpcaoPagamento
+    CarrinhoCompras --> CondicaoVendaEnum
+    CarrinhoCompras --> FreteCarrinho
 ```
+---
+Gerada em 29/12/2025 21:39:57

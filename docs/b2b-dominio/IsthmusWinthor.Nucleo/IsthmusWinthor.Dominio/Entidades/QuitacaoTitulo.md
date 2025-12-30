@@ -4,55 +4,59 @@
 **Nome do Arquivo**: QuitacaoTitulo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `QuitacaoTitulo` representa o processo de quitação de títulos no sistema, encapsulando as informações necessárias para registrar essa operação financeira. Ela aborda a necessidade de validar e armazenar informações essenciais sobre a quitação, como valores, datas de execução e status, contribuindo para a integridade do sistema financeiro da organização.
+A classe `QuitacaoTitulo` atua como um motor de cálculo para gerenciar a quitação de títulos financeiros dentro do sistema. Ela é responsável por armazenar detalhes relacionados à quitação, como as informações da distribuidora, dados da execução, valores envolvidos e status de sucesso da operação. Este modelo garante que as informações de quitação sejam registradas de maneira consistente e precisa, ajudando no controle financeiro e na auditoria das operações.
 
 ## Métodos de Negócio
-
 ### Título: QuitacaoTitulo(ContaPix) - Construtor
 
-- **Objetivo**: Este construtor garante a criação de uma nova quitação vinculada a uma conta PIX, preenchendo automaticamente as propriedades fundamentais da quitação com dados relevantes da conta.
-- **Comportamento**:
-  1. Recebe um objeto `ContaPix` como parâmetro.
-  2. Extrai e define o `DistribuidoraId` a partir da conta PIX.
-  3. Obtém e define o `NumeroPedido` com o número do pedido presente da conta PIX.
-  4. Atribui o `CodigoCliente` com base nos dados do cliente associado ao pedido.
-  5. Invoca o método `ValorPagoConta()` da `ContaPix` para calcular o valor da quitação.
-  6. Atribui o `CodigoBanco` baseado na credencial de banco da conta PIX.
-  7. Define a `DataCriacao` com a data e hora atuais através de `DateTimeUtil.Now`.
-- **Retorno**: Não aplicável, pois é um construtor.
+- **Objetivo**: Garantir a criação de uma quitação de título a partir de um objeto `ContaPix`, preenchendo todas as propriedades necessárias para o registro da quitação.
+- **Comportamento**: 
+  1. Recebe um objeto do tipo `ContaPix`.
+  2. Atribui o `DistribuidoraId` do `ContaPix` à propriedade correspondente da quitação.
+  3. Extrai e atribui o `NumeroPedido` do `ContaPix` à quitação.
+  4. Extrai e atribui o `CodigoCliente` do `ContaPix` à quitação.
+  5. Chama o método `ValorPagoConta()` do `ContaPix` para determinar o valor que está sendo quitado e o atribui à propriedade `Valor`.
+  6. Atribui o `CodigoBanco` referente ao `ConvenioPixCredencial` do `ContaPix`.
+  7. Inicializa `DataCriacao` com a data e hora atuais.
+- **Retorno**: Não aplica, pois é um construtor.
 
 ## Propriedades Calculadas e de Validação
-- **Valor**: Representa o valor a ser quitado. A regra de negócio por trás é que deve ser um valor positivo, correspondente ao montante pago na quitação.
-- **DataCriacao**: Define a data em que a quitação foi criada. Deve sempre ser a data atual, garantindo rastreabilidade da operação.
+Nenhuma propriedade na classe `QuitacaoTitulo` apresenta lógica de cálculo ou validação no `get` ou `set`.
 
-## Navigations Property
-- `[Distribuidora](Distribuidora.md)`: Representa a distribuidora associada à quitação.
-- `[Usuario](Usuario.md)`: Refere-se ao usuário que solicitou a quitação, se aplicável.
+## Navigation Properties
+- [Distribuidora](Distribuidora.md)
+- [Usuario](Usuario.md)
 
 ## Tipos Auxiliares e Dependências
-- `[ContaPix](ContaPix.md)`: Classe utilizada para coletar informações sobre a quitação.
-- `[DateTimeUtil](DateTimeUtil.md)`: Classe utilitária usada para manipulação de data e hora.
+- Enum: [CodigoBanco](CodigoBanco.md) (presumido para o código do banco).
+- Classe Utilitária: [DateTimeUtil](DateTimeUtil.md) (para manipulação de datas).
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class QuitacaoTitulo {
-        long Id
-        long DistribuidoraId
-        DateTime DataCriacao
-        DateTime DataExecucao
-        long NumeroPedido
-        long CodigoCliente
-        string IdentificadorQuitacao
-        decimal Valor
-        int CodigoBanco
-        bool Sucesso
-        string Mensagem
+        +long Id
+        +DateTime DataCriacao
+        +DateTime? DataExecucao
+        +long NumeroPedido
+        +long CodigoCliente
+        +string IdentificadorQuitacao
+        +decimal Valor
+        +int CodigoBanco
+        +bool Sucesso
+        +string Mensagem
     }
-    
-    QuitacaoTitulo --> Distribuidora
-    QuitacaoTitulo --> Usuario
-    QuitacaoTitulo --> ContaPix
-```
 
-Essa documentação fornece uma visão geral clara sobre a classe `QuitacaoTitulo`, suas responsabilidades e como ela se integra ao restante do sistema. Regras de negócio e a estrutura da classe foram detalhadas para facilitar a compreensão e manutenção para futuros desenvolvedores.
+    class Distribuidora {
+        +long Id
+    }
+
+    class Usuario {
+        +long Id
+    }
+
+    QuitacaoTitulo "1" o-- "1" Distribuidora : has
+    QuitacaoTitulo "0..1" o-- "1" Usuario : has
+```
+---
+Gerada em 29/12/2025 20:45:56

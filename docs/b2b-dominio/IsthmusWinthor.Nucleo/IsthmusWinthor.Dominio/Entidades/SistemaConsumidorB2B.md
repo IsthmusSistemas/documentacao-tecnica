@@ -1,74 +1,61 @@
 # SistemaConsumidorB2B
-
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: SistemaConsumidorB2B.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `SistemaConsumidorB2B` representa um sistema que pode acessar funcionalidades do B2B, controlando o acesso com base em sua configuração interna e em um conjunto de distribuidoras autorizadas. Ela trata do gerenciamento de permissões e validações associadas a sistemas consumidores, garantindo que apenas aqueles com as credenciais apropriadas possam interagir com os serviços.
+A classe `SistemaConsumidorB2B` representa um sistema que está autorizado a utilizar funções do B2B. Esta classe é responsável por gerenciar a autorização de acesso de sistemas consumidores, definindo se um sistema é interno ou externo e controlando o acesso a partir do cadastro em `SistemaConsumidorB2BDistribuidora`. Isso é crucial para o gerenciamento de permissões e para a segurança do sistema, garantindo que apenas sistemas autorizados possam se conectar.
 
 ## Métodos de Negócio
 
-### PossuiAcessoDistribuidora (public)
-- **Objetivo**: Garante que um sistema consumidor tenha acesso a uma distribuidora específica, considerando se o sistema é interno ou se possui autorização expressa.
+### PossuiAcessoDistribuidora: público
+- **Objetivo**: Este método garante que um sistema consumidor B2B tenha acesso a uma distribuidora, levando em consideração se é um sistema interno ou se possui autorização específica.
 - **Comportamento**: 
-  1. Verifica se o sistema é marcado como interno (`SistemaInterno`).
-     - Se sim, retorna `true`, permitindo o acesso automaticamente.
-  2. Se não for interno, pesquisa na coleção `SistemaConsumidorB2BDistribuidoras`.
-     - Procura por uma distribuidora cujo `DistribuidoraId` corresponda ao `distribuidoraId` fornecido.
-     - Verifica se a propriedade `AcessoLiberado` dessa distribuidora é `true`.
-  3. Retorna `true` se a condição anterior for satisfeita, caso contrário, retorna `false`.
-- **Retorno**: `true` se o acesso à distribuidora é permitido; `false` se não.
+  1. Verifica se `SistemaInterno` é `true`. Se sim, retorna `true`, garantindo acesso irrestrito.
+  2. Caso contrário, verifica se existe algum registro em `SistemaConsumidorB2BDistribuidoras` onde o `DistribuidoraId` corresponde ao `distribuidoraId` fornecido e `AcessoLiberado` é `true`.
+  3. Retorna `true` se a condição acima for satisfeita, caso contrário, retorna `false`.
+- **Retorno**: Retorna um booleano, onde `true` indica que o acesso foi liberado e `false` que o acesso foi negado.
 
 ```mermaid
 flowchart TD
-    A[É o Sistema Interno?] -->|Sim| B[Retorna True]
-    A -->|Não| C[Verifica Distribuidora]
-    C --> D{Distribuidora Encontrada?}
-    D -->|Sim| E[Verifica Acesso Liberado]
-    D -->|Não| F[Retorna False]
-    E -->|Sim| B[Retorna True]
-    E -->|Não| F[Retorna False]
+    A[Início] --> B{SistemaInterno}
+    B -- Sim --> C[Retorna true]
+    B -- Não --> D[Verifica autorizacao]
+    D --> E{Autorização encontrada?}
+    E -- Sim --> F[Retorna true]
+    E -- Não --> G[Retorna false]
 ```
 
-### SolicitarConfirmacaoCliente (public)
-- **Objetivo**: Determina se a confirmação do cliente é necessária no processo de criação, baseado na configuração do sistema e na autorização da distribuidora.
+### SolicitarConfirmacaoCliente: público
+- **Objetivo**: Este método determina se a aprovação do cliente é necessária para um sistema consumidor B2B, sendo esse um controle necessário para sistemas externos.
 - **Comportamento**:
-  1. Confere se é um sistema interno (`SistemaInterno`).
-     - Se for, retorna `false`, pois a aprovação é automática para sistemas internos.
-  2. Se não for interno, procura na coleção `SistemaConsumidorB2BDistribuidoras`.
-     - Encontra a distribuidora com o `DistribuidoraId` fornecido e que esteja autorizada (`AcessoLiberado` igual a `true`).
-  3. Retorna o valor da propriedade `SolicitarConfirmacaoCliente` (que indica se a confirmação é necessária).
-- **Retorno**: `true` se a confirmação do cliente for necessária; `false` se a aprovação for automática.
+  1. Verifica se `SistemaInterno` é `true`. Se sim, retorna `false`, permitindo a aprovação automática.
+  2. Busca no registro `SistemaConsumidorB2BDistribuidoras` um registro correspondente ao `distribuidoraId`, que também esteja com `AcessoLiberado` como `true`.
+  3. Retorna o valor de `SolicitarConfirmacaoCliente` do registro encontrado.
+- **Retorno**: Retorna um booleano: `true` se a confirmação do cliente for necessária e `false` se a aprovação for automática.
 
 ```mermaid
 flowchart TD
-    A[É o Sistema Interno?] -->|Sim| B[Retorna False]
-    A -->|Não| C[Verifica Distribuidora]
-    C --> D{Distribuidora Encontrada?}
-    D -->|Sim| E[Retorna SolicitarConfirmacaoCliente]
-    D -->|Não| F[Retorna False]
+    A[Início] --> B{SistemaInterno}
+    B -- Sim --> C[Retorna false]
+    B -- Não --> D[Busca autorizacao]
+    D --> E{Autorização encontrada?}
+    E -- Sim --> F[Retorna SolicitarConfirmacaoCliente]
+    E -- Não --> G[Retorna false]
 ```
 
 ## Propriedades Calculadas e de Validação
+- **EndPointsLiberados**: Esta propriedade deserializa uma lista de strings a partir de `EndPointsLiberadosJson`. Se `EndPointsLiberadosJson` for vazio ou inválido, retorna uma lista vazia.
+- **IpsLiberados**: Similar a `EndPointsLiberados`, esta propriedade deserializa os dados de `IpsLiberadosJson`, garantindo que a saída esteja sempre em um formato utilizável.
 
-### EndPointsLiberados
-- **Regra**: A propriedade `EndPointsLiberados` é uma lista de strings que armazena endpoints permitidos, convertendo-se de e para um formato JSON.
-  - Quando acessada, se `EndPointsLiberadosJson` estiver vazio, retorna uma lista vazia.
-  - Ao ser atribuída uma nova lista, a coleção é serializada em JSON para armazenamento.
-
-### IpsLiberados
-- **Regra**: A propriedade `IpsLiberados` opera de maneira análoga à `EndPointsLiberados`, controlando uma lista de endereços IP autorizados. O acesso e a atribuição seguem as mesmas regras de conversão JSON.
-
-## Navigations Property
-- `[AutorizacaoCliente](AutorizacaoCliente.md)`
-- `[SistemaConsumidorB2BDistribuidora](SistemaConsumidorB2BDistribuidora.md)`
+## Navigation Property
+- [AutorizacaoCliente](AutorizacaoCliente.md)
+- [SistemaConsumidorB2BDistribuidora](SistemaConsumidorB2BDistribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-- `[IdentificadorSistemaConsumidorB2BEnum](IdentificadorSistemaConsumidorB2BEnum.md)`
-- `[PerfilLoginEnum](PerfilLoginEnum.md)`
+- [IdentificadorSistemaConsumidorB2BEnum](IdentificadorSistemaConsumidorB2BEnum.md)
+- [PerfilLoginEnum](PerfilLoginEnum.md)
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class SistemaConsumidorB2B {
@@ -79,12 +66,18 @@ classDiagram
         +PerfilLoginEnum PerfilLogin
         +ICollection<AutorizacaoCliente> AutorizacoesClientes
         +ICollection<SistemaConsumidorB2BDistribuidora> SistemaConsumidorB2BDistribuidoras
-        +string EndPointsLiberadosJson
-        +string IpsLiberadosJson
     }
-
-    SistemaConsumidorB2B ..> AutorizacaoCliente
-    SistemaConsumidorB2B ..> SistemaConsumidorB2BDistribuidora
-    IdentificadorSistemaConsumidorB2BEnum <|-- SistemaConsumidorB2B
-    PerfilLoginEnum <|-- SistemaConsumidorB2B
+    
+    class AutorizacaoCliente {
+        +... // Propriedades
+    }
+    
+    class SistemaConsumidorB2BDistribuidora {
+        +... // Propriedades
+    }
+    
+    SistemaConsumidorB2B --> "0..*" AutorizacaoCliente
+    SistemaConsumidorB2B --> "0..*" SistemaConsumidorB2BDistribuidora
 ```
+---
+Gerada em 29/12/2025 20:49:58

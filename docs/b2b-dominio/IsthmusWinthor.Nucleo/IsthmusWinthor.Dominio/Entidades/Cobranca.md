@@ -1,21 +1,21 @@
 # Cobranca
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: Cobranca.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: Cobranca.cs
 
 ## Visão Geral e Responsabilidade
-A classe `Cobranca` representa a entidade de cobrança dentro do sistema, gerenciando as informações e opções de pagamento disponíveis para uma transação. Seu papel é assegurar que os atributos relevantes para a cobrança de um cliente sejam devidamente tratados, validando dados como opções de pagamento e prazos de venda.
+A classe `Cobranca` é responsável por modelar as informações relacionadas aos métodos de cobrança disponíveis no sistema. Ela permite a configuração de diferentes formas de pagamento, como boleto e cartão de crédito, além de estabelecer um prazo máximo para a realização das vendas. Com essas informações, a classe assegura que as regras comerciais de cobrança sejam aplicadas corretamente, permitindo que o sistema gerencie eficientemente as operações financeiras.
 
 ## Métodos de Negócio
-Ainda que a classe `Cobranca` pareça conter apenas propriedades, ela é um exemplo de um modelo de domínio "Rich Domain Model", pois possui a responsabilidade de integrar e organizar dados que impactam diretamente a lógica de cobrança. Contudo, nesta análise, não foram encontrados métodos explícitos com lógica complexa que necessitem de detalhamento de regras ou visualização de fluxos decisórios.
+Atualmente, a classe `Cobranca` não possui métodos com lógica de negócios complexa, portanto, não há métodos a serem documentados nesta seção.
 
 ## Propriedades Calculadas e de Validação
-Nesta classe, não existem propriedades que realizem cálculos no `get` ou validações no `set` conforme as informações disponíveis.
+- **PrazoMaximoVenda**: Este campo deve refletir o número máximo de dias permitido para a realização de uma venda. A classe atualmente não implementa lógica de validação no `set`, mas é importante garantir que o valor esteja dentro de limites razoáveis de negócio (ex: não pode ser negativo).
 
-## Navigations Property
-- [Distribuidora](Distribuidora.md): Representa uma relação de composição com a entidade `Distribuidora`, permitindo associar uma cobrança a uma distribuidora específica.
+## Navigation Properties
+- [Distribuidora](Distribuidora.md): Representa a distribuidora associada à cobrança.
 
 ## Tipos Auxiliares e Dependências
-Nenhum enumerador ou classe estática/helper foi identificado como utilizado diretamente na classe `Cobranca`.
+Não há enumeradores ou classes auxiliares mencionadas diretamente na classe `Cobranca`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -28,10 +28,13 @@ classDiagram
         +bool CartaoCredito
         +int PrazoMaximoVenda
     }
-    
+
     class Distribuidora {
-        <<entity>>
+        <<interface>>
     }
 
-    Cobranca --> Distribuidora : "Possui uma"
+    Cobranca --|> Distribuidora : "associado a"
 ```
+
+---
+Gerada em 29/12/2025 20:21:31

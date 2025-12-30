@@ -2,4 +2,17 @@
 **Namespace**: IsthmusWinthor.Dominio.Model.Verbas  
 **Nome do Arquivo**: NegociacaoCancelamentoRequestPutModel.cs  
 
-Esta classe atua como um modelo de transporte de dados (DTO) para solicitacões de cancelamento de uma negociação. Sua principal finalidade é transportar a observação associada ao cancelamento.
+Esta classe é um DTO que transporta dados relacionados ao cancelamento de negociações.  
+
+### Tipos Auxiliares e Dependências
+Esta classe não possui tipos auxiliares ou enums associados.  
+
+### Diagramas
+```mermaid
+classDiagram
+    class NegociacaoCancelamentoRequestPutModel {
+        +string Observacao
+    }
+```  
+---
+Gerada em 29/12/2025 21:21:25

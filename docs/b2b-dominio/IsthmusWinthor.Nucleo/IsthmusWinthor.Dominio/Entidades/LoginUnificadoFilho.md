@@ -1,43 +1,43 @@
 # LoginUnificadoFilho
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: LoginUnificadoFilho.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: LoginUnificadoFilho.cs
 
 ## Visão Geral e Responsabilidade
-A classe `LoginUnificadoFilho` representa um componente do sistema responsável por gerenciar informações relacionadas a uma filial de preço dentro de um contexto de login unificado. Essa entidade auxilia na organização e priorização de logins em distribuidoras, permitindo um controle mais eficaz sobre as filiais e suas respectivas mensagens associadas. Ela resolve o problema de gerenciamento de logins de forma unificada, facilitando a manutenção e a operação dos dados.
+A classe `LoginUnificadoFilho` representa uma entidade que vincula um login unificado a uma distribuidora específica dentro do sistema. O objetivo principal desta classe é gerenciar as associações entre diferentes distribuidoras e os logins unificados, garantindo a integridade e a organização das informações de acesso em um cenário onde múltiplas distribuidoras podem compartilhar um mesmo login. Este modelo é fundamental para evitar a duplicação de logins e para facilitar o gerenciamento dos acessos pelas filiais que atuam no sistema.
 
 ## Métodos de Negócio
-A classe `LoginUnificadoFilho` não possui métodos com lógica de negócio complexa além de seus getters/setters que são simples. Portanto, não há métodos de negócio a serem detalhados neste documento.
+Nenhum método com lógica foi identificado nesta classe. A implementação atual consiste apenas em propriedades para transporte de dados.
 
 ## Propriedades Calculadas e de Validação
-Nesta classe, todas as propriedades são representativas e não possuem lógica de cálculo complexa ou validação interna. Porém, é importante observar que a propriedade `OrdemPrioridade` deve ser atribuída de modo a garantir a correta priorização das filiais de login.
+Nenhuma propriedade com lógica de cálculo ou validação foi identificada nesta classe.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`
-- `[LoginUnificado](LoginUnificado.md)`
+- [Distribuidora](Distribuidora.md)
+- [LoginUnificado](LoginUnificado.md)
 
 ## Tipos Auxiliares e Dependências
-Não há enumeradores ou classes estáticas/helpers diretamente utilizadas na classe `LoginUnificadoFilho`.
+Nenhum enumerador ou classe estática/helper foi identificado como dependência nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class LoginUnificadoFilho {
         +long Id
-        +Distribuidora Distribuidora
-        +long DistribuidoraId
         +string Mensagem
-        +LoginUnificado LoginUnificado
-        +long LoginUnificadoId
         +string FiliaisDePreco
         +int OrdemPrioridade
     }
+    
     class Distribuidora {
-        <<Entity>>
+        +long Id
     }
+    
     class LoginUnificado {
-        <<Entity>>
+        +long Id
     }
-    LoginUnificadoFilho --> Distribuidora
-    LoginUnificadoFilho --> LoginUnificado
-```
 
+    LoginUnificadoFilho --> Distribuidora : "associado a"
+    LoginUnificadoFilho --> LoginUnificado : "pertence a"
+```
+---
+Gerada em 29/12/2025 20:39:11

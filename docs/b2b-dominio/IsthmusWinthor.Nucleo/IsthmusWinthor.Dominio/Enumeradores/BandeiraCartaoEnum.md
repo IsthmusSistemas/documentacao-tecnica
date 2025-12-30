@@ -2,12 +2,11 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: BandeiraCartaoEnum.cs  
 
-O enum `BandeiraCartaoEnum` é responsável por definir as bandeiras de cartões de crédito e débito suportadas pelo sistema.
+O `BandeiraCartaoEnum` é uma enumeração que lista as bandeiras de cartões de crédito aceitas no sistema. Ele serve como um transportador de dados, permitindo que o código referencie as bandeiras de cartões por meio de constantes nomeadas, melhorando a legibilidade e a manutenção do código.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `BandeiraCartaoEnum` - Representa a lista de bandeiras de cartões disponíveis.
-
+- Nenhuma classe estática ou helper utilizada.
+  
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
@@ -27,3 +26,5 @@ classDiagram
         JCB
     }
 ```
+---
+Gerada em 29/12/2025 20:52:38

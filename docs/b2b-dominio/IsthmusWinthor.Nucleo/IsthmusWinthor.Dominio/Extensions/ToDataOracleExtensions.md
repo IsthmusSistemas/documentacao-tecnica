@@ -4,80 +4,112 @@
 **Nome do Arquivo**: ToDataOracleExtensions.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ToDataOracleExtensions` é um conjunto de métodos de extensão que tem a finalidade de converter diferentes tipos de dados em formatos compatíveis com o banco de dados Oracle. Essa classe resolve o problema de formatação de dados para garantir que os valores sejam inseridos corretamente em consultas ao banco de dados, respeitando as regras de negócio sobre representação de valores nulos.
+A classe `ToDataOracleExtensions` é uma coleção de métodos de extensão desenvolvidos para facilitar a conversão de tipos de dados comuns (como `long`, `int`, `string`, `decimal`, `DateTime`, e `bool`) para formatos correspondentes utilizados em consultas Oracle. Esses métodos garantem que os valores sejam corretamente formatados e adequadamente representados em SQL, com opções para retornar `NULL` quando apropriado, garantindo a integridade dos dados durante a interação com o banco de dados.
 
 ## Métodos de Negócio
 
-### Método: ToOracleString(long, bool)
-- **Objetivo**: Garante a conversão de um valor longo em uma string formatada para o Oracle. Se o valor for zero e a opção `nullIfZero` for verdadeira, retorna "NULL".
-- **Comportamento**: 
-  1. Verifica se `nullIfZero` é verdadeiro e se o valor é zero.
-  2. Se a condição for verdadeira, retorna "NULL".
-  3. Caso contrário, retorna o valor como uma string cercada por aspas simples.
-- **Retorno**: Retorna uma string formatada ou "NULL".
-
-### Método: ToOracleString(int, bool)
-- **Objetivo**: Assim como o método anterior, garante a conversão de um inteiro em uma string compatível com o Oracle.
-- **Comportamento**: 
-  1. Verifica se `nullIfZero` é verdadeiro e se o valor é zero.
-  2. Se a condição for verdadeira, retorna "NULL".
-  3. Caso contrário, formata e retorna o valor como uma string cercada por aspas simples.
-- **Retorno**: Retorna uma string formatada ou "NULL".
-
-### Método: ToOracleString(string, bool)
-- **Objetivo**: Converte uma string em um formato seguro para o Oracle. Se a string for vazia e a opção `nullIfNullOrEmpty` for verdadeira, retorna "NULL".
-- **Comportamento**: 
-  1. Verifica se `nullIfNullOrEmpty` é verdadeiro e a string está vazia ou nula.
-  2. Se a condição for verdadeira, retorna "NULL".
-  3. Caso contrário, remove aspas simples da string e retorna a string formatada.
-- **Retorno**: Retorna a string formatada ou "NULL".
-
-### Método: ToOracleDateTime(DateTime, bool)
-- **Objetivo**: Converte um objeto `DateTime` em uma string formatada para uso no Oracle, respeitando a possibilidade de retorno de "NULL".
-- **Comportamento**: 
-  1. Verifica se o objeto é igual ao valor padrão (default) e se `nullIfDefault` é verdadeiro.
-  2. Se a condição for verdadeira, retorna "NULL".
-  3. Caso contrário, formata o objeto `DateTime` como uma string de data no formato apropriado.
-- **Retorno**: Retorna a string formatada ou "NULL".
-
-### Método: ToOracleListString(IEnumerable<string>)
-- **Objetivo**: Converte uma lista de strings em uma representação formatada para uso no Oracle.
-- **Comportamento**: 
-  1. Para cada string na lista, adiciona aspas simples e forma uma nova lista.
-  2. Une todas as strings formatadas com uma vírgula.
-- **Retorno**: Retorna uma string que representa a lista formatada.
+### Método: ToOracleString(long @this, bool nullIfZero)
+- **Objetivo**: Este método converte um valor do tipo `long` em uma representação de string para SQL, podendo retornar `NULL` se o valor for zero quando a flag `nullIfZero` for verdadeira.
+- **Comportamento**:
+  1. Verifica se `nullIfZero` é verdadeiro e se o valor passado é zero.
+  2. Se ambas as condições forem verdadeiras, retorna "NULL".
+  3. Caso contrário, retorna o valor como uma string formatada.
+- **Retorno**: Retorna uma string representando o valor ou "NULL".
 
 ```mermaid
 flowchart TD
-    A[Início]
-    B{nullIfZero?}
-    C{Valor == 0?}
-    D[Retorna "NULL"]
-    E[Retorna valor formatado]
-    A --> B
-    B -->|true| C
-    C -->|true| D
-    C -->|false| E
-    B -->|false| E
+    A[Receber long @this] --> B{nullIfZero}
+    B --|true| C{@this == 0}
+    C --|true| D["NULL"]
+    C --|false| E[Formatar string]
+    B --|false| E
+```
+
+### Método: ToOracleString(int @this, bool nullIfZero)
+- **Objetivo**: Este método realiza a conversão de um valor do tipo `int` em uma string para SQL, com a mesma lógica de `nullIfZero`.
+- **Comportamento**:
+  1. Verifica se `nullIfZero` é verdadeiro e o valor é zero.
+  2. Retorna "NULL" se as condições forem verdadeiras, caso contrário, retorna o valor em formato de string.
+- **Retorno**: Retorna uma string representando o valor ou "NULL".
+
+```mermaid
+flowchart TD
+    A[Receber int @this] --> B{nullIfZero}
+    B --|true| C{@this == 0}
+    C --|true| D["NULL"]
+    C --|false| E[Formatar string]
+    B --|false| E
+```
+
+### Método: ToOracleString(string @this, bool nullIfNullOrEmpty)
+- **Objetivo**: Converte uma string, retornando "NULL" se ela estiver vazia ou nula, conforme a configuração de `nullIfNullOrEmpty`.
+- **Comportamento**:
+  1. Checa se a string é nula ou vazia e se `nullIfNullOrEmpty` é verdadeiro.
+  2. Se ambas as condições forem verdadeiras, retorna "NULL".
+  3. Caso contrário, escapa apóstrofos e retorna a string formatada.
+- **Retorno**: Retorna a string formatada ou "NULL".
+
+```mermaid
+flowchart TD
+    A[Receber string @this] --> B{nullIfNullOrEmpty}
+    B --|true| C{string.IsNullOrEmpty(@this)}
+    C --|true| D["NULL"]
+    C --|false| E[Escapar apóstrofos e retornar]
+    B --|false| E
+```
+
+### Método: ToOracleDecimal(decimal @this, bool nullIfZero)
+- **Objetivo**: Converte um valor decimal em string, retornando "NULL" se o valor for zero e `nullIfZero` for verdadeiro.
+- **Comportamento**:
+  1. Verifica se `nullIfZero` é verdadeiro e se o decimal é zero.
+  2. Retorna "NULL", se verdadeiro; caso contrário, retorna o valor convertido para string, com a vírgula substituída por um ponto.
+- **Retorno**: Retorna a string formatada ou "NULL".
+
+```mermaid
+flowchart TD
+    A[Receber decimal @this] --> B{nullIfZero}
+    B --|true| C{@this == 0.0m}
+    C --|true| D["NULL"]
+    C --|false| E[Converter para string e substituir vírgula]
+    B --|false| E
+```
+
+### Método: ToOracleDateTime(DateTime @this, bool nullIfDefault)
+- **Objetivo**: Formata um valor `DateTime` para string de SQL, podendo retornar "NULL" se o valor for o padrão.
+- **Comportamento**:
+  1. Verifica se `nullIfDefault` é verdadeiro e se o `DateTime` é o padrão.
+  2. Retorna "NULL" se verdadeiro, caso contrário formata o `DateTime` em string SQL usando `TO_DATE`.
+- **Retorno**: Retorna a string formatada ou "NULL".
+
+```mermaid
+flowchart TD
+    A[Receber DateTime @this] --> B{nullIfDefault}
+    B --|true| C{@this == default}
+    C --|true| D["NULL"]
+    C --|false| E[Formatar DateTime em SQL]
+    B --|false| E
 ```
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades calculadas ou de validação nesta classe, pois é composta apenas por métodos de extensão utilitários.
+Não existem propriedades a serem listadas, pois todos os métodos são funções de extensão.
 
-## Navigation Property
-- Não há propriedades de navegação nesta classe, pois ela apenas fornece métodos de extensão.
+## Navigations Property
+Não existem propriedades complexas do domínio a serem listadas.
 
 ## Tipos Auxiliares e Dependências
-- Esta classe não possui tipos auxiliares ou dependências diretas a serem relatadas.
+- **Nenhum tipo auxiliar adicional foi utilizado nesta classe**.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ToDataOracleExtensions {
-        +string ToOracleString(long @this, bool nullIfZero)
-        +string ToOracleString(int @this, bool nullIfZero)
-        +string ToOracleString(string @this, bool nullIfNullOrEmpty)
-        +string ToOracleDateTime(DateTime @this, bool nullIfDefault)
-        +string ToOracleListString(IEnumerable<string> @this)
+        <<static>>
+        +ToOracleString(long)
+        +ToOracleString(int)
+        +ToOracleString(string)
+        +ToOracleDecimal(decimal)
+        +ToOracleDateTime(DateTime)
     }
 ```
+---
+Gerada em 29/12/2025 21:12:29

@@ -1,26 +1,26 @@
 # PCDesconto
+
 **Namespace**: IsthmusWinthor.Dominio.Model.CampanhasWinthor  
-**Nome do Arquivo**: PCDesconto.cs
+**Nome do Arquivo**: PCDesconto.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PCDesconto` é responsável por encapsular as informações e regras associadas a um desconto aplicado em campanhas promocionais dentro do sistema. Ela gerencia propriedades essenciais para a definição de um desconto, como percentuais e datas de início e fim, e assegura que as condições necessárias para a aplicação do desconto sejam atendidas. O problema de negócio que esta classe resolve é a administração de políticas de desconto, garantindo que os descontos sejam atribuídos de forma consistente e conforme as regras estabelecidas, impactando diretamente na lucratividade e nas vendas.
+A classe `PCDesconto` representa um modelo de desconto para campanhas promocionais. O seu papel principal é gerenciar as regras de aplicação de descontos em produtos, levando em consideração uma série de critérios comerciais como condições de venda, segmentos de clientes e períodos de promoção. Essa classe é crucial para assegurar que os descontos são aplicados de maneira correta e consistente dentro do sistema, garantindo a integridade de dados e a conformidade com as políticas de negócio estabelecidas.
 
 ## Métodos de Negócio
-- **Título**: `PCDesconto()`, `public`
-  - **Objetivo**: Garantir que a criação de um desconto esteja sempre associada a uma promoção válida e que todos os campos necessários sejam inicializados corretamente.
-  - **Comportamento**:
-    1. O construtor recebe um objeto `PCPromocaoMed` e inicializa os valores das propriedades relacionadas, como códigos de promoção, datas e percentual de desconto.
-    2. A classe assume os valores dos parâmetros fornecidos, assegurando que estão dentro dos limites definidos na promoção.
-  - **Retorno**: Não há retorno, pois trata-se de um construtor.
+*Nota: Esta classe não possui métodos de negócios complexos descritos que contenham lógica além de getters/setters, portanto estamos omitindo essa seção.*
 
 ## Propriedades Calculadas e de Validação
-- Nenhuma propriedade na classe `PCDesconto` contém lógica de cálculo ou validação em seus getters ou setters que exija documentação adicional sob este item.
+* As propriedades em `PCDesconto` são majoritariamente campos imutáveis fornecidos na construção da entidade, sem lógica de validação interna explícita nos getters ou anotações. Algumas propriedades que são importantes incluem:
+  - `PercDesc`: Armazena a porcentagem de desconto que deve ser aplicada, essencial para o cálculo do preço final do produto.
+  - `DtInicio` e `DtFim`: Definem o período de validade da promoção.
+  - `Prioritaria`: Indica se a promoção tem natureza prioritária.
 
-## Navigation Properties
-- `[PCPromocaoMed](PCPromocaoMed.md)`: Representa a promoção associada ao desconto.
+## Navigation Property
+- `PCPromocaoMed`: [PCPromocaoMed](PCPromocaoMed.md) - Representa a promoção associada ao desconto, contendo informações fundamentais como o código da promoção e suas datas de início e fim.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe estática/helper é utilizado diretamente na classe `PCDesconto`.
+- **Enums**: A classe pode utilizar enums relacionados a tipos de desconto ou status de promoção, embora não estejam explicitamente mostrados no código.
+- **Classes Estáticas/Helpers**: É possível que haja classes auxiliares dentro do mesmo namespace que facilitam operações relacionadas a campanhas e promocoes, mas especificamente não estão declaradas no código fornecido.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -33,12 +33,17 @@ classDiagram
         +DateTime DtFim
         +string CodPromocaoMed
     }
+    
     class PCPromocaoMed {
         +long CodPromocaoMed
         +DateTime DataInicial
         +DateTime DataFinal
         +int CodFuncLanc
     }
-
-    PCDesconto --> PCPromocaoMed : utiliza
+    
+    PCDesconto --> PCPromocaoMed : "associa a"
 ```
+
+Este documento oferece uma visão abrangente das responsabilidades e estrutura da classe `PCDesconto`, incluindo o modelo de dados, suas propriedades essenciais e a relação com outras classes do domínio.
+---
+Gerada em 29/12/2025 21:20:00

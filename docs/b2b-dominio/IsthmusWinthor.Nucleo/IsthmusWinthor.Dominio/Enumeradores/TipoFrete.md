@@ -2,25 +2,22 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoFrete.cs  
 
-O enum `TipoFrete` representa os diferentes tipos de frete disponíveis dentro do sistema, definindo suas opções para o usuário durante o processo de envio. Ele assegura que apenas tipos válidos e previamente definidos de frete possam ser utilizados, contribuindo para a integridade dos dados de transporte.
+TipoFrete é um enumerador que define os diferentes tipos de frete disponíveis para a logística de entrega dentro do sistema, permitindo que as regras de negócio determinem qual opção de frete utilizar com base nas preferências do cliente e nas condições operacionais.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores:**
-  - `TipoFrete`
+- Nenhum tipo auxiliar ou classe estática é utilizada nesta classe.
 
 ## Diagrama de Relacionamentos
-Este enum é utilizado em diferentes partes do sistema para classificar o tipo de frete, mas neste momento, não existem propriedades de navegação ou associações complexas mapeadas no código fornecido. Portanto, o diagrama de classes não será apresentado.
-
 ```mermaid
 classDiagram
     class TipoFrete {
-        <<enumeration>>
+        <<enumerator>>
         Correios
         EntregaPadrao
         RetiradaLocal
         DistribuidoraJamef
         DistribuidoraJadlog
     }
-``` 
-
-Este enum é fundamental para assegurar que as operações relacionadas ao frete sejam realizadas com tipos válidos, evitando erros durante o processamento dos dados.
+```
+---
+Gerada em 29/12/2025 21:04:14

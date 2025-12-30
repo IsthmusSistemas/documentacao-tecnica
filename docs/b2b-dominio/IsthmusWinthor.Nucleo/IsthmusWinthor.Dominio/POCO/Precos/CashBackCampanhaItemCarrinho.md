@@ -3,19 +3,20 @@
 **Nome do Arquivo**: CashBackCampanhaItemCarrinho.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CashBackCampanhaItemCarrinho` representa um item de campanha de cashback aplicável a um carrinho de compras. Seu papel é gerenciar as informações relativas a campanhas de cashback, especialmente na aplicação de valores baseados na execução de determinadas condições, sendo essencial para garantir que as regras de ofertas e promoções sejam corretamente aplicadas e que os clientes recebam o cashback conforme esperado. A classe é projetada para resolver o problema de garantir a integridade das informações de campanhas de cashback no processo de compra.
+A classe `CashBackCampanhaItemCarrinho` representa um item de campanha de cashback que é aplicado em um carrinho de compras. Ela é responsável por gerenciar e armazenar informações relacionadas a uma campanha específica de cashback, indicando se a campanha foi atingida e qual o valor do cashback a ser recebido. Seu papel é garantir que as regras de negócio associadas ao cashback sejam devidamente aplicadas e gerenciadas ao longo do processo de checkout.
 
 ## Métodos de Negócio
-*Este trecho não contém métodos de negócio com lógica complexa ou comportamentos que necessitem de descrição adicional. Assim, não há métodos a serem listados nesta seção.*
+Não há métodos de negócio complexos implementados nesta classe. Esta classe atua principalmente como um objeto de transporte de dados.
 
 ## Propriedades Calculadas e de Validação
-- *Nenhuma propriedade com lógica de cálculo ou validação foi identificada nesta classe.*
+- **Atingiu**: Propriedade que indica se a meta da campanha de cashback foi atingida.
+  - **Regra**: A campanha deve ser considerada válida (atingida) quando as condições predefinidas para a aplicação do cashback forem cumpridas. Este valor deve ser ajustado em conformidade com a lógica do sistema durante o processamento da campanha.
 
 ## Navigations Property
-- *Não há propriedades que são classes complexas do domínio nesta classe.*
+- Não existem propriedades complexas do domínio ou navigations properties nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- *Nenhum Enumerador ou Classe Estática/Helpers utilizado nesta classe.*
+- Não há enumeradores ou classes estáticas/helpers associadas diretamente à classe `CashBackCampanhaItemCarrinho`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -26,4 +27,8 @@ classDiagram
         +string Descricao
         +decimal Valor
     }
-```
+``` 
+
+Esta documentação captura as principais características e responsabilidades da classe `CashBackCampanhaItemCarrinho`, permitindo um entendimento claro de suas regras de negócio e estrutura dentro da aplicação.
+---
+Gerada em 29/12/2025 21:49:51

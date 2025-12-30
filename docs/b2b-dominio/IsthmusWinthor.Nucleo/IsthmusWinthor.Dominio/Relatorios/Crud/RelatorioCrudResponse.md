@@ -1,7 +1,7 @@
 # RelatorioCrudResponse
-**Namespace**: IsthmusWinthor.Dominio.Relatorios.Crud  
-**Nome do Arquivo**: RelatorioCrudResponse.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Relatorios.Crud
+- **Nome do Arquivo**: RelatorioCrudResponse.cs
 
-Esta classe é utilizada para o transporte de dados relacionados à resposta de operações de CRUD em relatórios. 
-
-
+Esta classe é um DTO (Data Transfer Object) que transporta dados relevantes sobre a resposta de operações de CRUD relacionadas a relatórios.
+---
+Gerada em 29/12/2025 22:05:16

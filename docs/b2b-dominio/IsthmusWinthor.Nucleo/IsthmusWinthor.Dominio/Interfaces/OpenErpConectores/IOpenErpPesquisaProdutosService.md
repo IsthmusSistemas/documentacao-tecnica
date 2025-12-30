@@ -3,70 +3,54 @@
 **Nome do Arquivo**: IOpenErpPesquisaProdutosService.cs  
 
 ## Visão Geral e Responsabilidade
-A interface `IOpenErpPesquisaProdutosService` atua como um contraponto às funcionalidades de busca de produtos em um sistema ERP. Ela tem como responsabilidade definir os métodos que permitem consultar e realizar buscas de produtos de maneira inteligente, com base em identificadores e solicitações específicas, facilitando o acesso a informações essenciais para a tomada de decisão no contexto empresarial.
+A interface `IOpenErpPesquisaProdutosService` atua como um contrato para serviços que realizam operações relacionadas à pesquisa de produtos em uma integração com o OpenERP. Ela encapsula a lógica necessária para buscar produtos baseados em diferentes critérios e otimiza a experiência do usuário ao fornecer funcionalidades como busca, auto-complete e consulta a resultados específicos. O principal problema de negócio que esta interface resolve é a acessibilidade e rapidez de pesquisa de produtos, facilitando a interação do usuário com o sistema.
 
 ## Métodos de Negócio
 
-### 1. ConsultarResultadoBusca
-- **Título**: `ConsultarResultadoBusca` (Público)
-- **Objetivo**: Garante a recuperação de resultados de uma pesquisa de produtos utilizando um identificador único.
-- **Comportamento**: 
-  1. Recebe um `identificadorPesquisa` do tipo `string`.
-  2. Processa a solicitação consultando o banco de dados ou um serviço externo.
-  3. Retorna um objeto `PesquisaProdutosInteligenteResponse` com os dados relevantes da pesquisa.
-- **Retorno**: Um objeto `PesquisaProdutosInteligenteResponse` que contém os resultados da consulta de forma estruturada.
+### ConsultarResultadoBusca (public)
+- **Objetivo**: Garante que o sistema possa consultar resultados de busca específicos pelo identificador da pesquisa, permitindo que os usuários acessem informações de pesquisa previamente realizadas.
+- **Comportamento**: Este método recebe um `identificadorPesquisa` como parâmetro e busca os resultados associados a este identificador. 
+- **Retorno**: Retorna um objeto `PesquisaProdutosInteligenteResponse` que contém os resultados da busca realizada, encapsulando os produtos obtidos.
 
-### 2. ExecutarAutoComplete
-- **Título**: `ExecutarAutoComplete` (Público)
-- **Objetivo**: Facilita o fornecimento de sugestões automáticas baseadas na entrada parcial do usuário.
-- **Comportamento**: 
-  1. Recebe um objeto `AutoCompleteRequest`.
-  2. Utiliza a informação contida no objeto para gerar uma lista de sugestões relevantes.
-  3. Retorna uma lista de `string` com as sugestões.
-- **Retorno**: Uma lista de strings que representa as opções de auto-completar para a pesquisa.
+### ExecutarAutoComplete (public)
+- **Objetivo**: Oferece sugestões automáticas durante a digitação da pesquisa, ajudando o usuário a formular suas consultas de maneira mais eficiente.
+- **Comportamento**: Este método recebe um objeto `AutoCompleteRequest`, processa as informações contidas nele e gera uma lista de strings que representam as sugestões de autocompletar baseadas no que foi digitado.
+- **Retorno**: Retorna uma lista de strings que representam as sugestões para o auto-complete.
 
-### 3. ExecutarBusca
-- **Título**: `ExecutarBusca` (Público)
-- **Objetivo**: Realiza a pesquisa de produtos com base em um conjunto de critérios definidos pelo usuário.
-- **Comportamento**: 
-  1. Recebe um objeto `PesquisaProdutosInteligenteRequest`.
-  2. Processa a lógica de pesquisa aplicando critérios filtrados.
-  3. Retorna uma string que representa os resultados ou status da busca.
-- **Retorno**: Uma string que contém os resultados da busca ou uma mensagem informativa.
+### ExecutarBusca (public)
+- **Objetivo**: Realiza uma busca completa de produtos com base nas informações fornecidas pelo usuário através de um objeto `PesquisaProdutosInteligenteRequest`.
+- **Comportamento**: O método processa a requisição, executa a lógica necessária para buscar os produtos respeitando as regras de negócio definidas e retorna os resultados.
+- **Retorno**: Retorna uma string que pode conter informações sobre o resultado da busca ou um código que representa o status da operação.
 
-### 4. ExecutarBusca
-- **Título**: `ExecutarBusca` (Público)
-- **Objetivo**: Executa uma busca de produtos em um sistema ERP específico.
-- **Comportamento**: 
-  1. Recebe um objeto `BuscaProdutosOpenErpRequest`.
-  2. Executa a lógica de busca integrada ao sistema ERP.
-  3. Retorna um objeto `BuscaProdutosOpenErpResponse` com os produtos encontrados.
-- **Retorno**: Um objeto `BuscaProdutosOpenErpResponse` contendo os detalhes dos produtos encontrados.
-
-## Navigations Property
-Não existem propriedades complexas do domínio nesta interface, pois a mesma é composta apenas por métodos.
+### ExecutarBusca (public)
+- **Objetivo**: Permite a realização de uma busca de produtos utilizando parâmetros específicos encapsulados em `BuscaProdutosOpenErpRequest`.
+- **Comportamento**: Este método aceita a requisição como entrada, executa a lógica de busca de acordo com os parâmetros fornecidos e retorna os resultados.
+- **Retorno**: Retorna um objeto do tipo `BuscaProdutosOpenErpResponse`, que inclui as informações dos produtos encontrados.
 
 ## Tipos Auxiliares e Dependências
-- Classes e DTOs usados:
-  - `[PesquisaProdutosInteligenteResponse](PesquisaProdutosInteligenteResponse.md)`
-  - `[AutoCompleteRequest](AutoCompleteRequest.md)`
-  - `[PesquisaProdutosInteligenteRequest](PesquisaProdutosInteligenteRequest.md)`
-  - `[BuscaProdutosOpenErpRequest](BuscaProdutosOpenErpRequest.md)`
-  - `[BuscaProdutosOpenErpResponse](BuscaProdutosOpenErpResponse.md)`
+- **Pedido de AutoComplete**: `AutoCompleteRequest`
+- **Requisição de Pesquisa de Produtos**: `PesquisaProdutosInteligenteRequest`
+- **Resposta de Pesquisa de Produtos**: `PesquisaProdutosInteligenteResponse`
+- **Requisição de Busca de Produtos OpenErp**: `BuscaProdutosOpenErpRequest`
+- **Resposta de Busca de Produtos OpenErp**: `BuscaProdutosOpenErpResponse`
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IOpenErpPesquisaProdutosService {
-        +ConsultarResultadoBusca(identificadorPesquisa: string) 
-        +ExecutarAutoComplete(autoCompleteRequest: AutoCompleteRequest) 
-        +ExecutarBusca(pesquisaProdutosInteligenteRequest: PesquisaProdutosInteligenteRequest) 
-        +ExecutarBusca(buscaProdutosOpenErpRequest: BuscaProdutosOpenErpRequest) 
+        <<interface>>
     }
-    
-    IOpenErpPesquisaProdutosService --> PesquisaProdutosInteligenteResponse
-    IOpenErpPesquisaProdutosService --> AutoCompleteRequest
-    IOpenErpPesquisaProdutosService --> PesquisaProdutosInteligenteRequest
-    IOpenErpPesquisaProdutosService --> BuscaProdutosOpenErpRequest
-    IOpenErpPesquisaProdutosService --> BuscaProdutosOpenErpResponse
+    class PesquisaProdutosInteligenteRequest
+    class PesquisaProdutosInteligenteResponse
+    class BuscaProdutosOpenErpRequest
+    class BuscaProdutosOpenErpResponse
+    class AutoCompleteRequest
+
+    IOpenErpPesquisaProdutosService <.. PesquisaProdutosInteligenteRequest
+    IOpenErpPesquisaProdutosService <.. PesquisaProdutosInteligenteResponse
+    IOpenErpPesquisaProdutosService <.. BuscaProdutosOpenErpRequest
+    IOpenErpPesquisaProdutosService <.. BuscaProdutosOpenErpResponse
+    IOpenErpPesquisaProdutosService <.. AutoCompleteRequest
 ```
+---
+Gerada em 29/12/2025 21:18:34

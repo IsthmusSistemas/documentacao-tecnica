@@ -1,38 +1,30 @@
 # CapturaContaCartao
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: CapturaContaCartao.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: CapturaContaCartao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CapturaContaCartao` representa a entidade responsável por registrar informações relacionadas à captura de pagamentos realizados através de cartões. Este modelo de domínio é crucial para o acompanhamento e gestão das transações, garantindo que todos os detalhes relevantes, como IDs de conta, valores capturados e status da captura, sejam persistidos de forma consistente. Através desta classe, o sistema resolve o problema de rastreamento e verificação de transações financeiras, assegurando a integridade e a confiabilidade das operações de captura.
+A classe `CapturaContaCartao` representa uma captura de pagamento realizada com um cartão de crédito ou débito. Ela encapsula todas as informações necessárias sobre uma transação de pagamento, incluindo dados de autorização, valor da captura e status de sucesso. O problema de negócio que essa classe resolve é a necessidade de registrar e acompanhar transações financeiras permitindo que sistemas de gestão processem e verifiquem a integridade dessas transações.
 
 ## Métodos de Negócio
-(Observação: A classe fornecida não contém métodos com lógica de negócio complexa que se enquadrem nas especificações. Apenas propriedades simples são consideradas.)
+Atualmente, a classe `CapturaContaCartao` não possui métodos de negócio complexos. Todos os métodos são simples getters e setters para as propriedades. No entanto, a lógica de validação será discutida nas propriedades calculadas e de validação.
 
 ## Propriedades Calculadas e de Validação
-- **ValorCaptura**: A propriedade `ValorCaptura` é uma representação do valor total que foi capturado na transação. Esta propriedade deve ser validada para garantir que o valor não seja negativo, representando efetivamente a captura financeira. 
+- `ValorCaptura`
+  - **Regra**: O valor deve ser um número positivo, representando a quantia capturada na transação. Este valor é vital para garantir que a transação financeira não seja incorreta.
+
+- `Sucesso`
+  - **Regra**: Esta propriedade indica se a captura foi bem-sucedida ou não, com base nas informações de retorno (`CodigoRetorno` e `MensagemRetorno`). Se a captura falhar, deve-se tomar ações corretivas, e a propriedade `Sucesso` deve ser atualizada para `false`.
 
 ## Navigations Property
-- [ContaCartao](ContaCartao.md): Esta propriedade representa a entidade do cartão de crédito associada à captura registrada.
+- [ContaCartao](ContaCartao.md)
 
 ## Tipos Auxiliares e Dependências
-(No código fornecido, não foram identificados tipos auxiliares, enums ou classes estáticas/helpers utilizados nesta classe.)
+- Não há enumeradores ou classes auxiliares utilizadas.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    class CapturaContaCartao {
-        +long Id
-        +string ProofOfSale
-        +string CodigoRetorno
-        +string MensagemRetorno
-        +DateTime DataHoraCaptura
-        +decimal ValorCaptura
-        +bool Sucesso
-    }
-    class ContaCartao {
-        << Entity >>
-    }
-    CapturaContaCartao --> ContaCartao : utiliza
-``` 
-
-Esta documentação fornece uma visão clara do modelo de domínio `CapturaContaCartao`, enfatizando suas responsabilidades no contexto do sistema, além de garantir que as regras de negócio que sustentam a integridade dos dados sejam compreendidas e mantidas ao longo do ciclo de vida da aplicação.
+    CapturaContaCartao --> ContaCartao
+```
+---
+Gerada em 29/12/2025 20:17:36

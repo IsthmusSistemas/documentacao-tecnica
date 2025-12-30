@@ -2,43 +2,42 @@
 **Namespace**: IsthmusWinthor.Dominio.Model.Verbas.Webhook  
 **Nome do Arquivo**: NegociacaoWebhookModel.cs  
 
-## Visão Geral e Responsabilidade
-A classe `NegociacaoWebhookModel` representa o modelo de dados utilizado para encapsular informações relacionadas a negociações de verbas recebidas via Webhook. Ela é responsável por transportar dados cruciais que descrevem o estado atual da negociação, incluindo um identificador único, seu status, se foi integrado e as listas de itens e analistas associados. Essa estrutura é vital para a comunicação de eventos em tempo real entre sistemas, facilitando a gestão e a rastreabilidade das negociações de verbas.
+NegociacaoWebhookModel é uma classe que serve como um modelo de dados para a negociação de verbas via Webhook, transportando informações sobre uma negociação específica, incluindo seu status, itens associados e analistas.
 
 ## Métodos de Negócio
-- **Título**: `NegociacaoWebhookModel` (Construtor)
-  - **Objetivo**: Garante que a inicialização de um objeto de negociação via Webhook inclua todos os dados necessários, assegurando que as negociações sejam devidamente registradas e compreendidas no sistema.
-  - **Comportamento**: 
-    1. Recebe parâmetros que representam as características da negociação.
-    2. Inicializa as propriedades correspondentes com os valores fornecidos.
-    3. Valida se os parâmetros atendem a condicionalidades (embora o código em si não implemente validações explicitas, espera-se que a construção de uma negociação sempre verifique se os dados estão corretos antes da construção).
-  - **Retorno**: Não possui retorno, mas cria uma instância do modelo `NegociacaoWebhookModel` com as propriedades definidas.
+- **Título**: Construtor Público
+  - **Objetivo**: Agrupar e inicializar os atributos necessários para representar uma negociação através de Webhook.
+  - **Comportamento**: O construtor recebe como parâmetros um identificador, status, uma indicação de integração, uma lista de itens de negociação e uma lista de analistas. Ele atribui esses valores às respectivas propriedades somente leitura.
+  - **Retorno**: Não aplicável, pois é um construtor que inicializa a classe.
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades que tenham lógica no `get` ou validação no `set`. Todas as propriedades são apenas leitura e são definidas no construtor.
+Não existem propriedades calculadas ou com validações complexas, pois todas as propriedades são apenas getters.
 
 ## Navigation Property
-- *Nenhuma propriedade que seja uma classe complexa do domínio foi identificada nesta classe.*
+- [NegociacaoItemWebhookModel](NegociacaoItemWebhookModel.md)
+- [NegociacaoAnalistaWebhookModel](NegociacaoAnalistaWebhookModel.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enums**:
-  - [StatusNegociacaoVerba](StatusNegociacaoVerba.md)
-  
-- **Classes**:
-  - [NegociacaoItemWebhookModel](NegociacaoItemWebhookModel.md)
-  - [NegociacaoAnalistaWebhookModel](NegociacaoAnalistaWebhookModel.md)
+- [StatusNegociacaoVerba](StatusNegociacaoVerba.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class NegociacaoWebhookModel {
-        Identificador : string
-        Status : StatusNegociacaoVerba
-        Integrado : bool
-        Itens : IEnumerable<NegociacaoItemWebhookModel>
-        Analistas : IEnumerable<NegociacaoAnalistaWebhookModel>
+        +string Identificador
+        +StatusNegociacaoVerba Status
+        +bool Integrado
+        +IEnumerable<NegociacaoItemWebhookModel> Itens
+        +IEnumerable<NegociacaoAnalistaWebhookModel> Analistas
     }
-    NegociacaoWebhookModel --> StatusNegociacaoVerba
+    
+    class NegociacaoItemWebhookModel {}
+    class NegociacaoAnalistaWebhookModel {}
+    class StatusNegociacaoVerba {}
+
     NegociacaoWebhookModel --> NegociacaoItemWebhookModel
     NegociacaoWebhookModel --> NegociacaoAnalistaWebhookModel
+    NegociacaoWebhookModel --> StatusNegociacaoVerba
 ```
+---
+Gerada em 29/12/2025 21:28:00

@@ -2,24 +2,21 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoAlteracaoEnderecoEntregaEnum.cs  
 
-Este enumerador é utilizado para definir as diferentes permissões de alteração do endereço de entrega. As opções disponíveis permitem que o sistema gerencie quem pode alterar as informações de entrega, garantindo uma correta aplicação das regras de negócio relacionadas a esse contexto.
+O `TipoAlteracaoEnderecoEntregaEnum` é um enumerador utilizado para definir os diferentes tipos de alteração que podem ser aplicados ao endereço de entrega. Ele fornece uma forma estruturada de representar as opções disponíveis, facilitando a aplicação de regras de negócio relacionadas ao envio de produtos.
 
-## Tipos Auxiliares e Dependências
-- Nenhuma classe complexa ou propriedade de navegação, pois é um enumerador simples.
+### Tipos Auxiliares e Dependências
+- **Enums**
+  - [TipoAlteracaoEnderecoEntregaEnum](TipoAlteracaoEnderecoEntregaEnum.md) 
 
-### Enumeradores
-- `[TipoAlteracaoEnderecoEntregaEnum](TipoAlteracaoEnderecoEntregaEnum.md)`: Define as opções de alteração de endereço de entrega:
-  - `ApenasPessoaFisica`: Permite a alteração apenas por pessoas físicas.
-  - `Todos`: Permite a alteração por todos os tipos de usuários.
-  - `Nenhum`: Não permite nenhuma alteração.
-
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoAlteracaoEnderecoEntregaEnum {
-        <<enumerator>>
+        <<enumeration>>
         +ApenasPessoaFisica
         +Todos
         +Nenhum
     }
 ```
+---
+Gerada em 29/12/2025 21:02:26

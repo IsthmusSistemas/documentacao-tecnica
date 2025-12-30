@@ -1,26 +1,17 @@
 # PharmalinkDesconto
 **Namespace**: IsthmusWinthor.Dominio.POCO.Precos  
-**Nome do Arquivo**: PharmalinkDesconto.cs  
+**Nome do Arquivo**: PharmalinkDesconto.cs
 
-## Visão Geral e Responsabilidade
-A classe `PharmalinkDesconto` representa uma estrutura de desconto aplicado na farmacêutica com base na quantidade de produtos adquiridos. O principal objetivo desta classe é encapsular a lógica necessária para validar se um desconto é aplicável, garantindo que ele só seja considerado válido se maior que zero. Isso assegura que a aplicação do desconto somente ocorra em circunstâncias favoráveis, evitando assim erros de cálculo que poderiam levar a perdas financeiras ou insatisfação do cliente.
+Esta classe serve como um modelo de transporte de dados para representar descontos aplicáveis a produtos da Pharmalink. Ela encapsula informações pertinentes à quantidade de produtos e ao valor do desconto, assegurando que as regras de negócio associadas a esses dados sejam respeitadas.
 
-## Métodos de Negócio
-- **Título**: IsValid (Propriedade)
-  - **Objetivo**: Garante que o desconto é positivo para ser considerado válido.
-  - **Comportamento**: A propriedade avalia a condição que verifica se o valor do desconto (`Desconto`) é maior que zero.
-  - **Retorno**: Retorna um valor booleano (`true` ou `false`), indicando se o desconto é válido.
+### Propriedades Calculadas e de Validação
+- **IsValid**: 
+  - Regra: Esta propriedade avalia se o desconto é válido, garantindo que o valor do desconto seja superior a zero. Isso assegura que um desconto só será considerado aplicável se houver um valor positivo definido.
 
-## Propriedades Calculadas e de Validação
-- **IsValid**: Esta propriedade calcula se o desconto é válido com base no valor do desconto. A regra é que um desconto deve ser maior que zero para ser considerado aplicável (`Desconto > 0`).
+### Tipos Auxiliares e Dependências
+- Não há enumeradores ou classes auxiliares referenciadas nesta classe.
 
-## Navigations Property
-- Nenhuma navigations property complexa foi identificada nesta classe.
-
-## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar foi utilizado nesta classe.
-
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PharmalinkDesconto {
@@ -29,6 +20,6 @@ classDiagram
         +decimal Desconto
         +bool IsValid
     }
-``` 
-
-Esta documentação fornece uma visão clara das responsabilidades e regras de negócio relacionadas à classe `PharmalinkDesconto`, garantindo que qualquer desenvolvedor ou parte interessada entenda seu propósito e funcionamento dentro do sistema.
+```
+---
+Gerada em 29/12/2025 21:51:21

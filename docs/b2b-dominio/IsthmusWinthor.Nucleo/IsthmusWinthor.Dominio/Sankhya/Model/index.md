@@ -1,3 +1,3 @@
-#Documentação - Model
+# Model
 ## Conteúdo
 - [Precos/](Precos//index.md)

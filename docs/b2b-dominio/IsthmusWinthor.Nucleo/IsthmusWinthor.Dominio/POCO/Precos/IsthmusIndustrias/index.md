@@ -1,4 +1,4 @@
-#Documentação - IsthmusIndustrias
+# IsthmusIndustrias
 ## Conteúdo
 - [CondicaoIsthmusIndustria](CondicaoIsthmusIndustria.md)
 - [CondicaoIsthmusIndustriaPrecoProdutoERP](CondicaoIsthmusIndustriaPrecoProdutoERP.md)

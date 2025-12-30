@@ -2,6 +2,8 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO.Layouts  
 **Nome do Arquivo**: AgrupamentoItemLivre.cs  
 
----
+A classe `AgrupamentoItemLivre` é um Data Transfer Object (DTO) que transporta informações sobre um agrupamento de itens livres, incluindo suas propriedades gráficas e de organização.
 
-A classe `AgrupamentoItemLivre` é um DTO (Data Transfer Object) que transporta dados relacionados à coleção de itens livres organizados por um agrupamento específico. É usada para transferir dados entre diferentes camadas de aplicação, mas não contém lógica de negócio.
+---
+---
+Gerada em 29/12/2025 21:43:01

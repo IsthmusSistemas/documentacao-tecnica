@@ -2,37 +2,32 @@
 **Namespace**: IsthmusWinthor.Dominio.Exceptions  
 **Nome do Arquivo**: AcessoAplicacaoException.cs  
 
-## Visão Geral e Responsabilidade
-A classe `AcessoAplicacaoException` representa uma exceção personalizada para tratar falhas de acesso a serviços em uma aplicação. O papel desta classe é encapsular a lógica de manipulação de erros, fornecendo uma mensagem padrão que indica ao usuário que o serviço não está disponível no momento. Isso ajuda a manter a experiência do usuário ao interceptar erros e fornecer feedback claro em situações onde a aplicação não consegue acessar um recurso necessário.
+A classe `AcessoAplicacaoException` é uma exceção personalizada destinada a tratar erros específicos relacionados ao acesso à aplicação. Seu propósito é comunicar ao usuário que um serviço está indisponível, ajudando na identificação de problemas durante a execução de operações críticas. Ela encapsula uma mensagem padrão, mas permite a personalização da mensagem de erro conforme necessário.
 
 ## Métodos de Negócio
-### Título: AcessoAplicacaoException(string mensagem) - Public
-- **Objetivo**: Garante que uma mensagem de erro padrão seja fornecida em caso de falha de serviço, ou permite a personalização da mensagem quando necessário.
-- **Comportamento**:
-  1. A classe herda de `Exception`, permitindo o uso completo das funcionalidades do tratamento de exceções.
-  2. O construtor aceita uma string como argumento; se não for fornecida, a mensagem padrão "Serviço indisponível no momento!" é utilizada.
-  3. O construtor base (`base(mensagem)`) é chamado para inicializar a classe de exceção com a mensagem fornecida.
-- **Retorno**: Esta classe não retorna valores, no entanto, ela encapsula a lógica de exceção para ser utilizada em fluxos de tratamento de erros na aplicação.
+### Título: Construtor - `public AcessoAplicacaoException(string mensagem = "Serviço indisponível no momento!")`
+- **Objetivo**: Este método garante que uma mensagem de erro adequada seja criada ao disparar a exceção, promovendo uma melhor compreensão do contexto do erro pelo usuário ou desenvolvedor.
+- **Comportamento**: 
+  1. O construtor da classe `AcessoAplicacaoException` é chamado.
+  2. Se uma mensagem personalizada não for fornecida, a mensagem padrão "Serviço indisponível no momento!" é utilizada.
+  3. O construtor da classe base `Exception` é invocado com a mensagem apropriada, finalizando a construção do objeto de exceção.
+- **Retorno**: Esta é uma exceção e não possui um valor de retorno em si; no entanto, a mensagem associada ao objeto de exceção pode ser acessada quando a exceção é manipulada.
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades calculadas ou de validação nesta classe, pois ela se concentra na configuração de um tipo de exceção.
+Não há propriedades com lógica ou validação, uma vez que esta classe é uma exceção simples e serve apenas como um meio de encapsular mensagens de erro.
 
 ## Navigations Property
-Não há propriedades que sejam classes complexas do domínio nesta implementação.
+Não existem propriedades de navegação, pois a classe `AcessoAplicacaoException` não possui relações complexas com outras entidades no domínio.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe estática/auxiliar é utilizado nesta classe. O foco está apenas na herança de `Exception`.
+Não há enumeradores ou classes estáticas que a classe utilize diretamente.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class AcessoAplicacaoException {
-      +AcessoAplicacaoException(string mensagem)
+        <<Exception>>
     }
-    class Exception {
-      <<abstract>>
-    }
-    AcessoAplicacaoException --> Exception
-``` 
-
-Esta documentação fornece uma visão clara da classe `AcessoAplicacaoException`, sua finalidade e como ela se integra na arquitetura geral da aplicação, mantendo as regras de negócio no centro do foco.
+```
+---
+Gerada em 29/12/2025 21:09:01

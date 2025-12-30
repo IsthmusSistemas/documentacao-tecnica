@@ -1,57 +1,58 @@
 # DimensaoCorreios
-**Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: DimensaoCorreios.cs  
+- **Namespace**: IsthmusWinthor.Dominio.POCO
+- **Nome do Arquivo**: DimensaoCorreios.cs
 
 ## Visão Geral e Responsabilidade
-A classe `DimensaoCorreios` atua como um motor de validação para as dimensões e peso de um pacote conforme os requisitos estabelecidos pelos Correios. O problema de negócio que essa classe resolve é garantir que as dimensões de um pacote atendam aos limites mínimos exigidos para o envio, evitando assim erros e impedimentos na operação de frete.
+A classe `DimensaoCorreios` atua como um motor de validação para as dimensões e peso de uma encomenda com base nas regras estabelecidas pelos Correios. O problema de negócio que ela resolve é garantir que as dimensões mínimas definidas para o envio sejam atendidas, evitando rejeições de pacotes que não estão em conformidade.
 
 ## Métodos de Negócio
 
-### Título: ValidarAltura (private)  
-- **Objetivo**: Garante que a altura total do pacote não esteja abaixo do limite mínimo estabelecido.  
+### `ValidarAltura` (private)
+- **Objetivo**: Garante que a altura total de uma encomenda não seja inferior ao limite mínimo estipulado pelos Correios.
 - **Comportamento**: 
-  1. Verifica se a altura total informada é inferior a `AlturaMinima` (2 cm). 
-  2. Se a altura for inferior, retorna `AlturaMinima`.
-  3. Caso contrário, retorna a altura total informada.  
-- **Retorno**: Retorna um valor decimal que representa a altura válida do pacote.
+  1. Compara a altura total fornecida com a altura mínima permitida.
+  2. Se a altura total for inferior a `AlturaMinima`, retorna `AlturaMinima`.
+  3. Caso contrário, retorna a altura total.
+- **Retorno**: Retorna a altura total válida, que é garantida ser igual ou maior que a altura mínima.
 
-### Título: ValidarLargura (private)  
-- **Objetivo**: Garante que a largura total do pacote não esteja abaixo do limite mínimo estabelecido.  
+### `ValidarLargura` (private)
+- **Objetivo**: Garante que a largura total de uma encomenda não seja inferior ao limite mínimo estipulado pelos Correios.
 - **Comportamento**: 
-  1. Verifica se a largura total informada é inferior a `LarguraMinima` (11 cm). 
-  2. Se a largura for inferior, retorna `LarguraMinima`.
-  3. Caso contrário, retorna a largura total informada.  
-- **Retorno**: Retorna um valor decimal que representa a largura válida do pacote.
+  1. Compara a largura total fornecida com a largura mínima permitida.
+  2. Se a largura total for inferior a `LarguraMinima`, retorna `LarguraMinima`.
+  3. Caso contrário, retorna a largura total.
+- **Retorno**: Retorna a largura total válida, que é garantida ser igual ou maior que a largura mínima.
 
-### Título: ValidarComprimento (private)  
-- **Objetivo**: Garante que o comprimento total do pacote não esteja abaixo do limite mínimo estabelecido.  
+### `ValidarComprimento` (private)
+- **Objetivo**: Garante que o comprimento total de uma encomenda não seja inferior ao limite mínimo estipulado pelos Correios.
 - **Comportamento**: 
-  1. Verifica se o comprimento total informado é inferior a `ComprimentoMinimo` (16 cm). 
-  2. Se o comprimento for inferior, retorna `ComprimentoMinimo`.
-  3. Caso contrário, retorna o comprimento total informado.  
-- **Retorno**: Retorna um valor decimal que representa o comprimento válido do pacote.
+  1. Compara o comprimento total fornecido com o comprimento mínimo permitido.
+  2. Se o comprimento total for inferior a `ComprimentoMinimo`, retorna `ComprimentoMinimo`.
+  3. Caso contrário, retorna o comprimento total.
+- **Retorno**: Retorna o comprimento total válido, que é garantido ser igual ou maior que o comprimento mínimo.
 
-### Título: ValidarPeso (private)  
-- **Objetivo**: Fornece o peso total do pacote. Não aplica validações, pois o peso é considerado válido se passado corretamente.  
-- **Comportamento**: Retorna o peso total informado através da referência `_informacoesFrete`.  
-- **Retorno**: Retorna um valor decimal que representa o peso total do pacote.
+### `ValidarPeso` (private)
+- **Objetivo**: Garante que o peso total de uma encomenda seja retornado de forma válida, sem intervenções de validação, assumindo que o peso já foi validado antes.
+- **Comportamento**: Apenas retorna o peso total fornecido nas informações de frete.
+- **Retorno**: Retorna o peso total, que pode ser utilizado em cálculos de frete e outras validações externas.
 
 ## Propriedades Calculadas e de Validação
-- `AlturaTotal`: Calcula a altura total do pacote com validação.
-- `LarguraTotal`: Calcula a largura total do pacote com validação.
-- `ComprimentoTotal`: Calcula o comprimento total do pacote com validação.
-- `PesoTotal`: Retorna o peso total do pacote diretamente, sem validação.
+- `AlturaTotal`: Calculada através do método `ValidarAltura`, assegurando que não seja menor que a altura mínima.
+- `LarguraTotal`: Calculada através do método `ValidarLargura`, assegurando que não seja menor que a largura mínima.
+- `ComprimentoTotal`: Calculada através do método `ValidarComprimento`, assegurando que não seja menor que o comprimento mínimo.
+- `PesoTotal`: Validado através do método `ValidarPeso`, retornando diretamente o peso total.
 
 ## Navigations Property
-- `[InformacoesFrete](InformacoesFrete.md)`: Representa as informações de frete que contêm os dados de altura, largura, comprimento e peso do pacote.
+- `InformacoesFrete`: [InformacoesFrete](InformacoesFrete.md) - Representa as informações de frete que contêm os dados de peso e dimensões da encomenda.
 
 ## Tipos Auxiliares e Dependências
-- `[InformacoesFrete](InformacoesFrete.md)`
+- **Classes Utilizadas**: `InformacoesFrete` - Espera-se que esta classe forneça as propriedades de `AlturaTotal`, `LarguraTotal`, `ComprimentoTotal` e `PesoTotal`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class DimensaoCorreios {
+        <<Rich Domain Model>>
         +decimal AlturaTotal
         +decimal LarguraTotal
         +decimal ComprimentoTotal
@@ -65,3 +66,5 @@ classDiagram
     }
     DimensaoCorreios --> InformacoesFrete
 ```
+---
+Gerada em 29/12/2025 21:32:31

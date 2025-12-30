@@ -3,37 +3,33 @@
 **Nome do Arquivo**: CashBackFiltroCliente.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CashBackFiltroCliente` representa um filtro associado a uma campanha de cashback. Ela desempenha um papel crucial na aplicação ao permitir a definição de critérios específicos para a aplicação de cashback baseado nas características dos clientes. Essa estrutura é essencial para garantir que as campanhas sejam direcionadas corretamente, aumentando a eficácia das ofertas e otimizando a experiência do cliente.
+A classe `CashBackFiltroCliente` atua como uma entidade no contexto de campanhas de cashback, permitindo a definição de filtros específicos aplicáveis aos clientes. Ela é responsável por armazenar informações relevantes sobre os critérios que determinam a elegibilidade dos clientes para receber cashback, resolvendo o problema de segmentação de clientes dentro da campanha.
 
 ## Métodos de Negócio
-Atualmente, a classe `CashBackFiltroCliente` não possui métodos de negócio com lógica complexa. Ela é utilizada principalmente para armazenar e gerenciar os dados relativos ao filtro de clientes.
+Não há métodos com lógica complexa a serem documentados nesta classe. Todos os métodos são simples, não apresentando lógica avançada.
 
 ## Propriedades Calculadas e de Validação
-As propriedades da classe não incluem lógicas no `get` ou validações no `set`.
+- Esta classe não possui propriedades com lógica no `get` ou validação no `set`.
 
 ## Navigations Property
-- [`CashBackCampanha`](CashBackCampanha.md): Representa a campanha de cashback associada ao filtro. 
+- [CashBackCampanha](CashBackCampanha.md): Esta propriedade representa a campanha de cashback associada a este filtro.
 
 ## Tipos Auxiliares e Dependências
-- [`FiltroClienteEnum`](FiltroClienteEnum.md): Enum que define os tipos de filtros aplicáveis aos clientes.
+- [FiltroClienteEnum](FiltroClienteEnum.md): Enumerador que define os diferentes tipos de filtros que podem ser aplicados aos clientes nas campanhas de cashback.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CashBackFiltroCliente {
         +long Id
-        +CashBackCampanha CashBackCampanha
-        +long CashBackCampanhaId
         +FiltroClienteEnum Filtro
         +string Valor
     }
     class CashBackCampanha {
-        <<Entity>>
+        +long Id
     }
-    class FiltroClienteEnum {
-        <<Enum>>
-    }
-
-    CashBackFiltroCliente --> CashBackCampanha
-    CashBackFiltroCliente --> FiltroClienteEnum
+    CashBackFiltroCliente --> CashBackCampanha : "associação"
+    CashBackFiltroCliente --> FiltroClienteEnum : "usa"
 ```
+---
+Gerada em 29/12/2025 20:18:58

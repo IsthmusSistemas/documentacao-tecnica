@@ -3,34 +3,27 @@
 **Nome do Arquivo**: IsthmusIndustria.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `IsthmusIndustria` representa uma entidade de domínio que encapsula conceitos relacionados a indústrias, especialmente no que se refere à identificação de uma família de produtos e suas campanhas associadas. Ela é responsável por gerenciar a lista de campanhas que podem receber informações ou ações necessárias, permitindo que as operações de marketing e vendas sejam direcionadas com eficiência.
+A classe `IsthmusIndustria` representa uma entidade no domínio que agrega informações sobre indústrias dentro do sistema. O papel principal dessa classe é organizar e gerenciar campanhas associadas a uma indústria específica, encapsulando a lógica de associação entre a indústria e suas campanhas. O problema de negócio que ela resolve é a necessidade de manter um controle estruturado das campanhas que estão ativas ou relacionadas a uma indústria, permitindo que as campanhas sejam gerenciadas de forma eficiente.
 
 ## Métodos de Negócio
-### Criação de campanhas
-- **Título**: AdicionarCampanha (public)
-- **Objetivo**: Garante que uma nova campanha seja associada a uma indústria.
-- **Comportamento**: 
-  1. Verifica se a campanha a ser adicionada não é nula.
-  2. Adiciona a campanha à lista `CampanhasRecebedoras`.
-- **Retorno**: Não possui retorno; altera o estado interno da lista de campanhas em `CampanhasRecebedoras`.
-
-### Remover campanha
-- **Título**: RemoverCampanha (public)
-- **Objetivo**: Garante que uma campanha possa ser removida da lista, mantendo a integridade da campanha associada à indústria.
+### Título: Construtor (public IsthmusIndustria)
+- **Objetivo**: Inicializa a lista de campanhas recebedoras quando uma nova instância de `IsthmusIndustria` é criada.
 - **Comportamento**:
-  1. Verifica se a campanha existe na lista `CampanhasRecebedoras`.
-  2. Remove a campanha se encontrada.
-- **Retorno**: Não possui retorno; altera o estado interno da lista de campanhas em `CampanhasRecebedoras`.
+  1. Ao criar instâncias da classe, o construtor é chamado.
+  2. A propriedade `CampanhasRecebedoras` é inicializada como uma nova lista, garantindo que não ocorra erro ao tentar adicionar campanhas antes que a lista seja criada.
+- **Retorno**: Não retorna valor, mas garante que a lista de campanhas está pronta para uso.
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades calculadas ou de validação apresentadas nesta classe.
-
-## Navigation Property
-- `CampanhasRecebedoras`: Lista de campanhas associadas ao objeto `IsthmusIndustria`.
-  - [IsthmusIndustriaCampanha](IsthmusIndustriaCampanha.md)
+- **IdentificadorFamilia**: 
+  - Esta propriedade armazena um identificador único para a família da indústria. Não há lógica de validação ou cálculo complexa associada a ela, apenas recebe um valor string.
+  
+## Navigation Properties
+- **CampanhasRecebedoras**: 
+  - Lista de campanhas associadas à indústria. Cada item na lista é da classe [IsthmusIndustriaCampanha](IsthmusIndustriaCampanha.md).
 
 ## Tipos Auxiliares e Dependências
-- Não há enumeradores ou classes estáticas referenciadas nesta classe.
+- **IsthmusIndustriaCampanha**
+  - Esta classe representa campanhas e está diretamente associada às indústrias. Relaciona-se na lógica de negócio da classe `IsthmusIndustria`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -39,9 +32,10 @@ classDiagram
         +string IdentificadorFamilia
         +List<IsthmusIndustriaCampanha> CampanhasRecebedoras
     }
-    
-    class IsthmusIndustriaCampanha {
-    }
 
-    IsthmusIndustria "1" --> "*" IsthmusIndustriaCampanha : possui >
+    class IsthmusIndustriaCampanha
+
+    IsthmusIndustria "1" --> "*" IsthmusIndustriaCampanha : tem
 ```
+---
+Gerada em 29/12/2025 21:57:27

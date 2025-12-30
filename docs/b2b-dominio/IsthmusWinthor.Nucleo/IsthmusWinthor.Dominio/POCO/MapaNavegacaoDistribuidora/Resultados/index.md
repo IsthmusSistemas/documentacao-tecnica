@@ -1,4 +1,4 @@
-#Documentação - Resultados
+# Resultados
 ## Conteúdo
 - [IMapaNavegacaoRegraCalculo](IMapaNavegacaoRegraCalculo.md)
 - [RegraCalculoOndeEstamosDivisao](RegraCalculoOndeEstamosDivisao.md)

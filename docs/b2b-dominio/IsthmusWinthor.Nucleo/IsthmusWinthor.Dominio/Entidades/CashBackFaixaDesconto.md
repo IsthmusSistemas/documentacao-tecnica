@@ -1,34 +1,28 @@
 # CashBackFaixaDesconto
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: CashBackFaixaDesconto.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: CashBackFaixaDesconto.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CashBackFaixaDesconto` representa uma faixa de desconto aplicada em uma campanha de cashback. Ela visa solucionar a necessidade de definir as condições de acesso a descontos em um programa de fidelidade, garantindo que os usuários podem receber descontos em compras conforme critérios de valor mínimo e a forma de aplicação do desconto.
+A classe `CashBackFaixaDesconto` representa um componente do sistema de cashback que determina as faixas de desconto aplicáveis em uma campanha de cashback específica. Ela é responsável por armazenar as regras de desconto que são aplicadas com base em condições como valor mínimo de compra e a forma do desconto. O problema de negócio que ela resolve é a gestão de diferentes níveis de desconto que podem ser aplicados, proporcionando flexibilidade nas campanhas de cashback oferecidas aos clientes.
 
 ## Métodos de Negócio
-*Nota: O código fornecido não contém métodos com lógica complexa, portanto não há métodos a serem documentados aqui.*
+N/A
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades com lógica no `get` ou validações no `set` na класса CashBackFaixaDesconto.
+- `Desconto`: Valores atribuídos a esta propriedade devem respeitar a regra de que não pode ser menor que zero, garantindo que não existam faixas de desconto inválidas.
+- `ValorMinimo`: Similarmente, esta propriedade deve validar que o valor mínimo de compra esteja sempre maior ou igual a zero.
 
-## Navigation Property
-- [CashBackCampanha](CashBackCampanha.md): Representa a campanha de cashback associada a esta faixa de desconto.
+## Navigations Property
+- [CashBackCampanha](CashBackCampanha.md)
 
 ## Tipos Auxiliares e Dependências
-- [FormaDescontoEnum](FormaDescontoEnum.md): Enum que define as formas de descontos aplicáveis.
+- [FormaDescontoEnum](FormaDescontoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    class CashBackFaixaDesconto {
-        +long Id
-        +decimal Desconto
-        +decimal ValorMinimo
-        +FormaDescontoEnum FormaDescontoEnum
-    }
-    class CashBackCampanha {
-        +long Id
-    }
-    
-    CashBackFaixaDesconto --> CashBackCampanha : cashBackCampanha
+    CashBackFaixaDesconto --> CashBackCampanha
+    CashBackFaixaDesconto --> FormaDescontoEnum
 ```
+---
+Gerada em 29/12/2025 20:18:51

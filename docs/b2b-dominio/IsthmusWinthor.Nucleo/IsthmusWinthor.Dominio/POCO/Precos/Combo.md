@@ -1,107 +1,82 @@
 # Combo
-
 **Namespace**: IsthmusWinthor.Dominio.POCO.Precos  
 **Nome do Arquivo**: Combo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Combo` representa uma promoção do tipo "combo", onde são oferecidos múltiplos itens mediante condições específicas. O problema de negócio que ela resolve é a aplicação de regras de promoção complexas que podem variar com base no tipo de produto, quantidade e condições estabelecidas para ativação das promoções, permitindo uma gestão mais eficaz das ofertas de venda.
+A classe `Combo` representa uma promoção que agrupa produtos em um único pacote com condições específicas para desconto. Esta classe esclarece como promoções complexas são aplicadas a produtos, levando em consideração regras de negócio que impactam a venda. O problema de negócio que ela resolve é fornecer uma forma de agrupar vendas e aplicar descontos de forma condicional baseada em itens no carrinho de compras ou regras de família de produtos.
 
 ## Métodos de Negócio
 
-### CalcularPercentualDesconto (public)
-- **Objetivo**: Calcula o percentual de desconto para a promoção, se aplicável.
+### CalcularPercentualDesconto - `public void`
+- **Objetivo**: Garantir que o percentual de desconto aplicado ao produto referenciado seja corretamente calculado com base no preço de venda do cliente.
 - **Comportamento**: 
-  1. Verifica se o produto tem uma promoção por preço.
-  2. Se sim, calcula o percentual de desconto com base no preço de venda do cliente e no preço promocional.
-  3. Atualiza o percentual de desconto no produto, garantindo que não seja negativo.
-- **Retorno**: Não há valor retornado; o método modifica o estado do objeto `ProdutoCombo`.
+  1. Verifica se a promoção é do tipo "por preço".
+  2. Se sim, calcula o percentual de desconto:
+     - Se já existe um percentual de desconto definido, preserva-o.
+     - Caso contrário, calcula o percentual com base na diferença entre o preço de venda e o preço promocional, normalizando pelo preço de venda.
+  3. Garante que o percentual de desconto não seja negativo.
+- **Retorno**: Este método não retorna valor, mas altera o estado do objeto `ProdutoCombo` ao definir o percentual de desconto.
 
-```mermaid
-flowchart TD
-    A[Início] --> B{ProdutoCombo.PromocaoPorPreco?}
-    B -- Sim --> C[Calcular percentual de desconto]
-    B -- Não --> D[Encerrar]
-    C --> E{ProdutoCombo.PercentualDesconto > 0?}
-    E -- Sim --> F[ProdutoCombo.PercentualDesconto != 0]
-    E -- Não --> G[Calcular novo percentual]
-    G --> H[ProdutoCombo.PercentualDesconto = 0]
-    F --> I[Retornar]
-    H --> I
-    D --> I
-    I[Encerrar]
-```
+### AplicarCondicaoPharmalink - `public void`
+- **Objetivo**: Ajustar as condições da promoção de acordo com os parâmetros específicos do `Pharmalink`.
+- **Comportamento**:
+  1. Aplica o desconto definido de Pharmalink ao `ProdutoCombo`.
+  2. Realiza a aplicação nos itens do combo, iterando sobre cada um e chamando o método correspondente.
+- **Retorno**: Não retorna valor, modifica o estado dos itens internos.
 
-### AplicarCondicaoPharmalink (public)
-- **Objetivo**: Aplica condições de desconto da promoção Pharmalink a um `ItemCombo` e a todos os itens do combo.
-- **Comportamento**: 
-  1. Altera o desconto e a quantidade de casas decimais do `ProdutoCombo`.
-  2. Aplica as mesmas condições a cada item em `ItensCombo`.
-- **Retorno**: Não há valor retornado; o método modifica o estado dos itens do combo.
-
-### AplicarCondicaoIsthmusIndustria (public)
-- **Objetivo**: Aplica condições de desconto relacionadas à indústria para o `ItemCombo` e todos os itens do combo.
-- **Comportamento**: 
-  1. Altera o valor do desconto e a quantidade de casas decimais do `ProdutoCombo`.
-  2. Itera sobre `ItensCombo` para aplicar a mesma condição.
-- **Retorno**: Não há valor retornado; o método modifica o estado dos itens do combo.
+### AplicarCondicaoIsthmusIndustria - `public void`
+- **Objetivo**: Ajustar as condições da promoção de acordo com os parâmetros específicos da `IsthmusIndustria`.
+- **Comportamento**:
+  1. Aplica o desconto definido da indústria ao `ProdutoCombo`.
+  2. Realiza a aplicação nos itens do combo, iterando sobre cada um e chamando o método correspondente.
+- **Retorno**: Não retorna valor, modifica o estado dos itens internos.
 
 ## Propriedades Calculadas e de Validação
 
 ### DescricaoVencimetoPromocao
-- **Regra**: Retorna uma string formatada que indica a data de vencimento da promoção, se disponível, ou uma string vazia. Essa propriedade é útil para exibir informações ao cliente sobre a validade da oferta.
+- **Regra**: A descrição do vencimento da promoção é calculada com base na data de fim da promoção. Se a data não estiver definida, retorna uma string vazia. Essa propriedade fornece uma clara compreensão do período de validade da promoção.
 
 ### DescricaoCondicaoPromocao
-- **Regra**: Gera uma descrição detalhada sobre as condições necessárias para ativar a promoção do combo. Se for um "combo família", inclui as condições específicas, caso contrário menciona que é preciso adquirir todos os itens.
+- **Regra**: Fornece uma descrição detalhada das condições da promoção, dependendo se a promoção é por família ou não. As condições são calculadas com base na existência de itens específicos e quantidades requeridas.
 
-## Navigations Property
+## Navigation Property
 
-- `ProdutoCombo`: `[ItemCombo](ItemCombo.md)` - Item do Combo associado ao produto específico.
-- `ItensCombo`: Presume-se que cada `ItemCombo` é uma instância da classe de domínio que representa um item dentro do combo.
+- [ItemCombo](ItemCombo.md): Representa cada produto individual dentro do combo e suas condições específicas.
+- [FamiliaCombo](FamiliaCombo.md): Representa as famílias de produtos que podem ser incluídas no combo, caso a promoção seja por família.
 
 ## Tipos Auxiliares e Dependências
 
-- `TipoPromocaoEnum`: `[TipoPromocaoEnum](TipoPromocaoEnum.md)` - Enum utilizado para definir o tipo de promoção.
-- `ItemCombo`: `[ItemCombo](ItemCombo.md)` - Classe que representa cada item dentro de um combo.
-- `TributacaoErp`: Classe que representa a tributação dos produtos.
+- [TipoPromocaoEnum](TipoPromocaoEnum.md): Enumeração que representa os tipos de promoção disponíveis no sistema.
+- [TributacaoErp](TributacaoErp.md): Classe que representa as regras de tributação aplicáveis ao produto.
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class Combo {
-        +long DistribuidoraId
-        +long CodigoCliente
-        +long CodigoPromocao
-        +string Nome
-        +string Descricao
-        +DateTime? DataInicio
-        +DateTime? DataFim
-        +bool IsComboFamilia
-        +List<ItemCombo> ItensCombo
-        +int QuantidadeCombo
-        +ItemCombo ProdutoCombo
-        +List<string> Filiais
-        +List<FamiliaCombo> FamiliasCombo
-        +long NivelPrioritario
+        + long DistribuidoraId
+        + long CodigoCliente
+        + long CodigoPromocao
+        + List<ItemCombo> ItensCombo
+        + decimal CalcularPercentualDesconto(decimal precoBaseCliente, decimal precoVendaCliente)
     }
     class ItemCombo {
-        +decimal PrecoBase
-        +decimal PrecoPromocional
-        +long CodigoProduto
-        +int IntervaloInicial
-        +int IntervaloFinal
-        +decimal PercentualDesconto
-        +bool PromocaoPorPreco
-        +string CodigoBarras
-        +string DescricaoEmbalagem
-        +TributacaoErp TributacaoErp
+        + decimal PrecoBase
+        + decimal PrecoPromocional
+        + long CodigoProduto
     }
-    class TipoPromocaoEnum
-    class TributacaoErp
-
+    class FamiliaCombo {
+        <<Interface>>
+    }
+    class TipoPromocaoEnum {
+        <<Enum>>
+    }
+    class TributacaoErp {
+        + decimal TotalTributacao
+    }
     Combo --> ItemCombo
+    Combo --> FamiliaCombo
     Combo --> TipoPromocaoEnum
     ItemCombo --> TributacaoErp
 ```
-
-Esta documentação proporciona uma visão técnica clara sobre a implementação da classe `Combo`, suas regras de negócio, e como as diferentes propriedades e métodos interagem entre si e com outras classes do domínio.
+---
+Gerada em 29/12/2025 21:50:11

@@ -3,34 +3,38 @@
 **Nome do Arquivo**: FiltroConvenioBandeiraParcela.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `FiltroConvenioBandeiraParcela` representa uma entidade que controla filtros aplicáveis a um convênio de bandeira de parcela. Sua principal responsabilidade é permitir a definição de parâmetros de filtragem que serão utilizados em consultas ou operações que envolvam as transações associadas a um convênio específico. Isso garante que os dados retornados correspondam às condições específicas requisitadas pelo usuário ou pela lógica de negócio.
+A classe `FiltroConvenioBandeiraParcela` representa um filtro aplicado às entidades de convênios e suas respectivas bandeiras e parcelas dentro de um sistema corporativo. Ela permite que as regras de negócio associadas aos tipos de filtros e valores sejam utilizadas para personalizar e refinar as consultas, garantindo que os dados retornados estejam de acordo com critérios específicos definidos pelo usuário ou pela lógica do sistema.
 
 ## Métodos de Negócio
-Esta classe não apresenta métodos com lógica de negócio complexa, funcionando essencialmente como uma estrutura de dados.
+Nenhum método com lógica de negócio complexo foi identificado nesta classe.
 
 ## Propriedades Calculadas e de Validação
-- **ValorFiltro**: Esta propriedade pode conter regras de validação, dependendo do tipo de filtro aplicado (definido em `TipoFiltro`). O valor armazenado deve ser consistente com as condições para as quais o filtro está sendo utilizado, garantindo a integridade dos dados.
+Nenhuma propriedade com lógica de cálculo ou validação foi identificada nesta classe.
 
-## Navigation Property
-- **ConvenioBandeiraParcela**: Representa a associação com a classe complexa `ConvenioBandeiraParcela`.  
-  [ConvenioBandeiraParcela](ConvenioBandeiraParcela.md)  
+## Navigations Property
+- [ConvenioBandeiraParcela](ConvenioBandeiraParcela.md): Esta propriedade representa a classe complexa associada, que gerencia as informações de convênios, bandeiras e parcelas relacionadas.
 
 ## Tipos Auxiliares e Dependências
-- **Tipos de Filtro**: 
-  - `[TipoFiltro](TipoFiltro.md)`: Enum que define os diferentes tipos de filtros que podem ser aplicados.
+- [TipoFiltro](TipoFiltro.md): Enum utilizado para definir os tipos de filtro aplicáveis.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FiltroConvenioBandeiraParcela {
         +long Id
-        +long ConvenioBandeiraParcelaId
         +TipoFiltro TipoFiltro
         +string ValorFiltro
     }
     
     class ConvenioBandeiraParcela {
+        +long Id
     }
     
-    FiltroConvenioBandeiraParcela --|> ConvenioBandeiraParcela : "associação"
+    class TipoFiltro {
+    }
+
+    FiltroConvenioBandeiraParcela --> ConvenioBandeiraParcela
+    FiltroConvenioBandeiraParcela --|> TipoFiltro
 ```
+---
+Gerada em 29/12/2025 20:31:57

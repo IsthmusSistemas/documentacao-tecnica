@@ -2,13 +2,13 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: QueueStorageEnum.cs  
 
-O `QueueStorageEnum` é um enumerador que define diferentes tipos de eventos e processos relacionados ao gerenciamento de filas em um sistema de e-commerce. Cada valor representa uma ação específica que pode ser registrada ou monitorada, facilitando a manipulação e a análise de eventos associados a produtos e clientes.
+Este enumerador é utilizado para categorizar diferentes tipos de eventos que ocorrem em um sistema, relacionados principalmente a filas de armazenamento. Cada valor representa uma ação específica que o sistema pode registrar ou monitorar.
 
-### Tipos Auxiliares e Dependências
-- **Enumeradores**: 
-    - `[QueueStorageEnum](QueueStorageEnum.md)`  
+## Tipos Auxiliares e Dependências
+- Enumeradores:
+  - [QueueStorageEnum](QueueStorageEnum.md) 
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class QueueStorageEnum {
@@ -27,3 +27,5 @@ classDiagram
         +RegistroAcessoConsumidorB2B
     }
 ```
+---
+Gerada em 29/12/2025 20:59:42

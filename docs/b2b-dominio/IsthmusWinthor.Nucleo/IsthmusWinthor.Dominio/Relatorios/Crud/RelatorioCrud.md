@@ -1,27 +1,28 @@
 # RelatorioCrud
-- **Namespace**: IsthmusWinthor.Dominio.Relatorios.Crud
-- **Nome do Arquivo**: RelatorioCrud.cs
+**Namespace**: IsthmusWinthor.Dominio.Relatorios.Crud  
+**Nome do Arquivo**: RelatorioCrud.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `RelatorioCrud` representa um modelo no domínio para a criação e manipulação de relatórios dentro do sistema. Ela encapsula todos os dados necessários para descrever um relatório, incluindo seu nome, descrição, status de ativação, e configurações específicas, como a consulta de dados e as distribuidoras permitidas. Esse modelo garante que os dados utilizados para criar e executar relatórios estejam completos e válidos de acordo com as regras de negócio estabelecidas.
-
-## Métodos de Negócio
-Não existem métodos com lógica complexa na classe `RelatorioCrud`. Portanto, não há métodos a serem documentados nesta seção.
+A classe `RelatorioCrud` representa um modelo de relatório no contexto da aplicação, encapsulando as propriedades necessárias para gerenciar e delinear um relatório dentro do sistema. O principal propósito desse modelo é permitir a definição de metadados sobre relatórios, facilitando a recuperação e apresentação de dados relevantes de acordo com as permissões de acesso e restrições definidas. Isso resolve o problema de gerenciamento de informações relativas a relatórios de forma estruturada e acessível.
 
 ## Propriedades Calculadas e de Validação
-- **Nome**: Propriedade que deve ser preenchida obrigatoriamente. Garante que um nome válido seja fornecido ao salvar um relatório.
-- **Descricao**: Propriedade que deve ser preenchida obrigatoriamente. Garante que uma descrição do relatório esteja presente.
-- **Consulta**: Propriedade que deve ser preenchida obrigatoriamente. Garante que a consulta SQL ou de outra natureza está obrigatoriamente definida para o relatório.
-  
-As restrições de horário `RestricaoHorarioInicio` e `RestricaoHorarioFim` podem ser usadas para validar se a execução do relatório está dentro de uma janela de horário válida.
+- **Nome**: Deve ser preenchido para garantir que cada relatório tenha um nome identificável.
+- **Descricao**: Propriedade obrigatória que serve para descrever o relatório, assegurando que os usuários compreendam seu conteúdo.
+- **Consulta**: Necessária para a execução correta do relatório, assegurando que os dados a serem recuperados estejam bem definidos.
+- **TipoFonteDados**: Define a origem dos dados, impactando a maneira como os dados são consultados e integrados.
+- **RestricaoHorarioInicio** e **RestricaoHorarioFim**: Opcionalmente definem janelas de horário em que o relatório pode ser acessado, introduzindo uma camada de segurança em relação ao acesso aos dados.
+- **DistribuidorasIds**: Utilizado para armazenar identificadores de distribuidoras, que podem ser usadas na filtragem dos dados apresentados, ajudando na validação de acesso.
 
 ## Navigations Property
-- `[DistribuidoraRelatorio](DistribuidoraRelatorio.md)`: Classe que representa as distribuidoras que têm permissão para acessar o relatório.
-- `[RelatorioParametro](RelatorioParametro.md)`: Classe que contém os parâmetros adicionais que podem ser configurados para cada relatório.
+- **DistribuidorasPermitidas**: 
+  - Link: [DistribuidoraRelatorio](DistribuidoraRelatorio.md)
+- **RelatorioParametros**: 
+  - Link: [RelatorioParametro](RelatorioParametro.md)
 
 ## Tipos Auxiliares e Dependências
-- `[TipoFonteDados](TipoFonteDados.md)`: Enum que define os diferentes tipos de fontes de dados que podem ser utilizados pelo relatório.
-  
+- **Enumeradores**:
+  - [TipoFonteDados](TipoFonteDados.md)
+
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
@@ -39,10 +40,9 @@ classDiagram
         +string DistribuidorasIds
         +List<RelatorioParametro> RelatorioParametros
     }
-
-    RelatorioCrud --> DistribuidoraRelatorio
-    RelatorioCrud --> RelatorioParametro
-    RelatorioCrud --> TipoFonteDados
-``` 
-
-Neste diagrama, a classe `RelatorioCrud` está associada às classes `DistribuidoraRelatorio` e `RelatorioParametro`, enquanto a propriedade `TipoFonteDados` se refere a um enumerador que define os tipos de fontes de dados disponíveis.
+    RelatorioCrud --> DistribuidoraRelatorio : "contains"
+    RelatorioCrud --> RelatorioParametro : "contains"
+    RelatorioCrud --> TipoFonteDados : "uses"
+```
+---
+Gerada em 29/12/2025 22:05:14

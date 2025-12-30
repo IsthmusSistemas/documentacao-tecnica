@@ -3,54 +3,59 @@
 **Nome do Arquivo**: Formulario.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Formulario` atua como uma entidade do domínio que representa um formulário dinâmico, associado a uma distribuidora. Seu papel é gerenciar as características e comportamentos de um formulário, incluindo integração com canais, automações, perfis, filtros e configurações de publicação. A classe resolve o problema de permitir que os usuários customizem e acessem formulários de maneira eficiente, considerando as especificidades do canal de integração e as permissões relacionadas.
+A classe `Formulario` representa um formulário dinâmico que pode ser utilizado por diferentes distribuidoras para coletar informações de usuários. Este modelo garante que a integração do formulário com diversos canais de comunicação e a automação associada a ele sejam geridas de forma eficiente. A classe provê funcionalidades para ativar/desativar o formulário, definir suas características e interações com usuários, além de validar se o formulário é capaz de ser utilizado em função das suas configurações.
 
 ## Métodos de Negócio
 
-### 1. `Valido` (Propriedade - get)
-- **Objetivo:** Garante que o formulário é considerado válido. 
-- **Comportamento:**
-  1. Se o `CanalIntegracao` não for configurado como `Email`, verifica se o formulário está ativo (`Ativo`).
-  2. Além disso, deve haver pelo menos um perfil ativo e padrão (`FormularioPerfil.Padrao && FormularioPerfil.Ativo`).
-  3. Se o `CanalIntegracao` for `Email`, somente a propriedade `Ativo` é verificada.
-- **Retorno:** Retorna um valor booleano que indica se o formulário é considerado válido ou não.
+### 1. Valido: get
+- **Objetivo**: Garante se o formulário é considerado válido para uso com base na configuração atual.
+- **Comportamento**:
+  1. Se o `CanalIntegracao` for diferente de `Email`, o método verifica se o formulário está `Ativo`.
+  2. Além disso, deve haver pelo menos um perfil ativo e padrão vinculado ao formulário.
+  3. Se o canal for `Email`, apenas a propriedade `Ativo` é considerada.
+- **Retorno**: Retorna um valor booleano (`true` ou `false`) indicando se o formulário é válido conforme as condições descritas.
 
 ```mermaid
 flowchart TD
-    A[CanalIntegracao != Email] -->|Sim| B[Verifica Ativo]
-    B --> C{Perfis Válidos}
-    C -->|Sim| D[Retornar Verdadeiro]
-    C -->|Não| E[Retornar Falso]
-    A -->|Não| F[Retornar Ativo]
+    A[CanalIntegracao != Email]
+    A -- Yes --> B[Ativo == true]
+    B --> C[Perfis.Any(p => p.FormularioPerfil.Padrao && p.FormularioPerfil.Ativo)]
+    C -- Yes --> D[return true]
+    C -- No --> D2[return false]
+    A -- No --> E[return Ativo]
 ```
 
-### 2. `TabelaDoCanal` (Propriedade - get)
-- **Objetivo:** Retorna o nome da tabela correspondente ao canal de integração configurado. 
-- **Comportamento:** Utiliza a classe auxiliar `FormularioCanalIntegracaoTabela` para determinar a tabela associada ao `CanalIntegracao` por meio do método estático `TabelaDoCanal(CanalIntegracao)`.
-- **Retorno:** Retorna uma string representando o nome da tabela correspondente ao canal de integração.
+### 2. TabelaDoCanal: get
+- **Objetivo**: Retorna a tabela correspondente ao canal de integração configurado.
+- **Comportamento**:
+  1. A propriedade chama um método estático `TabelaDoCanal` do `FormularioCanalIntegracaoTabela` passando o `CanalIntegracao`.
+- **Retorno**: Retorna uma string que representa a tabela do canal correspondente ao tipo de integração.
 
 ## Propriedades Calculadas e de Validação
 
-### `Valido`
-- A propriedade `Valido` contém lógica de validação que assegura que o formulário é ativo e possui perfis válidos, dependendo do tipo de canal de integração.
+### Propriedade: Valido
+- **Regra**: A validade do formulário depende de sua ativação e configuração de perfis, apresentando uma lógica condicional para verificar se pode ser utilizado, dependendo do canal de integração.
+
+### Propriedade: TabelaDoCanal
+- **Regra**: Define a tabela baseada no tipo de canal de integração, garantindo que a estrutura dos dados coletados esteja alinhada com a necessidade do canal especificado.
 
 ## Navigation Property
-- `[Distribuidora](Distribuidora.md)`
-- `[FormularioAutomacao](FormularioAutomacao.md)`
-- `[FormularioPerfilRelacionamento](FormularioPerfilRelacionamento.md)`
-- `[FormularioFiltro](FormularioFiltro.md)`
-- `[FormularioPracaCep](FormularioPracaCep.md)`
+- [Distribuidora](Distribuidora.md) - Representa a distribuidora associada ao formulário.
+- [FormularioAutomacao](FormularioAutomacao.md) - Representa as automações relacionadas ao formulário.
+- [FormularioPerfilRelacionamento](FormularioPerfilRelacionamento.md) - Vincula perfis de relacionamento ao formulário.
+- [FormularioFiltro](FormularioFiltro.md) - Filtros que podem ser aplicados ao formulário.
+- [FormularioPracaCep](FormularioPracaCep.md) - Representa informações de locais específicos associados ao formulário.
 
 ## Tipos Auxiliares e Dependências
-- `[FormularioCanalIntegracaoEnum](FormularioCanalIntegracaoEnum.md)`
-- `[FormularioCanalIntegracaoTabela](FormularioCanalIntegracaoTabela.md)`
+- [FormularioCanalIntegracaoEnum](FormularioCanalIntegracaoEnum.md) - Enum que define os tipos de canais de integração disponíveis.
+- [FormularioCanalIntegracaoTabela](FormularioCanalIntegracaoTabela.md) - Classe auxiliar para ler as tabelas associadas aos canais de integração.
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class Formulario {
         +long Id
+        +Distribuidora Distribuidora
         +long DistribuidoraId
         +FormularioCanalIntegracaoEnum CanalIntegracao
         +bool Ativo
@@ -66,13 +71,19 @@ classDiagram
         +string MensagemConfirmacaoEmail
         +DateTime? UltimaPublicacao
         +long CodigoRamoAtividadePreferencial
+        +ICollection<FormularioAutomacao> Automacoes
+        +ICollection<FormularioPerfilRelacionamento> Perfis
+        +ICollection<FormularioFiltro> Filtros
+        +ICollection<FormularioPracaCep> PracasCep
         +bool Valido
         +string TabelaDoCanal
     }
-
-    Formulario --> "1" Distribuidora
-    Formulario --> "*" FormularioAutomacao
-    Formulario --> "*" FormularioPerfilRelacionamento
-    Formulario --> "*" FormularioFiltro
-    Formulario --> "*" FormularioPracaCep
+    
+    Formulario --> Distribuidora
+    Formulario --> FormularioAutomacao
+    Formulario --> FormularioPerfilRelacionamento
+    Formulario --> FormularioFiltro
+    Formulario --> FormularioPracaCep
 ```
+---
+Gerada em 29/12/2025 20:32:41

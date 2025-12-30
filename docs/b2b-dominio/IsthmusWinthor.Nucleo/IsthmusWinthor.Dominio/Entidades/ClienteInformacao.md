@@ -1,37 +1,42 @@
 # ClienteInformacao
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: ClienteInformacao.cs  
+**Nome do Arquivo**: ClienteInformacao.cs
 
 ## Visão Geral e Responsabilidade
-A classe `ClienteInformacao` representa informações associadas a um cliente no domínio da aplicação. Ela armazena dados pertinentes ao histórico de interação do cliente, como as datas de último acesso e de criação de senha. Isso permite que o sistema tenha um controle eficaz sobre o uso e a segurança das informações do cliente, garantindo que ações de segurança, como redefinições de senha e monitoramento de acessos, possam ser gerenciadas de forma eficiente.
+A classe `ClienteInformacao` representa informações adicionais relacionadas a um cliente no sistema. Ela atua como um container de dados, mantendo o estado e histórico de interações do cliente, como datas de acesso e criação de senha. Essa abordagem permite que a aplicação registre eventos relevantes para a gestão do cliente, além de facilitar o acesso a informações que podem ser utilizadas para análises e relatórios.
 
 ## Métodos de Negócio
-_Nesta classe não foram identificados métodos de negócio, somente propriedades._
+* **Título**: (Nenhum método de negócio com lógica complexa encontrado na classe).  
+  **Objetivo**: N/A  
+  **Comportamento**: N/A  
+  **Retorno**: N/A  
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades com lógica de cálculo ou validação. Todas as propriedades são simples, com representações diretas de valores.
+Não foram encontradas propriedades com lógica de cálculo ou validação na classe `ClienteInformacao`.
 
-## Navigations Property
-- `Cliente`: [Cliente](Cliente.md)  
+## Navigation Property
+- [Cliente](Cliente.md)
 
 ## Tipos Auxiliares e Dependências
-- Enumeradores e classes auxiliares não são utilizados nesta classe.
+Não foram encontrados Enumeradores ou Classes Estáticas/Helpers utilizadas pela classe `ClienteInformacao`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ClienteInformacao {
-        +long Id
-        +Cliente Cliente
-        +long ClienteId
-        +DateTime? DataUltimoAcesso
-        +DateTime? DataEmailLiberacao
-        +DateTime? DataCriacaoSenha
+        long Id
+        Cliente Cliente
+        long ClienteId
+        DateTime? DataUltimoAcesso
+        DateTime? DataEmailLiberacao
+        DateTime? DataCriacaoSenha
     }
-
+    
     class Cliente {
-        <<interface>>
+        // Propriedades da classe Cliente
     }
 
-    ClienteInformacao --> Cliente : 'associações'
+    ClienteInformacao --> Cliente : Associacao
 ```
+---
+Gerada em 29/12/2025 20:21:01

@@ -1,34 +1,42 @@
 # SemaforoLogicApp
 **Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: SemaforoLogicApp.cs  
+**Nome do Arquivo**: SemaforoLogicApp.cs
 
 ## Visão Geral e Responsabilidade
-A classe `SemaforoLogicApp` representa a lógica de controle semafórico dentro de um pipeline de distribuição. Ela é responsável por gerenciar o estado do semáforo associado a uma distribuidora específica, garantindo que as mudanças no sinal sejam realizadas de forma controlada. O problema de negócio que esta classe resolve é o gerenciamento claro e eficiente do estado de sinalização em processos que dependem de distribuição, permitindo que diferentes partes do sistema sejam notificadas sobre o estado atual do semáforo.
+A classe `SemaforoLogicApp` é responsável por gerenciar o estado do semáforo no contexto de um pipeline associado a uma distribuidora. A principal função desta classe é garantir que a transição entre diferentes sinais do semáforo (representados pelo enumerador `SemaforoEnum`) ocorra de forma controlada, fornecendo um meio para identificar e armazenar a chave de cache associada a essa instância. A classe atua como um motor de controle lógico que assegura que os estados do semáforo reflitam corretamente as regras de negócio operacionais do sistema, particularmente em relação a distribuidoras envolvidas em processos de pipeline.
 
 ## Métodos de Negócio
-
-### Método: `MudarSinal(SemaforoEnum novoSinal)`
-- **Objetivo**: Permitir a mudança do sinal do semáforo para um novo valor.
+### Título: `MudarSinal` (public)
+- **Objetivo**: Este método garante que o estado do sinal do semáforo possa ser alterado de uma maneira controlada.
 - **Comportamento**: 
-  1. Recebe um novo sinal como parâmetro (do tipo `SemaforoEnum`).
-  2. Atribui o novo sinal à propriedade `Sinal`, alterando efetivamente o estado do semáforo.
-- **Retorno**: Este método não retorna valor. Ele atua diretamente no estado interno da instância.
+  1. Recebe um novo sinal do tipo `SemaforoEnum`.
+  2. Atualiza a propriedade `Sinal` com o novo valor recebido.
+- **Retorno**: Este método não retorna nenhum valor, efetivamente mudando o estado do semáforo para o valor especificado.
 
-### Método: `Key()`
-- **Objetivo**: Gerar uma chave única de armazenamento em cache.
+### Visualização
+```mermaid
+flowchart TD
+    A[MudarSinal(novoSinal)] --> B{Verifica novoSinal}
+    B -->|Sinal Válido| C[Atualiza Sinal]
+    B -->|Sinal Inválido| D[Erro]
+```
+
+### Título: `Key` (public)
+- **Objetivo**: Este método garante que uma chave única para a instância do semáforo seja gerada com base nos identificadores do pipeline e da distribuidora.
 - **Comportamento**: 
-  1. Utiliza os IDs do pipeline e da distribuidora para construir uma chave de cache.
-  2. Invoca o método `RedisKeys.Semaforo` passando os IDs, que retorna uma string representando a chave.
-- **Retorno**: Retorna uma string que representa a chave do semáforo no Redis para efeitos de cache.
+  1. Utiliza os valores das propriedades `PipelineId` e `DistribuidoraId`.
+  2. Chama o método estático `RedisKeys.Semaforo` com esses dois parâmetros para compor a chave de cache.
+- **Retorno**: Retorna uma string que representa a chave única do semáforo no sistema de cache.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica de cálculo ou validação nesta classe, pois todos os atributos são definidos diretamente via construtor e não possuem lógica adicional em seus `get` ou `set`.
+- As propriedades `PipelineId`, `DistribuidoraId` e `Sinal` são definidas apenas no construtor e não possuem lógica de validação ou cálculo adicional nos métodos get/set, portanto não se aplicam a esta seção.
 
 ## Navigations Property
-- N/A (não existem propriedades que apontam para outras classes complexas do domínio).
+- Não existem propriedades que referenciam classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-- `[SemaforoEnum](SemaforoEnum.md)`: Enum que representa os estados possíveis do semáforo.
+- Enum: [SemaforoEnum](SemaforoEnum.md)
+- Classe estática: [RedisKeys](RedisKeys.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -41,4 +49,7 @@ classDiagram
         +string Key()
     }
     SemaforoLogicApp --> SemaforoEnum
+    SemaforoLogicApp --> RedisKeys
 ```
+---
+Gerada em 29/12/2025 21:38:56

@@ -1,16 +1,18 @@
 # DistribuidoraEndereco
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: DistribuidoraEndereco.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: DistribuidoraEndereco.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DistribuidoraEndereco` representa o endereço de uma distribuidora no sistema. Esta classe é crucial para a gestão e localização das distribuidoras, permitindo que o sistema armazene informações precisas sobre onde cada distribuidora está situada, o que é essencial para operações logísticas, entrega de produtos e comunicação com os clientes.
+A classe `DistribuidoraEndereco` representa o local de um distribuidor, encapsulando suas informações geográficas e administrativas. Ela resolve o problema de associar um endereço específico a um distribuidor, permitindo a identificação e comunicação eficaz entre os distribuidores e as entidades que interagem com eles, como clientes e sistemas de logística.
 
-## Navegação de Propriedades
-- `Distribuidora`: Uma classe complexa que representa a distribuidora à qual este endereço está associado. 
-  - [Distribuidora](Distribuidora.md)
+## Propriedades Calculadas e de Validação
+Não há propriedades com lógica de cálculo ou validação no `get` ou `set`.
+
+## Navigations Property
+- [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-Esta classe não utiliza enumeradores ou classes de ajuda externas.
+Não há enumeradores ou classes estáticas/helpers utilizadas diretamente nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -30,9 +32,8 @@ classDiagram
     class Distribuidora {
         +long Id
         +string Nome
-        ...
     }
-    DistribuidoraEndereco --> Distribuidora : belongs to
+    DistribuidoraEndereco --> Distribuidora : "Possui"
 ```
-
-O diagrama acima ilustra a relação entre a classe `DistribuidoraEndereco` e a classe `Distribuidora`, mostrando que cada endereço de distribuidora está associado a uma única distribuidora.
+---
+Gerada em 29/12/2025 20:28:35

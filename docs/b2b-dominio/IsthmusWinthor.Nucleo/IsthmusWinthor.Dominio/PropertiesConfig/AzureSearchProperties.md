@@ -1,5 +1,7 @@
 # AzureSearchProperties
-- **Namespace**: IsthmusWinthor.Dominio.PropertiesConfig
-- **Nome do Arquivo**: AzureSearchProperties.cs
+**Namespace**: IsthmusWinthor.Dominio.PropertiesConfig  
+**Nome do Arquivo**: AzureSearchProperties.cs  
 
-A classe `AzureSearchProperties` serve como um modelo de transporte de dados (DTO), encapsulando as propriedades necessárias para a configuração do serviço de busca Azure Search. Ela é utilizada para armazenar informações como o nome do serviço, a chave de API administrativa e o índice de busca dos produtos.
+Esta classe é um DTO (Data Transfer Object) que serve para transportar dados relacionados às propriedades do serviço Azure Search, abrangendo informações como nome do serviço, chave da API administrativa e o índice de busca para produtos.
+---
+Gerada em 29/12/2025 22:02:06

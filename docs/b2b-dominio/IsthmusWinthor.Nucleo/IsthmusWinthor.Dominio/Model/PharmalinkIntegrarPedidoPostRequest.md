@@ -2,37 +2,34 @@
 **Namespace**: IsthmusWinthor.Dominio.Model  
 **Nome do Arquivo**: PharmalinkIntegrarPedidoPostRequest.cs  
 
-A classe `PharmalinkIntegrarPedidoPostRequest` tem a finalidade de transportar informações necessárias para a integração de pedidos entre sistemas, encapsulando dados relevantes que serão enviados para a fila de mensagens.
+## Visão Geral e Responsabilidade
+A classe `PharmalinkIntegrarPedidoPostRequest` serve como um modelo de requisição para integrar pedidos no sistema Pharmalink. Sua principal responsabilidade é encapsular os dados necessários para enviar informações de pedidos integrados de forma estruturada, garantindo a integridade dos dados a serem processados na fila de mensagens do sistema.
 
 ## Métodos de Negócio
-### Título: Construtor (public)
-**Objetivo:** Este método garante a inicialização dos valores padrão da classe, essencial para o correto funcionamento da aplicação ao criar um novo pedido.  
-**Comportamento:** 
-1. Define `QueuedCount` como 1, indicando que a mensagem foi enfileirada uma vez.
-2. Gera um novo `MessageId` tornando-a única, utilizando o `Guid.NewGuid()`.  
-**Retorno:** Não retorna um valor, pois é um construtor.
+Não há métodos com lógica de negócio complexa nesta classe, sendo ela um modelo de dados simples para transporte.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica de cálculo ou validação nesta classe, todas as propriedades são simples e não realizam operações adicionais em seus getters/setters.
+Não há propriedades com lógica de cálculo ou validação.
 
 ## Navigations Property
-Não existem propriedades que são classes complexas do domínio dentro desta classe.
+Não existem propriedades complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-Não há tipos auxiliares ou dependências externas que sejam utilizados diretamente por esta classe.
+Não existem enumeradores ou classes auxiliares que esta classe utilize.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PharmalinkIntegrarPedidoPostRequest {
-        +long DistribuidoraId
-        +long CodigoCliente
-        +long PedidoB2BId
-        +long NumeroPedidoIntegracao
-        +string StoreHash
-        +string MessageId
-        +int QueuedCount
+        <<IQueueMessage>>
+        + long DistribuidoraId
+        + long CodigoCliente
+        + long PedidoB2BId
+        + long NumeroPedidoIntegracao
+        + string StoreHash
+        + string MessageId
+        + int QueuedCount
     }
-``` 
-
-Essa documentação sintetiza o papel da classe `PharmalinkIntegrarPedidoPostRequest`, enfatizando suas responsabilidades na movimentação de dados entre sistemas, de maneira limpa e profissional.
+```
+---
+Gerada em 29/12/2025 21:19:40

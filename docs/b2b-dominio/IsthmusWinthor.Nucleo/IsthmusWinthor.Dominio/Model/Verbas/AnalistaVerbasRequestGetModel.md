@@ -3,39 +3,40 @@
 **Nome do Arquivo**: AnalistaVerbasRequestGetModel.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `AnalistaVerbasRequestGetModel` atua como um modelo para obter informações sobre verbas associadas a um analista, incluindo detalhes como valor, percentual e perfil do analista. O papel principal desta classe é garantir que os dados referentes às verbas estejam sempre válidos e coerentes, permitindo assim a correta manipulação e apresentação dessas informações no sistema.
+A classe `AnalistaVerbasRequestGetModel` tem como objetivo modelar os dados que serão utilizados para representar um analista de verbas em sistemas corporativos. Ela permite a manipulação e a validação de informações relacionadas a percentuais e valores de verbas, garantindo que as regras de negócio para a sua utilização sejam seguidas.
 
 ## Métodos de Negócio
+### 1. AtualizarRateio (public)
+**Objetivo:** Este método atualiza as propriedades relativas ao rateio da verba do analista, garantindo que os dados estejam sempre atualizados com a fonte correta.
 
-### AtualizarRateio (public)
-- **Objetivo**: Este método atualiza os valores de percentual e valor da verba com base em um objeto de rateio recebido, garantindo que as informações estejam sempre atualizadas e consistentes durante a manipulação dos dados de verbas.
-- **Comportamento**: 
-  1. O método recebe um parâmetro do tipo `RateioVerbasRequestPostModel`.
-  2. Atualiza o atributo `PercentualDaVerba` com o valor fornecido pelo objeto `rateioSalvo`.
-  3. Atualiza o atributo `PercentualDaVerbaDigitado` com o respectivo valor do objeto `rateioSalvo`.
-  4. Atualiza o atributo `ValorDaVerba` utilizando o valor correspondente no objeto `rateioSalvo`.
-  5. Atualiza o atributo `ValorDaVerbaDigitado` com o valor da verba no modelo recebido.
+**Comportamento:** 
+1. O método aceita um parâmetro do tipo `RateioVerbasRequestPostModel`.
+2. Ele atualiza a propriedade `PercentualDaVerba` com o valor do rateio fornecido.
+3. Atualiza a propriedade `PercentualDaVerbaDigitado` com o valor digitado do rateio.
+4. Atualiza a propriedade `ValorDaVerba` com o valor do rateio.
+5. Atualiza a propriedade `ValorDaVerbaDigitado` com o valor digitado referente à verba.
 
-### DefinirValorMaximo (public)
-- **Objetivo**: O método define o valor máximo de uma verba com base no total de descontos aplicados, permitindo que o sistema respeite limites estabelecidos na lógica de negócio.
-- **Comportamento**: 
-  1. Recebe um valor decimal que representa o total de descontos a serem aplicados.
-  2. Atribui esse valor ao atributo `ValorMaximo`, permitindo ao sistema utilizar essa definição em cálculos futuros.
+**Retorno:** Este método não retorna um valor. Seu propósito é modificar o estado do objeto.
+
+### 2. DefinirValorMaximo (public)
+**Objetivo:** Este método define o valor máximo que pode ser atribuído à verba, com base em um total de desconto de verbas informado.
+
+**Comportamento:** 
+1. O método recebe um parâmetro `totalDescontoVerbas` do tipo `decimal`.
+2. A propriedade `ValorMaximo` é atualizada para o valor recebido como parâmetro.
+
+**Retorno:** Este método não retorna valores. Ele altera diretamente a propriedade `ValorMaximo`.
 
 ## Propriedades Calculadas e de Validação
-
-### `EmUso`
-- **Regra**: Esta propriedade calcula se a verba está em uso com base na condição de que o `ValorDaVerba` ou `PercentualDaVerba` sejam maiores que zero. Isso permite a lógica de negócio determinar se a verba está ativa durante operações pertinentes.
-
-### `ValidarValorMaximo`
-- **Regra**: Avalia se o perfil do analista é do tipo `Industria` e se o `ValorMaximo` é maior que zero. Esse é um controle que assegura que somente analistas com perfil industrial possam ter um valor máximo definido e válido.
+- **EmUso:** Esta propriedade calcula se a verba está em uso, retornando verdadeiro caso `ValorDaVerba` ou `PercentualDaVerba` sejam maiores que zero. Essa lógica é essencial para determinar a necessidade de ações relacionadas à verba.
+  
+- **ValidarValorMaximo:** Esta propriedade valida se o `Perfil` do analista é do tipo `Industria` e se `ValorMaximo` é maior que zero, assegurando que a regra de negócio de que o valor máximo deve ser positivo para este perfil seja respeitada.
 
 ## Navigations Property
-Não existem propriedades de navegação nesta classe.
+- Nenhuma propriedade de navegação foi identificada nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- Enumerador: 
-  - `[PerfilAnalistaEnum](PerfilAnalistaEnum.md)`
+- **Enum**: [PerfilAnalistaEnum](PerfilAnalistaEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -43,7 +44,6 @@ classDiagram
     class AnalistaVerbasRequestGetModel {
         +string Identificador
         +PerfilAnalistaEnum Perfil
-        +string DescricaoPerfil
         +string Nome
         +long Codigo
         +long CodigoMarca
@@ -57,7 +57,7 @@ classDiagram
         +void AtualizarRateio(RateioVerbasRequestPostModel rateioSalvo)
         +void DefinirValorMaximo(decimal totalDescontoVerbas)
     }
-    class PerfilAnalistaEnum {
-    }
-    AnalistaVerbasRequestGetModel --|> PerfilAnalistaEnum : uses
+    AnalistaVerbasRequestGetModel --> PerfilAnalistaEnum
 ```
+---
+Gerada em 29/12/2025 21:21:10

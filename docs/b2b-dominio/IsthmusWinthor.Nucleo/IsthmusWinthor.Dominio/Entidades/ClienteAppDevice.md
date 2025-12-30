@@ -4,38 +4,45 @@
 **Nome do Arquivo**: ClienteAppDevice.cs
 
 ## Visão Geral e Responsabilidade
-A classe `ClienteAppDevice` representa um dispositivo associado a um cliente em um sistema de aplicativos. Sua principal responsabilidade é gerenciar a relação entre um cliente e os dispositivos que ele possui, permitindo assim um controle eficaz sobre a quantidade e os tipos de dispositivos utilizados por cada cliente. Essa funcionalidade é essencial para a manutenção da integridade das interações e serviços oferecidos a cada cliente, garantindo que as comunicações e as operações do sistema estejam sempre conectadas a dispositivos válidos.
+A classe `ClienteAppDevice` representa a relação entre um cliente e os dispositivos associados a ele. Este modelo é fundamental para o gerenciamento dos dispositivos que um cliente utiliza dentro do sistema. Ele resolve a necessidade de manter um registro dos dispositivos e facilitar operações como a autenticação e o controle de acesso a partir de um dispositivo específico.
 
 ## Métodos de Negócio
-### Propriedade: DevicesIdsList (Visibilidade: pública)
-- **Objetivo**: Esta propriedade garante que uma lista manipulável de IDs de dispositivos seja sempre acessível e que reflita com precisão os dispositivos que o cliente possui, independentemente do formato da string armazenada.
-- **Comportamento**:
-  1. Verifica se a propriedade `DevicesIds` está vazia ou nula.
-  2. Se estiver vazia, retorna uma lista vazia.
-  3. Se não estiver, tenta dividir a string `DevicesIds` em uma lista de IDs de dispositivos, tratado cada ID para remover espaços em branco adicionais.
-  4. Em caso de exceção durante o processamento, retorna uma lista vazia.
-- **Retorno**: Retorna uma lista de strings representando os IDs dos dispositivos. 
+
+### Título: DevicesIdsList (Visibilidade: public)
+- **Objetivo**: Garantir que a lista de IDs de dispositivos seja acessível em um formato utilizável, mesmo que a string original contenha falhas, como IDs malformados.
+- **Comportamento**: 
+  1. Verifica se `DevicesIds` está vazio ou nulo.
+  2. Se estiver vazio, retorna uma nova lista vazia.
+  3. Caso contrário, tenta dividir a string `DevicesIds` em uma lista usando a vírgula como delimitador.
+  4. Remove espaços em branco ao redor de cada ID.
+  5. Retorna a lista de dispositivos (ou uma lista vazia em caso de erro).
+- **Retorno**: Retorna uma lista de strings contendo os IDs dos dispositivos. Se ocorrer um erro durante o processamento, retorna uma lista vazia.
 
 ```mermaid
 flowchart TD
-    A[DevicesIds está vazia?] -->|Sim| B[Retorna nova List<string>()]
-    A -->|Não| C[Tenta dividir DevicesIds]
-    C --> D[Substitui IDs com espaços em branco]
-    C -->|Falha| E[Retorna nova List<string>()]
-    C --> F[Retorna lista dos IDs de dispositivos]
+    A[Início] --> B{DevicesIds está vazio?}
+    B -- Sim --> C[Retornar lista vazia]
+    B -- Não --> D[Tentar dividir a string DevicesIds]
+    D --> E{Erro?}
+    E -- Sim --> F[Retornar lista vazia]
+    E -- Não --> G[Retornar lista de dispositivos]
 ```
 
 ## Propriedades Calculadas e de Validação
+
 ### DevicesIdsList
-- Esta propriedade garante que a transformação da string dos IDs dos dispositivos seja feita de forma robusta, evitando falhas ao manipular os dados. A regra por trás do cálculo assegura que a lista retornada sempre contenha apenas IDs formatados corretamente e seja resiliente a dados malformados.
+A propriedade `DevicesIdsList` processa a string `DevicesIds` e a transforma em uma lista de dispositivos. Se houver algum erro no processamento (ex., a string estiver formatada incorretamente), a propriedade garante que uma lista vazia será retornada, evitando falhas no sistema.
 
 ## Navigation Property
-- `Cliente`: `[Cliente](Cliente.md)`
+
+- `Cliente`: [Cliente](Cliente.md)
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar significativa é utilizada diretamente nesta classe.
+
+- Nenhum enumerador ou classe estática utilizada diretamente nesta classe.
 
 ## Diagrama de Relacionamentos
+
 ```mermaid
 classDiagram
     class ClienteAppDevice {
@@ -43,14 +50,10 @@ classDiagram
         +string DevicesIds
         +List<string> DevicesIdsList
     }
-
     class Cliente {
         +long Id
-        +string Nome
-        +string Email
     }
-
-    ClienteAppDevice "1" -- "1" Cliente : pertence a
-``` 
-
-Esta documentação fornece uma visão clara da classe `ClienteAppDevice`, abrangendo suas responsabilidades dentro do sistema e as regras de negócio que garantem a integridade dos dados dos dispositivos associados a cada cliente.
+    ClienteAppDevice --> Cliente : "associação"
+```
+---
+Gerada em 29/12/2025 20:20:26

@@ -2,20 +2,13 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FiltroTipoPessoaFreteEnum.cs
 
-Este enumerador define os tipos de pessoas que podem ser filtradas em operações de frete, categorizando-as em Pessoa Física e Pessoa Jurídica, além da opção de incluir todos os tipos.
+Este código define um enumerador que categoriza os tipos de pessoas que podem ser associados a um frete, com a finalidade de facilitar a filtragem de informações pertinentes ao domínio de transporte e logística.
 
 ## Tipos Auxiliares e Dependências
-- Nenhuma classe complexa ou propriedades de navegação, pois se trata de um enum.
-- Enumeradores utilizados:
-  - `[FiltroTipoPessoaFreteEnum](FiltroTipoPessoaFreteEnum.md)`
+- Enum: [FiltroTipoPessoaFreteEnum](FiltroTipoPessoaFreteEnum.md)
 
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class FiltroTipoPessoaFreteEnum {
-        <<enumeration>>
-        +Todos
-        +PessoaFisica
-        +PessoaJuridica
-    }
-```
+--- 
+
+Documentação gerada para um Enum, que tem como finalidade a categorização de tipos de pessoas no contexto de fretes para utilização em processos lógicos e filtragens no sistema.
+---
+Gerada em 29/12/2025 20:54:54

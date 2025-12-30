@@ -1,52 +1,44 @@
 # Regiao
-
 **Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: Regiao.cs
+**Nome do Arquivo**: Regiao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Regiao` representa uma região dentro do domínio, encapsulando informações relevantes sobre a localidade e suas respectivas filiais. A principal responsabilidade desta classe é gerenciar a associação entre uma região e sua filial padrão, garantindo a integridade dos dados ao inicializar as propriedades adequadas conforme a lógica de negócios definida. O desafio que esta classe resolve é a necessidade de uma representação clara e consistente das relações entre regiões e suas filiais, assegurando que informações cruciais como códigos e nomes de filial sejam corretamente atribuídos.
+A classe `Regiao` atua como uma representação do conceito de região no sistema, conectando dados de regiões com informações relacionadas a filiais. Ela é responsável por garantir que as informações sobre as filiais estejam corretamente associadas a uma região, lidando com casos onde a filial padrão ou específica deve ser utilizada, dependendo do estado dos dados de entrada. Isso resolve o problema de consistência de dados entre regiões e suas filiais associadas.
 
 ## Métodos de Negócio
 
 ### Construtor: `Regiao(Dominio.Entidades.Regiao regiao, Entidades.Filial filialPadrao)`
-- **Objetivo**: Garantir que os atributos da classe `Regiao` sejam populados corretamente, levando em conta as regras de atribuição para códigos e nomes de filial.
-- **Comportamento**:
-  1. O construtor recebe uma instância da classe `Regiao` e uma instância de `Filial`.
-  2. Inicializa o `CodigoRegiao` e `NomeRegiao` com valores da instância `regiao`.
-  3. Se a `filialPadrao` não for nula e a `regiao.Filial` estiver nula ou com código igual a "99", define as propriedades referente à filial como os dados da `filialPadrao`.
-  4. Caso contrário, atribui as propriedades de filial diretamente da `regiao.Filial`.
-  5. O nome da filial é determinado a partir do `NomeExibicao`, se disponível, caso contrário usa a unidade federativa (UF).
-  
-- **Retorno**: Esta operação não retorna um valor, mas inicializa adequadamente os atributos da classe.
+- **Objetivo**: O construtor assegura que a classe `Regiao` é inicializada com dados válidos, determinando a filial correta a ser associada, seja ela a padrão ou a específica de acordo com as regras definidas no código.
+- **Comportamento**: 
+  1. Recebe uma instância de `Dominio.Entidades.Regiao` e uma instância opcional de `Entidades.Filial`.
+  2. Verifica se o filial padrão é fornecida.
+  3. Se sim, e a filial da região está vazia ou é igual a "99", associa os códigos, nome e propriedades da filial padrão.
+  4. Caso contrário, associa as propriedades da filial específica da região.
+- **Retorno**: Não há retorno, pois é um construtor.
 
-### Método: `Equals(object obj)`
-- **Objetivo**: Garantir que duas instâncias da classe `Regiao` são consideradas iguais se seus códigos de região e filial corresponderem.
-- **Comportamento**:
-  1. Verifica se o objeto passado é uma instância da classe `Regiao`.
-  2. Compara os códigos de região e filial das duas instâncias.
-  
-- **Retorno**: Retorna `true` se as duas instâncias tiverem os mesmos códigos; caso contrário, retorna `false`.
+### Override: `Equals(object obj)`
+- **Objetivo**: Garante a comparação correta entre instâncias da classe `Regiao` com base nos códigos de região e filial.
+- **Comportamento**: 
+  1. Verifica se o objeto passado é uma instância de `Regiao`.
+  2. Compara se `CodigoRegiao` e `CodigoFilial` são iguais.
+- **Retorno**: Retorna um booleano que indica se as duas regiões são consideradas iguais.
 
-### Método: `GetHashCode()`
-- **Objetivo**: Garantir que o código hash da instância seja baseado em seus atributos principais, facilitando o uso da classe em coleções que requerem hashing.
-- **Comportamento**:
-  1. Combina os códigos de região e filial em um único valor hash.
-  
-- **Retorno**: Retorna o valor hash gerado a partir dos atributos.
+### Override: `GetHashCode()`
+- **Objetivo**: Fornece um código hash consistente para a instância da classe, garantindo a eficácia em coleções baseadas em hash.
+- **Comportamento**: 
+  1. Utiliza `HashCode.Combine()` para gerar um código hash com base em `CodigoRegiao` e `CodigoFilial`.
+- **Retorno**: Retorna um código hash que representa a combinação dos dois valores.
 
 ## Propriedades Calculadas e de Validação
+- **NomeFilial**: Atribui a propriedade `NomeFilial` dependendo se `NomeExibicao` da filial está vazio ou não. Isso garante que o nome mais informativo seja sempre utilizado.
+- **IsFilialVirtual**: Essa propriedade é inicialmente definida com base se a filial associada é virtual, garantindo que o estado da filial seja corretamente refletido.
 
-Não há propriedades na classe `Regiao` que contenham lógica no `get` ou validação no `set`. As propriedades são anêmicas, com exceção da lógica contida no construtor.
-
-## Navigation Property
-
-- `Dominio.Entidades.Regiao` - [Regiao](../Entidades/Regiao.md)  
-- `Entidades.Filial` - [Filial](../Entidades/Filial.md)
+## Navigations Property
+- [Filial](Filial.md) - Representa a filial associada à região, podendo ser uma filial padrão ou específica.
 
 ## Tipos Auxiliares e Dependências
-
-- `Entidades.Regiao` - [Regiao](../Entidades/Regiao.md)
-- `Entidades.Filial` - [Filial](../Entidades/Filial.md)
+- `Dominio.Entidades.Regiao` - Representa os dados de uma região.
+- `Entidades.Filial` - Representa os dados de uma filial.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -59,11 +51,8 @@ classDiagram
         +string UFFilial
         +bool IsFilialVirtual
     }
-    
-    class Regiao {
-        <<Entity>>
-    }
-    
-    Regiao --> "1" Regiao : uses
-    Regiao --> "1" Filial : has
-```
+    Regiao --> "1" Filial : associa
+    Filial <|-- "0..1" Regiao : pode conter
+```  
+---
+Gerada em 29/12/2025 21:38:17

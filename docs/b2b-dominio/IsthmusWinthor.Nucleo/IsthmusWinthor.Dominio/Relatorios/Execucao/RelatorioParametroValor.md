@@ -2,4 +2,6 @@
 **Namespace**: IsthmusWinthor.Dominio.Relatorios.Execucao  
 **Nome do Arquivo**: RelatorioParametroValor.cs  
 
-A classe `RelatorioParametroValor` é um Data Transfer Object (DTO) utilizada para o transporte de dados relacionados aos parâmetros de um relatório. Seu objetivo principal é encapsular as informações necessárias de identificação e valor de parâmetros, facilitando a manipulação e a passagem de dados entre diferentes camadas do sistema.
+Esta classe é um Data Transfer Object (DTO), que serve para transportar dados relacionados aos parâmetros de um relatório.
+---
+Gerada em 29/12/2025 22:06:14

@@ -1,4 +1,4 @@
-#Documentação - Response
+# Response
 ## Conteúdo
 - [Card](Card.md)
 - [Charge](Charge.md)

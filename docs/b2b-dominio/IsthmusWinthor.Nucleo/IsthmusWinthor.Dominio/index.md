@@ -1,4 +1,4 @@
-#Documentação - IsthmusWinthor.Dominio
+# IsthmusWinthor.Dominio
 ## Conteúdo
 - [ContentTypeHelper](ContentTypeHelper.md)
 - [EmbalagemUtil](EmbalagemUtil.md)

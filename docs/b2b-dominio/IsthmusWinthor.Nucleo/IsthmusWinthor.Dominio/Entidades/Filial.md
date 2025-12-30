@@ -3,51 +3,46 @@
 **Nome do Arquivo**: Filial.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Filial` representa uma filial de uma distribuidora dentro do sistema. Ela é responsável por armazenar informações relevantes sobre cada unidade, como códigos, localização e atributos específicos que definem como essa filial opera dentro do contexto do sistema. A lógica de agrupamento de filiais e validação da propriedade baseada em JSON assegura que os dados relacionados às filiais sejam tratados de forma consistente e segura, aumentando a integridade dos dados e facilitando futuras operações de agrupamento e consulta.
+A classe `Filial` representa uma filial em um sistema de gestão, garantindo a integridade e estruturação das informações pertinentes a cada unidade. Ela resolve o problema de negócios de gerenciar múltiplas filiais, cada uma com suas características específicas, como CNPJ, endereço e agrupamento de estoque, permitindo uma visão consolidada e organizada do funcionamento de cada filial dentro da distribuidora.
 
 ## Métodos de Negócio
 
-### Título: `FiliaisAgrupamentoValorMinimo` (get/set)
-**Objetivo**: Este método gerencia a maneira como as filiais agrupadas são armazenadas e acessadas no sistema, assegurando que não haja duplicatas e que o código da filial atual não seja incluído na lista.
-
-**Comportamento**:
-1. Ao acessar a propriedade através do `get`, a classe tenta desserializar um JSON que contém a lista das filiais agrupadas.
-2. Se a desserialização for bem-sucedida, aplica as seguintes regras:
-   - Converte todos os códigos para letras maiúsculas.
-   - Remove duplicatas usando Distinct.
-   - Filtra para que o código da filial atual não esteja presente na lista.
-3. Se a desserialização falhar, retorna uma lista vazia.
-4. Ao definir a propriedade através do `set`, o método assegura que a lista não seja nula ou vazia. O valor é então serializado e armazenado em formato JSON.
-
-**Retorno**: O método retorna uma lista de strings que representa os códigos das filiais agrupadas, excluindo o código da filial atual.
+### Título: FiliaisAgrupamentoValorMinimo
+- **Visibilidade**: Público
+- **Objetivo**: Este método assegura que os agrupamentos de filiais sejam armazenados e retornados de maneira consistente e sem duplicações, evitando confusões em operações de agregação de dados.
+- **Comportamento**:
+    1. Ao acessar a propriedade `FiliaisAgrupamentoValorMinimo`, tentamos desserializar a string `FiliaisAgrupamentoValorMinimoJson` em uma lista de strings.
+    2. Se a string JSON estiver vazia ou nula, retornamos uma lista vazia.
+    3. Convertendo todos os elementos da lista para maiúsculas para garantir uniformidade.
+    4. Removendo duplicatas e o código da filial atual.
+    5. Retornamos a lista resultante.
+- **Retorno**: Retorna uma lista de strings contendo os códigos das filiais agrupadas, que não incluem a própria filial.
 
 ```mermaid
 flowchart TD
-    A[Início]
-    B{FiliaisAgrupamentoValorMinimoJson é nulo ou vazio?}
-    A --> B
-    B -- Sim --> C[Retorna lista vazia]
-    B -- Não --> D[Desserializa o JSON em lista]
-    D --> E{Lista não é duplicada?}
-    E -- Sim --> F[Converte para letras maiúsculas]
-    F --> G[Remove filial atual]
-    G --> H[Retorna lista resultante]
-    E -- Não --> G
-    C --> H
+    A[Início] --> B{FiliaisAgrupamentoValorMinimoJson vazio?}
+    B -->|Sim| C[Retornar List<string> vazia]
+    B -->|Não| D[Deserializar JSON]
+    D --> E[Converter para maiúsculas]
+    E --> F[Remover duplicatas e código atual]
+    F --> G[Retornar lista final]
 ```
 
 ## Propriedades Calculadas e de Validação
-### `FiliaisAgrupamentoValorMinimo`
-Esta propriedade possui uma lógica de validação que assegura a integridade dos dados ao assegurar que:
-- Não haja entradas duplicadas na lista de filiais agrupadas.
-- O código da filial atual não é incluído.
+
+### Propriedade: FiliaisAgrupamentoValorMinimo
+- **Regra**: Esta propriedade é calculada e não armazenada diretamente na base de dados. Ela transforma uma string JSON em uma lista de strings que representa os códigos das filiais agrupadas, removendo duplicatas e evitando incluir o código da própria filial, assegurando integridade e consistência dos dados.
 
 ## Navigations Property
-- [`Distribuidora`](Distribuidora.md)
-- [`FilialEstoque`](FilialEstoque.md)
+- [Distribuidora](Distribuidora.md)
+- [FilialEstoque](FilialEstoque.md)
+- [FiliaisEstoque](FiliaisEstoque.md)
+- [FiliaisMaster](FiliaisMaster.md)
 
 ## Tipos Auxiliares e Dependências
-- [JsonConvert](https://www.newtonsoft.com/json) (Biblioteca para manipulação de JSON)
+- **Enums**: Nenhum enumerador utilizado.
+- **Types**: 
+  - [JsonConvert](https://www.newtonsoft.com/json) - Classe auxiliar para serialização/deserialização de JSON.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -66,10 +61,13 @@ classDiagram
         +string Cidade
         +List<string> FiliaisAgrupamentoValorMinimo
     }
+    
     class Distribuidora
     class FilialEstoque
     
-    Filial --> "1" Distribuidora : " pertence a "
-    Filial --> "*" FilialEstoque : " contém "
-    Filial --> "*" FilialEstoque : " possui "
+    Filial --> Distribuidora : "possui"
+    Filial --> "0..*" FilialEstoque : "contém"
+    Filial --> "0..*" FilialEstoque : "master"
 ```
+---
+Gerada em 29/12/2025 20:31:34

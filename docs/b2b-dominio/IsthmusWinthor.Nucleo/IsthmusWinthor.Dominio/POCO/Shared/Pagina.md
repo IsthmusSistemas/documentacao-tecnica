@@ -2,4 +2,8 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO.Shared  
 **Nome do Arquivo**: Pagina.cs  
 
-A classe `Pagina` serve como um simples objeto de transferência de dados (DTO), destinado ao transporte de informações sobre páginas em um sistema. Ela contém apenas propriedades anêmicas e não possui lógica de negócios ou validações.
+Esta classe é um DTO (Data Transfer Object) utilizado para transportar dados relacionados a uma página em um sistema.
+
+---
+---
+Gerada em 29/12/2025 22:01:39

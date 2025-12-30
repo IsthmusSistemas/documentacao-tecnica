@@ -2,17 +2,19 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores.SafraPay  
 **Nome do Arquivo**: PaymentTypeEnum.cs  
 
-Esta enumeração define os tipos de pagamento disponíveis no sistema, especificamente para integrações relacionadas ao SafraPay.
+Este enumerador é utilizado para identificar os tipos de métodos de pagamento disponíveis na aplicação, essencial para garantir a integridade nas transações financeiras. 
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[PaymentTypeEnum](PaymentTypeEnum.md)`
+- Enumeradores:
+  - [PaymentTypeEnum](PaymentTypeEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PaymentTypeEnum {
-        + Credit
-        + Pix
+        +Credit
+        +Pix
     }
 ```
+---
+Gerada em 29/12/2025 21:08:46

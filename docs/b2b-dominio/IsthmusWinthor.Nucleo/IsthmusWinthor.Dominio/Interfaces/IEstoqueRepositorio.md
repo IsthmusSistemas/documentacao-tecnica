@@ -1,44 +1,46 @@
 # IEstoqueRepositorio
-
 **Namespace**: IsthmusWinthor.Dominio.Interfaces  
 **Nome do Arquivo**: IEstoqueRepositorio.cs  
 
 ## Visão Geral e Responsabilidade
-A interface `IEstoqueRepositorio` define um contrato para operações relacionadas ao acesso e recuperação de informações de estoque. Seu papel é fornecer métodos que garantam a integridade e a eficiência na consulta de estoque disponível para produtos específicos em diferentes distribuidoras. Ela aborda o problema de negócio de acesso a dados, permitindo que outros componentes da aplicação consultem o estado de estoque de forma organizada.
+A interface `IEstoqueRepositorio` atua como um contrato para operações de acesso a dados relacionadas ao estoque no contexto de um sistema de gestão de distribuição. Seu papel é garantir que as implementações possam recuperar informações sobre os produtos disponíveis em diferentes distribuidoras. Isso ajuda a manter a integridade dos dados relacionados ao estoque e facilita a manipulação de informações cruciais para a operação de um armazém ou distribuição.
 
 ## Métodos de Negócio
 
-### Obter (List<long>)
-- **Objetivo**: Este método assegura que é possível recuperar uma lista de objetos `Estoque` baseada em uma lista de IDs de produtos, garantindo o acesso a informações pertinentes sobre a disponibilidade dos produtos solicitados.
+### Título: Obter(List<long> produtosId) - Visibilidade: Public
+- **Objetivo**: Este método garante que seja possível obter informações do estoque para uma lista específica de produtos.
 - **Comportamento**: 
-  1. Recebe uma lista de IDs de produtos.
-  2. Consulta a base de dados ou armazenamento subjacente para encontrar os estoques correspondentes a esses IDs.
-  3. Retorna uma lista de objetos `Estoque`, que contém informações sobre a quantidade e o estado de cada produto solicitado.
-- **Retorno**: Retorna uma lista de `Estoque`, representando o estado atual dos produtos especificados.
+  1. Recebe uma lista de identificadores dos produtos (`produtosId`).
+  2. A implementação deve consultar a fonte de dados (ex: banco de dados) para buscar as informações dos estoques correspondentes a esses produtos.
+  3. Retorna uma lista de objetos `Estoque` que contém os dados dos estoques encontrados.
+- **Retorno**: Uma lista de objetos `Estoque`, representando os produtos solicitados.
 
-### Obter (long, List<long>)
-- **Objetivo**: Este método garante a recuperação dos estoques de produtos associados a uma distribuidora específica, permitindo consultas filtradas para gerenciar eficientemente o estoque conforme a localização ou distribuidora.
+### Título: Obter(long distribuidoraId, List<long> codigosProdutos) - Visibilidade: Public
+- **Objetivo**: Permite buscar informações de estoque em uma distribuidora específica com base em uma lista de códigos de produtos.
 - **Comportamento**:
-  1. Recebe um ID de distribuidora e uma lista de códigos de produtos.
-  2. Realiza a consulta na base de dados ou sistema de armazenamento para encontrar as informações de estoque associadas à distribuidora para os produtos fornecidos.
-  3. Retorna uma lista de objetos `Estoque` contendo a quantidade disponível e outros estados relevantes dos produtos.
-- **Retorno**: Retorna uma lista de `Estoque`, indicando a disponibilidade dos produtos sob a distribuidora especificada.
+  1. Recebe um identificador da distribuidora (`distribuidoraId`) e uma lista de códigos de produtos (`codigosProdutos`).
+  2. A implementação deve realizar uma consulta à fonte de dados, filtrando os estoques pela distribuidora e pelos códigos fornecidos.
+  3. Retorna uma lista de objetos `Estoque` contendo os dados relativos aos produtos requisitados na distribuidora especificada.
+- **Retorno**: Uma lista de objetos `Estoque` que corresponde à distribuição específica e aos códigos de produtos solicitados.
+
+## Navigations Property
+- Não existem Navigations Properties na interface `IEstoqueRepositorio`, pois ela atua apenas como um contrato de acesso a dados.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar foi identificado como dependência direta para a interface `IEstoqueRepositorio`. O foco está nas definições de métodos com a classe `Estoque`.
+- Classe Dependente: [Estoque](Estoque.md) - Necessária para representar o modelo de dados do estoque.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IEstoqueRepositorio {
+        <<interface>>
         +List<Estoque> Obter(List<long> produtosId)
         +List<Estoque> Obter(long distribuidoraId, List<long> codigosProdutos)
     }
     class Estoque {
-        <<Entity>>
+        // Propriedades do Estoque
     }
-    
-    IEstoqueRepositorio --> "0..*" Estoque : retrieves
+    IEstoqueRepositorio --> Estoque : retorna
 ```
-
-Esta documentação reflete as regras de negócio e a organização da interface `IEstoqueRepositorio`, focalizando a integridade de dados para acesso ao estoque em um sistema corporativo.
+---
+Gerada em 29/12/2025 21:15:59

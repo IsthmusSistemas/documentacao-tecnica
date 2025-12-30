@@ -1,79 +1,106 @@
 # Faixa
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: Faixa.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: Faixa.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Faixa` representa uma faixa de conteúdo associada a uma distribuidora no sistema. Sua principal responsabilidade é gerenciar informações sobre conteúdos exibidos, filtros de busca, tipos de soluções e layouts associados. Ela aborda a necessidade de apresentar informações de forma organizada e condicionalmente baseada em atributos como `DataInicial`, `DataFinal`, e `TipoFaixa`, garantindo que o conteúdo exibido ao usuário final seja sempre relevante e oportuno.
+A classe `Faixa` representa um conceito central no sistema, atuando na gestão de faixas exibidas pela distribuidora. Sua responsabilidade é definir as propriedades e comportamentos de uma faixa, controlando a exibição de conteúdos em um determinado intervalo de datas, e possibilitando a configuração de filtros e layouts associados. Isso resolve o problema de negócios de oferecer uma visualização personalizada e dinâmica de conteúdos, otimizando a interação do usuário com as ofertas disponíveis.
 
 ## Métodos de Negócio
 
-### Método: `ToFiltro()` - Visibilidade: `private`
-- **Objetivo**: Garante a conversão de um JSON armazenado na propriedade `FiltroBuscaJson` em uma lista de objetos `FiltroBusca`. Essa conversão só deve ocorrer se o campo de busca estiver habilitado (`PossuiCampoBusca`).
-- **Comportamento**:
-  1. Verifica se `FiltroBuscaJson` está vazio ou se `PossuiCampoBusca` é falso. Se sim, retorna uma lista vazia.
-  2. Utiliza `JsonConvert.DeserializeObject` para tentar transformar o JSON em uma lista de `FiltroBusca`.
-  3. Caso a deserialização falhe (exceção capturada), retorna uma lista vazia.
-- **Retorno**: Uma lista de objetos `FiltroBusca` a partir do JSON, ou uma lista vazia se o JSON estiver inválido ou se não houver campo de busca.
+### Título: `ToFiltro` - Visibilidade: `private`
+- **Objetivo:** Converte a string JSON armazenada em `FiltroBuscaJson` em uma lista de objetos do tipo `FiltroBusca`, garantindo que os filtros sejam apropriados e úteis.
+- **Comportamento:** 
+  1. Verifica se `FiltroBuscaJson` está vazio ou se `PossuiCampoBusca` é `false`. Se sim, retorna uma lista vazia.
+  2. Tenta desserializar `FiltroBuscaJson` para uma lista de `FiltroBusca`.
+  3. Se a desserialização falhar (exceção), retorna uma lista vazia.
+- **Retorno:** Retorna uma lista de `FiltroBusca`.
 
-### Método: `FromFiltro(List<FiltroBusca> filtros)` - Visibilidade: `private`
-- **Objetivo**: Garante a conversão de uma lista de `FiltroBusca` em um formato JSON, a ser armazenado na propriedade `FiltroBuscaJson`, novamente condicionado à habilitação do campo de busca.
-- **Comportamento**:
-  1. Verifica se a lista de filtros é nula, vazia ou se `PossuiCampoBusca` é falso. Se sim, retorna uma string vazia.
-  2. Serializa a lista de filtros em formato JSON utilizando `JsonConvert.SerializeObject`.
-  3. Se a serialização falhar (exceção capturada), retorna uma string vazia.
-- **Retorno**: Uma string representando a lista de filtros em formato JSON, ou uma string vazia se não for possível representar os filtros.
-
-### Visualização
 ```mermaid
 flowchart TD
-    A[Início]
-    B{FiltroBuscaJson vazio?}
-    C{PossuiCampoBusca?}
-    D[Retorna lista vazia]
-    E[Deserializa JSON]
-    F[Retorna lista de filtros]
-    G[Retorna lista vazia]
+    A[Início] --> B{FiltroBuscaJson Vazio?}
+    B -- Sim --> C[Retornar lista vazia]
+    B -- Não --> D{PossuiCampoBusca?}
+    D -- Não --> C
+    D -- Sim --> E[Tentar desserializar]
+    E --> F{Sucesso?}
+    F -- Não --> C
+    F -- Sim --> G[Retornar lista de FiltroBusca]
+```
 
-    A --> B
-    B -- Sim --> D
-    B -- Não --> C
-    C -- Não --> D
-    C -- Sim --> E
-    E -- Sucesso --> F
-    E -- Falha --> G
+### Título: `ListaTiposSolucoes` - Visibilidade: `public`
+- **Objetivo:** Retornar uma lista de tipos de soluções a partir da string `TiposSolucoes`, fornecendo flexibilidade na configuração de múltiplas soluções.
+- **Comportamento:** 
+  1. Verifica se `TiposSolucoes` está vazia. Se sim, retorna uma lista com um valor padrão.
+  2. Divide a string em partes, filtrando valores vazios e convertendo em `long`.
+  3. Converte cada `long` para `TipoSolucao` e retorna a lista resultante.
+  4. Em caso de exceções, retorna uma lista vazia.
+- **Retorno:** Retorna uma lista de `TipoSolucao`.
+
+```mermaid
+flowchart TD
+    A[Início] --> B{TiposSolucoes Vazio?}
+    B -- Sim --> C[Retornar lista com TipoSolucao.Value]
+    B -- Não --> D[Dividir TiposSolucoes]
+    D --> E[Filtrar e converter para long]
+    E --> F[Converter long para TipoSolucao]
+    F --> G[Retornar lista de TipoSolucao]
 ```
 
 ## Propriedades Calculadas e de Validação
-### Propriedades
-- `FiltrosBusca`: Esta propriedade calcula uma lista de `FiltroBusca` a partir do JSON `FiltroBuscaJson`. Se não houver filtros válidos, retorna uma lista vazia, garantindo assim que a lógica do sistema mantenha sempre dados válidos e corretos.
-- `ListaTiposSolucoes`: Calcula uma lista de `TipoSolucao` baseada na string armazenada na propriedade `TiposSolucoes`. Se a string estiver vazia, retorna uma lista com um valor padrão.
+### Propriedades:
+- **FiltrosBusca:** 
+  - É a representação em forma de lista de `FiltroBusca` que é derivada de `FiltroBuscaJson`. Se os dados de entrada não forem válidos, uma lista vazia é retornada.
+  
+- **ListaTiposSolucoes:**
+  - Representa os tipos de soluções extraídos da string `TiposSolucoes`. A ausência de dados resulta em um valor padrão.
 
-## Navigations Property
-- `[Distribuidora](Distribuidora.md)`
-- `[FaixaConteudo](FaixaConteudo.md)`
-- `[FaixaFiltro](FaixaFiltro.md)`
-- `[FaixaLayout](FaixaLayout.md)`
+## Navigation Property
+- **Distribuidora:** Representa uma relação de associação com a classe [Distribuidora](Distribuidora.md).
+- **Conteudo:** Coleção de itens do tipo [FaixaConteudo](FaixaConteudo.md).
+- **Filtros:** Coleção de itens do tipo [FaixaFiltro](FaixaFiltro.md).
+- **Layout:** Coleção de itens do tipo [FaixaLayout](FaixaLayout.md).
 
 ## Tipos Auxiliares e Dependências
-- `[TipoSolucao](TipoSolucao.md)`
-- `[LocalExibicao](LocalExibicao.md)`
-- `[TipoFaixa](TipoFaixa.md)`
-- `[TipoConteudo](TipoConteudo.md)`
-- `[FiltroBusca](FiltroBusca.md)`
+- **Enumeradores:**
+  - [TipoSolucao](TipoSolucao.md)
+  - [LocalExibicao](LocalExibicao.md)
+  - [TipoFaixa](TipoFaixa.md)
+  - [TipoConteudo](TipoConteudo.md)
+  
+- **Classes Estáticas/Helpers:**
+  - JsonConvert (do pacote Newtonsoft.Json)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Faixa {
         +long Id
+        +Distribuidora Distribuidora
+        +long DistribuidoraId
         +string Titulo
         +DateTime DataInicial
         +DateTime DataFinal
+        +TipoSolucao TipoSolucao
+        +LocalExibicao LocalExibicao
+        +TipoFaixa TipoFaixa
+        +TipoConteudo TipoConteudo
+        +ICollection<FaixaConteudo> Conteudo
+        +ICollection<FaixaFiltro> Filtros
+        +ICollection<FaixaLayout> Layout
         +bool PossuiCampoBusca
         +string FiltroBuscaJson
+        +bool OcultarTitulo
+        +List<FiltroBusca> FiltrosBusca
+        +int Ordem
+        +string Identificador
+        +string TiposSolucoes
+        +List<TipoSolucao> ListaTiposSolucoes
     }
+    
     Faixa --> Distribuidora
     Faixa --> FaixaConteudo
     Faixa --> FaixaFiltro
     Faixa --> FaixaLayout
 ```
+---
+Gerada em 29/12/2025 20:30:29

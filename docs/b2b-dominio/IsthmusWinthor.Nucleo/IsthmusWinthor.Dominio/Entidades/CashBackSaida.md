@@ -1,59 +1,47 @@
 # CashBackSaida
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: CashBackSaida.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: CashBackSaida.cs
 
 ## Visão Geral e Responsabilidade
-A classe `CashBackSaida` representa uma saída de cashback no sistema, associando valores que foram disponibilizados a partir de entradas de cashback. Sua principal responsabilidade é gerenciar as saídas relacionadas a um cashback específico, registrando informações como data de saída, valor da transação e status de corte no cashback. Esta classe é crucial para garantir a integridade dos dados financeiros associados ao cashback, permitindo uma melhor gestão e rastreamento das transações de saída.
+A classe `CashBackSaida` representa uma saída de cash back associada a uma entrada específica de cash back. Ela é responsável por gerenciar as saídas de valores que podem ocorrer, especialmente em um contexto onde os cash backs são aplicados em transações de vendas. Este modelo é crucial para garantir que os registros financeiros reflitam corretamente as operações de cash back realizadas, assegurando um controle adequado de entradas e saídas conforme as regras de negócio estabelecidas.
 
 ## Métodos de Negócio
-
-### Título: `AddCashBackSaidaItem` (Visibilidade: `public`)
-- **Objetivo**: Garante que os itens da saída de cashback sejam corretamente associados e registrados dentro da transação de saída.
-- **Comportamento**: 
-    1. Verifica se o item é válido e se a saída de cashback aceita novos itens.
-    2. Se a validação passar, adiciona o item à coleção de `CashBackSaidaItensPedidos`.
-    3. Atualiza a totalização da saída de cashback, se necessário.
-- **Retorno**: Retorna uma confirmação do sucesso da operação ou um erro caso a adição falhe.
-
-### VISUALIZAÇÃO:
-```mermaid
-flowchart TD
-    A[Início] --> B{Item Válido?}
-    B -- Sim --> C[Adicionar Item à Coleção]
-    C --> D{Atualizar Totalização?}
-    D -- Sim --> E[Atualizar Total]
-    E --> F[Fim]
-    D -- Não --> F
-    B -- Não --> G[Retornar Erro]
-    G --> F
-```
+### Título: **N/A** (A classe não possui métodos de negócio definidos no código fornecido)
+### Objetivo: N/A
+### Comportamento: N/A
+### Retorno: N/A
 
 ## Propriedades Calculadas e de Validação
-- **SofreuCorte**: Esta propriedade indica se a saída de cashback sofreu um corte. A lógica de controle de fluxo e validade de dados é aplicada para garantir que apenas as saídas que passaram pelo processo de corte sejam marcadas como tal.
-
+- **SofreuCorte**: Esta propriedade indica se a saída de cash back sofreu algum corte. A lógica de implementação garante que as saídas de cash back sejam registradas corretamente, estabelecendo se houve ou não restrições aplicadas a essa saída.
+  
 ## Navigations Property
-- `[CashBackEntrada](CashBackEntrada.md)`: Representa a entrada de cashback associada a esta saída.
-- `[CashBackSaidaItemPedido](CashBackSaidaItemPedido.md)`: Representa os itens de pedidos relacionados a esta saída de cashback.
+- [CashBackEntrada](CashBackEntrada.md): Esta propriedade representa a entrada de cash back associada, permitindo o rastreamento da origem do cash back.
+- [CashBackSaidaItemPedido](CashBackSaidaItemPedido.md): Esta coleção contém os itens de pedido associados a essa saída de cash back, permitindo um controle detalhado das transações.
 
 ## Tipos Auxiliares e Dependências
-- [IEntidade](IEntidade.md): Interface que esta classe implementa para ser reconhecida como uma entidade do domínio.
+- **Enums**: N/A
+- **Classes Estáticas/Helpers**: N/A
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CashBackSaida {
-        +long Id
-        +DateTime DataSaida
-        +decimal Valor
-        +bool SofreuCorte
-    }
-    class CashBackEntrada {
-        +long Id
-    }
-    class CashBackSaidaItemPedido {
-        +long Id
+        long Id
+        DateTime DataSaida
+        decimal Valor
+        bool SofreuCorte
     }
     
-    CashBackSaida --> CashBackEntrada : references
-    CashBackSaida o-- "0..*" CashBackSaidaItemPedido : contains
+    class CashBackEntrada {
+        long Id
+    }
+
+    class CashBackSaidaItemPedido {
+        long Id
+    }
+
+    CashBackSaida --> CashBackEntrada
+    CashBackSaida --> CashBackSaidaItemPedido
 ```
+---
+Gerada em 29/12/2025 20:19:31

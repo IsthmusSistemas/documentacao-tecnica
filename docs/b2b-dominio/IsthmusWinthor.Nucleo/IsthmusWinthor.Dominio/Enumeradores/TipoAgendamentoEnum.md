@@ -2,12 +2,11 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoAgendamentoEnum.cs  
 
-Este enum é utilizado para definir os tipos de agendamentos disponíveis no sistema, facilitando a categorização e identificação dos mesmos.
+Esta classe é um enumerador que define os tipos de agendamento utilizados no sistema, garantindo a integridade e legibilidade dos valores de agendamento.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[TipoAgendamentoEnum](TipoAgendamentoEnum.md)`
-
+- **TipoAgendamentoEnum**: Este é o próprio enumerador que representa as opções de agendamento.
+  
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
@@ -16,3 +15,6 @@ classDiagram
         +HorarioEspecifico
     }
 ```
+
+---
+Gerada em 29/12/2025 21:02:02

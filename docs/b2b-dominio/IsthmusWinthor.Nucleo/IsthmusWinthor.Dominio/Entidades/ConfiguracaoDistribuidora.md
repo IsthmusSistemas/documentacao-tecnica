@@ -1,23 +1,17 @@
 # ConfiguracaoDistribuidora
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: ConfiguracaoDistribuidora.cs
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: ConfiguracaoDistribuidora.cs
 
 ## Visão Geral e Responsabilidade
-A classe `ConfiguracaoDistribuidora` representa uma configuração associada a uma distribuidora específica no sistema. Sua principal responsabilidade é armazenar e gerenciar os parâmetros de configuração que permitem a personalização do comportamento das distribuidoras, permitindo que a lógica de negócios interaja com essas configurações de forma adequada. Esta classe responde à necessidade de vincular dados de configuração a uma distribuidora e possibilitar a gestão eficiente das operações comerciais.
+A classe `ConfiguracaoDistribuidora` representa uma configuração específica associada a uma distribuidora. O principal objetivo dessa classe é armazenar informações de configuração relevantes que podem afetar o comportamento e a operação de uma distribuidora, possibilitando que os sistemas que dependem dessas informações funcionem de maneira adequada e eficiente.
 
-## Métodos de Negócio
-*[Não existem métodos com lógica de negócios nesta classe.]*
-
-## Propriedades Calculadas e de Validação
-- **Valor**
-  - Regra: A propriedade `Valor` não possui lógica adicional no acesso, mas ele serve como uma forma de armazenar o valor configurável da distribuidora.
-
-## Navigation Property
-- `[Distribuidora](Distribuidora.md)`: Representa a distribuidora associada a esta configuração.
-- `[ConfiguracaoMetaDadosSolucao](ConfiguracaoMetaDadosSolucao.md)`: Representa a metadados relacionados à solução da configuração.
+## Navegação de Propriedades
+- [Distribuidora](Distribuidora.md)
+- [ConfiguracaoMetaDadosSolucao](ConfiguracaoMetaDadosSolucao.md)
 
 ## Tipos Auxiliares e Dependências
-- `IEntidade`: Interface que a classe `ConfiguracaoDistribuidora` implementa para garantir que ela tenha uma identidade única dentro do domínio.
+- **Enums**: Nenhum enumerador é utilizado diretamente nesta classe.
+- **Classes Estáticas/Helpers**: Nenhuma classe estática ou helper é utilizada diretamente nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -28,11 +22,18 @@ classDiagram
     }
     
     class Distribuidora {
+        +AplicacaoDados()
     }
 
     class ConfiguracaoMetaDadosSolucao {
+        +ObterDados()
     }
 
-    ConfiguracaoDistribuidora --> Distribuidora
-    ConfiguracaoDistribuidora --> ConfiguracaoMetaDadosSolucao
+    ConfiguracaoDistribuidora --> Distribuidora : tem
+    ConfiguracaoDistribuidora --> ConfiguracaoMetaDadosSolucao : possui
 ```
+
+### Observações Finais
+A classe `ConfiguracaoDistribuidora` é fundamental para garantir que informações cruciais referentes às distribuidoras sejam adequadamente gerenciadas, assegurando a integridade de dados e permitindo a personalização das operações da distribuidora conforme necessário.
+---
+Gerada em 29/12/2025 20:22:42

@@ -2,31 +2,17 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: SolicitacaoAssinatura.cs  
 
-## Visão Geral e Responsabilidade
-A classe `SolicitacaoAssinatura` representa um modelo de domínio que encapsula os detalhes de uma solicitação de assinatura dentro do contexto de um sistema de distribuição. Sua principal responsabilidade é armazenar informações relevantes sobre o módulo solicitado, a distribuidora envolvida, informações do usuário e o status da assinatura (se é uma versão de avaliação ou não). Isso permite que o sistema gerencie e processe solicitações de assinatura de maneira lógica e organizada, garantindo integridade nas operações de assinatura.
+A classe `SolicitacaoAssinatura` é um Data Transfer Object (DTO) que serve como um recipiente para transportar dados relacionados a uma solicitação de assinatura. 
 
-## Métodos de Negócio
-Não há métodos com lógica complexa definidos nesta classe, apenas propriedades para transporte de dados.
+### Propriedades
+- `long ModuloId`: Identificador do módulo associado à solicitação.
+- `long DistribuidoraId`: Identificador da distribuidora relacionada à solicitação.
+- `bool IsTrial`: Indica se a solicitação é uma versão de teste.
+- `string ModuloNome`: Nome do módulo associado à solicitação.
+- `string UsuarioNome`: Nome do usuário que faz a solicitação.
+- `long UsuarioId`: Identificador do usuário que faz a solicitação.
+- `string Guid`: Identificador global único para a solicitação.
 
-## Propriedades Calculadas e de Validação
-Não existem propriedades com lógica no `get` ou validação no `set` nesta classe.
-
-## Navigation Property
-- Não existem propriedades que sejam classes complexas do domínio nesta classe.
-
-## Tipos Auxiliares e Dependências
-- Nenhum enumerador (Enums) ou classes estáticas/helpers são utilizadas nesta classe.
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class SolicitacaoAssinatura {
-        +long ModuloId
-        +long DistribuidoraId
-        +bool IsTrial
-        +string ModuloNome
-        +string UsuarioNome
-        +long UsuarioId
-        +string Guid
-    }
-```
+Essa classe é utilizada para transportar dados entre diferentes partes do sistema, sem incluir regras de negócio ou lógica complexa.
+---
+Gerada em 29/12/2025 21:39:01

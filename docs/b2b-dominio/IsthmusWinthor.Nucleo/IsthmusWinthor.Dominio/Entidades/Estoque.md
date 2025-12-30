@@ -3,21 +3,21 @@
 **Nome do Arquivo**: Estoque.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Estoque` representa uma entidade do domínio responsável por gerenciar a quantidade de produtos disponíveis em uma ou mais filiais de um sistema de inventário. Sua principal responsabilidade é controlar a disponibilidade de produtos, permitindo operações que garantam que o estoque refletirá adequadamente as quantidades reais, facilitando a gestão de suprimentos e a operação em várias localizações.
+A classe `Estoque` representa a entidade de controle de estoque para produtos em uma ou mais filiais. Ela é responsável por manter o estado atual do inventário disponível de um determinado produto, além de associar a informação a diferentes filiais. O problema de negócio que `Estoque` resolve é a necessidade de gerenciar a quantidade de produtos disponíveis e o rastreamento de onde esses produtos estão localizados, permitindo uma eficiente administração do inventário e controle logístico.
 
 ## Métodos de Negócio
-Neste momento, a classe `Estoque` não contém métodos com lógica de negócios complexa que necessitem documentação específica. Os métodos a serem focados devem ser implementados em um futuro próximo, com base nas regras de gestão de estoque.
+Nessa classe, não existem métodos com lógica de negócio complexa a serem documentados, dado que a funcionalidade é essencialmente de armazenamento de dados.
 
 ## Propriedades Calculadas e de Validação
-- **EstoqueDisponivel**: Esta propriedade deve ser acompanhada de regras de validação ao definir a lógica de negócios para evitar que valores negativos sejam registrados. Uma regra ideal seria garantir que, ao atualizá-la, o valor não se torne inferior a zero. 
+Atualmente, esta classe não possui propriedades com lógica no `get` ou validação no `set`; todas as propriedades são de acesso direto.
 
-## Navigations Property
-- `[Produto](Produto.md)`
-- `[Filial](Filial.md)`
-- `[FilialRetira](Filial.md)`
+## Navigation Property
+- [Produto](Produto.md): Classe complexa que representa o produto associado ao estoque.
+- [Filial](Filial.md): Classe complexa que representa a filial onde o estoque é armazenado.
+- [FilialRetira](Filial.md): Classe complexa que representa a filial de onde o estoque pode ser retirado.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe estática/auxiliar é utilizado diretamente na classe `Estoque`.
+- Não são utilizados Enums ou Classes Estáticas/Helpers nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -38,7 +38,9 @@ classDiagram
         +string Nome
     }
 
-    Estoque --> Produto : contém
-    Estoque --> Filial : localizado em
-    Estoque --> Filial : retirado de
+    Estoque --> Produto
+    Estoque --> Filial
+    Estoque --> FilialRetira
 ```
+---
+Gerada em 29/12/2025 20:29:51

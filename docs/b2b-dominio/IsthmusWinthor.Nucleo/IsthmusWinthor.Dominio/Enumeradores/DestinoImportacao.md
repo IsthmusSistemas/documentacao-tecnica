@@ -2,18 +2,9 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: DestinoImportacao.cs  
 
-O `DestinoImportacao` é um enumerador que define as categorias de destino para operações de importação dentro do sistema, permitindo a organização e o direcionamento correto dos dados importados.
+Este é um enumerador que define os tipos de destinos possíveis para importação de dados no sistema. 
 
 ## Tipos Auxiliares e Dependências
-- `DestinoImportacao`: Enum que categoriza os destinos disponíveis para importação de dados.
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class DestinoImportacao {
-        + Produtos
-        + Clientes
-    }
-``` 
-
-Essa estrutura documenta o enumerador de forma clara e concisa, destacando sua função no contexto geral do sistema.
+- Enum: [DestinoImportacao](DestinoImportacao.md) - Representa os destinos que podem ser utilizados durante o processo de importação, como 'Produtos' e 'Clientes'.
+---
+Gerada em 29/12/2025 20:54:04

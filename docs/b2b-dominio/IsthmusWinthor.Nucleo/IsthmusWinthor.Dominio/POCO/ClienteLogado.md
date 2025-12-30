@@ -1,62 +1,72 @@
 # ClienteLogado
-**Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: ClienteLogado.cs  
+- **Namespace**: IsthmusWinthor.Dominio.POCO
+- **Nome do Arquivo**: ClienteLogado.cs
 
 ## Visão Geral e Responsabilidade
-A classe `ClienteLogado` representa um cliente que está autenticado no sistema e contém informações detalhadas sobre ele, incluindo dados pessoais, informações de contato e configurações específicas de acesso. Esta classe é crucial para gerenciar o estado do cliente em interações com a plataforma, permitindo a aplicação de regras de negócios como gerenciamento de permissões de acesso e configuração de planos de pagamento, essencial para o seu funcionamento.
+A classe `ClienteLogado` representa um cliente autenticado no sistema, armazenando informações detalhadas sobre sua identidade, perfil e condições de venda. Ela é fundamental para controlar o acesso às funcionalidades do sistema e garantir que a lógica de precificação e regras de negócios sejam aplicadas corretamente, de acordo com a natureza do cliente e suas preferências.
 
 ## Métodos de Negócio
 
-### RegistrarAnalytics
-- **Objetivo**: Determina se o cliente possui permissão para registrar análises com base em seu perfil de login.
-- **Comportamento**: Avalia se o `PerfilLogin` é do tipo `Cliente` ou `ContatoB2B`. Se for, o método retorna `true`, indicando a capacidade de registrar análises; caso contrário, retorna `false`.
-- **Retorno**: `bool` que indica se o cliente pode registrar analytics.
+### Título: ObterUFsParaCampanhas (private)
+- **Objetivo**: Garante que as campanhas sejam aplicadas apenas às unidades federativas corretas, levando em consideração condições específicas do cadastro do cliente.
+- **Comportamento**: 
+  1. Verifica a condição de `usarSomenteUFCadastro`.
+  2. Se for verdadeiro, retorna uma lista contendo apenas a unidade federativa (`Uf`) do cliente.
+  3. Se for falso, retorna uma lista de todas as unidades federativas associadas às regiões do cliente, através da propriedade `Regioes`.
+- **Retorno**: Retorna uma coleção de strings representando as unidades federativas que podem ser usadas nas campanhas.
 
-### ObterUFsParaCampanhas
-- **Objetivo**: Recupera as UFs (Unidades Federativas) aplicáveis para campanhas de marketing.
-- **Comportamento**: Verifica se a opção `usarSomenteUFCadastro` está habilitada. Se sim, retorna uma lista contendo somente a UF do cliente. Caso contrário, retorna uma lista com as UFs das regiões associadas ao cliente.
-- **Retorno**: `IEnumerable<string>` com as UFs que podem ser utilizadas nas campanhas.
+### Título: RegistrarAnalytics
+- **Objetivo**: Determina se as informações de analytics devem ser registradas com base no perfil do cliente.
+- **Comportamento**: 
+  1. Verifica se o `PerfilLogin` é `Cliente` ou `ContatoB2B`.
+  2. Retorna verdadeiro se a condição for atendida, caso contrário, retorna falso.
+- **Retorno**: Retorna um valor booleano que indica se o cliente está em um perfil que permite o registro de analytics.
+
+### Título: PlanoPagamentoPadrao
+- **Objetivo**: Retorna o plano de pagamento padrão para o cliente com base no tipo solicitado.
+- **Comportamento**:
+  1. Pesquisa na lista `PlanosPagamentoPadroes` pelo plano que corresponde ao `tipoPlano` fornecido.
+  2. Se não encontrar nenhuma correspondência, retorna o plano de pagamento padrão.
+- **Retorno**: Retorna um objeto `PlanoPagamento` correspondente ao tipo solicitado ou o plano padrão se não houver correspondência.
+
+### Título: IsLoginSistemaAutorizacao
+- **Objetivo**: Identifica se o login atual está utilizando o sistema de autorização.
+- **Comportamento**:
+  1. Verifica se o `PerfilLogin` é `Autorizacao` ou `Chatbot`.
+  2. Confirma se `DadosAcessoSistemaConsumidorB2B` não é nulo.
+- **Retorno**: Retorna um valor booleano que indica se o login foi efetuado através do sistema de autorização.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{usarSomenteUFCadastro}
-    B -- Sim --> C[Retornar Uf]
-    B -- Não --> D[Obter UFs das Regiões]
-    D --> E[Retornar UFs]
+    A[Início] --> B{Caso usarSomenteUFCadastro?}
+    B -->|Sim| C[Retorna lista com apenas Uf]
+    B -->|Não| D[Retorna lista de UFs das Regiões]
 ```
-
-### PlanoPagamentoPadrao
-- **Objetivo**: Fornece o plano de pagamento padrão baseado no tipo especificado.
-- **Comportamento**: Procura na lista de `PlanosPagamentoPadroes` pelo plano que corresponde ao `tipoPlano` recebido. Caso nenhum plano correspondente seja encontrado, retorna o plano padrão.
-- **Retorno**: `PlanoPagamento` correspondente ao tipo solicitado ou um plano padrão.
-
-### IsLoginSistemaAutorizacao
-- **Objetivo**: Verifica se o login realizado é através do sistema de autorização ou chatbot.
-- **Comportamento**: Avalia se o `PerfilLogin` é igual a `Autorizacao` ou `Chatbot` e se `DadosAcessoSistemaConsumidorB2B` não é nulo. Retorna `true` se ambas as condições forem atendidas.
-- **Retorno**: `bool` que indica se o login é um login de sistema de autorização.
 
 ## Propriedades Calculadas e de Validação
 
-### PerfilLoginCarrinhoCompras
-- **Regra**: Retorna `Cliente` se o `PerfilLogin` for `Chatbot`; caso contrário, retorna o valor atual de `PerfilLogin`.
+### `PerfilLoginCarrinhoCompras`
+- **Regra**: Se o `PerfilLogin` for `Chatbot`, deve retornar `Cliente` para o perfil na lógica de carrinho de compras. Caso contrário, retorna o `PerfilLogin` atual.
 
-### IdentificadoPerfilCarrinhoCompras
-- **Regra**: Retorna `IdentificadoPerfilCliente` caso não esteja vazio e se o `PerfilLogin` for `Chatbot`; do contrário, retorna `IdentificadoPerfilLogin`.
+### `IdentificadoPerfilCarrinhoCompras`
+- **Regra**: Se `IdentificadoPerfilCliente` estiver preenchido e o `PerfilLogin` for `Chatbot`, retorna `IdentificadoPerfilCliente`, caso contrário retorna `IdentificadoPerfilLogin`.
 
 ## Navigations Property
-- `[Cobranca](Cobranca.md)`
-- `[EnderecoEntrega](EnderecoEntrega.md)`
-- `[DadosAcessoRepresentante](DadosAcessoRepresentante.md)`
-- `[DadosAcessoContatoB2B](DadosAcessoContatoB2B.md)`
-- `[DadosAcessoSistemaConsumidorB2B](DadosAcessoSistemaConsumidorB2B.md)`
-- `[Regiao](Regiao.md)`
-- `[PlanoPagamento](PlanoPagamento.md)`
+- [PlanoPagamento](PlanoPagamento.md)
+- [Regiao](Regiao.md)
+- [Cobranca](Cobranca.md)
+- [EnderecoEntrega](EnderecoEntrega.md)
+- [DadosAcessoRepresentante](DadosAcessoRepresentante.md)
+- [DadosAcessoContatoB2B](DadosAcessoContatoB2B.md)
+- [DadosAcessoSistemaConsumidorB2B](DadosAcessoSistemaConsumidorB2B.md)
+- [RegiaoPadrao](Regiao.md) 
 
 ## Tipos Auxiliares e Dependências
-- `[PerfilLoginEnum](PerfilLoginEnum.md)`
-- `[TipoPlanoPagamento](TipoPlanoPagamento.md)`
-- `[ERPEnum](ERPEnum.md)`
-- `[TipoVendedor](TipoVendedor.md)`
+- [PerfilLoginEnum](PerfilLoginEnum.md)
+- [TipoPlanoPagamento](TipoPlanoPagamento.md)
+- [TipoVendedor](TipoVendedor.md)
+- [ERPEnum](ERPEnum.md)
+- [Regiao](Regiao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -65,31 +75,30 @@ classDiagram
         +long Id
         +long Codigo
         +string NomeCliente
-        +string Email
-        +string Telefone
         +bool AcessoLiberado
-        +bool PessoaJuridica
-        +decimal PercentualRamoAtividade
-        +decimal PercentualCliente
-        +string Uf
-        +Regiao RegiaoPadrao
+        +PerfilLoginEnum PerfilLogin
         +PlanoPagamento PlanoPagamentoPadrao(TipoPlanoPagamento tipoPlano)
-        +bool RegistrarAnalytics()
         +bool IsLoginSistemaAutorizacao()
     }
+    
+    class PlanoPagamento
+    class Regiao
     class Cobranca
     class EnderecoEntrega
     class DadosAcessoRepresentante
     class DadosAcessoContatoB2B
     class DadosAcessoSistemaConsumidorB2B
-    class Regiao
-    class PlanoPagamento
-    
+
+    ClienteLogado --> PlanoPagamento
+    ClienteLogado --> Regiao
     ClienteLogado --> Cobranca
     ClienteLogado --> EnderecoEntrega
     ClienteLogado --> DadosAcessoRepresentante
     ClienteLogado --> DadosAcessoContatoB2B
     ClienteLogado --> DadosAcessoSistemaConsumidorB2B
-    ClienteLogado --> Regiao
-    ClienteLogado --> PlanoPagamento
+    ClienteLogado --> PerfilLoginEnum
+    ClienteLogado --> TipoPlanoPagamento
+    ClienteLogado --> ERPEnum
 ```
+---
+Gerada em 29/12/2025 21:29:58

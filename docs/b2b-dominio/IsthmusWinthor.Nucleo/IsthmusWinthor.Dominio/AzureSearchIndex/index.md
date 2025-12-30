@@ -1,4 +1,4 @@
-#Documentação - AzureSearchIndex
+# AzureSearchIndex
 ## Conteúdo
 - [AcoesIndex](AcoesIndex.md)
 - [IElementoIndex](IElementoIndex.md)

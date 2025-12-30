@@ -1,35 +1,44 @@
 # StorageExtensions
+
 **Namespace**: IsthmusWinthor.Dominio.Extensions  
-**Nome do Arquivo**: StorageExtensions.cs  
+**Nome do Arquivo**: StorageExtensions.cs
 
 ## Visão Geral e Responsabilidade
-A classe `StorageExtensions` fornece métodos de extensão para manipulação de URLs, permitindo a atualização de links de armazenamento em nuvem. O principal problema de negócio que essa classe resolve é garantir que todos os links utilizados nos dados do sistema sejam atualizados para um único domínio atual, evitando erros de referência a domínios obsoletos.
+A classe `StorageExtensions` tem como principal responsabilidade o fornecimento de métodos de extensão para manipulação de URLs de armazenamento. Ela resolve o problema de garantir que qualquer URL de domínio antigo presente em um conteúdo seja substituído pelo domínio atual. Isso é essencial para a manutenção da integridade dos dados, evitando referências a domínios obsoletos e assegurando que o acesso aos recursos seja sempre feito através do domínio vigente.
 
 ## Métodos de Negócio
 
 ### Título: AssertStorage (public)
-- **Objetivo**: Garante que o conteúdo de texto fornecido contenha URLs corretas, substituindo domínios antigos pelo domínio atual.
-- **Comportamento**:
-  1. Verifica se o conteúdo é nulo ou vazio; se sim, retorna o conteúdo como está.
-  2. Itera sobre a lista de domínios antigos.
-  3. Para cada domínio antigo, substitui ocorrências desse domínio no `conteudo` pelo domínio atual, ignorando letras maiúsculas e minúsculas.
-  4. Retorna o conteúdo atualizado.
-- **Retorno**: O conteúdo de texto com todos os domínios antigos substituídos pelo domínio atual. Se não houver alterações, o conteúdo original é retornado.
+
+#### Objetivo
+Garante que um conteúdo que contém URLs de domínios antigos seja atualizado para o domínio atual.
+
+#### Comportamento
+1. A função verifica se o `conteudo` passado como parâmetro é nulo ou vazio. Se for, retornará imediatamente o `conteudo` sem alterações.
+2. Se o `conteudo` tiver valor, a função itera sobre a lista de domínios antigos.
+3. Para cada domínio antigo encontrado, o método substitui todas as ocorrências desse domínio na string `conteudo` pelo domínio atual (`_dominioAtual`).
+4. Por fim, retorna o `conteudo` modificado.
+
+#### Retorno
+Retorna uma string que representa o `conteudo` atualizado, com todas as referências a domínios antigos substituídas pelo domínio atual.
 
 ## Propriedades Calculadas e de Validação
-Nenhuma propriedade calculada ou de validação está presente nesta classe, uma vez que ela se restringe a métodos estáticos.
+- A classe não possui propriedades com lógica no `get` ou validação no `set`, pois trata-se de uma classe estática com métodos de extensão.
 
-## Navigation Property
-Nenhuma Navigation Property é definida nesta classe, pois todos os métodos pertencem à lógica de extensão e não interagem diretamente com outras classes do domínio.
+## Navigations Property
+- Não há propriedades de navegação, pois a classe contém apenas métodos e não referencia outras classes do domínio.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador (enum) ou classe estática/helper é utilizado nesta classe, visto que ela não depende de outras entidades.
+- Não há enumeradores ou classes estáticas/helpers que a classe utiliza, uma vez que é uma classe de extensão simples.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class StorageExtensions {
-        +AssertStorage(conteudo: string): string
+        +string AssertStorage(string conteudo)
     }
-```
+``` 
 
+Essa documentação fornece uma visão clara sobre a funcionalidade e a responsabilidade da classe `StorageExtensions`, descrevendo sua lógica de negócio e assegurando a integridade dos dados durante a substituição de domínios antigos.
+---
+Gerada em 29/12/2025 21:12:04

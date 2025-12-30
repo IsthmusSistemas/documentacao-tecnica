@@ -1,4 +1,4 @@
-#Documentação - Response
+# Response
 ## Conteúdo
 - [CaptureResponseSafraPay](CaptureResponseSafraPay.md)
 - [Card](Card.md)

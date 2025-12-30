@@ -1,4 +1,4 @@
-#Documentação - SafraPay
+# SafraPay
 ## Conteúdo
 - [SafraPayAccessToken](SafraPayAccessToken.md)
 - [Cancelamentos/](Cancelamentos//index.md)

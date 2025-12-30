@@ -1,41 +1,66 @@
 # TimeSpanJsonConverter
-- **Namespace**: IsthmusWinthor.Dominio.JsonSerializers
-- **Nome do Arquivo**: TimeSpanJsonConverter.cs
+**Namespace**: IsthmusWinthor.Dominio.JsonSerializers  
+**Nome do Arquivo**: TimeSpanJsonConverter.cs  
 
-Esta classe é responsável pelo processo de leitura e escrita de valores do tipo `TimeSpan?` no formato JSON, atuando como um conversor que facilita a manipulação de dados temporais em objetos JSON.
+## Visão Geral e Responsabilidade
+A classe `TimeSpanJsonConverter` é responsável pela serialização e desserialização de valores do tipo `TimeSpan?` para o formato JSON. Ela garante a integridade dos dados ao assegurar que as representações de intervalos de tempo sejam convertidas corretamente entre o formato textual e o formato de dados do aplicativo, abordando a necessidade de intercâmbio de dados na camada de domínio.
 
 ## Métodos de Negócio
 
-### 1. Read - `public override TimeSpan? Read(...)`
-- **Objetivo**: Este método assegura que um valor de `TimeSpan?` pode ser lido corretamente a partir de uma string JSON, interpretando o formato específico de horas, minutos e segundos.
+### 1. Read 
+- **Visibilidade**: Public
+- **Objetivo**: Garantir que uma string JSON seja convertida para um valor `TimeSpan?` corretamente, respeitando o formato específico de horas, minutos e segundos.
 - **Comportamento**:
-  1. Verifica se a string lida do `Utf8JsonReader` é nula ou vazia.
-  2. Se for, retorna `null`.
-  3. Caso contrário, utiliza `TimeSpan.ParseExact` para converter a string lida para um objeto `TimeSpan`, seguindo o formato "hh:mm:ss".
-- **Retorno**: Retorna um objeto `TimeSpan?` que representa o valor lido, podendo ser `null` ou uma instância de `TimeSpan`.
+  1. O método lê uma string do leitor JSON.
+  2. Se a string estiver vazia ou nula, retorna null.
+  3. Caso contrário, utiliza `TimeSpan.ParseExact` para converter a string no formato @"hh\:mm\:ss".
+- **Retorno**: Um valor do tipo `TimeSpan?`. Pode ser null se a string de entrada for vazia ou nula; caso contrário, retorna o `TimeSpan` correspondente.
 
-### 2. Write - `public override void Write(...)`
-- **Objetivo**: Este método garante que um valor de `TimeSpan?` seja escrito no formato apropriado para JSON.
+```mermaid
+flowchart TD
+    A["Início"] --> B{"A string é nula ou vazia?"}
+    B -->|Sim| C["Retornar null"]
+    B -->|Não| D["Converter a string usando TimeSpan.ParseExact"]
+    D --> E["Retornar TimeSpan resultante"]
+```
+
+### 2. Write 
+- **Visibilidade**: Public
+- **Objetivo**: Converter um valor `TimeSpan?` para uma representação de string JSON, respeitando o formato de horas, minutos e segundos.
 - **Comportamento**:
-  1. Verifica se `timeSpanValue` é nulo.
-  2. Se for nulo, escreve uma string vazia no JSON.
-  3. Caso contrário, transforma o `TimeSpan` em string no formato "hh:mm:ss" e escreve no JSON.
-- **Retorno**: Não retorna nenhum valor, mas modifica o JSON escrita no `Utf8JsonWriter`.
+  1. Verifica se o `timeSpanValue` é null.
+  2. Se for null, escreve uma string vazia no writer JSON.
+  3. Caso contrário, converte `timeSpanValue` para a string no formato @"hh\:mm\:ss" e escreve no writer.
+- **Retorno**: Este método não retorna um valor, mas sim escreve diretamente no escritor JSON.
+
+```mermaid
+flowchart TD
+    A["Início"] --> B{"timeSpanValue é null?"}
+    B -->|Sim| C["Escrever string vazia no writer"]
+    B -->|Não| D["Converter e escrever no writer"]
+```
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica de cálculo ou validação a serem descritas nesta classe.
+- A classe não possui propriedades calculadas ou de validação, uma vez que sua responsabilidade é a conversão e não a modelagem de dados.
 
 ## Navigations Property
-Não há propriedades do domínio que sejam classes complexas nesta classe.
+- A classe `TimeSpanJsonConverter` não possui propriedades de navegação, pois atua apenas como um conversor para o tipo `TimeSpan?`.
 
 ## Tipos Auxiliares e Dependências
-- `CultureInfo`: Utilizada para garantir que a análise do `TimeSpan` ocorra utilizando informações culturais invariantes.
-  
+- Esta classe não possui dependências em Enums ou classes auxiliares complexas, mas utiliza a classe `CultureInfo` do namespace `System.Globalization`.
+
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TimeSpanJsonConverter {
-        +TimeSpan? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-        +void Write(Utf8JsonWriter writer, TimeSpan? timeSpanValue, JsonSerializerOptions options)
+        +Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options): TimeSpan?
+        +Write(Utf8JsonWriter writer, TimeSpan? timeSpanValue, JsonSerializerOptions options): void
     }
+
+    class CultureInfo {
+    }
+
+    TimeSpanJsonConverter --> CultureInfo
 ```
+---
+Gerada em 29/12/2025 21:19:08

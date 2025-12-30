@@ -2,36 +2,41 @@
 **Namespace**: IsthmusWinthor.Dominio.Exceptions  
 **Nome do Arquivo**: FormularioException.cs  
 
-Esta classe representa uma exceção específica que pode ocorrer em situações relacionadas à validação de formularários na aplicação. Ela permite uma melhor identificação e tratamento de erros que surgem durante a manipulação e validação de dados de entrada de um formulário. 
+A classe `FormularioException` é uma exceção personalizada que tem como propósito encapsular erros relacionados a formulários dentro do domínio da aplicação. Ela permite que erros específicos de manipulação de formulários sejam lançados e tratados de maneira adequada, contribuindo para uma gestão de erros mais eficiente e específica no contexto da aplicação.
 
 ## Métodos de Negócio
-### Title: FormularioException (Construtor)
-- **Objetivo**: Este método é responsável por inicializar uma nova instância da classe `FormularioException`, fornecendo uma mensagem de erro relevante. 
-- **Comportamento**: Ao instanciar a classe, a mensagem passada é repassada para o construtor da classe base `Exception`, que gerencia a exibição dessa mensagem quando a exceção é tratada.
-- **Retorno**: Este método não retorna valor, mas cria uma nova instância de `FormularioException` que pode ser utilizada pelo sistema para sinalizar erros específicos.
+### Título: `FormularioException(string mensagem)` - Public
+- **Objetivo**: Este construtor garante que uma mensagem de erro específica possa ser fornecida ao criar uma instância da `FormularioException`, facilitando a identificação e tratamento de erros no contexto do formulário.
+- **Comportamento**: 
+  1. A classe herda de `Exception`, permitindo que todos os comportamentos de exceção padrão sejam retidos.
+  2. O construtor chama o construtor base da classe `Exception`, passando a mensagem personalizada. Essa mensagem será utilizada para descrever o erro que ocorreu.
+- **Retorno**: Não há valor retornado, pois o construtor é utilizado para instanciar a classe `FormularioException`.
 
-### Title: FormularioException (Construtor de Serialização)
-- **Objetivo**: Este método é utilizado em situações onde a exceção precisa ser serializada, por exemplo, ao transferir a exceção entre diferentes domínios de aplicação ou ao armazenar em um arquivo de log.
-- **Comportamento**: Ele recupera informações de serialização e chamadas à classe base para garantir que todos os dados contextuais da exceção sejam mantidos.
-- **Retorno**: Este método não retorna valor, mas é utilizado para manter a integridade da exceção quando serializada.
+### Título: `FormularioException(SerializationInfo info, StreamingContext context)` - Protected
+- **Objetivo**: Este construtor é responsável por permitir a desserialização da exceção, garantindo que a informação da exceção possa ser restaurada em um contexto onde a `FormularioException` foi previamente serializada.
+- **Comportamento**: 
+  1. O construtor passa as informações de serialização para o construtor base da classe `Exception`, assegurando que todos os dados relevantes sejam devidamente restaurados.
+- **Retorno**: Não há valor retornado, pois o construtor é utilizado para instanciar a classe `FormularioException` durante o processo de desserialização.
 
 ## Propriedades Calculadas e de Validação
-Nenhuma propriedade com lógica de cálculo ou validação é presente nesta classe.
+- Esta classe não possui propriedades que envolvem lógica de cálculo ou validação.
 
 ## Navigations Property
-Nenhuma propriedade complexa do domínio é presente nesta classe.
+- Não há propriedades complexas do domínio ou navegações nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar é utilizado nesta classe. 
+- Esta classe não possui enumeradores (enums) ou classes estáticas/helpers que utilize.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FormularioException {
-        +FormularioException(string mensagem)
-        +FormularioException(SerializationInfo info, StreamingContext context)
+        <<Exception>>
+        + FormularioException(string mensagem)
+        + FormularioException(SerializationInfo info, StreamingContext context)
     }
-    FormularioException <|-- Exception
 ```
 
-Este diagrama resume a relação da `FormularioException` com sua classe base `Exception`, representando sua herança.
+Esta documentação reflete a lógica e regras de negócio associadas à classe `FormularioException`, evidenciando seu papel como uma exceção específica para o contexto de formulários na aplicação.
+---
+Gerada em 29/12/2025 21:10:18

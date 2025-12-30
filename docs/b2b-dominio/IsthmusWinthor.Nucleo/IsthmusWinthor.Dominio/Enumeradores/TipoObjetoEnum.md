@@ -2,20 +2,10 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoObjetoEnum.cs  
 
-O `TipoObjetoEnum` é um enumerador que define os tipos disponíveis para um objeto no sistema, facilitando a categorização eficaz e o tratamento lógico dos objetos.
+Este enumerador é utilizado para categorizar objetos dentro do domínio, permitindo distinções claras entre tipos que influenciam nas regras de negócio em contextos específicos.
 
 ## Tipos Auxiliares e Dependências
 - **Enumeradores**:
-  - `TipoObjetoEnum`: Representa os tipos de objeto possíveis, que são:
-    - `Nativo`: Indica um objeto simples ou primitivo.
-    - `Complexo`: Indica um objeto que pode conter múltiplas características ou propriedades relacionadas.
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class TipoObjetoEnum {
-        <<enumeration>>
-        Nativo
-        Complexo
-    }
-```
+  - [TipoObjetoEnum](TipoObjetoEnum.md)
+---
+Gerada em 29/12/2025 21:05:39

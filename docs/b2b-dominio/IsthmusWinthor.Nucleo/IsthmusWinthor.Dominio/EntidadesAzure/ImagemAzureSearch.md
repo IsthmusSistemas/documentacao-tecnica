@@ -1,35 +1,34 @@
 # ImagemAzureSearch
-
 **Namespace**: IsthmusWinthor.Dominio.EntidadesAzure  
 **Nome do Arquivo**: ImagemAzureSearch.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ImagemAzureSearch` é um modelo rico de domínio que representa uma imagem dentro do contexto de um índice de busca no Azure. Seu principal papel é garantir que as informações sobre a imagem, como suas propriedades e ações, sejam corretamente integradas e estruturadas para operações de indexação e busca. Ela resolve o problema de gerenciamento eficiente de metadados relacionados a imagens no sistema, assegurando que todas as informações relevantes sejam mantidas de forma consistente.
+A classe `ImagemAzureSearch` atua como um modelo de domínio rico que representa uma imagem armazenada em um índice de busca do Azure. A principal responsabilidade desta classe é encapsular as propriedades e comportamentos relacionados a uma imagem, permitindo sua manipulação e representação no sistema. Ela facilita o gerenciamento de dados de imagem, como o conteúdo, o tipo e a relação com a distribuidora, assegurando que os dados estejam formatados corretamente para serem indexados na busca. Essa classe também utiliza lógica para gerar um identificador único da imagem e contém propriedades que gerenciam o estado de ativação e ordem da imagem.
 
 ## Métodos de Negócio
-### Título: Equals (Visibilidade: public override)
-- **Objetivo**: Garante que duas instâncias de `ImagemAzureSearch` sejam consideradas iguais se seus nomes de arquivo forem idênticos.
-- **Comportamento**:
-  - O método verifica se o objeto passado como parâmetro é uma instância de `ImagemAzureSearch`.
-  - Compara a propriedade `NomeArquivo` do objeto atual com a do objeto passado.
-- **Retorno**: Retorna um booleano `true` se os nomes de arquivo forem iguais, caso contrário retorna `false`.
 
-### Título: GetHashCode (Visibilidade: public override)
-- **Objetivo**: Garante que a implementação de hash da classe funcione corretamente em coleções que utilizam hashing.
-- **Comportamento**:
-  - A estrutura de hash é baseada na propriedade `NomeArquivo`, utilizando o método `HashCode.Combine` para calcular o código hash.
-- **Retorno**: Retorna um valor inteiro que representa o hash da instância da classe.
+### Método: `Equals` (override)
+- **Objetivo**: Garantir que duas instâncias de `ImagemAzureSearch` sejam consideradas iguais se seus nomes de arquivo forem idênticos.
+- **Comportamento**: O método compara o `NomeArquivo` da instância atual com o `NomeArquivo` da instância fornecida como parâmetro. Se ambos forem iguais, retorna verdadeiro; caso contrário, retorna falso.
+- **Retorno**: Um booleano que indica se duas instâncias de `ImagemAzureSearch` são consideradas iguais.
+
+### Método: `GetHashCode` (override)
+- **Objetivo**: Fornecer um valor de hash consistente que represente a classe `ImagemAzureSearch` em coleções baseadas em hash.
+- **Comportamento**: Este método gera um código hash com base no `NomeArquivo` da instância, utilizando a função de hash combinada para assegurar que objetos iguais gerem o mesmo código.
+- **Retorno**: Um inteiro que é o código hash calculado da instância.
 
 ## Propriedades Calculadas e de Validação
-- `Identificador`: Esta propriedade gera um identificador único para a imagem usando a codificação Base64 do `NomeArquivo`. Isso assegura que cada arquivo tenha um identificador exclusivo, facilitando sua identificação de forma rápida e eficiente.
+
+### Propriedade: `Identificador`
+- **Regra**: Esta propriedade é uma representação codificada em Base64 do `NomeArquivo`. A lógica garante que, independentemente do conteúdo do nome do arquivo, um identificador único e seguro seja gerado e utilizado para identificação no índice de busca.
 
 ## Navigations Property
-- Não há propriedades complexas de domínio ou navegação nesta classe.
+- `TipoImagem`: [TipoImagem](TipoImagem.md)
+- `Tamanho`: [TamanhoImagem](TamanhoImagem.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[TipoImagem](TipoImagem.md)`
-  - `[TamanhoImagem](TamanhoImagem.md)`
+- `TipoImagem`: [TipoImagem](TipoImagem.md)
+- `TamanhoImagem`: [TamanhoImagem](TamanhoImagem.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -51,14 +50,8 @@ classDiagram
         +string IdentificadorDocumento
     }
     
-    class TipoImagem {
-        <<enumeration>>
-    }
-    
-    class TamanhoImagem {
-        <<enumeration>>
-    }
-    
     ImagemAzureSearch --> TipoImagem
     ImagemAzureSearch --> TamanhoImagem
 ```
+---
+Gerada em 29/12/2025 20:52:16

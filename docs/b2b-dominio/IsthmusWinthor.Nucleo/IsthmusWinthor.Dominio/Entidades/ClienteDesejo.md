@@ -1,23 +1,23 @@
 # ClienteDesejo
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: ClienteDesejo.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: ClienteDesejo.cs
 
 ## Visão Geral e Responsabilidade
-A classe `ClienteDesejo` representa a intenção ou o desejo de um cliente em adquirir um produto específico. Esse modelo é crucial para o gerenciamento do processo de vendas, pois permite que a empresa rastreie os interesses dos clientes e utilize essas informações para gerar ofertas personalizadas, melhorar a experiência do cliente e potencialmente aumentar as taxas de conversão de vendas. O objetivo é garantir que os desejos registrados sejam considerados no fluxo de pedidos e que a comunicação com o cliente seja otimizada.
+A classe `ClienteDesejo` representa o desejo de um cliente por um produto específico, servindo como uma estrutura que facilita o acompanhamento dos interesses dos clientes em relação a produtos. Esta entidade é vital para compreender quais itens despertam interesse em uma base de clientes, permitindo ações direcionadas em estratégias de venda e marketing. O problema de negócio que ela resolve é a identificação e monitoramento das preferências do cliente, que podem ser transformadas em oportunidades de vendas.
 
 ## Métodos de Negócio
-Como a classe `ClienteDesejo` não apresenta métodos com lógica complexa própria, não há métodos de negócio a serem detalhados neste momento.
+- **Título**: *N/A*  
+  **Objetivo**: A classe `ClienteDesejo` não possui métodos de negócio que envolvam lógica complexa, sendo mais uma estrutura de dados.
 
 ## Propriedades Calculadas e de Validação
-- **DataRemocao**: Esta propriedade é um campo opcional que indica quando o desejo foi removido. Se houver uma data de remoção, isso pode significar que o desejo não é mais válido ou que o cliente não está mais interessado.
-- **PrecoRemocao**: Similar à `DataRemocao`, essa propriedade armazena o preço associado ao desejo no momento da remoção. Essa validação garante que as informações de preço estejam disponíveis caso o desejo seja reativado ou reavaliado posteriormente.
+- Nenhuma propriedade com lógica de cálculo ou validação foi identificada.
 
 ## Navigations Property
-- `[Cliente](Cliente.md)`: Representa o cliente associado ao desejo.
-- `[Produto](Produto.md)`: Representa o produto que o cliente deseja adquirir.
+- [Cliente](Cliente.md)
+- [Produto](Produto.md)
 
 ## Tipos Auxiliares e Dependências
-- Não há enumeradores ou classes auxiliares diretamente utilizadas nesta classe que precisem ser referenciadas.
+- Nenhum enumerador ou classe estática/helper foi utilizado pela classe `ClienteDesejo`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -32,15 +32,9 @@ classDiagram
         +decimal? PrecoRemocao
         +bool GerouPedido
     }
-    
-    class Cliente {
-        <<Entity>>
-    }
-
-    class Produto {
-        <<Entity>>
-    }
 
     ClienteDesejo --> Cliente
     ClienteDesejo --> Produto
 ```
+---
+Gerada em 29/12/2025 20:20:39

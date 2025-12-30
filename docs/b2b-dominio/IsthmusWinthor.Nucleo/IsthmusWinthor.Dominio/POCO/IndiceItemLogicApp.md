@@ -3,35 +3,38 @@
 **Nome do Arquivo**: IndiceItemLogicApp.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `IndiceItemLogicApp` é responsável por gerenciar e armazenar informações sobre a execução de agendamentos de tarefas dentro de um sistema de sincronização. Ela fornece uma estrutura para manter e atualizar os dados relevantes sobre a execução de um pipeline de sincronização, permitindo que o sistema rastreie quando uma tarefa foi executada pela última vez, quando será executada novamente, se está pausada e o tipo de agendamento associado. Essa funcionalidade é crítica para garantir que as operações de sincronização aconteçam no tempo apropriado e de forma eficiente.
+A classe `IndiceItemLogicApp` atua como um modelo de domínio que encapsula as informações acerca do agendamento de execuções vinculadas a um pipeline de sincronização e uma distribuidora. Sua principal responsabilidade é garantir a integridade entre os dados do agendamento e a lógica necessária para o seu controle, como a atualização das datas de execução e o estado de pausa, resolvendo problemas relacionados à programação e execução de tarefas em uma aplicação corporativa.
 
 ## Métodos de Negócio
 
 ### AtualizarInformacoesSobreExecucao (public)
-- **Objetivo**: Garante que os dados sobre a execução do agendamento estão atualizados, refletindo a última execução e ajustando a próxima execução se necessário.
+- **Objetivo**: Garantir que as informações sobre a última execução e o estado de pausa sejam atualizadas corretamente com base no agendamento atual.
 - **Comportamento**:
-  1. Atualiza `DataUltimaExecucao` com a data da última execução do agendamento passado como parâmetro.
-  2. Atualiza a propriedade `Pausada` de acordo com o estado atual do agendamento passado como parâmetro.
-  3. Compara a `DataProximaExecucao` com a nova `DataUltimaExecucao`. Se a próxima data de execução for anterior à última execução, chama o método `ObterProximaDataExecucao` do agendamento para definir uma nova data.
-- **Retorno**: Este método não tem retorno, mas afeta o estado interno da instância da classe.
+    1. Atualiza a propriedade `DataUltimaExecucao` com o valor da propriedade correspondente do objeto `agendamento` passado como argumento.
+    2. Atualiza a propriedade `Pausada` com o estado atual do intervalo do agendamento.
+    3. Verifica se a `DataProximaExecucao` é anterior à `DataUltimaExecucao` do agendamento.
+    4. Se a condição anterior for verdadeira, atribui à `DataProximaExecucao` o valor retornado pelo método `ObterProximaDataExecucao()` do agendamento.
+- **Retorno**: Não possui retorno; o método altera o estado do objeto.
 
 ```mermaid
 flowchart TD
-    A[Atualizar Informações Sobre Execução] --> B[Atualizar DataUltimaExecucao]
-    A --> C[Atualizar Pausada]
-    A --> D{Comparar DataProximaExecucao}
-    D -->|DataProximaExecucao < DataUltimaExecucao| E[Obter Proxima Data Execucao]
-    D -->|Outros| F[Manter DataProximaExecucao]
+    A[Início] --> B[Atualiza DataUltimaExecucao]
+    A --> C[Atualiza Pausada]
+    C --> |DataProximaExecucao < DataUltimaExecucao| D[Atualiza DataProximaExecucao]
+    B --> E[Fim]
+    C --> E
+    D --> E
 ```
 
 ## Propriedades Calculadas e de Validação
-- As propriedades da classe não possuem lógica de cálculo ou validação, sendo utilizadas como meros armazenadores de dados.
+As propriedades da classe não contém lógica de cálculo em seus `getters` ou validação nos `setters`. Elas são definidas diretamente através do construtor e atualizadas por métodos específicos.
 
 ## Navigations Property
-- Não há propriedades que são classes complexas do domínio nesta classe.
+- Não há propriedades que sejam classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- Enum: `[TipoAgendamentoEnum](TipoAgendamentoEnum.md)`.
+- Utiliza o enumerador [TipoAgendamentoEnum](TipoAgendamentoEnum.md) para determinar o tipo de agendamento.
+- Dependência em `AgendamentoLogicApp`, que é uma outra classe do domínio a ser definida.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -46,5 +49,18 @@ classDiagram
         +DateTime DataProximaExecucao
         +void AtualizarInformacoesSobreExecucao(AgendamentoLogicApp agendamento)
     }
+
+    class TipoAgendamentoEnum {}
+    class AgendamentoLogicApp {
+        +long PipelineSincronizacaoId
+        +long DistribuidoraId
+        +DateTime DataUltimaExecucao
+        +DateTime ObterProximaDataExecucao()
+        +Intervalo Intervalo
+    }
+    
+    IndiceItemLogicApp --> AgendamentoLogicApp
     IndiceItemLogicApp --> TipoAgendamentoEnum
 ```
+---
+Gerada em 29/12/2025 21:35:28

@@ -3,94 +3,67 @@
 **Nome do Arquivo**: Produto.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Produto` representa uma entidade de domínio que gerencia as informações e comportamentos de um produto em um sistema de vendas. Ela é responsável por lidar com a validação de dados críticos, como quantidade mínima de compra e consistência de informações sobre estoques, e fornece a lógica necessária para garantir que as regras de negócio relacionadas à venda e gerenciamento de produtos sejam seguidas.
+A classe `Produto` representa um item comercial dentro do domínio do sistema, que possui diversas propriedades relacionadas tanto à sua descrição quanto à sua logística e abastecimento. Essa classe é responsável por garantir a integridade e validação dos dados relevantes ao produto, estabelecendo regras de negócio que abrangem desde a sua categorização até as informações necessárias para o controle de estoque e venda.
 
 ## Métodos de Negócio
 
-### AtendidoDepartamentoSecao
-- **Título**: `AtendidoDepartamentoSecao` (public)
-- **Objetivo**: Garante que um produto pertence a um departamento e seção correta, conforme os códigos fornecidos.
-- **Comportamento**: 
-  1. Verifica se o `codigoDepartamento` é 0 (não aplicável).
-  2. Se não for 0, verifica se o `CodigoDepartamento` do produto corresponde ao `codigoDepartamento` fornecido.
-  3. Faz o mesmo para `codigoSecao`, verificando se é 0 ou se corresponde ao `CodigoSecao` do produto.
-  4. Retorna verdadeiro se as condições forem válidas, ou falso caso contrário.
-- **Retorno**: Retorna `true` se o produto atende às seções e departamentos informados; caso contrário, retorna `false`.
-
-```mermaid
-flowchart TD
-    A[Início] --> B{codigoDepartamento == 0}
-    B -- Sim --> C[Retornar true]
-    B -- Não --> D{CodigoDepartamento == codigoDepartamento}
-    D -- Sim --> E{codigoSecao == 0}
-    D -- Não --> F[Retornar false]
-    E -- Sim --> C
-    E -- Não --> G{CodigoSecao == codigoSecao}
-    G -- Sim --> C
-    G -- Não --> F
-```
+### Título: AtendidoDepartamentoSecao (public)
+**Objetivo**: Garante que um produto atende a critérios específicos de departamento e seção.  
+**Comportamento**:
+1. Recebe dois parâmetros: `codigoDepartamento` e `codigoSecao`.
+2. Compara o `codigoDepartamento` informado com o `CodigoDepartamento` do produto. Se `codigoDepartamento` for 0, considera que atende a qualquer departamento.
+3. Compara o `codigoSecao` informado com o `CodigoSecao` do produto. Se `codigoSecao` for 0, considera que atende a qualquer seção.
+4. Retorna `true` se ambos os critérios forem atendidos, caso contrário, retorna `false`.  
+**Retorno**: Um valor booleano que indica se o produto atende aos critérios informados.
 
 ## Propriedades Calculadas e de Validação
 
-### TotalEstoque
-- **Regra**: Retorna a soma dos estoques disponíveis filtrando pelas filiais. Se não houver estoque disponível, retorna 0, garantindo assim que o valor retornado nunca seja negativo.
+### Propriedades Calculadas
+- **TotalEstoque**: Calcula a soma do `EstoqueDisponivel` de todas as filiais. Retorna 0 se não houver estoques disponíveis.
 
-### EstoquesFiliais
-- **Regra**: Deserializa um JSON que contém informações sobre os estoques em diferentes filiais. Se o JSON estiver vazio ou mal formado, retorna uma lista vazia, garantindo que o sistema não falhe ao acessar essas informações.
+### Propriedades de Validação
+- **EstoquesFiliais**: Serializa e desserializa informações sobre estoques em imagens de produtos. A validação é realizada em seu `set`, onde verifica se a lista de `EstoquesFiliais` é nula e realiza a conversão em JSON.
 
-### ForaLinhaFiliais
-- **Regra**: Similar a `EstoquesFiliais`, ele deserializa um JSON que contém informações sobre se um produto está "fora de linha" em filiais específicas. Se houver inconsistência nos dados, uma lista vazia será retornada sem causar erros no sistema.
-
-## Navigations Property
-
+## Navigations Properties
 - [Distribuidora](Distribuidora.md)
 - [Marca](Marca.md)
-- [Estoque](Estoque.md)
-- [ProdutoMultiplo](ProdutoMultiplo.md)
 - [Embalagem](Embalagem.md)
-- [LinhaPrazo](LinhaPrazo.md)
-- [ItemPedido](ItemPedido.md)
 - [ProdutoInformacoesIA](ProdutoInformacoesIA.md)
 - [ProdutoSankhya](ProdutoSankhya.md)
+- [Estoque](Estoque.md)
+- [ProdutoMultiplo](ProdutoMultiplo.md)
+- [ItemPedido](ItemPedido.md)
+- [LinhaPrazo](LinhaPrazo.md)
 
 ## Tipos Auxiliares e Dependências
-
 - [TipoPlanoPagamento](TipoPlanoPagamento.md)
 - [TipoRestricaoTransporte](TipoRestricaoTransporte.md)
 - [TipoMultiploEnum](TipoMultiploEnum.md)
+- [ForaLinhaFilial](ForaLinhaFilial.md)
+- [EstoqueFilial](EstoqueFilial.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Produto {
         +long Id
-        +Distribuidora Distribuidora
         +long DistribuidoraId
         +long Codigo
         +string Nome
+        +string Descricao
         +bool Ativo
-        +string CodigoBarras
+        +bool Medicamento
         +decimal TotalEstoque
-        +bool AtendidoDepartamentoSecao(long codigoDepartamento, long codigoSecao)
     }
-    
-    class Distribuidora {}
-    class Marca {}
-    class Estoque {}
-    class ProdutoMultiplo {}
-    class Embalagem {}
-    class LinhaPrazo {}
-    class ItemPedido {}
-    class ProdutoInformacoesIA {}
-    class ProdutoSankhya {}
-
     Produto --> Distribuidora
     Produto --> Marca
     Produto --> Estoque
     Produto --> ProdutoMultiplo
-    Produto --> Embalagem
-    Produto --> LinhaPrazo
     Produto --> ItemPedido
+    Produto --> Embalagem
     Produto --> ProdutoInformacoesIA
+    Produto --> LinhaPrazo
     Produto --> ProdutoSankhya
 ```
+---
+Gerada em 29/12/2025 20:44:59

@@ -2,6 +2,8 @@
 **Namespace**: IsthmusWinthor.Dominio.Relatorios.Execucao  
 **Nome do Arquivo**: RelatorioExecucaoRequest.cs  
 
-Este é um DTO destinado ao transporte de dados necessários para a execução de um relatório, incluindo parâmetros, IDs e informações de notificação.
+RelatorioExecucaoRequest é uma classe que serve como um Data Transfer Object (DTO) para o transporte de dados relacionados à execução de relatórios. 
 
 
+---
+Gerada em 29/12/2025 22:05:43

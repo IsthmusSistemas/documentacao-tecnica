@@ -3,45 +3,41 @@
 **Nome do Arquivo**: DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel` é responsável pelo gerenciamento das condições de desconto progressivo aplicadas a campanhas de venda na indústria. Ela encapsula regras de negócio que determinam quando e como os descontos são aplicáveis, garantindo a integridade e a validação dos dados relacionados a esses descontos.
+A classe `DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel` representa um modelo de desconto progressivo aplicado a uma campanha específica da indústria Isthmus. Ela encapsula a lógica relacionada a regras de validade, datas de início e término, e atribuições de descontos que podem ser aplicados a pedidos de compra. O problema de negócio que ela resolve é garantir que os descontos sejam aplicados corretamente, respeitando as condições definidas, como valores mínimo e máximo, e condições especiais, como a aplicação em diferentes CNPJs.
 
 ## Métodos de Negócio
 
-### Título: ValorMinimoTicketAtingido (public)
-- **Objetivo:** Garante que o valor mínimo do ticket seja atingido para que o desconto possa ser aplicado.
-- **Comportamento:** O método verifica se o valor mínimo do ticket é igual a zero ou se o valor do ticket fornecido é maior ou igual ao valor mínimo.
-- **Retorno:** Retorna `true` se o valor mínimo do ticket for atingido ou se não houver valor mínimo definido. Caso contrário, retorna `false`.
+### Método: ValorMinimoTicketAtingido
+**Visibilidade:** public  
+**Objetivo:** Garante que o valor mínimo do ticket de compra seja atendido para que o desconto seja aplicável.  
+**Comportamento:** 
+1. Verifica se o `ValorMinimoTicket` é zero. Se sim, retorna `true`, indicando que não há restrição mínima.
+2. Caso contrário, compara o `ticket` passado como argumento com o `ValorMinimoTicket` e retorna `true` se o `ticket` for maior ou igual, e `false` se não for.
+**Retorno:** Retorna um valor booleano indicando se o valor mínimo foi atingido. 
 
-### Título: ValorMaximoDescontosUltrapassado (internal)
-- **Objetivo:** Verifica se o total de descontos ultrapassa o valor máximo faturado definido.
-- **Comportamento:** Compara o total de descontos informado com o valor máximo faturado. Se o valor máximo for maior que zero e o total de descontos exceder esse valor, o método indica que o limite foi ultrapassado.
-- **Retorno:** Retorna `true` se o total de descontos ultrapassa o valor máximo permitido; caso contrário, retorna `false`.
+### Método: ValorMaximoDescontosUltrapassado
+**Visibilidade:** internal  
+**Objetivo:** Verifica se o total de descontos aplicados excede o limite máximo permitido.  
+**Comportamento:** 
+1. Verifica se o `ValorMaximoFaturado` é maior que zero.
+2. Compara o `totalDesconto` recebido com `ValorMaximoFaturado` e retorna `true` se o total de descontos ultrapassar este valor, e `false` caso contrário.
+**Retorno:** Retorna um valor booleano que indica se o máximo de descontos foi ultrapassado.
 
-```mermaid
-flowchart TD
-    A[Início] --> B{Valor Maximo Faturado > 0?}
-    B -- Sim --> C{Total Desconto > Valor Maximo Faturado?}
-    B -- Não --> D[Fim]
-    C -- Sim --> E[Retorna true]
-    C -- Não --> D[Fim]
-    D[Fim]
-```
+### Propriedades Calculadas e de Validação
+- **Propriedade:** `IsValid`  
+  **Regra:** Um objeto `DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel` é considerado válido se pelo menos um dos SKUs (gerador ou recebedor) estiver marcado como `true`, se houver descontos válidos e se todos os descontos forem válidos.
 
-## Propriedades Calculadas e de Validação
+- **Propriedade:** `MelhorDesconto`  
+  **Regra:** Retorna o desconto válido com o maior percentual. Caso `SKURecebedor` não esteja marcado como `true`, retorna `null`.
 
-### Propriedade: IsValid
-- **Regra:** A propriedade `IsValid` verifica se pelo menos uma das propriedades `SKUGerador` ou `SKURecebedor` é verdadeira, e se há descontos válidos associados à classe. Ela assegura que a lógica de aplicação de descontos só será válida se estiver de acordo com as regras definidas.
+### Navigations Property
+- **Descontos**: Lista [DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel](DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel.md).
 
-### Propriedade: MelhorDesconto
-- **Regra:** A propriedade `MelhorDesconto` retorna o desconto mais alto aplicável, desde que `SKURecebedor` seja verdadeiro e existam descontos válidos.
+### Tipos Auxiliares e Dependências
+- **Classes e Enums:**
+  - [DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel](DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel.md)
 
-## Navigations Property
-- `[DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel](DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel.md)`
-
-## Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou enumeração adicional foi identificado como utilizado nesta classe.
-
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel {
@@ -62,9 +58,14 @@ classDiagram
         +List<DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel> Descontos
         +bool IsValid
         +DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel MelhorDesconto
+        +bool ValorMinimoTicketAtingido(decimal ticket)
+        +bool ValorMaximoDescontosUltrapassado(decimal totalDesconto)
     }
     class DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel {
-        // Definição da classe
+        +bool IsValid
+        +decimal PercentualDesconto
     }
-    DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel --> DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel : possui
+    DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel --> "0..*" DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel : Descontos
 ```
+---
+Gerada em 29/12/2025 21:58:57

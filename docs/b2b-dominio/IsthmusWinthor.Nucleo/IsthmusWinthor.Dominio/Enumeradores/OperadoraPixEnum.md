@@ -2,25 +2,17 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: OperadoraPixEnum.cs  
 
-O `OperadoraPixEnum` é uma enumeração que representa as diferentes operadoras financeiras que suportam o sistema de pagamento via Pix. Sua finalidade é garantir que apenas valores reconhecidos e válidos possam ser utilizados nas transações, assegurando a integridade dos dados.
-
-## Métodos de Negócio
-Este enumerador não possui métodos de negócio, uma vez que seu único propósito é a definição de constantes que identificam operadoras de pagamento.
-
-## Propriedades Calculadas e de Validação
-Este enumerador não possui propriedades calculadas ou de validação, já que se limita a definir um conjunto fixo de valores.
-
-## Navigations Property
-Este enumerador também não possui propriedades de navegação, pois é um tipo simples que não se relaciona diretamente com outras classes de domínio.
+`OperadoraPixEnum` é um enumerador que define as operadoras que suportam transações utilizando o sistema de pagamento Pix.
 
 ## Tipos Auxiliares e Dependências
-- Nenhuma classe auxiliar ou estática é utilizada diretamente por este enumerador.
-
+- **Enumeradores**:
+  - [OperadoraPixEnum](OperadoraPixEnum.md)
+  
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class OperadoraPixEnum {
-        <<enumer enum>>
+        <<enumeration>>
         TBanks
         GerenciaNet
         Itau
@@ -28,4 +20,8 @@ classDiagram
         BancoBrasil
         Sicred
     }
-```
+``` 
+
+Este enumerador representa uma lista de operadoras disponíveis no sistema, cada uma associada a um valor numérico único, que pode ser utilizado na configuração e no processamento de pagamentos via Pix.
+---
+Gerada em 29/12/2025 20:58:21

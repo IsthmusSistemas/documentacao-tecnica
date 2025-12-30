@@ -1,22 +1,33 @@
 # StatusContatoB2BEnum
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: StatusContatoB2BEnum.cs
 
-O `StatusContatoB2BEnum` é um enumerador que representa os diferentes estados de um contato B2B dentro do sistema, com o objetivo de manter a integridade dos dados relacionados ao status de cadastro dos usuários no sistema.
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: StatusContatoB2BEnum.cs  
 
-## Tipos Auxiliares e Dependências
-- Enumeradores:
-  - `[StatusContatoB2BEnum](StatusContatoB2BEnum.md)`
+### Visão Geral e Responsabilidade
+O `StatusContatoB2BEnum` é um enumerador que define os diferentes estados que um contato B2B (Business to Business) pode assumir durante o processo de registro e validação. Este enumerador é crucial para o gerenciamento do fluxo dos cadastros na aplicação, permitindo que os sistemas e os usuários compreendam rapidamente a situação atual de uma solicitação de contato.
 
-## Diagrama de Relacionamentos
+### Métodos de Negócio
+Este enumerador não contém métodos com lógica de negócio.
+
+### Propriedades Calculadas e de Validação
+Este enumerador não contém propriedades calculadas ou de validação.
+
+### Navigations Property
+Este enumerador não contém propriedades que sejam classes complexas do domínio.
+
+### Tipos Auxiliares e Dependências
+- Este enumerador não depende de classes ou enums adicionais.
+
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class StatusContatoB2BEnum {
-        <<enumeration>>
-        AguardandoConfirmacao
-        AguardandoLiberacao
-        Liberado
-        Reprovado
-        Bloqueado
+        +AguardandoConfirmacao
+        +AguardandoLiberacao
+        +Liberado
+        +Reprovado
+        +Bloqueado
     }
 ```
+---
+Gerada em 29/12/2025 21:01:08

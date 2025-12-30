@@ -1,16 +1,22 @@
 # PipelineSincronizacaoDistribuidora
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: PipelineSincronizacaoDistribuidora.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: PipelineSincronizacaoDistribuidora.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PipelineSincronizacaoDistribuidora` representa uma entidade no contexto do sistema, associando uma distribuidora a um pipeline de sincronização. Ela garante que as distribuidoras estão corretamente ligadas ao processo de sincronização, que é crucial para a operação do sistema em ambientes onde a integração de dados é necessária. O principal problema de negócio que esta classe resolve é a necessidade de manter a integridade referencial entre distribuidoras e suas respectivas interações de sincronização.
+A classe `PipelineSincronizacaoDistribuidora` atua como uma entidade que estabelece uma relação entre o `PipelineSincronizacao` e a `Distribuidora`. Ela é responsável por modelar a conexão entre essas duas entidades no contexto do sistema, facilitando a sincronização de dados entre diferentes distribuidoras e pipelines de sincronização. Este modelo é fundamental para garantir que as operações de sincronização sejam realizadas de maneira correta e eficiente.
 
-## Navegação de Propriedades
-- `PipelineSincronizacao`: [PipelineSincronizacao](PipelineSincronizacao.md) - Refere-se ao pipeline de sincronização associado.
-- `Distribuidora`: [Distribuidora](Distribuidora.md) - Refere-se à distribuidora que está sendo sincronizada.
+## Métodos de Negócio
+*Não existem métodos com lógica complexa nesta classe específica.*  
+
+## Propriedades Calculadas e de Validação
+*Esta classe não possui propriedades com lógica de cálculo ou validação complexa.*
+
+## Navigation Properties
+- [PipelineSincronizacao](PipelineSincronizacao.md)
+- [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-Nenhum tipo auxiliar ou dependência específica foi identificado nesta classe.
+*Esta classe não possui enumeradores ou helpers específicos que sejam utilizados diretamente.*
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -20,15 +26,11 @@ classDiagram
         +long PipelineSincronizacaoId
         +long DistribuidoraId
     }
-    class PipelineSincronizacao {
-        +long Id
-    }
-    class Distribuidora {
-        +long Id
-    }
+    class PipelineSincronizacao {}
+    class Distribuidora {}
 
-    PipelineSincronizacaoDistribuidora --> PipelineSincronizacao : reference
-    PipelineSincronizacaoDistribuidora --> Distribuidora : reference
+    PipelineSincronizacaoDistribuidora --> PipelineSincronizacao : "associacao"
+    PipelineSincronizacaoDistribuidora --> Distribuidora : "associacao"
 ```
-
-Esta documentação fornece uma visão clara sobre a estrutura e o propósito da classe `PipelineSincronizacaoDistribuidora`. A integridade da associação entre distribuidoras e pipelines de sincronização é um aspecto crítico, e este modelo ajuda a manter essa integridade no sistema.
+---
+Gerada em 29/12/2025 20:43:42

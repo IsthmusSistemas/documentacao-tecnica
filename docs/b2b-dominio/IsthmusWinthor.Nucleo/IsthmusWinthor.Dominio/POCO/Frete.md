@@ -3,63 +3,57 @@
 **Nome do Arquivo**: Frete.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Frete` representa um modelo de domínio que gerencia as informações relacionadas ao cálculo e detalhamento do frete de transporte de mercadorias. Ela encapsula a lógica de formação da descrição do frete, regras de negócios para a determinação de valores mínimos e máximos do carrinho, além de integrar com uma transportadora. Essa classe é fundamental para a aplicação, pois garante que as informações do frete sejam apresentadas corretamente ao usuário e que as regras de entrega e custos sejam adequadamente aplicadas nas transações.
+A classe `Frete` é um modelo do domínio que encapsula a lógica relacionada à determinação e descrição dos custos de frete de um pedido. Ela é responsável por calcular, armazenar e apresentar informações sobre o envio, além de integrar filtros de valor mínimo e máximo do carrinho. O uso desta classe permite que a aplicação forneça aos clientes informações claras e detalhadas sobre o frete, contribuindo para uma melhor experiência de compra.
 
 ## Métodos de Negócio
 
-### Título: `Descricao` (propriedade pública)
-**Objetivo**: Garante a geração de uma descrição detalhada do frete, proporcionando ao usuário uma visão clara e formatada das condições do frete.
-
-**Comportamento**:
-1. Inicializa um `StringBuilder` para construir a descrição.
-2. Avalia o tipo de frete (`TipoFrete`):
-   - Para `EntregaPadrao` e `RetiradaLocal`:
-     - Adiciona o nome de exibição do frete.
-     - Se a `PrevisaoEntrega` for futura, adiciona a data prevista.
-     - Se existir um valor para o frete, apresenta o valor; caso contrário, indica que o frete é grátis.
-     - Adiciona informações sobre o valor mínimo e máximo do carrinho, caso definidos.
-   - Para outros tipos de frete, chama o método `DescricaoPadrao` para obter uma descrição padrão.
-3. Retorna a descrição construída.
-
-**Retorno**: Uma string formatada que apresenta todos os detalhes relevantes sobre o frete, pronta para exibição ao usuário.
+### Método: Descricao (public string)
+- **Objetivo**: Garante que a descrição do frete seja construída com base no tipo de frete e nas informações relevantes, como valor, previsão de entrega e restrições de valor do carrinho.
+  
+- **Comportamento**: 
+  1. Dependendo do `TipoFrete`, o método verifica quais informações devem ser incluídas na descrição.
+  2. Para tipos como `EntregaPadrao` e `RetiradaLocal`, ele verifica se há uma previsão de entrega futura e se o valor do frete é maior que zero, acrescentando as informações apropriadas.
+  3. Para outros tipos, como `Correios`, uma descrição padrão é gerada.
+  
+- **Retorno**: Retorna uma string formatada que representa a descrição do frete, incluindo detalhes importantes sobre custo e previsão de entrega.
 
 ```mermaid
 flowchart TD
-    A[TipoFrete]
-    A -->|EntregaPadrao| B[NomeExibicao]
-    A -->|EntregaPadrao| C{PrevisaoEntrega}
-    C -->|Futura| D[Adiciona Data]
-    C -->|Passada| E
-    A -->|EntregaPadrao| F{Valor}
-    F -->|> 0| G[Adiciona Valor]
-    F -->|<= 0| H[Frete Grátis]
-    A -->|EntregaPadrao| I{ValorMinimoCarrinho}
-    I -->|> 0| J[Adiciona Minimo]
-    I -->|<= 0| K
-    A -->|EntregaPadrao| L{ValorMaximoCarrinho}
-    L -->|> 0| M[Adiciona Maximo]
-    L -->|<= 0| N
-    A -->|Outro| O[DescricaoPadrao]
+    A[Tipo de Frete]
+    B[Entrega Padrão ou Retirada Local]
+    C[Frete Grátis]
+    D[Valor do Frete]
+    E[Previsão de Entrega Futura]
+
+    A -->|Entrega Padrão ou Retirada Local| B
+    A -->|Outros Tipos| D
+
+    B -->|Valor > 0| D
+    B -->|Valor = 0| C
+    B -->|Previsão Entrega > Agora| E
 ```
+
+### Método: DescricaoPadrao (private string)
+- **Objetivo**: Gera uma descrição padrão do frete, encapsulando as informações necessárias para quaisquer tipos de fretes não específicos.
+  
+- **Comportamento**: 
+  1. Começa construindo uma descrição com o nome de exibição do frete.
+  2. Inclui a previsão de entrega se houver uma data válida.
+  3. Adiciona o valor do frete à descrição.
+  
+- **Retorno**: Retorna uma string que representa a descrição padrão.
 
 ## Propriedades Calculadas e de Validação
 
-### Título: `ValorMinimoCarrinho`
-**Regra**: Retorna o valor mínimo que deve ser atingido no carrinho para que o frete possa ser aplicado. Ele é obtido a partir dos filtros associados ao frete. O cálculo leva em consideração apenas aqueles filtros que são do tipo `ValorCarrinhoMinimo` e que possuem valores válidos.
-
-### Título: `ValorMaximoCarrinho`
-**Regra**: Retorna o valor máximo que o carrinho pode ter para que o frete seja aplicável. Assim como o valor mínimo, ele é extraído dos filtros associados, considerando apenas aqueles que são do tipo `ValorCarrinhoMaximo`.
+### Propriedade: Descricao (string)
+- **Regra**: A propriedade calcula dinamicamente a descrição do frete com base no `TipoFrete`, na `PrevisaoEntrega`, e nos valores associados aos limites do carrinho. Ela aplica a lógica de negócio para mostrar diferentes informações para diferentes tipos de fretes.
 
 ## Navigations Property
-- Não há propriedades de navegação complexas do domínio nesta classe.
+- Nenhuma navegação complexa identificada neste modelo.
 
 ## Tipos Auxiliares e Dependências
-- **Enums**:
-  - `[TipoFrete](TipoFrete.md)`
-  - `[TipoFiltroFrete](TipoFiltroFrete.md)`
-
-- **Classes Estáticas/Helpers**:
-  - `[DecimalUtil](Base.Utilidades.md)`: Utilizada para formatação do valor do frete.
+- Enum: [TipoFrete](TipoFrete.md)
+- Classe de utilidade: [Base.Utilidades](Base.Utilidades.md) (usada para formatação de valores monetários).
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -79,13 +73,7 @@ classDiagram
         +decimal ValorMaximoCarrinho
         +string Descricao
     }
-    
-    class TipoFrete {
-    }
-
-    class TipoFiltroFrete {
-    }
-    
-    Frete --> TipoFrete
-    Frete --> TipoFiltroFrete
+    Frete --|> TipoFrete
 ```
+---
+Gerada em 29/12/2025 21:34:48

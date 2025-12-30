@@ -1,4 +1,4 @@
-#Documentação - Precos
+# Precos
 ## Conteúdo
 - [Brinde](Brinde.md)
 - [CampanhaCashBackEncarte](CampanhaCashBackEncarte.md)

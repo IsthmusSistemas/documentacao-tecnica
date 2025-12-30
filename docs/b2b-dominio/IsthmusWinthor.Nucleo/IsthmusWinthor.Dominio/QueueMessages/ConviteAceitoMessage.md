@@ -1,30 +1,28 @@
 # ConviteAceitoMessage
-
-**Namespace**: IsthmusWinthor.Dominio.QueueMessages  
-**Nome do Arquivo**: ConviteAceitoMessage.cs  
+- **Namespace**: IsthmusWinthor.Dominio.QueueMessages
+- **Nome do Arquivo**: ConviteAceitoMessage.cs
 
 ## Visão Geral e Responsabilidade
-A classe `ConviteAceitoMessage` representa uma mensagem que é enviada quando um convite é aceito no sistema. Sua principal responsabilidade é garantir que os dados necessários para processar um convite aceito sejam válidos e estejam completos, atuando como uma simples estrutura de transporte de dados (DTO). O problema de negócio que essa classe resolve é assegurar que as informações cruciais do convite (identificador, código da distribuidora e IP da resposta) sejam corretamente formatadas e validadas antes de serem processadas, evitando a introdução de dados inválidos no fluxo de comunicação.
+A classe `ConviteAceitoMessage` representa uma mensagem de convite que foi aceita, atuando como um objeto de transporte de dados dentro do sistema. Sua responsabilidade principal é encapsular as informações necessárias que um convite aceito deve ter, como um identificador, código da distribuidora e o endereço IP da resposta. Isso é crítico para a integridade do fluxo de processamento das mensagens dentro do sistema de filas, garantindo que os dados se mantenham válidos e coerentes.
 
 ## Métodos de Negócio
-- **Título**: `ConviteAceitoMessage(string identificador, long distribuidoraCodigo, string ipResposta)` - `public`
-  - **Objetivo**: Garantir que os parâmetros fornecidos para a criação de uma instância da mensagem do convite aceito sejam válidos.
-  - **Comportamento**: 
-    1. Recebe os parâmetros `identificador`, `distribuidoraCodigo` e `ipResposta`.
-    2. Valida se `identificador` não é nulo ou vazio. Se inválido, lança uma `ArgumentException`.
-    3. Valida se `distribuidoraCodigo` é maior que zero. Se inválido, lança uma `ArgumentException`.
-    4. Valida se `ipResposta` não é nulo ou vazio. Se inválido, lança uma `ArgumentException`.
-    5. Se todos os parâmetros forem válidos, inicializa as propriedades da classe com os valores correspondentes.
-  - **Retorno**: Não retorna valor, mas resulta na criação de uma instância de `ConviteAceitoMessage` com dados validados.
+### Construtor: `ConviteAceitoMessage(string identificador, long distribuidoraCodigo, string ipResposta)`
+- **Objetivo**: Garante que as informações fundamentais do convite aceito sejam validas  na criação do objeto, evitando dados incorretos e mantendo a integridade do sistema.
+- **Comportamento**:
+  1. Verifica se o `identificador` é nulo ou vazio; se validado, lança uma exceção.
+  2. Verifica se o `distribuidoraCodigo` é menor ou igual a zero; se validado, lança uma exceção.
+  3. Verifica se o `ipResposta` é nulo ou vazio; se validado, lança uma exceção.
+  4. Se todas as validações são satisfeitas, o objeto é criado com os valores fornecidos.
+- **Retorno**: Não possui retorno, mas garante a criação correta do objeto.
 
 ## Propriedades Calculadas e de Validação
-- **Sem propriedades com lógica na leitura ou validações complexas.** Todas as propriedades possuem apenas um `getter` simples ou são inicializadas no construtor.
+- Não existem propriedades com lógica de cálculo ou validação adicionais além daquelas implementadas no construtor.
 
-## Navigations Property
-- **Sem propriedades que representam classes complexas do domínio.**
+## Navigation Property
+- Não existem propriedades de navegação que referenciam outras classes do domínio.
 
 ## Tipos Auxiliares e Dependências
-- **Nenhum tipo auxiliar ou dependência externa identificada.**
+- Não existem Enums ou Classes Estáticas/Helpers utilizada dentro da classe `ConviteAceitoMessage`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -37,3 +35,5 @@ classDiagram
         +int QueuedCount
     }
 ```
+---
+Gerada em 29/12/2025 22:03:21

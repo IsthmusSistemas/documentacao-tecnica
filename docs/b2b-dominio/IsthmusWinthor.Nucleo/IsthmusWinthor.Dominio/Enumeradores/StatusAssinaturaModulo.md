@@ -1,23 +1,23 @@
 # StatusAssinaturaModulo
-
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: StatusAssinaturaModulo.cs  
 
-## Visão Geral e Responsabilidade
-`StatusAssinaturaModulo` é um enumerador que define os estados possíveis de uma assinatura de módulo dentro do sistema. Ele permite a categorização e controle do status de uma assinatura, refletindo seus diferentes estágios, desde não assinado até expirado. Esse enum é fundamental para a lógica de negócios relacionada à ativação e gerenciamento de funcionalidades disponíveis aos usuários com base no status da assinatura.
+Essa classe é um enumerador que representa os diferentes estados possíveis de uma assinatura de módulo, definindo claramente as possibilidades de status para uma gestão eficiente das assinaturas.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum.
+- **Enumeradores**:
+  - [StatusAssinaturaModulo](StatusAssinaturaModulo.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class StatusAssinaturaModulo {
-        <<enumeration>>
-        NaoAssinado
-        Ativo
-        Inativo
-        Trial
-        Expirado
+        + NaoAssinado
+        + Ativo
+        + Inativo
+        + Trial
+        + Expirado
     }
 ```
+---
+Gerada em 29/12/2025 21:00:43

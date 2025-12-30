@@ -1,62 +1,45 @@
 # CachePromocoesClienteKey
-
-- **Namespace**: IsthmusWinthor.Dominio.CacheKeys
-- **Nome do Arquivo**: CachePromocoesClienteKey.cs
-
----
+**Namespace**: IsthmusWinthor.Dominio.CacheKeys  
+**Nome do Arquivo**: CachePromocoesClienteKey.cs  
 
 ## Visão Geral e Responsabilidade
-
-A classe `CachePromocoesClienteKey` atua como um motor de geração de chaves para caching de promoções específicas de um cliente. Ela resolve o problema de identificação única de promoções por cliente e distribuidora, essencial para recuperar dados do cache de forma eficiente, minimizando chamadas de banco de dados redundantes.
+A classe `CachePromocoesClienteKey` tem a responsabilidade de criar uma chave de cache única para promoções específicas de clientes. O problema de negócio que ela resolve é a necessidade de associar dados de promoções a um cliente e distribuidora específicos, garantindo que as informações corretas sejam recuperadas de forma eficiente e organizada do sistema de cache.
 
 ## Métodos de Negócio
 
-### `public CachePromocoesClienteKey(ClienteLogado clienteLogado)`
+### Título: Key (Propriedade Get)
+#### Objetivo: 
+Garante que a chave de cache seja gerada de forma consistente a partir dos identificadores do cliente e da distribuidora.
 
-#### Objetivo
-Construtor da classe que inicializa a chave de cache baseada nos dados do cliente logado, garantindo que cada instância seja associada unicamente a um cliente e distribuidora.
+#### Comportamento: 
+- Retorna uma string formatada com o `DistribuidoraId` e o `CodigoCliente`, separados por dois pontos.
+- Essa formatação assegura que cada combinação de cliente e distribuidora resulte em uma chave de cache única.
 
-#### Comportamento
-1. Extrai o `CodigoCliente` do objeto `ClienteLogado`.
-2. Extrai o `DistribuidoraId` do objeto `ClienteLogado`.
-3. Atribui ambos os valores às propriedades correspondentes da classe.
-
-### `public string Key`
-
-#### Objetivo
-Gera a chave única de cache para promoções do cliente, combinando identificadores críticos.
-
-#### Comportamento
-- Concatena `DistribuidoraId` e `CodigoCliente` com um separador de dois pontos (`:`) para formar uma chave única.
-
-#### Retorno
-Retorna uma `string` que representa a chave de cache única para as promoções de um cliente específico.
+#### Retorno: 
+Retorna uma string que representa a chave de cache para promoções do cliente, utilizada para armazenamento e recuperação em sistemas de cache.
 
 ## Propriedades Calculadas e de Validação
-
-Não existem getters ou setters com lógica complexa.
+### Propriedades:
+- **Key**: 
+  - Esta propriedade gera uma chave única para o cache, baseada nas propriedades `DistribuidoraId` e `CodigoCliente`. O padrão de concatenação assegura que as chaves sejam diferenciáveis.
 
 ## Navigations Property
-
-Não há propriedades de navegação para outras classes de domínio.
+- Não há propriedades de navegação complexas nesta classe.
 
 ## Tipos Auxiliares e Dependências
-
-- `ClienteLogado`: Representa o cliente em sessão. [ClienteLogado](ClienteLogado.md)
+- **Interfaces**: [ICacheKey](ICacheKey.md)
+- **Classes de Domínio**: [ClienteLogado](ClienteLogado.md)
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class CachePromocoesClienteKey {
-        -long CodigoCliente
-        -long DistribuidoraId
-        +CachePromocoesClienteKey(ClienteLogado clienteLogado)
+        +long CodigoCliente
+        +long DistribuidoraId
         +string Key
     }
-    class ClienteLogado {
-        +long Codigo
-        +long DistribuidoraId
-    }
     CachePromocoesClienteKey --> ClienteLogado
+    CachePromocoesClienteKey ..> ICacheKey
 ```
+---
+Gerada em 29/12/2025 20:10:19

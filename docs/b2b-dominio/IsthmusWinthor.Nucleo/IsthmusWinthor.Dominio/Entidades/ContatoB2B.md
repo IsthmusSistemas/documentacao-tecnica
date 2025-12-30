@@ -1,24 +1,20 @@
 # ContatoB2B
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: ContatoB2B.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: ContatoB2B.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ContatoB2B` representa um contato de negócios entre um cliente e uma distribuidora dentro do sistema. Ela atua como um modelo de domínio que capta informações essenciais sobre o contato, como nome, e-mail, telefone e função do contato. O objetivo é organizar e gerenciar dados de contato para facilitar a comunicação e a interação entre as partes envolvidas no contexto B2B (Business to Business).
-
-## Métodos de Negócio
-### Título: N/A
-- **Objetivo**: Não há métodos com lógica complexa a serem documentados nesta classe.
+A classe `ContatoB2B` representa uma entidade que encapsula as informações de contato de um cliente para uma distribuidora no contexto B2B (Business to Business). O objetivo principal dessa classe é gerenciar e organizar os dados de contato associados a um cliente, facilitando relações comerciais com as distribuidoras. A classe garante a integridade dos dados relacionados ao contato, tais como identificação, informações de comunicação e função do contato dentro da empresa.
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades com lógica no `get` ou validações no `set` nesta classe.
+- As propriedades não apresentam lógica de cálculo ou validação complexa em seus `get` ou `set`. Todas as propriedades são armazenadas como valores simples (anêmicos), sem regras específicas que alterem seu comportamento ou valor ao serem acessadas ou definidas.
 
-## Navigation Properties
-- `[Cliente](Cliente.md)`: Representa a associação com a classe `Cliente`, indicando a relação entre o contato e um cliente específico.
-- `[Distribuidora](Distribuidora.md)`: Representa a associação com a classe `Distribuidora`, indicando a relação entre o contato e uma distribuidora específica.
+## Navigation Property
+- [Cliente](Cliente.md)
+- [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-- `[FuncaoContatoEnum](FuncaoContatoEnum.md)`: Enum que define as funções possíveis dos contatos B2B.
-- `[StatusContatoB2BEnum](StatusContatoB2BEnum.md)`: Enum que representa o status atual do contato.
+- [FuncaoContatoEnum](FuncaoContatoEnum.md)
+- [StatusContatoB2BEnum](StatusContatoB2BEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -39,8 +35,15 @@ classDiagram
         +DateTime DataCadastro
         +StatusContatoB2BEnum Status
     }
+    
+    class Cliente {
+    }
+    
+    class Distribuidora {
+    }
+    
     ContatoB2B --> Cliente
     ContatoB2B --> Distribuidora
-    ContatoB2B --> FuncaoContatoEnum
-    ContatoB2B --> StatusContatoB2BEnum
 ```
+---
+Gerada em 29/12/2025 20:24:07

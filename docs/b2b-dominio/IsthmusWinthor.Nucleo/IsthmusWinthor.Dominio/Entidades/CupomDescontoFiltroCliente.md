@@ -3,23 +3,38 @@
 **Nome do Arquivo**: CupomDescontoFiltroCliente.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CupomDescontoFiltroCliente` representa um filtro associado a um cupom de desconto específico, permitindo a restrição ou segmentação do uso do cupom com base em certas características de clientes. O objetivo de negócio é permitir que promoções sejam aplicadas apenas a grupos de clientes que atendem a critérios específicos, aumentando a relevância da oferta e o engajamento.
+A classe `CupomDescontoFiltroCliente` representa um filtro que determina quais clientes podem utilizar um determinado cupom de desconto. Esta classe é crucial para aplicação das regras de negócio que asseguram que descontos sejam aplicados apenas a clientes apropriados, ajudando a promover uma estratégia de marketing direcionada e evitar abusos por certos perfis de clientes.
 
 ## Métodos de Negócio
-*Nota: Esta classe não contém métodos de negócio complexos com lógica adicional. Portanto, esta seção não se aplica.*
+Atualmente, a classe não possui métodos de negócio complexos que impliquem na definição de regras. Portanto, não há descrição de métodos a incluir neste documento.
 
 ## Propriedades Calculadas e de Validação
-- **Valor**: Propriedade que deve ser validada para garantir que o valor atribuído cumpre com as regras de formato ou critério de apresentação definido pela lógica de negócio.
+A classe contém propriedades que são essenciais para o controle de acesso ao uso dos cupons, mas não tem lógica de cálculo ou validação particular em suas getters ou setters. 
 
 ## Navigations Property
-- `[CupomDesconto](CupomDesconto.md)`: Esta propriedade representa a relação com o cupom de desconto associado e é uma classe complexa que contém informações relativas ao desconto oferecido.
+A classe possui a seguinte propriedade complexa que se relaciona diretamente com o domínio:
+- [CupomDesconto](CupomDesconto.md)
 
 ## Tipos Auxiliares e Dependências
-- `[FiltroClienteEnum](FiltroClienteEnum.md)`: Enum utilizado para especificar diferentes filtros aplicáveis a clientes, definindo as regras específicas de qual cliente é aplicado o cupom.
+A classe `CupomDescontoFiltroCliente` utiliza o seguinte enumerador:
+- [FiltroClienteEnum](FiltroClienteEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    CupomDescontoFiltroCliente --> CupomDesconto
-    CupomDescontoFiltroCliente --> FiltroClienteEnum
+    class CupomDescontoFiltroCliente {
+        + long Id
+        + long CupomDescontoId
+        + FiltroClienteEnum Filtro
+        + string Valor
+    }
+    
+    class CupomDesconto {
+        <<Entity>>
+    }
+
+    CupomDescontoFiltroCliente --> CupomDesconto : "pertence a"
+    CupomDescontoFiltroCliente --> FiltroClienteEnum : "utiliza"
 ```
+---
+Gerada em 29/12/2025 20:26:31

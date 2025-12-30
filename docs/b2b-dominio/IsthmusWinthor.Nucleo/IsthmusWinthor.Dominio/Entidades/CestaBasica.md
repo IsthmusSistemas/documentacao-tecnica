@@ -1,15 +1,21 @@
 # CestaBasica
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: CestaBasica.cs  
+**Nome do Arquivo**: CestaBasica.cs
 
-A classe `CestaBasica` representa uma entidade do domínio relacionada à composição de cestas básicas dentro do sistema. Ela tem a finalidade de modelar a relação entre um produto da cesta e as informações necessárias para gerenciar a quantidade e a identificação na filial.
+## Visão Geral e Responsabilidade
+A classe `CestaBasica` representa uma entidade no domínio de um sistema de gestão de cestas básicas. Sua responsabilidade principal é modelar a composição de uma cesta básica, incluindo um produto específico, sua quantidade e informações adicionais relevantes para o sistema, como o código da filial e um identificador de sincronização. Esse modelo é fundamental para garantir que as cestas básicas sejam gerenciadas de forma adequada e que as informações sobre os produtos e suas quantidades estejam sempre disponíveis e consistentemente atualizadas. 
 
-## Navegação e Propriedades
-- **Navigations Property**:
-  - [Produto](Produto.md): Representa o produto associado à cesta básica.
+## Métodos de Negócio
+Não há métodos de negócio a serem documentados, pois a classe se limita a descrever suas propriedades.
+
+## Propriedades Calculadas e de Validação
+Não há propriedades calculadas ou de validação definidas no `get` ou `set` na classe `CestaBasica`.
+
+## Navigation Property
+- [Produto](Produto.md)
 
 ## Tipos Auxiliares e Dependências
-Não existem enumeradores ou classes estáticas/helpers diretamente utilizadas na classe `CestaBasica`.
+Não há enumeradores ou classes auxiliares sendo utilizadas diretamente na classe `CestaBasica`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -24,9 +30,9 @@ classDiagram
     class Produto {
         +long Id
         +string Nome
-        +decimal Preco
     }
-    CestaBasica --> Produto : contém
-``` 
-
-Neste diagrama, a classe `CestaBasica` possui uma associação com a classe `Produto`, indicando que a cesta básica é composta por um ou mais produtos.
+    
+    CestaBasica --> Produto : "possui"
+```
+---
+Gerada em 29/12/2025 20:19:53

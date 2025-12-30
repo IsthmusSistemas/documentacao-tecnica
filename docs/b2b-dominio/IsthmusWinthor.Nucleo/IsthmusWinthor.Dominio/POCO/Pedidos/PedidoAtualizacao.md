@@ -1,75 +1,62 @@
 # PedidoAtualizacao
-- **Namespace**: IsthmusWinthor.Dominio.POCO.Pedidos
-- **Nome do Arquivo**: PedidoAtualizacao.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO.Pedidos  
+**Nome do Arquivo**: PedidoAtualizacao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PedidoAtualizacao` representa as atualizações de pedidos dentro do sistema, sendo responsável por gerenciar as informações relacionadas aos pedidos feitos por clientes. Ela abrange diversos detalhes do pedido, incluindo dados do cliente, itens do pedido, métodos de pagamento, e status do pedido. Essa classe ajuda a garantir que todos os dados pertinentes ao pedido sejam processados corretamente, minimizando erros e melhorando a integridade de dados durante a atualização dos pedidos.
+A classe `PedidoAtualizacao` representa uma entidade no domínio relacionada ao gerenciamento de pedidos de atualização no sistema. Ela é responsável por armazenar e manipular as informações de um pedido, incluindo dados como identificadores, datas de abertura e envio, opções de pagamento, itens do pedido, e status do pedido. O principal problema de negócio que esta classe resolve é a necessidade de manter o estado e as informações essenciais de um pedido em um contexto de atualização, garantindo a integridade dos dados e facilitando a integração com outros sistemas.
 
 ## Métodos de Negócio
 
-### Equals: `public override bool Equals(object obj)`
-- **Objetivo**: Garantir a integridade e a equivalência dos dados do pedido durante as operações de comparação.
-- **Comportamento**:
-  1. Verifica se o objeto passado é do tipo `PedidoAtualizacao`.
-  2. Compara todos os atributos relevantes da classe, incluindo identificadores, detalhes do pedido e status.
-  3. Retorna `true` se todos os atributos correspondem ao objeto comparado; caso contrário, retorna `false`.
-- **Retorno**: Retorna um valor booleano que indica se os dois objetos `PedidoAtualizacao` são equivalentes.
+### Método: Equals (override)
+- **Objetivo**: Garante que duas instâncias da classe `PedidoAtualizacao` sejam consideradas iguais se todos os seus campos relevantes forem iguais.
+- **Comportamento**: O método compara todos os atributos importantes da classe, incluindo listas de itens, verificando não apenas a contagem, mas também se cada item existe na outra lista. O método retorna verdadeiro se todos os atributos coincidem e falso caso contrário.
+- **Retorno**: Retorna um valor booleano (`true` ou `false`) que indica se as duas instâncias são iguais.
 
-### GetHashCode: `public override int GetHashCode()`
-- **Objetivo**: Fornecer um código hash consistente para a instância da classe, essencial para operações em coleções como hash tables.
-- **Comportamento**:
-  1. Inicializa um novo objeto `HashCode`.
-  2. Adiciona cada atributo relevante da classe à instância do hash.
-  3. Retorna o código hash gerado.
-- **Retorno**: Um valor inteiro representando o código hash da instância do pedido.
+Removido do método `Equals` explicações sobre estruturas de controle, pois a lógica segue uma comparação simples para cada propriedade.
 
-```mermaid
-flowchart TD
-    A[Equals] -->|Objeto é PedidoAtualizacao| B{Comparação de Atributos}
-    B -->|Todos os atributos são iguais| C[true]
-    B -->|Pelo menos um atributo é diferente| D[false]
-```
+### Método: GetHashCode (override)
+- **Objetivo**: Fornece um código hash único para a classe `PedidoAtualizacao`, que é utilizado em coleções que requerem hashing, como conjuntos e dicionários.
+- **Comportamento**: O método utiliza o `HashCode` da biblioteca C# para adicionar todos os atributos da classe ao hash, garantindo que instâncias que são consideradas iguais também tenham o mesmo código hash.
+- **Retorno**: Retorna um inteiro que representa o código hash da instância.
 
 ## Propriedades Calculadas e de Validação
-N/A (A classe não contém propriedades com lógica de cálculo ou validação nas propriedades `get` ou `set`)
+N/A - Todas as propriedades diretamente representam dados sem lógica de cálculo ou validação.
 
 ## Navigations Property
-- `ItensPedido`: Representa a lista de itens incluídos no pedido, que é uma classe complexa do domínio. 
-  - [ItemPedidoAtualizacao](ItemPedidoAtualizacao.md)
+- Itens do pedido: `List<ItemPedidoAtualizacao> ItensPedido`
+  - Referência: [ItemPedidoAtualizacao](ItemPedidoAtualizacao.md)
 
 ## Tipos Auxiliares e Dependências
-- Enumeradores:
+- **Enumeradores**:
   - [OpcaoPagamento](OpcaoPagamento.md)
   - [StatusPedidoEnum](StatusPedidoEnum.md)
-  - [TipoSolucao](TipoSolucao.md)
   - [CondicaoVendaEnum](CondicaoVendaEnum.md)
+  - [TipoSolucao](TipoSolucao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PedidoAtualizacao {
-        +long Id
-        +long DistribuidoraId
-        +long ClienteId
-        +long CodigoCliente
-        +long NumeroPedido
-        +DateTime AberturaCarrinho
-        +DateTime EnvioPedido
-        +bool Integrado
-        +bool Bonificado
+        long Id
+        long DistribuidoraId
+        long ClienteId
+        long CodigoCliente
+        long NumeroPedido
+        long NumeroPedidoIntegracao
+        long NumeroVinculoPedido
+        DateTime AberturaCarrinho
+        DateTime EnvioPedido
+        bool Integrado
+        bool Bonificado
     }
-
-    class ItemPedidoAtualizacao {
-        +long ProdutoId
-        +decimal Preco
-        +int Quantidade
-    }
-
-    PedidoAtualizacao --> ItemPedidoAtualizacao
-    PedidoAtualizacao ..> OpcaoPagamento
-    PedidoAtualizacao ..> StatusPedidoEnum
-    PedidoAtualizacao ..> TipoSolucao
-    PedidoAtualizacao ..> CondicaoVendaEnum
+    
+    PedidoAtualizacao --> OpcaoPagamento
+    PedidoAtualizacao --> StatusPedidoEnum
+    PedidoAtualizacao --> CondicaoVendaEnum
+    PedidoAtualizacao --> TipoSolucao
+    PedidoAtualizacao "1" --> "*" ItemPedidoAtualizacao : Itens
 ``` 
 
-Esta documentação fornece um panorama detalhado da classe `PedidoAtualizacao`, facilitando a compreensão das regras de negócio associadas e como a integridade dos dados é mantida no sistema.
+A documentação apresentada acima proporciona uma visão clara e estruturada da classe `PedidoAtualizacao`, destacando suas responsabilidades, métodos e relações com outros elementos do sistema, permitindo uma compreensão efetiva da lógica de negócios que sustenta a classe.
+---
+Gerada em 29/12/2025 21:46:36

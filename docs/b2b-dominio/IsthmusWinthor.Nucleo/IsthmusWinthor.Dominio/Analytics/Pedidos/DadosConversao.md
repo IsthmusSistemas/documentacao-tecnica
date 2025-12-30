@@ -1,81 +1,61 @@
 # DadosConversao
-
-- **Namespace**: IsthmusWinthor.Dominio.Analytics.Pedidos
-- **Nome do Arquivo**: DadosConversao.cs
+**Namespace**: IsthmusWinthor.Dominio.Analytics.Pedidos  
+**Nome do Arquivo**: DadosConversao.cs  
 
 ## Visão Geral e Responsabilidade
-
-A classe `DadosConversao` atua como um motor de cálculo para determinar métricas de conversão e rejeição de pedidos no contexto de uma plataforma B2B. Ela calcula e formata valores extraídos de interações de clientes, como o percentual de conversões e rejeições, baseando-se em entradas sobre acessos e pedidos realizados. Essa classe é crucial para gerar insights de negócios sobre o comportamento do cliente, identificando padrões de engajamento.
+A classe `DadosConversao` representa um modelo rico que encapsula a lógica de cálculo e avaliação de métricas de conversão e rejeição de clientes em um sistema B2B. Seu papel central é oferecer insights sobre a eficácia de conversões de clientes com base em dados de pedidos, informando a equipe de negócios sobre taxas de conversão e rejeição dentro de períodos específicos, facilitando decisões estratégicas.
 
 ## Métodos de Negócio
 
-### Título: DescricaoIndicadores (getter)
-
-- **Objetivo**: Garante a descrição formatada dos indicadores de conversão ou rejeição, dependendo do `ConversaoTipoEnum`.
-- **Comportamento**: 
-  - Verifica o tipo de conversão.
-  - Se o tipo for `Conversao`, retorna a descrição de percentual de conversão utilizando `ClientesUnicosAcesso` e `ClientesUnicosPedido`.
-  - Se for outro tipo, retorna a descrição de percentual de rejeição utilizando `ClientesUnicosAcesso`.
-- **Retorno**: Uma string formatada contendo a descrição do indicador atual.
+### Título: PercentualConversao (Visibilidade: público)
+- **Objetivo**: Garante o cálculo correto da taxa de conversão ou rejeição com base na categoria de conversão em uso.
+- **Comportamento**:
+  1. Verifica se `ClientesUnicosAcesso` é zero. Se sim, retorna 0,0.
+  2. Se o tipo de conversão for `Conversao`, calcula a porcentagem de clientes que enviaram pedidos em relação aos que acessaram.
+  3. Se o tipo for diferente, calcula a porcentagem de clientes que não efetuaram pedidos.
+- **Retorno**: Retorna um valor decimal representando a taxa percentual de conversão ou rejeição.
 
 ```mermaid
 flowchart TD
-    A[Verifica Tipo] --> B{Tipo == Conversao}
-    B -->|Sim| C[Retorna descrição de Conversão]
-    B -->|Não| D[Retorna descrição de Rejeição]
+    A[Início] --> B{"ClientesUnicosAcesso == 0?"}
+    B -- Sim --> C[Retornar 0.0]
+    B -- Não --> D{"Tipo == Conversao?"}
+    D -- Sim --> E[Calcular: (100 * ClientesUnicosPedido / ClientesUnicosAcesso)]
+    D -- Não --> F[Calcular: (100 * ClientesSemPedidos / ClientesUnicosAcesso)]
+    E --> G[Retornar resultado]
+    F --> G[Retornar resultado]
 ```
 
-### Título: PercentualConversao (getter)
-
-- **Objetivo**: Calcula o percentual de conversão ou rejeição baseando-se no tipo selecionado.
-- **Comportamento**: 
-  - Confere se `ClientesUnicosAcesso` é igual a zero, retornando zero no percentual.
-  - Para `Tipo == Conversao`, calcula o percentual de conversão.
-  - Caso contrário, calcula o percentual de rejeição.
-- **Retorno**: Um decimal representando o percentual calculado, arredondado para duas casas decimais.
+### Título: TicketMedio (Visibilidade: público)
+- **Objetivo**: Calcula o ticket médio dos pedidos realizados no período selecionado.
+- **Comportamento**:
+  1. Verifica se `QuantidadePedidos` é zero. Se sim, retorna 0.
+  2. Se não, divide o `ValorTotalPedidos` pela `QuantidadePedidos` para obter o valor médio por pedido.
+- **Retorno**: Retorna um valor decimal representando o ticket médio dos pedidos.
 
 ```mermaid
 flowchart TD
-    A[Verifica ClientesUnicosAcesso] --> B{ClientesUnicosAcesso == 0}
-    B -->|Sim| C[Retorna 0.0]
-    B -->|Não| D{Tipo == Conversao}
-    D -->|Sim| E[Calcula e Retorna Percentual de Conversão]
-    D -->|Não| F[Calcula e Retorna Percentual de Rejeição]
-```
-
-### Título: TicketMedio (getter)
-
-- **Objetivo**: Calcula o ticket médio por pedido.
-- **Comportamento**: 
-  - Verifica se `QuantidadePedidos` é zero, retornando zero para o ticket médio.
-  - Caso contrário, calcula o ticket médio dividindo `ValorTotalPedidos` por `QuantidadePedidos`.
-- **Retorno**: Um decimal representando o ticket médio.
-
-```mermaid
-flowchart TD
-    A[Verifica QuantidadePedidos] --> B{QuantidadePedidos == 0}
-    B -->|Sim| C[Retorna 0]
-    B -->|Não| D[Calcula e Retorna Ticket Médio]
+    A[Início] --> B{"QuantidadePedidos == 0?"}
+    B -- Sim --> C[Retornar 0]
+    B -- Não --> D[Calcular: ValorTotalPedidos / QuantidadePedidos]
+    D --> E[Retornar resultado]
 ```
 
 ## Propriedades Calculadas e de Validação
-
-- **Titulo**: Retorna a descrição baseada no `ConversaoTipoEnum`.
-- **PercentualConversao**: Calcula o percentual de conversão ou rejeição com base nas propriedades atuais.
-- **ValorTotalPedidosFormatado**: Formata `ValorTotalPedidos` para uma representação monetária.
-- **TicketMedioFormatado**: Formata `TicketMedio` para uma representação monetária.
+- **Titulo**: Retorna a descrição do tipo de conversão associado, usando método extension `Description()`.
+- **DescricaoIndicadores**: Gera uma descrição com base no tipo de conversão, diferenciando entre conversões e rejeições.
+- **DescricaoClientes**: Fornece descrição para conversões ou rejeições, baseada no `Tipo`.
+- **ValorTotalPedidosFormatado**: Formata o valor total dos pedidos em um formato monetário.
+- **TicketMedioFormatado**: Formata o ticket médio em um formato monetário.
 
 ## Navigations Property
-
-Nenhuma.
+Não existem propriedades que sejam classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-
-- **Enumerador**: [ConversaoTipoEnum](ConversaoTipoEnum.md)
-- **Helpers estáticos**: Métodos `.Description()` e `.ToMoney()`.
+- **Enumeradores**: [ConversaoTipoEnum](ConversaoTipoEnum.md)
+- **Helpers**: Métodos de extensão não especificados que envolvem o uso de `ToMoney()`.
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class DadosConversao {
@@ -96,6 +76,9 @@ classDiagram
         +decimal TicketMedio
         +string TicketMedioFormatado
     }
-    DadosConversao --> ConversaoTipoEnum
+    class ConversaoTipoEnum
+    
+    DadosConversao --> ConversaoTipoEnum : "Utiliza"
 ```
-
+---
+Gerada em 29/12/2025 20:08:39

@@ -2,21 +2,20 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: CategoriaModulo.cs  
 
-Este é um enumerador que auxilia na categorização de módulos dentro de um sistema, classificando-os em tipos distintos, o que é essencial para a organização e gestão das funcionalidades oferecidas.
+O `CategoriaModulo` é um enumerador que define as categorias dos módulos disponíveis no sistema, permitindo a classificação entre funcionalidades padrão e premium.
 
-## Tipos Auxiliares e Dependências
-- **Enums:**
-  - `[CategoriaModulo](CategoriaModulo.md)`
+### Tipos Auxiliares e Dependências
+- Enumeradores:
+  - [CategoriaModulo](CategoriaModulo.md)
 
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CategoriaModulo {
+        <<enumeration>>
         + Padrao
         + Premium
     }
 ```
-
 ---
-
-Nesse contexto, como a classe se trata de um `enum`, a documentação se concentrou na sua função de categorizar as opções de módulos disponíveis, essencial para a estrutura organizacional do sistema.
+Gerada em 29/12/2025 20:53:28

@@ -3,41 +3,43 @@
 **Nome do Arquivo**: ConvenioBandeira.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ConvenioBandeira` representa a associação entre um convênio de cartão e a bandeira do cartão, facilitando o agrupamento de regras de cobrança e a aplicação de valores mínimos para parcelas. Ela garante que as informações de cobrança sejam corretamente associadas com base nas filiais que utilizam determinado convênio, assegurando que os dados financeiros relevantes estejam sempre à disposição.
+A classe `ConvenioBandeira` representa um vinculo entre um convênio de cartão e a bandeira correspondente, gerenciando a cobrança e as parcelas associadas. O problema de negócio que ela resolve envolve a associação eficiente entre diferentes meios de pagamento e suas configurações, permitindo que o sistema encontre o código de cobrança correto com base na filial utilizada, além de manter condições claras e organizadas armazenadas nas coleções de cobranças e parcelas.
 
 ## Métodos de Negócio
+### Título: `CodigoCobrancaBandeira(FiltroConvenioCartao filtroConvenioCartao)` - `public`
+#### Objetivo:
+Garante a recuperação do código de cobrança apropriado baseado na filial informada através do filtro de convênio de cartão.
 
-### Título: `CodigoCobrancaBandeira(FiltroConvenioCartao filtroConvenioCartao)` - Visibilidade: `public`
-- **Objetivo**: Este método verifica a disponibilidade de um código de cobrança baseado em filiais específicas do convênio, retornando um código que se aplica ao contexto fornecido.
-- **Comportamento**:
-  1. O método recebe um filtro que contém o código da filial buscada.
-  2. Ele busca a primeira cobrança (`ConvenioBandeiraCobrancas`) que contém o código da filial em sua lista de códigos.
-  3. Se encontrar, retorna o código de cobrança correspondente.
-  4. Se não encontrar, busca um código de cobrança que não possua códigos de filial associados (aplicável a todas as filiais).
-- **Retorno**: Retorna o código de cobrança como uma string, ou `null` se nenhuma cobrança estiver disponível.
+#### Comportamento:
+1. A função começa filtrando a coleção `ConvenioBandeiraCobrancas` para encontrar a cobrança que contém a filial indicada no parâmetro `filtroConvenioCartao`.
+2. Se uma cobrança correspondente for encontrada, ela retorna o `CodigoCobranca` dessa cobrança.
+3. Caso contrário, a função busca por uma cobrança que não esteja vinculada a nenhuma filial (ou seja, onde `CodigosFiliais` esteja vazio).
+4. Se encontrar essa cobrança, retorna o respectivo `CodigoCobranca`.
+5. Se nenhuma cobrança válida for encontrada nas etapas anteriores, retorna `null`.
+
+#### Retorno:
+Retorna uma string representando o código de cobrança encontrado ou `null` se nenhuma cobrança válida for localizada.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Encontrar cobrança com filial}
-    B -- Sim --> C[Retornar código de cobrança da filial]
-    B -- Não --> D[Buscar cobrança sem filial]
-    D --> E{Encontrar cobrança sem filial}
-    E -- Sim --> F[Retornar código de cobrança sem filial]
-    E -- Não --> G[Retornar null]
+    A[Start] --> B{Filial encontrada?}
+    B -- Yes --> C[Return CodigoCobranca da cobrança]
+    B -- No --> D{Cobranca sem filial?}
+    D -- Yes --> C
+    D -- No --> E[Return null]
 ```
 
 ## Propriedades Calculadas e de Validação
-- Não foram identificadas propriedades com lógica no `get` ou validação no `set` nesta classe.
+Nenhuma propriedade nesta classe contém lógica no `get` ou validação no `set`.
 
 ## Navigations Property
-- `[ConvenioCartao](ConvenioCartao.md)`: Representa o convênio de cartão associado.
-- `[BandeiraCartao](BandeiraCartao.md)`: Representa a bandeira do cartão associado.
-- `[ConvenioBandeiraCobranca](ConvenioBandeiraCobranca.md)`: Representa as cobranças associadas a este convênio.
-- `[ConvenioBandeiraParcela](ConvenioBandeiraParcela.md)`: Representa as parcelas associadas a este convênio.
+- `ConvenioCartao`: [ConvenioCartao](ConvenioCartao.md)
+- `BandeiraCartao`: [BandeiraCartao](BandeiraCartao.md)
+- `ConvenioBandeiraCobrancas`: [ConvenioBandeiraCobranca](ConvenioBandeiraCobranca.md)
+- `Parcelas`: [ConvenioBandeiraParcela](ConvenioBandeiraParcela.md)
 
 ## Tipos Auxiliares e Dependências
-- `FiltroConvenioCartao`: Classe utilizada como entrada no método `CodigoCobrancaBandeira`.
-- `ConvenioBandeiraCobranca`: Representa as cobranças específicas do convênio de bandeira.
+- `FiltroConvenioCartao`: [FiltroConvenioCartao](FiltroConvenioCartao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -47,16 +49,19 @@ classDiagram
         +long ConvenioCartaoId
         +long BandeiraCartaoId
         +decimal ValorMinimoParcela
-        +string CodigoCobrancaBandeira(FiltroConvenioCartao)
+        +string CodigoCobrancaBandeira(FiltroConvenioCartao filtroConvenioCartao)
     }
-    
+
     class ConvenioCartao
     class BandeiraCartao
     class ConvenioBandeiraCobranca
     class ConvenioBandeiraParcela
+    class FiltroConvenioCartao
 
     ConvenioBandeira --> ConvenioCartao
     ConvenioBandeira --> BandeiraCartao
     ConvenioBandeira --> ConvenioBandeiraCobranca
     ConvenioBandeira --> ConvenioBandeiraParcela
 ```
+---
+Gerada em 29/12/2025 20:24:21

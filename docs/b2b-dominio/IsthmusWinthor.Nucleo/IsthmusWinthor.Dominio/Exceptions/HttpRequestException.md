@@ -1,34 +1,33 @@
 # HttpRequestException
-**Namespace**: IsthmusWinthor.Dominio.Exceptions  
-**Nome do Arquivo**: HttpRequestException.cs  
 
-HttpRequestException é uma classe que representa uma exceção específica relacionada a falhas em requisições HTTP na aplicação. Ela é usada para encapsular informações detalhadas sobre o erro, facilitando o tratamento e a lógica de erro na camada de apresentação ou serviços que interagem com APIs.
+**Namespace**: IsthmusWinthor.Dominio.Exceptions  
+**Nome do Arquivo**: HttpRequestException.cs
+
+A classe `HttpRequestException` é um modelo de exceção especializado que encapsula informações sobre um erro ocorrido durante uma solicitação HTTP, promovendo uma forma estruturada de reportar problemas de forma que possam ser facilmente consumidos pelas camadas superiores da aplicação.
 
 ## Métodos de Negócio
-### Construtor: `HttpRequestException(ErroDefault erro)` 
-- **Objetivo**: Garante que uma instância da exceção HTTP seja criada com detalhes relevantes sobre o erro ocorrido.
-- **Comportamento**: 
-  1. Recebe um objeto `ErroDefault` que contém informações detalhadas sobre o erro.
-  2. Chama o construtor da classe base `Exception`, passando a descrição do erro (`erro.Detail`).
-  3. Armazena o objeto `ErroDefault` na propriedade `Erro` para acesso posterior.
-- **Retorno**: Não há retorno, apenas inicializa uma nova instância da exceção.
 
-### Construtor: `HttpRequestException()` 
-- **Objetivo**: Permite a criação de uma instância da exceção sem detalhes de erro.
-- **Comportamento**: Inicializa a classe base `Exception` sem passar nenhum detalhe.
-- **Retorno**: Não há retorno, apenas inicializa uma nova instância da exceção.
+### HttpRequestException(ErroDefault erro) - Visibilidade: Pública
+- **Objetivo**: Garante que a classe armazene um erro detalhado proveniente de uma solicitação HTTP, encapsulando o detalhe da falha no objeto de exceção.
+- **Comportamento**:
+  1. Recebe um objeto `ErroDefault` como parâmetro.
+  2. Chama o construtor da classe base `Exception`, passando a descrição do erro (`Detail`) para garantir que as informações da exceção sejam preservadas.
+  3. Atribui o erro recebido à propriedade `Erro` da classe.
+- **Retorno**: Não há valor retornado; no entanto, a instância gerada pode ser lançada ou manipulada para tratamento de erros na aplicação.
+
+### HttpRequestException() - Visibilidade: Pública
+- **Objetivo**: Cria uma instância da exceção sem detalhes de erro, permitindo tratamento genérico de erro.
+- **Comportamento**: Este construtor simplesmente chama o construtor padrão da classe base `Exception`, resultando em uma exceção mais genérica.
+- **Retorno**: Não há valor retornado.
 
 ## Propriedades Calculadas e de Validação
-- **Erro**: Esta propriedade do tipo `ErroDefault` é utilizada para armazenar informações detalhadas sobre uma falha específica em uma requisição HTTP. 
-  - **Regra**: A propriedade é definida durante a construção da exceção e fornece informações acessíveis ao manipulador de exceções que irá processar a falha.
+- `Erro`: Propriedade que guarda um objeto do tipo `ErroDefault`, permitindo acesso às informações detalhadas do erro da solicitação HTTP.
 
-## Navigation Properties
-- **ErroDefault**: Assume-se que exista uma classe chamada `ErroDefault`, que é um dos componentes essenciais para o tratamento da lógica de erro.
-  - [ErroDefault](ErroDefault.md)
+## Navigations Property
+Não há propriedades de navegação complexas nesta classe, uma vez que `HttpRequestException` é focada na manipulação de exceções e não contém ligações a outras entidades do domínio.
 
 ## Tipos Auxiliares e Dependências
-- **ErroDefault**: Enumerador ou classe auxiliar que representa detalhes do erro.
-  - [ErroDefault](ErroDefault.md)
+- `ErroDefault`: Esta classe é utilizada como um tipo auxiliar para fornecer detalhes sobre o erro ocorrendo durante a solicitação HTTP.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -38,8 +37,12 @@ classDiagram
     }
 
     class ErroDefault {
-        <<enumeration>>
+        +string Detail
     }
 
-    HttpRequestException --> ErroDefault
+    HttpRequestException --> ErroDefault : utiliza >
 ```
+
+Esta documentação apresenta um resumo conciso das responsabilidades e comportamentos da classe `HttpRequestException`, organizando as informações de forma a facilitar a compreensão da lógica de erros que ela implementa.
+---
+Gerada em 29/12/2025 21:10:28

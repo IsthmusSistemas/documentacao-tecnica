@@ -2,22 +2,21 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoAplicacaoMeLiga.cs  
 
-`TipoAplicacaoMeLiga` é um enumerador que define os diferentes estados de visibilidade para uma aplicação chamada "MeLiga". Ele é utilizado para controlar qual conjunto de informações é apresentado ao usuário com base no estado de autenticação e configuração da aplicação.
-
----
+Este é um enumerador que define os diferentes tipos de aplicação que podem ser utilizados no contexto do sistema, permitindo uma gestão eficaz das exibições de informações com base no estado de login do usuário.
 
 ## Tipos Auxiliares e Dependências
-- **Enumerador**: 
-  - `[TipoAplicacaoMeLiga](TipoAplicacaoMeLiga.md)`
+- Enumerator: [TipoAplicacaoMeLiga](TipoAplicacaoMeLiga.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoAplicacaoMeLiga {
+        <<enumeration>>
         + NaoMostrar
         + MostrarLogado
         + MostrarDeslogado
         + MostrarDoisAmbientes
     }
 ```
-
+---
+Gerada em 29/12/2025 21:02:48

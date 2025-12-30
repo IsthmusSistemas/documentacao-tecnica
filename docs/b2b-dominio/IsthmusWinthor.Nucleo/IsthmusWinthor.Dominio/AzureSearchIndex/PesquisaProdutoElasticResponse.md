@@ -1,6 +1,7 @@
 # PesquisaProdutoElasticResponse
-
 **Namespace**: IsthmusWinthor.Dominio.AzureSearchIndex  
-**Nome do Arquivo**: PesquisaProdutoElasticResponse.cs
+**Nome do Arquivo**: PesquisaProdutoElasticResponse.cs  
 
-> A classe `PesquisaProdutoElasticResponse` é utilizada para o transporte de dados relacionados à resposta de uma pesquisa de produto no Azure Search Index.
+Classe que serve como um objeto de transporte de dados (DTO) para a resposta da pesquisa de produtos utilizando o ElasticSearch.
+---
+Gerada em 29/12/2025 20:09:22

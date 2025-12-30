@@ -3,51 +3,57 @@
 **Nome do Arquivo**: ConfiguracaoDistribuidora.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ConfiguracaoDistribuidora` representa a configuração de dados que pode ser definida por um distribuidor dentro do sistema. Ela provê uma maneira de armazenar, gerenciar e recuperar parâmetros de configuração, permitindo que valores padrão sejam utilizados ou que valores definidos pelo distribuidor sejam utilizados, considerando regras específicas para tratamento de valores vazios. Essa funcionalidade é crucial para garantir a flexibilidade e a personalização da configuração, assegurando que o sistema opere conforme as definições e expectativas dos distribuidores.
+A classe `ConfiguracaoDistribuidora` representa as configurações específicas de uma distribuidora. Ela tem o propósito de armazenar e manipular parâmetros que podem ser utilizados em outras partes do sistema, permitindo flexibilidade na gestão desses dados. O problema de negócio que a classe resolve é a necessidade de parametrização de configurações que podem variar entre distribuidoras, permitindo a adaptação de funcionalidades a diferentes contextos operacionais.
 
 ## Métodos de Negócio
 
-### Título: Get<T>() [public]
-- **Objetivo**: Este método garante que os valores retornados sejam adequadamente convertidos para o tipo solicitado, respeitando as regras de tratamento de valores vazios e padrão. 
-- **Comportamento**: 
-  1. O método inicia buscando o `Valor` da propriedade da classe.
-  2. Se `Valor` for nulo ou vazio, ele define `valor` como o `ValorPadrao`.
-  3. Se o parâmetro `allowEmpty` for verdadeiro e `Valor` não for nulo, ele permite que `valor` seja o próprio `Valor` dado pelo distribuidor.
-  4. O sistema tenta converter `valor` para o tipo `T` utilizando o método `Convert<T>()`.
-- **Retorno**: Retorna o valor convertido para o tipo solicitado, ou o valor padrão do tipo se ocorrer qualquer erro durante o processo de conversão.
+### Título: Get<T> (Public)
+**Objetivo**: Este método garante que os parâmetros estejam disponíveis em diferentes tipos, respeitando a possibilidade de que os valores definidos possam ser vazios ou nulos.
+
+**Comportamento**: 
+1. Recupera o valor da propriedade `Valor`.
+2. Se `Valor` estiver vazio, substitui pelo `ValorPadrao`.
+3. Se `allowEmpty` for verdadeiro e `Valor` não for nulo, mantém o valor fornecido pelo distribuidor.
+4. Chama o método `Convert<T>` para converter o valor para o tipo desejado `T`.
+5. Se ocorrer uma exceção, registra o erro e retorna o valor padrão do tipo `T`.
 
 ```mermaid
 flowchart TD
     A[Início] --> B{Valor vazio?}
-    B -- Sim --> C[Usa ValorPadrao]
-    B -- Não --> D[Valor definido?]
-    D -- Sim --> E{allowEmpty?}
-    E -- Sim --> F[Retorna Valor]
-    E -- Não --> C
-    D -- Não --> C
-    F --> G[Converter tipo T]
-    C --> G
-    G --> H[Retorna valor convertido]
+    B -- Sim --> C[Usar ValorPadrão]
+    B -- Não --> D{allowEmpty é verdadeiro?}
+    D -- Sim --> E{Valor não nulo?}
+    D -- Não --> F[Retornar Valor]
+    E -- Sim --> F
+    E -- Não --> G[Usar ValorPadrão]
+    F --> H[Converter para tipo T]
+    H --> I[Retornar valor convertido]
+    C --> H
+    G --> H
+    
 ```
 
-### Título: GetAsDecimal() [public]
-- **Objetivo**: Este método fornece uma forma de garantir que o valor armazenado como string seja retornado de forma segura e convertida para um decimal, com tratamento para valores vazios.
-- **Comportamento**: 
-  1. O método verifica se `Valor` é nulo ou vazio.
-  2. Caso seja, retorna 0.
-  3. Tenta a conversão de `Valor` para decimal usando `decimal.TryParse()`.
-- **Retorno**: Retorna o valor decimal resultante da conversão, ou 0 em caso de falha.
+### Título: GetAsDecimal (Public)
+**Objetivo**: Este método fornece uma maneira de obter o valor armazenado como um decimal. Ele garante que, na ausência de um valor válido, um valor padrão (0) seja retornado.
+
+**Comportamento**: 
+1. Verifica se `Valor` está vazio.
+2. Se estiver, retorna 0.
+3. Tenta converter `Valor` para decimal. 
+4. Em caso de falha na conversão, retorna 0.
+
+**Retorno**: Retorna o valor decimal convertido ou 0 se não houver um valor válido.
 
 ## Propriedades Calculadas e de Validação
-- **Valor**: Não tem validações de set ou lógica computada por sua definição, mas sua manipulação ocorre nos métodos de negócio.
-  
+- Não há propriedades que possuam lógica no `get` ou validação no `set` neste modelo de domínio.
+
 ## Navigations Property
-- `[IdentificadorConfiguracao](IdentificadorConfiguracao.md)`
-- `[GrupoConfiguracao](GrupoConfiguracao.md)`
+- [`IdentificadorConfiguracao`](IdentificadorConfiguracao.md)
+- [`GrupoConfiguracao`](GrupoConfiguracao.md)
 
 ## Tipos Auxiliares e Dependências
-- `[IdentificadorConfiguracao](IdentificadorConfiguracao.md)`
-- `[GrupoConfiguracao](GrupoConfiguracao.md)`
+- [`IdentificadorConfiguracao`](IdentificadorConfiguracao.md)
+- [`GrupoConfiguracao`](GrupoConfiguracao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -59,7 +65,11 @@ classDiagram
         +string TipoDado
         +string ValorPadrao
         +string MensagemAlerta
+        +T Get<T>(bool allowEmpty)
+        +decimal GetAsDecimal()
     }
     ConfiguracaoDistribuidora --> IdentificadorConfiguracao
     ConfiguracaoDistribuidora --> GrupoConfiguracao
 ```
+---
+Gerada em 29/12/2025 21:30:32

@@ -3,44 +3,50 @@
 **Nome do Arquivo**: ConfiguracaoMetaDados.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ConfiguracaoMetaDados` atua como um agregador de informações de configuração dentro do sistema. Seu papel é garantir que os dados relacionados a diferentes configurações possam ser armazenados, acessados e manipulados de forma consistente. Ela é fundamental para a personalização e a adaptação da aplicação, permitindo que os usuários finalizem suas configurações de acordo com suas necessidades específicas. O problema de negócio que ela resolve é a flexibilidade na configuração de diversos aspectos do sistema, permitindo uma adaptação customizada de acordo com o uso esperado.
+A classe `ConfiguracaoMetaDados` representa as configurações de metadados que são utilizadas no sistema. Ela é responsável por armazenar informações como o tipo de dado, valor padrão, mensagem de alerta e opções específicas que podem ser utilizadas para configurar o comportamento do sistema. O principal problema de negócio que esta classe resolve é a necessidade de gerenciar configurações de maneira flexível e intuitiva, permitindo que as opções sejam personalizáveis e facilmente acessíveis nas interfaces de usuário.
 
 ## Métodos de Negócio
 
-### OpcoesArray
-- **Objetivo**: Este método garante que as opções de configuração sejam recuperadas adequadamente a partir de uma string JSON, permitindo que a configuração seja lida e transformada em uma lista utilizável de opções.
+### Método: `OpcoesArray`
+- **Visibilidade**: Público (get)
+- **Objetivo**: Este método garante a conversão de um JSON armazenado em `OpcoesArrayJson` em uma lista de `OpcaoConfiguracao`, desde que o tipo de dado (`TipoDado`) seja do tipo "array".
 - **Comportamento**: 
-  1. Verifica se `OpcoesArrayJson` é nulo ou vazio, ou se o `TipoDado` não é "array".
-  2. Se a condição for verdadeira, retorna uma nova lista vazia de `OpcaoConfiguracao`.
-  3. Tenta desserializar a string JSON em uma lista de `OpcaoConfiguracao`.
-  4. Se a desserialização falhar por qualquer motivo (exceto nulidade), retorna uma nova lista vazia como fallback.
-- **Retorno**: Retorna uma lista de `OpcaoConfiguracao`, que contém as opções disponíveis para a configuração se tudo ocorrer corretamente; caso contrário, retorna uma lista vazia.
+  1. Verifica se `OpcoesArrayJson` está vazio ou se `TipoDado` não é "array".
+  2. Se a condição anterior for verdadeira, retorna uma nova lista vazia de `OpcaoConfiguracao`.
+  3. Tenta desserializar `OpcoesArrayJson` em uma lista de `OpcaoConfiguracao`.
+  4. Se a desserialização falhar (por exemplo, devido a um JSON malformado), retorna uma nova lista vazia.
+- **Retorno**: Retorna uma lista de `OpcaoConfiguracao` que contém as opções configuradas ou uma lista vazia caso não existam opções válidas ou a desserialização falhe.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{OpcoesArrayJson é nulo ou vazio?}
-    B -- Sim --> C[Retornar nova lista vazia]
-    B -- Não --> D{TipoDado é "array"?}
-    D -- Não --> E[Retornar nova lista vazia]
-    D -- Sim --> F[Tentar desserializar JSON]
-    F --> G{Desserialização bem-sucedida?}
-    G -- Sim --> H[Retornar lista de opcoes]
-    G -- Não --> I[Retornar nova lista vazia]
+    A[Início]
+    B{OpcoesArrayJson vazio ou TipoDado != "array?"}
+    C[Retorna lista vazia]
+    D[Deserializa OpcoesArrayJson]
+    E{Erro na deserialização?}
+    F[Retorna lista vazia]
+    G[Retorna lista de OpçãoConfiguracao]
+
+    A --> B
+    B -- Sim --> C
+    B -- Não --> D
+    D --> E
+    E -- Sim --> F
+    E -- Não --> G
 ```
 
 ## Propriedades Calculadas e de Validação
-- **OpcoesArray**: É uma propriedade calculada que transforma um JSON armazenado em `OpcoesArrayJson` em uma lista de objetos do tipo `OpcaoConfiguracao`. A regra de negócio aqui é que somente se o tipo de dado for "array", a desserialização é tentada, garantindo que a representação de dados esteja correta e que as falhas na desserialização não causem erros no sistema.
+- **OpcoesArray**: Esta propriedade é calculada com base no conteúdo de `OpcoesArrayJson`. O retorno da propriedade depende da validação de que `OpcoesArrayJson` não está vazio e que `TipoDado` é igual a "array". Se a validação não for atendida, a propriedade retorna uma lista vazia.
 
-## Navigations Property
-- `IdentificadorConfiguracao`: [IdentificadorConfiguracao](IdentificadorConfiguracao.md)  
-- `GrupoConfiguracao`: [GrupoConfiguracao](GrupoConfiguracao.md)  
-- `ConfiguracaoMetaDadosSolucao`: [ConfiguracaoMetaDadosSolucao](ConfiguracaoMetaDadosSolucao.md)  
+## Navigation Property
+- **IdentificadorConfiguracao**: [IdentificadorConfiguracao](IdentificadorConfiguracao.md)  
+- **GrupoConfiguracao**: [GrupoConfiguracao](GrupoConfiguracao.md)  
+- **ConfiguracaoMetaDadosSolucao**: [ConfiguracaoMetaDadosSolucao](ConfiguracaoMetaDadosSolucao.md)  
 
 ## Tipos Auxiliares e Dependências
-- `[OpcaoConfiguracao](OpcaoConfiguracao.md)`
-- `[IdentificadorConfiguracao](IdentificadorConfiguracao.md)`
-- `[GrupoConfiguracao](GrupoConfiguracao.md)`
-- `[ConfiguracaoMetaDadosSolucao](ConfiguracaoMetaDadosSolucao.md)`
+- **Enumeradores e Dependências**:
+  - [TipoDado](TipoDado.md)  
+  - [OpcaoConfiguracao](OpcaoConfiguracao.md)  
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -55,17 +61,17 @@ classDiagram
         +string OpcoesArrayJson
         +string UrlPaginaConfiguracao
         +bool RestritoSuporte
-        +List~OpcaoConfiguracao~ OpcoesArray
+        +List<OpcaoConfiguracao> OpcoesArray
     }
-    class OpcaoConfiguracao
+    
     class IdentificadorConfiguracao
     class GrupoConfiguracao
     class ConfiguracaoMetaDadosSolucao
 
-    ConfiguracaoMetaDados "1" o-- "1..*" OpcaoConfiguracao : contém
-    ConfiguracaoMetaDados "1" --> "1" IdentificadorConfiguracao : identificado por
-    ConfiguracaoMetaDados "1" --> "1" GrupoConfiguracao : pertencente a
-    ConfiguracaoMetaDados "1" o-- "0..*" ConfiguracaoMetaDadosSolucao : mapeado por
-``` 
-
-Esta documentação técnica sintetiza as regras de negócio presentes na classe `ConfiguracaoMetaDados`, oferecendo uma visão clara das suas responsabilidades e funcionalidades no contexto do sistema corporativo.
+    ConfiguracaoMetaDados --> IdentificadorConfiguracao
+    ConfiguracaoMetaDados --> GrupoConfiguracao
+    ConfiguracaoMetaDados "1" --> "*" ConfiguracaoMetaDadosSolucao
+    ConfiguracaoMetaDados --> OpcaoConfiguracao
+```
+---
+Gerada em 29/12/2025 20:22:59

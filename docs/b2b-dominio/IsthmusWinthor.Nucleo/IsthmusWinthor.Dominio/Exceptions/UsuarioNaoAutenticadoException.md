@@ -1,40 +1,39 @@
 # UsuarioNaoAutenticadoException
-- **Namespace**: IsthmusWinthor.Dominio.Exceptions
-- **Nome do Arquivo**: UsuarioNaoAutenticadoException.cs
+**Namespace**: IsthmusWinthor.Dominio.Exceptions  
+**Nome do Arquivo**: UsuarioNaoAutenticadoException.cs  
 
-Esta classe representa uma exceção lançada quando um usuário não está autenticado.
-
-## Visão Geral e Responsabilidade
-A classe `UsuarioNaoAutenticadoException` é uma implementação específica de exceção que indica que uma operação que requer um usuário autenticado foi tentada sem que um usuário estivesse autenticado. Essa exceção ajuda a garantir a integridade dos fluxos de autenticação e autorização no sistema, permitindo que o desenvolvedor gerencie cenários em que a autenticação é necessária.
+A classe `UsuarioNaoAutenticadoException` representa uma exceção específica que é lançada quando não há um usuário autenticado no sistema. Seu propósito é garantir a integridade da lógica de negócios ao sinalizar uma condição de erro durante a execução de operações que requerem um usuário autenticado.
 
 ## Métodos de Negócio
-### Construtor: `UsuarioNaoAutenticadoException()`
-- **Objetivo**: Garante que uma mensagem padrão seja fornecida quando a exceção é lançada.
-- **Comportamento**: 
-  1. Chama o construtor da classe base `Exception`, passando uma mensagem que indica que nenhum usuário está autenticado.
-- **Retorno**: N/A (construtor não retorna valor).
 
-### Construtor Personalizado: `UsuarioNaoAutenticadoException(SerializationInfo info, StreamingContext context)`
-- **Objetivo**: Permite a serialização da exceção personalizada.
-- **Comportamento**: 
-  1. Chama o construtor da classe base `Exception` para garantir que os dados de serialização sejam corretamente tratados.
-- **Retorno**: N/A (construtor não retorna valor).
+### Título: Construtor Público
+** Objetivo:** Garante que a exceção é lançada com uma mensagem clara referente à falta de autenticação do usuário.  
+** Comportamento:** Quando instanciada, a classe chama o construtor da classe base `Exception`, passando uma mensagem fixa: "Nenhum usuário autenticado!". Essa mensagem é utilizada para informar ao desenvolvedor ou usuário do sistema que uma operação dependente de autenticação falhou devido à ausência de um token ou sessão de usuário válida.  
+** Retorno:** Nenhum valor retornado, a ação é a criação da exceção.
+
+### Título: Construtor de Serialização (protegido)
+** Objetivo:** Permite a serialização da exceção, garantindo que o estado da exceção possa ser mantido durante o processo de serialização e desserialização.  
+** Comportamento:** Este construtor é utilizado quando a exceção precisa ser serializada, recebendo um objeto `SerializationInfo` e um contexto de streaming. A lógica aqui simplesmente chama o construtor da classe base `Exception` com os mesmos parâmetros transmitidos, mantendo a mensagem de erro.  
+** Retorno:** Nenhum valor retornado, utilizado para processos de serialização.
 
 ## Propriedades Calculadas e de Validação
-A classe não possui propriedades calculadas ou de validação, já que sua única funcionalidade é o gerenciamento de exceções.
+Não há propriedades calculadas ou de validação na classe, pois é uma exceção simples e não possui estados ou dados adicionais a serem validados.
 
-## Navigations Property
-Não há propriedades que sejam classes complexas do domínio.
+## Navigation Property
+Não há propriedades de navegação nesta classe, já que ela é uma exceção e não contém qualquer outra entidade complexa.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe estática/helper é utilizado por esta classe.
+Não há enumeradores ou classes estáticas/helpers que a classe utilize.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class UsuarioNaoAutenticadoException {
-        +UsuarioNaoAutenticadoException()
-        +UsuarioNaoAutenticadoException(SerializationInfo info, StreamingContext context)
+        +string Message
+        +void UsuarioNaoAutenticadoException()
+        +void UsuarioNaoAutenticadoException(SerializationInfo info, StreamingContext context)
     }
-    UsuarioNaoAutenticadoException --> Exception
 ```
+
+---
+Gerada em 29/12/2025 21:11:15

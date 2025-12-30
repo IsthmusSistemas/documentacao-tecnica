@@ -1,4 +1,4 @@
-#Documentação - SafraPay
+# SafraPay
 ## Conteúdo
 - [BrandEnum](BrandEnum.md)
 - [DocumentTypeEnum](DocumentTypeEnum.md)

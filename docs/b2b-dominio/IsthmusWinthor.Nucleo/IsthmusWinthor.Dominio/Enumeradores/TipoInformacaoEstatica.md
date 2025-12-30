@@ -2,16 +2,17 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoInformacaoEstatica.cs  
 
-O `TipoInformacaoEstatica` é um enumerador utilizado para categorizar informações que permanecem constantes dentro do sistema, facilitando a classificação de dados relacionados ao estoque.
+Este é um enumerador que define tipos de informações estáticas, utilizado na aplicação para categorizar e padronizar a representação de informações que não mudam.
 
-## Tipos Auxiliares e Dependências
-- Enum: `[TipoInformacaoEstatica](TipoInformacaoEstatica.md)`  
+### Tipos Auxiliares e Dependências
+- Enumeração: [TipoInformacaoEstatica](TipoInformacaoEstatica.md)
 
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoInformacaoEstatica {
-        <<enumeration>>
-        Estoque
+        + Estoque : int
     }
 ```
+---
+Gerada em 29/12/2025 21:04:45

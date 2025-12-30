@@ -1,4 +1,4 @@
-#Documentação - Exceptions
+# Exceptions
 ## Conteúdo
 - [AcessoAplicacaoException](AcessoAplicacaoException.md)
 - [AlvaraProdutoInvalidoException](AlvaraProdutoInvalidoException.md)

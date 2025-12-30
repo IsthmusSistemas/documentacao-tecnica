@@ -1,27 +1,37 @@
 # ModuloItemMenu
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: ModuloItemMenu.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: ModuloItemMenu.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ModuloItemMenu` representa uma associação entre um item de menu e um módulo dentro do sistema. O principal objetivo dessa classe é garantir a integridade e a relacionabilidade entre módulos e seus itens de menu, permitindo que o sistema gerencie adequadamente quais itens de menu pertencem a quais módulos, facilitando a navegação e o acesso a funcionalidades específicas.
+A classe `ModuloItemMenu` representa uma relação entre um `ItemMenu` e um `ModuloIsthmus`. É responsável por vincular menus a módulos dentro do sistema, permitindo que os itens do menu sejam organizados e gerenciados conforme a estrutura lógica dos módulos. Esta relação é essencial para garantir a integridade da interface do usuário, assegurando que os itens do menu sejam exibidos de acordo com a autorização e configuração dos módulos.
 
-## Navegação Property
-- `[ItemMenu](ItemMenu.md)`: Representa a classe que define as propriedades e comportamentos de um item de menu.
-- `[ModuloIsthmus](ModuloIsthmus.md)`: Representa a classe que contém as propriedades e comportamentos de um módulo dentro do sistema.
+## Métodos de Negócio
+*(Neste caso, a classe não possui métodos com lógica de negócios além dos getters e setters simples.)*
+
+## Propriedades Calculadas e de Validação
+*(A classe não contém propriedades que possuem lógica de validação ou cálculos específicos.)*
+
+## Navigations Property
+- [ItemMenu](ItemMenu.md)
+- [ModuloIsthmus](ModuloIsthmus.md)
 
 ## Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou enumerador específico foi identificado nesta classe.
+*(A classe não faz uso de enumeradores ou classes auxiliares específicas.)*
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ModuloItemMenu {
-        long Id
+        +long Id
     }
-    class ItemMenu
-    class ModuloIsthmus
-
-    ModuloItemMenu --> ItemMenu : contém > 
-    ModuloItemMenu --> ModuloIsthmus : pertence a >
+    class ItemMenu {
+        +long Id
+    }
+    class ModuloIsthmus {
+        +long Id
+    }
+    ModuloItemMenu --> ItemMenu
+    ModuloItemMenu --> ModuloIsthmus
 ```
-
+---
+Gerada em 29/12/2025 20:39:56

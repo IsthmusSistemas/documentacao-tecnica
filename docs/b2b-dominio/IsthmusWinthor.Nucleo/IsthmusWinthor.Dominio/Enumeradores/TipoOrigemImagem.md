@@ -2,17 +2,19 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoOrigemImagem.cs  
 
-O `TipoOrigemImagem` é um enumerador que serve para categorizar a origem das imagens, permitindo uma melhor organização e manipulação dos dados relacionados a diferentes tipos de origem.
+Esta classe é um enumerador que define as origens possíveis de uma imagem, sendo utilizado em diferentes contextos onde a origem da imagem precisa ser especificada. 
 
 ## Tipos Auxiliares e Dependências
-- Nenhum.
+- **Enumeradores**:
+  - [TipoOrigemImagem](TipoOrigemImagem.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoOrigemImagem {
-        <<enumerator>>
         +Automatico
         +Manual
     }
 ```
+---
+Gerada em 29/12/2025 21:05:46

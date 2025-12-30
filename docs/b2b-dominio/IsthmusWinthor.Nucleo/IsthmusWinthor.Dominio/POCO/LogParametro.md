@@ -2,23 +2,26 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: LogParametro.cs  
 
-## Citação
-A classe `LogParametro` é um objeto de transferência de dados (DTO) utilizado para encapsular informações sobre alterações em parâmetros do sistema, facilitando a auditoria e rastreamento de mudanças.
+LogParametro é uma classe que transporta dados relacionados a alterações de parâmetros no sistema. Seu principal objetivo é registrar informações sobre a modificação, como o usuário responsável pela alteração, o antigo e o novo valor do parâmetro e a data e hora da modificação.
 
-## Diagrama de Relacionamentos
+### Propriedades Calculadas e de Validação
+- **IdentificadorConfiguracaoNome**: Esta propriedade é uma representação em string do valor do enumerador IdentificadorConfiguracao. Ele converte o enumerador para texto, facilitando a legibilidade em representações de log ou interfaces de usuário.
+
+### Tipos Auxiliares e Dependências
+- [IdentificadorConfiguracao](IdentificadorConfiguracao.md): Enum que representa as diferentes configurações de identificadores que podem ser logadas.
+
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class LogParametro {
-        DateTime DataHora
-        long UsuarioId
-        string UsuarioNome
-        IdentificadorConfiguracao IdentificadorConfiguracao
-        string ValorAntigoParametro
-        string ValorNovoParametro
+        +DateTime DataHora
+        +long UsuarioId
+        +string UsuarioNome
+        +IdentificadorConfiguracao IdentificadorConfiguracao
+        +string ValorAntigoParametro
+        +string ValorNovoParametro
     }
-    class IdentificadorConfiguracao {
-    }
-    
     LogParametro --> IdentificadorConfiguracao
 ```
-
+---
+Gerada em 29/12/2025 21:36:44

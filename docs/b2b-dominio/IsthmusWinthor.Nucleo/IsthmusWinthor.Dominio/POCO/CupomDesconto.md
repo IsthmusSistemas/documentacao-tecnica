@@ -1,65 +1,54 @@
 # CupomDesconto
-- **Namespace**: IsthmusWinthor.Dominio.POCO
-- **Nome do Arquivo**: CupomDesconto.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO  
+**Nome do Arquivo**: CupomDesconto.cs
 
 ## Visão Geral e Responsabilidade
-A classe `CupomDesconto` representa um cupom de desconto que pode ser aplicado a produtos e itens em um carrinho de compras. O papel desta classe é determinar se um determinado produto ou item atende aos critérios para a aplicação do desconto configurado, com base em um conjunto de regras de negócio definidas pelas faixas de desconto e as condições especificadas nos itens do cupom. Isso permite a promoção de vendas e ofertas específicas para determinados produtos, marcas ou categorias.
+A classe `CupomDesconto` representa um cupom que pode ser utilizado em um sistema de e-commerce para aplicar descontos em produtos ou itens de carrinho. Ela é responsável por determinar se um cupom de desconto é aplicável a um dado produto ou item de carrinho, com base em uma série de critérios definidos através de faixas de desconto e filtros associados. A classe ajuda a garantir que os descontos sejam aplicados de maneira correta e consistente, levando em conta as especificidades dos produtos elegíveis.
 
 ## Métodos de Negócio
 
-### Título: CupomSeAplica(ProdutoDTO) - `public`
-- **Objetivo**: Garante que o cupom se aplica ao produto, verificando se o produto atende a todas as condições listadas nos itens do cupom.
+### Título: CupomSeAplica(ProdutoDTO produto) - Público
+- **Objetivo**: Verificar se o cupom se aplica a um determinado produto.
 - **Comportamento**: 
-  1. Verifica se a lista de `ItensCupom` é nula ou vazia. Se sim, retorna `false`.
-  2. Para cada item no `ItensCupom`, realiza as validações necessárias:
-     - Compara o código do produto com o filtro de produto.
-     - Compara a marca do produto com o filtro de marca.
-     - Compara o código do departamento, categoria, subcategoria e fornecedor do produto com os respectivos filtros.
-  3. Retorna `true` se todos os filtros forem atendidos por pelo menos um dos itens; caso contrário, retorna `false`.
-- **Retorno**: Retorna um `bool` indicando se o cupom se aplica ao produto.
+  1. Verifica se a lista de itens do cupom está vazia ou nula, retornando `false` se este for o caso.
+  2. Para cada item na lista de `ItensCupom`, verifica se ele se aplica ao produto utilizando uma série de filtros (Produto, Marca, Departamento, Categoria, Subcategoria e Fornecedor).
+  3. Retorna `true` se todos os itens do cupom se aplicam ao produto, caso contrário, retorna `false`.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{ItensCupom nulo ou vazio?}
-    B -- Sim --> C[Retorna false]
-    B -- Não --> D[Itera sobre ItensCupom]
-    D --> E{Filtro atende?}
-    E -- Não --> F[Retorna false]
-    E -- Sim --> D
-    D --> G[Retorna true]
+    A[Início] -->|ItensCupom nulos ou vazios| B[Retorna false]
+    A --> C[Verifica se ItensCupom se aplica ao produto]
+    C -->|Todos os itens aplicáveis| D[Retorna true]
+    C -->|Algum item não aplicável| E[Retorna false]
 ```
 
-### Título: CupomSeAplica(ItemCarrinho) - `public`
-- **Objetivo**: Garante que o cupom se aplica ao item presente no carrinho, verificando se o item atende a todas as condições listadas nos itens do cupom.
+### Título: CupomSeAplica(ItemCarrinho itemCarrinho) - Público
+- **Objetivo**: Verificar se o cupom se aplica a um determinado item no carrinho.
 - **Comportamento**: 
-  1. Para cada item no `ItensCupom`, realiza as validações necessárias:
-     - Compara o código do produto no item do carrinho com o filtro de produto.
-     - Compara a marca, departamento, categoria e subcategoria do item do carrinho com os respectivos filtros.
-  2. Retorna `true` se todos os filtros forem atendidos por pelo menos um dos itens; caso contrário, retorna `false`.
-- **Retorno**: Retorna um `bool` indicando se o cupom se aplica ao item do carrinho.
+  1. Avalia todos os itens presentes em `ItensCupom` com base nos filtros correspondentes ao `itemCarrinho`.
+  2. A lógica é semelhante à do método anterior, onde cada item é examinado em relação ao código do produto, marca, departamento, categoria, subcategoria e fornecedor.
+  3. Retorna `true` se todos os itens do cupom se aplicam ao item do carrinho, senão, retorna `false`.
 
 ```mermaid
 flowchart TD
-    A[Início] --> D[Itera sobre ItensCupom]
-    D --> E{Filtro atende?}
-    E -- Não --> F[Retorna false]
-    E -- Sim --> D
-    D --> G[Retorna true]
+    A[Início] --> B[Verifica se ItensCupom se aplica ao ItemCarrinho]
+    B -->|Todos os itens aplicáveis| C[Retorna true]
+    B -->|Algum item não aplicável| D[Retorna false]
 ```
 
 ## Propriedades Calculadas e de Validação
-- **ValorDesconto**: Esta propriedade armazena o valor do desconto aplicado pelo cupom. O desconto pode ser influenciado pelas faixas de desconto, uma vez que condições adicionais podem ser aplicadas dependendo do valor mínimo de compra ou outras regras de negócio que devem ser definidas em outros métodos.
+Não há propriedades com lógica no `get` ou validação no `set`.
 
 ## Navigations Property
-- **FaixasDesconto**: `[FaixaDescontoCupom](FaixaDescontoCupom.md)` - Representa as diversas faixas de desconto que podem ser aplicadas dependendo das condições do carrinho.
-- **ItensCupom**: `[ItemCupom](ItemCupom.md)` - Lista dos itens que definem as regras de aplicação do cupom.
+- `FaixasDesconto`: [FaixaDescontoCupom](FaixaDescontoCupom.md)
+- `ItensCupom`: [ItemCupom](ItemCupom.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enums**:
-  - `[TipoAplicacaoCupomEnum](TipoAplicacaoCupomEnum.md)` - Enum que representa os diferentes tipos de aplicação do cupom.
-  - `[FormaAplicacaoDescontoEnum](FormaAplicacaoDescontoEnum.md)` - Enum representando como o desconto deve ser aplicado.
-  - `[FiltroProdutoEnum](FiltroProdutoEnum.md)` - Enum que lista os possíveis filtros que podem ser utilizados para a aplicação do cupom.
-  - `[FormaDescontoEnum](FormaDescontoEnum.md)` - Enum que define como o desconto é calculado.
+- Enumeradores:
+  - [FiltroProdutoEnum](FiltroProdutoEnum.md)
+  - [TipoAplicacaoCupomEnum](TipoAplicacaoCupomEnum.md)
+  - [FormaAplicacaoDescontoEnum](FormaAplicacaoDescontoEnum.md)
+  - [FormaDescontoEnum](FormaDescontoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -75,6 +64,8 @@ classDiagram
         +List<ItemCupom> ItensCupom
         +bool IgnorarDescontoValidacaoMinimos
         +FormaAplicacaoDescontoEnum FormaAplicacaoDescontoEnum
+        +bool CupomSeAplica(ProdutoDTO produto)
+        +bool CupomSeAplica(ItemCarrinho itemCarrinho)
     }
 
     class FaixaDescontoCupom {
@@ -86,8 +77,11 @@ classDiagram
     class ItemCupom {
         +FiltroProdutoEnum TipoFiltro
         +List<string> Valores
+        +bool SeAplica(FiltroProdutoEnum tipo, string codigo)
     }
 
-    CupomDesconto o-- "1..*" FaixaDescontoCupom
-    CupomDesconto o-- "1..*" ItemCupom
+    CupomDesconto --> FaixaDescontoCupom
+    CupomDesconto --> ItemCupom
 ```
+---
+Gerada em 29/12/2025 21:31:11

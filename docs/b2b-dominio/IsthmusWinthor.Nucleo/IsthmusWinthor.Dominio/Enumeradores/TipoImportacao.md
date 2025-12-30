@@ -1,11 +1,13 @@
 # TipoImportacao
+
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoImportacao.cs  
 
-Esta enumeração é utilizada para categorizar os diferentes tipos de importação que podem ser realizados dentro do sistema, facilitando o gerenciamento e controle das operações de dados.
+O enumerador `TipoImportacao` define os tipos de importação que podem ser realizados no sistema, categorizando os dados que podem ser importados para facilitar a integração de informações.
 
 ## Tipos Auxiliares e Dependências
-- `TipoImportacao`: Enum utilizada para definir os tipos de importação disponíveis.
+- Nenhum enumerador adicional.  
+- Nenhuma classe estática ou helper associada.  
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -17,3 +19,5 @@ classDiagram
         Organizacao
     }
 ```
+---
+Gerada em 29/12/2025 21:04:41

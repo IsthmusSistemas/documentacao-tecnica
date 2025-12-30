@@ -3,39 +3,33 @@
 **Nome do Arquivo**: RegraCalculoOndeEstamosPercentual.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `RegraCalculoOndeEstamosPercentual` é responsável por calcular a porcentagem de um valor variável em relação a um valor base. Este cálculo é fundamental para a análise de desempenho, permitindo que os usuários entendam quanto do valor base é representado pelo valor variável. A presença de uma lógica de verificação para garantir que o valor base não seja menor ou igual a zero previne erros de divisão e garante integridade nos cálculos.
+A classe `RegraCalculoOndeEstamosPercentual` é responsável por calcular a porcentagem de um valor variável em relação a um valor base. Essa classe resolve o problema de negócio de quantificar a contribuição de uma variável em um contexto maior, proporcionando uma visão clara de performance relativa. É especialmente útil quando é necessário avaliar o desempenho ou a evolução de métricas, como resultados financeiros ou indicadores de performance.
 
 ## Métodos de Negócio
 
-### Título: `CalcularResultado` (public)
-- **Objetivo**: Este método garante que o cálculo de porcentagem seja realizado de forma segura, evitando divisões por zero e retornando sempre um valor válido.
-  
-- **Comportamento**:
-  1. O método recebe dois parâmetros: `valorBase` e `valorVariavel`.
-  2. Verifica se `valorBase` é menor ou igual a zero.
-     - Se sim, retorna `0` como resultado.
-  3. Se `valorBase` for maior que zero, calcula a porcentagem: `(valorVariavel * 100) / valorBase`.
-  4. Retorna o resultado do cálculo.
-
-- **Retorno**: O método retorna um `decimal` que representa a porcentagem do `valorVariavel` em relação ao `valorBase`. Se `valorBase` for inválido (<= 0), o retorno é `0`.
+### Título: CalcularResultado (public)
+- **Objetivo**: Garante que o cálculo da porcentagem entre `valorVariavel` e `valorBase` seja realizado de forma correta, levando em consideração a integridade dos dados ao evitar divisões por zero.
+- **Comportamento**: 
+  1. Verifica se o `valorBase` é menor ou igual a zero.
+     - Se sim, retorna `0` como resultado, evitando erro de divisão.
+  2. Caso contrário, calcula a porcentagem utilizando a fórmula `(valorVariavel * 100) / valorBase` e retorna o resultado.
+- **Retorno**: O método retorna um valor decimal que representa o percentual calculado, ou `0` caso a condição de validacão inicial (valorBase <= 0) seja satisfeita.
 
 ```mermaid
 flowchart TD
-    A[Início]
-    A --> B{valorBase <= 0?}
-    B -->|Sim| C[Retorna 0]
-    B -->|Não| D[Calcula (valorVariavel * 100) / valorBase]
-    D --> E[Retorna resultado]
+    A[valorBase <= 0?] -->|Sim| B[Retornar 0]
+    A -->|Não| C[Calcular (valorVariavel * 100) / valorBase]
+    C --> D[Retornar resultado]
 ```
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades com lógica de cálculo ou validação na classe.
+Não há propriedades na classe que apresentam lógica no `get` ou validação no `set`.
 
 ## Navigations Property
-- Não existem propriedades que sejam classes complexas do domínio na classe.
+Esta classe não contém propriedades que são classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-- Não há enumeradores ou classes auxiliares utilizadas por `RegraCalculoOndeEstamosPercentual`.
+Não há enumeradores (Enums) ou classes estáticas/Helpers que a classe utiliza.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -44,3 +38,5 @@ classDiagram
         +decimal CalcularResultado(decimal valorBase, decimal valorVariavel)
     }
 ```
+---
+Gerada em 29/12/2025 21:45:03

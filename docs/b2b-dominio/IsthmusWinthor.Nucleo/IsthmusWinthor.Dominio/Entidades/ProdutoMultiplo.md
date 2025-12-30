@@ -3,19 +3,16 @@
 **Nome do Arquivo**: ProdutoMultiplo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ProdutoMultiplo` representa uma entidade de domínio utilizada para gerenciar produtos em unidades múltiplas dentro de uma filial específica. Esta classe resolve o problema de gestão de estoque, permitindo a definição de quantidades múltiplas para cada produto, facilitando a sincronização e o controle de inventário em diferentes filiais.
-
-## Métodos de Negócio
-Na análise realizada, a classe `ProdutoMultiplo` não contém métodos com lógica de negócio que vão além de simples getters e setters.
+A classe `ProdutoMultiplo` atua como um modelo de domínio que representa a relação entre um produto e seus múltiplos permitidos por filial. Essa abordagem permite garantir que os produtos sejam gerenciados de forma adequada, permitindo uma melhor organização e controle dos estoques e vendas, considerando as especificações de múltiplos por filial.
 
 ## Propriedades Calculadas e de Validação
-A classe `ProdutoMultiplo` não apresenta propriedades com lógica de cálculo ou validações específicas a serem descritas.
+Não há propriedades que contenham lógica no `get` ou validação no `set`.
 
-## Navigations Property
-- [Produto](Produto.md)
+## Navigation Property
+- [Produto](Produto.md): Representa a ligação com a classe `Produto`, que contém detalhes do produto relacionado.
 
 ## Tipos Auxiliares e Dependências
-A classe `ProdutoMultiplo` não depende de Enumeradores ou Classes Estáticas/Helpers.
+- Nenhum enumerador ou classe auxiliar é utilizado diretamente na classe `ProdutoMultiplo`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -24,14 +21,14 @@ classDiagram
         +long Id
         +string CodigoFilial
         +decimal Multiplo
-        +long ProdutoId
         +string GuidSincronizacao
     }
-    
     class Produto {
         +long Id
         +string Nome
+        +decimal Preco
     }
-    
-    ProdutoMultiplo --> Produto : "associado a"
+    ProdutoMultiplo --> Produto : tem um
 ```
+---
+Gerada em 29/12/2025 20:45:19

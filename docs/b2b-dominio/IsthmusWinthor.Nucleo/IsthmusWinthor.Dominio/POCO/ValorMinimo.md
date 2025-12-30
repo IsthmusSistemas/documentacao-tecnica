@@ -1,28 +1,32 @@
 # ValorMinimo
 **Namespace**: IsthmusWinthor.Dominio.POCO  
-**Nome do Arquivo**: ValorMinimo.cs
+**Nome do Arquivo**: ValorMinimo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ValorMinimo` é responsável por encapsular os valores mínimos necessários para a venda e parcelamento de operações de um carrinho de compras. Ela aborda a necessidade de estabelecer limites financeiros para transações, garantindo que cada transação respeite as condições mínimas necessárias para sua execução, como o valor total de uma venda ou o valor de cada parcela. 
+A classe `ValorMinimo` atua como um representante do conceito de valor mínimo associado a um agrupamento de carrinho de vendas. Ela é responsável por manter as informações relativas ao valor mínimo de venda e ao valor mínimo de parcela que devem ser obedecidos em transações associadas a um grupo específico. Isso garante consistência e integridade nas operações comerciais, assegurando que não haja vendas abaixo desses valores estabelecidos, o que poderia comprometer a rentabilidade.
 
 ## Métodos de Negócio
-A classe `ValorMinimo` não possui métodos de negócio com lógica complexa além dos construtores. Ela se limita a definir e armazenar valores mínimos.
+Não há métodos que contêm lógica de negócio significante ou complexidade em sua implementação na classe `ValorMinimo`. A classe é composta basicamente por propriedades anêmicas.
 
 ## Propriedades Calculadas e de Validação
-As propriedades `ValorMinimoVenda` e `ValorMinimoParcela` são utilizadas para assegurar que as transações não sejam realizadas abaixo dos limites financeiros definidos.
+Não há propriedades com lógica de validação ou cálculos complexos no `get` ou no `set`. As propriedades são diretamente manipuláveis em sua forma básica.
 
-## Navigation Properties
-Esta classe não contém Navigation Properties com outras classes complexas do domínio.
+## Navigations Property
+Não há propriedades que correspondam a classes complexas do domínio nesta classe específica.
 
 ## Tipos Auxiliares e Dependências
-Esta classe não depende de enumeradores ou classes auxiliares externas.
+Não há enumeradores ou classes estáticas/helpers que a classe `ValorMinimo` utiliza.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    class ValorMinimo {
-        +string IdentificadorAgrupamentoCarrinho
-        +decimal ValorMinimoVenda
-        +decimal ValorMinimoParcela
-    }
+class ValorMinimo {
+    +string IdentificadorAgrupamentoCarrinho
+    +decimal ValorMinimoVenda
+    +decimal ValorMinimoParcela
+}
 ```
+
+Esta documentação refere-se à classe `ValorMinimo`, que serve exclusivamente para fins de transporte de dados relativos a valores mínimos em um contexto de vendas.
+---
+Gerada em 29/12/2025 21:39:19

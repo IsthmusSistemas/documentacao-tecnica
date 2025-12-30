@@ -3,92 +3,106 @@
 **Nome do Arquivo**: AgendamentoLogicApp.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `AgendamentoLogicApp` é responsável pela lógica de agendamentos associados a pipelines de sincronização. Ela gerencia a execução programada de processos para cada distribuidora, garantindo que as regras de negócio relacionadas ao intervalo de execução e condições de validado sejam cumpridas. O objetivo principal é permitir uma sincronização eficaz de dados entre distribuidoras, minimizando falhas e garantindo consistência na execução.
+A classe `AgendamentoLogicApp` representa a lógica de agendamento de execuções de pipeline para uma distribuidora específica em um sistema corporativo. Ela é responsável por gerenciar o ciclo de vida das execuções programadas de forma a garantir que as execuções ocorram de acordo com as condições definidas, com base em intervalos e encadeamentos definidos por outros pipelines. Seu objetivo principal é assegurar que os agendamentos sejam válidos e oportune suas execuções de acordo com a lógica estabelecida.
 
 ## Métodos de Negócio
 
-### Método: AtualizarDataExecucao (public)
-- **Objetivo**: Atualiza a data da última execução do agendamento.
-- **Comportamento**: 
-  1. Verifica se a data fornecida não é nula e não é uma data padrão.
-  2. Se a validação for bem-sucedida, atualiza o valor da propriedade `DataUltimaExecucao` com a data passada.
-- **Retorno**: Este método não possui retorno, mas atualiza o estado do objeto.
+### AtualizarDataExecucao() - Público
+- **Objetivo**: Atualiza a data da última execução para o momento atual.
+- **Comportamento**: A data atual é obtida e atribuída à propriedade `DataUltimaExecucao`.
+- **Retorno**: Este método não retorna valor.
 
-### Método: ObterProximaDataExecucao (public)
-- **Objetivo**: Calcula a próxima data de execução com base no intervalo de agendamento.
-- **Comportamento**: 
-  1. Verifica o tipo de agendamento.
-  2. Se o tipo for intervalo, chama o método `ProximaDataExecucaoIntervalo`.
-  3. Caso contrário, itera sobre a lista de horários de execução.
-     1. Para cada horário de execução, calcula a data e hora de execução conforme a data atual.
-     2. Se a data resultante for anterior à data atual, adiciona um dia à data.
-  4. Retorna a próxima data de execução ordenada ou `DateTime.MaxValue` se não houver horários definidos.
-- **Retorno**: A próxima data válida de execução programada.
-
-### Método: Key (public)
-- **Objetivo**: Gera uma chave única utilizada no cache para identificação do agendamento.
+### AtualizarDataExecucao(DateTime data) - Público
+- **Objetivo**: Atualiza a data da última execução com uma data específica, desde que a data fornecida não seja nula e válida.
 - **Comportamento**:
-  1. Chama o método estático `RedisKeys.AgendamentoLogicApp` passando o ID do pipeline e o ID da distribuidora.
-- **Retorno**: Retorna a chave única como uma string.
-
-### Método: AdicionarAgendamentoEncadeado (public)
-- **Objetivo**: Associa um agendamento encadeado se for válido.
-- **Comportamento**: 
-  1. Verifica a validade do agendamento encadeado passado como parâmetro.
-  2. Se o agendamento for válido, atribui à propriedade `Encadeamento`.
-- **Retorno**: Este método não possui retorno, mas altera o estado do objeto.
-
-### Método: ProximaDataExecucaoIntervalo (private)
-- **Objetivo**: Determina a próxima data de execução com base no intervalo definido.
-- **Comportamento**:
-  1. Com base no tipo de intervalo, calcula a próxima data de execução.
-     - Para horas, adiciona a quantidade especificada à data da última execução.
-     - Para dias, faz a mesma operação, mas por dias.
-     - Para outros tipos, adiciona minutos.
-- **Retorno**: A próxima data de execução do tipo intervalo.
+  1. Verifica se a `data` fornecida é nula ou igual a uma data padrão.
+  2. Se não for, atualiza a propriedade `DataUltimaExecucao` com a data fornecida.
+- **Retorno**: Este método não retorna valor.
 
 ```mermaid
 flowchart TD
-    A[ObterProximaDataExecucao] -->|Intervalo| B[ProximaDataExecucaoIntervalo]
-    A -->|HoráriosExecucao| C{Verifica se dataExecucao < DataAtual}
-    C -->|Sim| D[Adiciona um dia]
-    C -->|Não| E[Retorna dataExecucao]
+    A[Começo] --> B{data é nula ou igual a uma data padrão?}
+    B -- Sim --> C[Fim]
+    B -- Não --> D[Atualiza DataUltimaExecucao]
+    D --> C
+```
+
+### ObterProximaDataExecucao() - Público
+- **Objetivo**: Retorna a próxima data agendada para execução, com base no tipo de agendamento configurado.
+- **Comportamento**:
+  1. Se o tipo de agendamento for `Intervalo`, chama o método privado `ProximaDataExecucaoIntervalo`.
+  2. Caso contrário, calcula as datas de execução a partir dos horários de execução, garantindo que as datas obtidas sejam sempre futuras.
+- **Retorno**: Retorna a próxima data de execução, ou `DateTime.MaxValue` caso não haja datas válidas.
+
+### Key() - Público
+- **Objetivo**: Gera a chave única para armazenar a configuração de agendamento no Redis.
+- **Comportamento**: Chama o método auxiliar `RedisKeys.AgendamentoLogicApp` passando o `PipelineSincronizacaoId` e o `DistribuidoraId`.
+- **Retorno**: Retorna uma string que representa a chave única no armazenamento de cache.
+
+### AdicionarAgendamentoEncadeado(AgendamentoLogicApp agendamentoEncadeado) - Público
+- **Objetivo**: Adiciona um agendamento encadeado, se este for válido.
+- **Comportamento**: Verifica se o `agendamentoEncadeado` é válido e, se sim, atribui-o à propriedade `Encadeamento`.
+- **Retorno**: Este método não retorna valor.
+
+### ProximaDataExecucaoIntervalo() - Privado
+- **Objetivo**: Calcula a próxima data de execução com base no intervalo definido.
+- **Comportamento**: 
+  1. Verifica o tipo de intervalo (hora, dia ou minuto).
+  2. Adiciona o tempo correspondente à data da última execução, que é armazenada na propriedade `DataUltimaExecucao`.
+- **Retorno**: Retorna a próxima data de execução.
+
+```mermaid
+flowchart TD
+    A[Início] --> B{TipoIntervalo}
+    B -- Hora --> C[Adiciona horas]
+    B -- Dia --> D[Adiciona dias]
+    B -- Outro --> E[Adiciona minutos]
+    C --> F[Retorna proximaData]
+    D --> F
+    E --> F
 ```
 
 ## Propriedades Calculadas e de Validação
 
-### Propriedade: isValid
-- A propriedade determina a validade do agendamento. É considerada válida se:
-  - O ID da distribuidora não está na lista de distribuidoras a serem ignoradas.
-  - O intervalo está definido.
-  - O endpoint está definido e é válido.
+### isValid
+- **Regra**: Esta propriedade computa se o agendamento é válido. Um agendamento é considerado válido se:
+  1. O `DistribuidoraId` não pertence a uma lista específica de distribuidoras a serem ignoradas.
+  2. O intervalo (`Intervalo`) e o endpoint (`Endpoint`) estão configurados corretamente, e o `Endpoint` também é válido.
 
-### Propriedade: Hash
-- Gera um hash composto pelo ID do pipeline de sincronização e o ID da distribuidora, fornecendo uma representação única para o objeto.
+### Hash
+- **Regra**: Gera uma string representando a combinação do `PipelineSincronizacaoId` e `DistribuidoraId`, que pode ser usada como um identificador único para o agendamento.
 
 ## Navigations Property
-- `[IntervaloLogicApp](IntervaloLogicApp.md)` - Representa o intervalo de tempo associado ao agendamento.
-- `[EndpointLogicApp](EndpointLogicApp.md)` - Representa o endpoint que será chamado durante o agendamento.
-- `[AgendamentoLogicApp](AgendamentoLogicApp.md)` - Representa o agendamento encadeado, se existir.
+- [IntervaloLogicApp](IntervaloLogicApp.md)
+- [EndpointLogicApp](EndpointLogicApp.md)
+- [PipelineSincronizacao](PipelineSincronizacao.md)
 
 ## Tipos Auxiliares e Dependências
-- `[TipoAgendamentoEnum](TipoAgendamentoEnum.md)` - Enum que define os tipos de agendamentos possíveis.
-- `[TipoIntervaloEnum](TipoIntervaloEnum.md)` - Enum que define os tipos de intervalos possíveis.
+- **Enumeradores**:
+  - [TipoAgendamentoEnum](TipoAgendamentoEnum.md)
+  - [TipoIntervaloEnum](TipoIntervaloEnum.md)
+- **Classes Estáticas**:
+  - [RedisKeys](RedisKeys.md)
+  - [DateTimeUtil](DateTimeUtil.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class AgendamentoLogicApp {
-        - long PipelineSincronizacaoId
-        - long DistribuidoraId
-        - IntervaloLogicApp Intervalo
-        - EndpointLogicApp Endpoint
-        - DateTime DataUltimaExecucao
-        - long PipelineSincronizacaoEncadeadaId
-        - AgendamentoLogicApp Encadeamento
+        +string PipelineSincronizacaoNome
+        +long PipelineSincronizacaoId
+        +long DistribuidoraId
+        +DateTime DataUltimaExecucao
+        +IntervaloLogicApp Intervalo
+        +EndpointLogicApp Endpoint
+        +AgendamentoLogicApp Encadeamento
+        +bool isValid
+        +string Hash
     }
     
     AgendamentoLogicApp --> IntervaloLogicApp
     AgendamentoLogicApp --> EndpointLogicApp
-    AgendamentoLogicApp --> AgendamentoLogicApp : Encadeamento
+    AgendamentoLogicApp --> PipelineSincronizacao
 ```
+---
+Gerada em 29/12/2025 21:28:50

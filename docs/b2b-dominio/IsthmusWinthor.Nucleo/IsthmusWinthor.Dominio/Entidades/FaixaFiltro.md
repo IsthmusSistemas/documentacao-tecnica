@@ -1,40 +1,27 @@
 # FaixaFiltro
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: FaixaFiltro.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: FaixaFiltro.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `FaixaFiltro` atua como um modelo rico dentro do domínio, representando uma faixa de valores que determina um critério de filtro na aplicação. Ela é usada para especificar condições de filtragem com base em um tipo e um valor, permitindo à lógica de negócio aplicar filtros de forma flexível, garantindo que apenas os dados desejados sejam apresentados ou processados.
+A classe `FaixaFiltro` representa um filtro aplicado a uma faixa de dados em um contexto de domínio. O seu objetivo é encapsular as regras que determinam como os dados devem ser filtrados com base em um tipo específico de filtro e um valor associado. Isso permite que a aplicação execute pesquisas e recuperações de informações de maneira eficaz, assegurando que as operações atendam a critérios empresariais predefinidos.
 
 ## Métodos de Negócio
-Atualmente, a classe `FaixaFiltro` não possui métodos complexos com lógica de negócio que precisam ser descritos, uma vez que é mais focada em armazenar dados e não contém comportamento significativo.
+- **Título**: N/A (não existem métodos com lógica de negócio na classe)
 
 ## Propriedades Calculadas e de Validação
-- **Propriedade `ValorFiltro`:** 
-  - A classe não possui lógica de validação visível nem propriedades com lógica complexa no `get`, portanto não foram identificadas propriedades calculadas ou de validação.
+- **ValorFiltro**: É necessário garantir que o valor configurado atenda a requisitos de validação específica, que não estão presentes na implementação fornecida.
 
-## Navigations Property
-- **Propriedades de Navegação:**
-  - `Faixa`: representa uma referência a uma faixa [Faixa](Faixa.md).
+## Navigation Property
+- **Faixa**: [Faixa](Faixa.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores:**
-  - `TipoFiltro`: um enumerador [TipoFiltro](TipoFiltro.md) que define os tipos de filtros possíveis que podem ser aplicados à faixa.
+- **TipoFiltro**: [TipoFiltro](TipoFiltro.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    class FaixaFiltro {
-        +long Id
-        +TipoFiltro TipoFiltro
-        +string ValorFiltro
-    }
-    class Faixa {
-        <<entity>>
-    }
     FaixaFiltro --> Faixa
-
-    class TipoFiltro {
-        <<enum>>
-    }
     FaixaFiltro --> TipoFiltro
 ```
+---
+Gerada em 29/12/2025 20:30:59

@@ -3,24 +3,23 @@
 **Nome do Arquivo**: Distribuidora.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Distribuidora` representa uma entidade do negócio relacionada a empresas distribuidoras dentro do sistema. Seu papel é gerenciar informações cruciais sobre as distribuidoras, incluindo dados de identificação, estado de ativação e informações de contato. Ela é fundamental para garantir a integridade dos dados ao trabalhar com os assinantes e suas respectivas informações de contato (telefones, e-mails, endereços), além de facilitar a integração com sistemas ERP.
+A classe `Distribuidora` representa uma entidade central no domínio, responsável por encapsular as informações e comportamentos relacionados a uma distribuidora. Ela serve como um ponto de referência para gerenciar a identidade da distribuidora, incluindo seus dados cadastrais, contatos e configurações relacionadas à sua operação. O problema de negócio que `Distribuidora` resolve está na organização e no gerenciamento das informações essenciais de distribuidoras, facilitando a integração com outros sistemas e a operação interna da empresa.
 
 ## Métodos de Negócio
-*Nota: A classe `Distribuidora` não apresenta métodos com lógica de negócios formalizados além dos getters e setters simples, portanto, não existem métodos a serem documentados nessa seção.*
+Esta classe não possui métodos de negócio com lógica complexa a serem documentados.
 
 ## Propriedades Calculadas e de Validação
-- **Ativo**
-  - **Regra:** A propriedade `Ativo` indica se a distribuidora está habilitada ou não para operar no sistema. Quando `false`, a distribuidora não deve ser considerada nas operações de negócio.
+Não existem propriedades na classe `Distribuidora` que implementem lógica de cálculo em seu getter ou validação em seu setter.
 
-## Navigations Property
-- [Assinaturas](Assinatura.md) (ICollection<Assinatura>)
-- [Endereco](DistribuidoraEndereco.md) (DistribuidoraEndereco)
-- [Telefones](DistribuidoraTelefone.md) (ICollection<DistribuidoraTelefone>)
-- [Emails](DistribuidoraEmail.md) (ICollection<DistribuidoraEmail>)
-- [Links](DistribuidoraLink.md) (ICollection<DistribuidoraLink>)
+## Navigation Properties
+- [Assinatura](Assinatura.md) - Representa uma assinatura associada à distribuidora.
+- [DistribuidoraEndereco](DistribuidoraEndereco.md) - Representa o endereço da distribuidora.
+- [DistribuidoraTelefone](DistribuidoraTelefone.md) - Representa os números de telefone da distribuidora.
+- [DistribuidoraEmail](DistribuidoraEmail.md) - Representa os e-mails da distribuidora.
+- [DistribuidoraLink](DistribuidoraLink.md) - Representa links associados à distribuidora.
 
 ## Tipos Auxiliares e Dependências
-- [ERPEnum](ERPEnum.md)
+- [ERPEnum](ERPEnum.md) - Enumeração que define os diferentes tipos de ERP que a distribuidora pode utilizar.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -34,12 +33,25 @@ classDiagram
         +string NomeResponsavel
         +bool Ativo
         +ERPEnum ERP
-        +string MetaTitle
-        +string MetaDescription
+        +string? MetaTitle
+        +string? MetaDescription
     }
-    Distribuidora "1" -- "0..*" Assinaturas
-    Distribuidora "1" -- "1" Endereco
-    Distribuidora "1" -- "0..*" Telefones
-    Distribuidora "1" -- "0..*" Emails
-    Distribuidora "1" -- "0..*" Links
+
+    class Assinatura {}
+    class DistribuidoraEndereco {}
+    class DistribuidoraTelefone {}
+    class DistribuidoraEmail {}
+    class DistribuidoraLink {}
+    class ERPEnum {}
+
+    Distribuidora --> "0..*" Assinatura
+    Distribuidora --> "1" DistribuidoraEndereco
+    Distribuidora --> "0..*" DistribuidoraTelefone
+    Distribuidora --> "0..*" DistribuidoraEmail
+    Distribuidora --> "0..*" DistribuidoraLink
+    Distribuidora --> ERPEnum
 ```
+
+Esta documentação técnica proporciona um entendimento claro sobre a estrutura e o propósito da classe `Distribuidora`, além de suas relações dentro do domínio e dependências.
+---
+Gerada em 29/12/2025 20:28:08

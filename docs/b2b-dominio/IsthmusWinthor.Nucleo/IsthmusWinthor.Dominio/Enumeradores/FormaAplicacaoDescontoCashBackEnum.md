@@ -2,20 +2,20 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FormaAplicacaoDescontoCashBackEnum.cs  
 
-Esta classe é um enumerador que define as diferentes formas de aplicação de descontos do tipo Cash Back em um sistema de vendas. Seu propósito é categorizar como os descontos devem ser aplicados aos itens em promoção, ajudando a garantir que as regras de negócio em torno da aplicação de descontos sejam seguidas corretamente.
+Esta classe enumera diferentes formas de aplicação de desconto cashback em um sistema de gestão. Ela fornece uma estrutura clara para determinar como os descontos devem ser aplicados durante as transações de venda, impactando diretamente na experiência do usuário e na lógica de descontos da aplicação. 
 
 ## Tipos Auxiliares e Dependências
-- `FormaAplicacaoDescontoCashBackEnum`: Enumerador que define opções para a aplicação de desconto Cash Back.
+- Enumeradores: 
+  - [FormaAplicacaoDescontoCashBackEnum](FormaAplicacaoDescontoCashBackEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FormaAplicacaoDescontoCashBackEnum {
-        <<enumerator>>
-        NaoAplicarItensPromocao
-        RemoverPromocoesItensQuePossuiCashBack
-        AplicarJuntoComPromocoes
+        +NaoAplicarItensPromocao
+        +RemoverPromocoesItensQuePossuiCashBack
+        +AplicarJuntoComPromocoes
     }
 ```
-
-Neste diagrama, a classe `FormaAplicacaoDescontoCashBackEnum` é representada como um enumerador com três opções que definem como os descontos Cash Back devem ser tratados no contexto do sistema de vendas.
+---
+Gerada em 29/12/2025 20:54:59

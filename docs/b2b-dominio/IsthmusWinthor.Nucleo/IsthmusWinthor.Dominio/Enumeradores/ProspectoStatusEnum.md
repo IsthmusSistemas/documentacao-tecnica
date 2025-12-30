@@ -2,21 +2,18 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: ProspectoStatusEnum.cs  
 
-ProspectoStatusEnum é um enumerador que define os possíveis estados de um prospecto na aplicação, refletindo o status atual do processo de integração do prospecto.
+Este enumerador define os diferentes estados que um prospecto pode ter durante seu ciclo de integração, permitindo a categorização do estado do prospecto para facilitar o gerenciamento e a tomada de decisões dentro do sistema.
 
 ## Tipos Auxiliares e Dependências
-- Não há classes complexas do domínio na classe atual. 
+- Este enumerador é utilizado por outras classes e lógicas de negócio para controlar o status dos prospectos em todo o sistema.
 
-### Enumeradores
-- `[ProspectoStatusEnum](ProspectoStatusEnum.md)`: Este enumerador categoriza o status de um prospecto em três estados possíveis: "Aguardando integração", "Integrado", e "Erro de integração".
-
-## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ProspectoStatusEnum {
-        <<enumerator>>
-        AguardandoIntegracao
-        Integrado
-        ErroIntegracao
+        +AguardandoIntegracao
+        +Integrado
+        +ErroIntegracao
     }
 ```
+---
+Gerada em 29/12/2025 20:59:34

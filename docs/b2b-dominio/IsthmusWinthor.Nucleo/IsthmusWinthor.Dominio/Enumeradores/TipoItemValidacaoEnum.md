@@ -2,20 +2,23 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoItemValidacaoEnum.cs  
 
-Este enum é utilizado para categorizar diferentes tipos de itens de validação no sistema, desempenhando um papel crucial na lógica de validação de dados e integridade do domínio.
+Esta classe é um Enum que define os tipos de itens que podem ser validados dentro do sistema. Sua finalidade reside em categorizar e facilitar a identificação de diferentes entidades que podem requerer validações específicas.
 
 ## Tipos Auxiliares e Dependências
-- Este enum não possui dependências a classes ou métodos auxiliares, mas é utilizado pela lógica de validação no domínio para identificar tipos específicos de itens que precisam ser validados.
+- **Enumeradores**:
+  - [TipoItemValidacaoEnum](TipoItemValidacaoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoItemValidacaoEnum {
         <<enumeration>>
-        +Produto
-        +ProdutoPrincipal
-        +Fornecedor
-        +Departamento
-        +Secao
+       + Produto
+       + ProdutoPrincipal
+       + Fornecedor
+       + Departamento
+       + Secao
     }
 ```
+---
+Gerada em 29/12/2025 21:05:10

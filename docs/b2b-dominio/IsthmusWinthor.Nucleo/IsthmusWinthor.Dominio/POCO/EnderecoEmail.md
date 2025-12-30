@@ -3,42 +3,46 @@
 **Nome do Arquivo**: EnderecoEmail.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `EnderecoEmail` representa um endereço de email, encapsulando tanto o email quanto um nome associado. O objetivo principal dessa classe é garantir a integridade e a validade dos endereços de email utilizados dentro do sistema, permitindo validar e ocultar partes do email para operações de segurança e privacidade.
+A classe `EnderecoEmail` representa um modelo de domínio para gerenciar informações de endereços de e-mail. Ela encerra a lógica necessária para validar um e-mail e pode ocultar parte do endereço, resolvendo a necessidade de manipulação segura de dados sensíveis de contato.
 
 ## Métodos de Negócio
 
-### EmailOculto()
-- **Objetivo**: Este método garante a ocultação parcial do endereço de email, substituindo parte do nome de usuário por asteriscos (*), visando proteger a privacidade do usuário em contextos onde o email é exibido publicamente.
+### Título: EmailOculto() - Público
+- **Objetivo**: Protege a privacidade do endereço de e-mail, ocultando parte do mesmo.
 - **Comportamento**: 
-  1. Aplica-se uma expressão regular para identificar a parte do email que deve ser ocultada.
-  2. A parte do email entre o primeiro e o último caractere do nome de usuário é substituída por asteriscos, enquanto o domínio permanece visível.
-- **Retorno**: Retorna uma string representando o email oculto. Por exemplo, `j***@gmail.com`.
+  1. Utiliza uma expressão regular para identificar partes do endereço de e-mail que devem ser ofuscadas.
+  2. Substitui essas partes por asteriscos `*`, garantindo que apenas os primeiros e últimos caracteres sejam expostos.
+  3. Retorna o endereço de e-mail ofuscado para visualização.
+  
+- **Retorno**: Retorna uma string que representa o endereço de e-mail com parte dos caracteres ocultados.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Validar Email}
-    B -- Verdadeiro --> C[Substituir parte do email por asteriscos]
-    B -- Falso --> D[Retornar email inalterado]
-    C --> E[Fim]
-    D --> E
+    A[Início] --> B{Email é válido?}
+    B -- Sim --> C[Oculta parte do Email]
+    B -- Não --> D[Fim]
+    C --> E[Retorna Email ofuscado]
+    E --> F[Fim]
 ```
 
-### IsValidEmail()
-- **Objetivo**: Este método assegura que o endereço de email fornecido esteja no formato válido, seguindo as especificações da RFC 5321 e RFC 5322.
-- **Comportamento**:
-  1. Tenta instanciar um objeto `MailAddress` com o email atual.
-  2. Se o formato for inválido, uma exceção `FormatException` é lançada.
-  3. Retorna `true` se o email for válido e `false` caso contrário.
-- **Retorno**: Retorna um valor booleano que indica a validade do email.
+### Título: IsValidEmail() - Público
+- **Objetivo**: Garante que o e-mail fornecido é válido de acordo com as regras de formatação.
+- **Comportamento**: 
+  1. Tenta criar uma instância de `MailAddress` utilizando o e-mail armazenado.
+  2. Se a criação da instância for bem-sucedida, considera o e-mail válido e retorna true.
+  3. Caso contrário, uma exceção de formato é capturada e false é retornado.
+  
+- **Retorno**: Retorna um valor booleano indicando se o endereço de e-mail possui um formato válido.
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades com lógica de cálculo ou validação explícita, uma vez que os validadores estão concentrados nos métodos de negócio.
+Nenhuma propriedade nesse modelo contêm lógica no `get` ou validação no `set`.
 
-## Navigation Property
-- Não há propriedades de navegação que representem outras classes do domínio.
+## Navigations Property
+Não há propriedades que são complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-- Utiliza a classe `MailAddress` como dependência para validação de endereços de email.
+- Dependência de `System.Net.Mail.MailAddress` para validação de e-mail.
+- Nenhum enumerador ou classe auxiliar foi utilizado diretamente na classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -49,4 +53,8 @@ classDiagram
         +string EmailOculto()
         +bool IsValidEmail()
     }
-```
+``` 
+
+Este documento delineia os aspectos principais da classe `EnderecoEmail`, suas responsabilidades, métodos de negócio e suas relações, fornecendo um guia claro e técnico para entendimento e utilização deste componente do domínio.
+---
+Gerada em 29/12/2025 21:33:18

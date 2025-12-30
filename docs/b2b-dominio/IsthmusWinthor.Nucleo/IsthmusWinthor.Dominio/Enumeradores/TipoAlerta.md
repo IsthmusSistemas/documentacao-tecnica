@@ -4,26 +4,35 @@
 **Nome do Arquivo**: TipoAlerta.cs  
 
 ## Visão Geral e Responsabilidade
-A enumeração `TipoAlerta` representa diferentes tipos de alertas que podem ser gerados no sistema. Cada alerta é uma notificação sobre eventos ou situações específicas, como problemas de integração de pedidos ou falhas na conciliação de pagamentos. Esses alertas são fundamentais para o monitoramento de operações e ajudam os usuários a agir rapidamente diante de problemas críticos.
+A classe `TipoAlerta` é um enumerador que representa diferentes tipos de alertas gerados pelo sistema. Seu objetivo é fornecer uma forma padronizada de categorizar mensagens de alerta importantes relacionadas a integrações de pedidos, problemas de conexão, e avisos sobre status de operações financeiras como transações via PIX. Assim, auxilia na manutenção de um sistema mais robusto e na comunicação eficaz dos eventos críticos aos usuários e sistemas integrados.
 
 ## Métodos de Negócio
-A enumeração em si não contém métodos de negócio com lógica, pois serve apenas como um contêiner de constantes.
+Essa classe não contém métodos com lógica complexa, sendo um enumerador simples.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica de cálculo ou validação na enumeração.
+Essa classe não possui propriedades calculadas ou de validação. Todos os valores são constantes, derivados do padrão do enum.
 
 ## Navigations Property
-Não existem propriedades complexas do domínio nesta enumeração, pois ela é composta apenas por valores enumerados.
+Esta classe não possui Navegação para propriedades complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar externa é utilizada diretamente nessa enumeração.
+- Nenhum enumerador ou classe auxiliar é utilizado por `TipoAlerta`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoAlerta {
-        <<enumeration>>
+        +ErroIntegracaoPedido
+        +MudancaStatusPedido
+        +DegustacaoModuloExpirando
+        +PermissaoOraclePerdida
+        +ConexaoOracle
+        +PedidoRejeitado
+        +FalhaConciliacaoPix
+        +FalhaQuitacaoTituloPix
+        +FalhaDevolucaoPagamentoContaPix
+        +AlvaraProximoVencimento
     }
-``` 
-
-Esta documentação fornece uma visão clara sobre os tipos de alertas que o sistema pode gerar, garantindo que a equipe de desenvolvimento e os stakeholders entendam as opções disponíveis e suas aplicações.
+```
+---
+Gerada em 29/12/2025 21:02:16

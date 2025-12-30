@@ -1,26 +1,19 @@
 # TipoDadoEnum
-**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: TipoDadoEnum.cs  
 
-TipoDadoEnum é uma enumeração que define os tipos de dados suportados em um sistema, atuando como uma referência padrão para o tratamento de diferentes formatos de dados. Sua principal finalidade é garantir a integridade e a coerência na manipulação de dados dentro da aplicação.
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: TipoDadoEnum.cs
+
+Este enumerador é utilizado para categorizar os tipos de dados que podem ser manipulados dentro do sistema, facilitando a validação e a eficiência no tratamento de diferentes formatos de entrada e saída de dados.
 
 ## Tipos Auxiliares e Dependências
-- TipoDadoEnum: Enumeração que lista tipos de dados com os seguintes valores:
-  - `String`: Representa texto.
-  - `Long`: Representa um número longo.
-  - `Boolean`: Representa um valor verdadeiro ou falso.
-  - `Int`: Representa um número inteiro.
-  - `DateTime`: Representa data e hora.
-  - `Date`: Representa uma data (sem tempo).
-  - `Decimal`: Representa um número decimal.
-  - `Money`: Representa um valor monetário.
-  - `Array`: Representa uma coleção de valores.
+- **Enum**:  
+  - [TipoDadoEnum](TipoDadoEnum.md): Enum que categoriza diferentes tipos de dados utilizados no sistema.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoDadoEnum {
-        <<enumeration>>
+        <<enumerator>>
         String
         Long
         Boolean
@@ -32,3 +25,5 @@ classDiagram
         Array
     }
 ```
+---
+Gerada em 29/12/2025 21:03:27

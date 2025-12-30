@@ -1,79 +1,88 @@
 # CompraRecorrente
+
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: CompraRecorrente.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CompraRecorrente` representa um modelo de domínio que gerencia compras recorrentes de clientes em um sistema de vendas. Essa classe possibilita a criação e o monitoramento de compras automáticas, garantindo que as transações ocorram de forma regular e de acordo com as regras de negócio definidas. Isso resolve o problema de automação de compras, aumentando a comodidade do cliente e melhorando a eficiência operacional da distribuidora.
+A classe `CompraRecorrente` representa um modelo de negócio que gerencia a lógica de compras recorrentes de um cliente em uma distribuidora. Esta classe é responsável por garantir que as compras sejam realizadas de forma automatizada e conforme a recorrência definida, considerando a gestão de notificações, limites de valor e controle de estado da compra.
 
 ## Métodos de Negócio
 
-### 1. Título: DataUltimaCompra (Visibilidade: público)
-- **Objetivo**: Garante que sempre que a última compra realizada é identificável, permitindo um calculo preciso da próxima compra.
-- **Comportamento**: 
-  - Filtra a coleção `CompraRecorrentePedidos` para encontrar pedidos que foram executados ou são de controle.
-  - Ordena esses pedidos pela data da compra em ordem decrescente.
-  - Seleciona a primeira compra (a mais recente) e retorna a sua data ou `DateTime.MinValue` se não houver compras realizadas.
-- **Retorno**: Um `DateTime` que representa a data da última compra, ou `DateTime.MinValue` caso não haja compras.
+### 1. DataUltimaCompra: Visibilidade Pública
+- **Objetivo**: Este método calcula a data da última compra executada pelo cliente ou a última compra de controle, se houver.
+- **Comportamento**: O método filtra os pedidos de compras recorrentes para encontrar os que foram executados ou são de controle, ordena esses registros pela data da compra em ordem decrescente e retorna a data da última compra ou `DateTime.MinValue`, caso não existam compras válidas.
+- **Retorno**: Retorna a data da última compra ou `DateTime.MinValue` se não houver compras.
 
-### 2. Título: DataProximaCompra (Visibilidade: público)
-- **Objetivo**: Calcula a data da próxima compra, garantindo que o cliente seja notificado no tempo correto.
-- **Comportamento**: 
-  - Recupera a data da última compra usando o método `DataUltimaCompra`.
-  - Se a data da última compra for maior que `DateTime.MinValue`, adiciona `DiasRecorrenciaCompra` a esta data para determinar a próxima compra.
-  - Caso contrário, adiciona `DiasRecorrenciaCompra` à data de criação da compra.
-- **Retorno**: Um `DateTime` que representa a data da próxima compra, baseado na lógica descrita.
+### 2. DataProximaCompra: Visibilidade Pública
+- **Objetivo**: Este método determina a data da próxima compra recorrente a ser realizada, com base na configuração de dias de recorrência e na data da última compra.
+- **Comportamento**: O método verifica a data da última compra. Se uma compra ocorreu, ele adiciona os dias de recorrência à última compra. Caso contrário, adiciona os dias de recorrência à data de criação da compra recorrente.
+- **Retorno**: Retorna a data da próxima compra a ser realizada.
 
-### 3. Título: ProximaCompraNotificada (Visibilidade: público)
-- **Objetivo**: Determina se o cliente já foi notificado sobre a próxima compra que será realizada.
-- **Comportamento**: 
-  - Checa se `DataNotificaoCompraRecorrente` possui um valor.
-  - Se não possui valor, retorna `false`.
-  - Caso tenha valor, busca a última compra da coleção `CompraRecorrentePedidos`.
-  - Compara a data da notificação com a última data de compra executada. Se a notificação foi feita após a última tentativa de compra, retorna `true`, indicando que o cliente foi notificado.
-- **Retorno**: Um `bool`, `true` se a próxima compra já foi notificada, e `false` caso contrário.
+### 3. ProximaCompraNotificada: Visibilidade Pública
+- **Objetivo**: Este método indica se a próxima compra já foi notificada ao cliente.
+- **Comportamento**: O método verifica se a data da notificação da próxima compra é posterior à última data de compra executada. Se não houver data de notificação, retorna `false`. Caso contrário, compara a data de notificação com a última data de compra para determinar a notificação.
+- **Retorno**: Retorna `true` se a próxima compra foi notificada, ou `false` caso contrário.
 
 ```mermaid
 flowchart TD
-    A[DataProximaCompra] -->|Última Compra > Min Value| B[Próxima Compra = Última Compra + Dias Recorrencia]
-    A -->|Última Compra = Min Value| C[Próxima Compra = Data Criação + Dias Recorrencia]
+    A[DataProximaCompra] -->|Compra Existente| B[Adicionar Dias de Recorrência à Última Compra]
+    A -->|Nenhuma Compra| C[Adicionar Dias de Recorrência à Data de Criação]
+    
+    D[ProximaCompraNotificada] -->|Sem Data de Notificação| E[Falso]
+    D -->|Comparar Data| F{Data Notificação > Última Compra?}
+    F -->|Sim| G[True]
+    F -->|Não| H[Falso]
 ```
 
 ## Propriedades Calculadas e de Validação
-
-### Propriedades
-- **DataUltimaCompra**: Calcula a última data de compra com base em pedidos executados ou de controle.
-- **DataProximaCompra**: Calcula a próxima data de compra em relação à última compra ou à data de criação.
-- **ProximaCompraNotificada**: Verifica se a notificação sobre a próxima compra já foi realizada ao cliente.
+- **DataUltimaCompra**: Calcula a data da última compra realizada com base nos pedidos associados.
+- **DataProximaCompra**: Calcula a data da próxima compra baseada na última compra ou na data de criação.
+- **ProximaCompraNotificada**: Verifica se a próxima compra foi notificada ao cliente, considerando a data de notificação e a última compra.
 
 ## Navigations Property
-- `[Cliente](Cliente.md)`
-- `[Distribuidora](Distribuidora.md)`
-- `[CompraRecorrenteItem](CompraRecorrenteItem.md)`
-- `[CompraRecorrentePedido](CompraRecorrentePedido.md)`
+- [Cliente](Cliente.md)
+- [Distribuidora](Distribuidora.md)
+- [CompraRecorrenteItem](CompraRecorrenteItem.md)
+- [CompraRecorrentePedido](CompraRecorrentePedido.md)
 
 ## Tipos Auxiliares e Dependências
-- Enum: `[StatusCompra](StatusCompra.md)`
+- [TipoEnum](TipoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CompraRecorrente {
         +long Id
+        +DateTime DataCriacao
         +bool Ativo
         +bool Removida
-        +DateTime DataCriacao
-        +DateTime? DataNotificaoCompraRecorrente
+        +DateTime? DataRemocao
         +decimal ValorMaximoPedido
         +int DiasRecorrenciaCompra
         +decimal ValorMaximoFrete
-        +ICollection<CompraRecorrenteItem> CompraRecorrenteItens
-        +ICollection<CompraRecorrentePedido> CompraRecorrentePedidos
-        +DateTime DataUltimaCompra
-        +DateTime DataProximaCompra
-        +bool ProximaCompraNotificada
+        +string IdentificadorCarrinho
+        +DateTime? DataNotificaoCompraRecorrente
+        +DataUltimaCompra()
+        +DataProximaCompra()
+        +ProximaCompraNotificada()
     }
+    
+    class Cliente {
+    }
+    
+    class Distribuidora {
+    }
+    
+    class CompraRecorrenteItem {
+    }
+    
+    class CompraRecorrentePedido {
+    }
+
     CompraRecorrente --> Cliente
     CompraRecorrente --> Distribuidora
-    CompraRecorrente --> CompraRecorrenteItem
-    CompraRecorrente --> CompraRecorrentePedido
+    CompraRecorrente --> "0..*" CompraRecorrenteItem
+    CompraRecorrente --> "0..*" CompraRecorrentePedido
 ```
+---
+Gerada em 29/12/2025 20:21:52

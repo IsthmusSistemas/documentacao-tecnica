@@ -3,75 +3,75 @@
 **Nome do Arquivo**: MapaNavegacao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `MapaNavegacao` atua como um motor de cálculo que facilita o mapeamento do desempenho de diversos objetivos comerciais em um contexto de atração, engajamento e vendas. Ela recebe indicadores e filtros para calcular a performance atual e sugere ações apropriadas para alcançar metas estabelecidas em cada fase do processo. Essa modelagem é crucial para acompanhamento e tomada de decisões estratégicas visando à maximização do potencial de mercado.
+A classe `MapaNavegacao` atua como um motor de cálculo para a definição de uma estratégia comercial, permitindo a visualização de métricas sobre clientes em três etapas: Atrair, Engajar e Vender. A classe utiliza regras de cálculo para determinar o progresso e objetivos em relação a indicadores de mercado, ajudando a identificar potenciais aumentos no número de clientes e faturamento.
 
 ## Métodos de Negócio
 
-### SugerirFiltros() - Public
-- **Objetivo**: Sugere uma configuração de filtros que maximiza os objetivos comerciais baseados nas métricas atuais e no potencial do mercado.
+### 1. MapaNavegacaoFiltro SugerirFiltros()
+- **Título**: SugerirFiltros - Público
+- **Objetivo**: Retornar um filtro sugerido baseado nas métricas calculadas, para orientar estratégias futuras de aquisição e engajamento de clientes.
 - **Comportamento**:
-  1. Cria um novo objeto `MapaNavegacaoFiltro` utilizando valores calculados dos objetivos dos três estágios de interação: atração, engajamento e venda.
-  2. Calcula cada objetivo usando o método `CalcularObjetivo` e os valores obtidos de `AtrairBaseClientes`, `AtrairLoginLoginLiberados`, `EngajarSenhaGerada`, `EngajarComprasEfetuadas`, `VenderFrequenciaMes`, e `VenderTicketMedioMes`.
-- **Retorno**: Retorna um objeto `MapaNavegacaoFiltro` que contém as sugestões de filtros ideais para os objetivos de negócio, facilitando a interpretação dos dados e o planejamento estratégico.
+  1. Cria um novo objeto `MapaNavegacaoFiltro`.
+  2. Utiliza o `PotencialTotalMercado`.
+  3. Para cada KPI (Key Performance Indicator), calcula o objetivo utilizando o método `CalcularObjetivo`.
+  4. Retorna o filtro com os valores sugeridos.
+- **Retorno**: Um objeto `MapaNavegacaoFiltro` com os valores sugeridos para planejamento estratégico.
 
-### CalcularObjetivo(decimal percentualAtual) - Private
-- **Objetivo**: Calcula a meta futura baseada no percentual atual de performance.
+### 2. private decimal CalcularObjetivo(decimal percentualAtual)
+- **Título**: CalcularObjetivo - Privado
+- **Objetivo**: Calcular um novo objetivo percentual incrementando o valor atual.
 - **Comportamento**:
-  1. Recebe o percentual atual como entrada.
-  2. Calcula um novo valor que é 20% do espaço restante até 100%, em 5 intervalos iguais.
-- **Retorno**: Retorna o novo percentual objetivo calculado.
+  1. Recebe o percentual atual.
+  2. Calcula o novo objetivo adicionando 20% (1/5) do espaço restante até 100%.
+  3. Retorna o novo percentual desejado.
+- **Retorno**: Um decimal que representa o novo objetivo percentual calculado.
 
-### CriarRegrasCalculo() - Private
-- **Objetivo**: Inicializa as regras de cálculo necessárias para determinar as métricas nos diferentes estágios do mapa de navegação.
+### 3. private int CalcularAumento(decimal valorBase, decimal percentualAumento)
+- **Título**: CalcularAumento - Privado
+- **Objetivo**: Determinar um novo valor com base em um percentual de aumento aplicado a um valor base.
 - **Comportamento**:
-  1. Instancia as regras de cálculo para onde estamos e para onde vamos tanto em percentual como em divisão e multiplicação.
-- **Retorno**: Não possui retorno.
-
-### CalcularAumento(decimal valorBase, decimal percentualAumento) - Private
-- **Objetivo**: Calcula um valor aumentado com base em um percentual informado.
-- **Comportamento**:
-  1. Recebe a base e o percentual de aumento.
-  2. Calcula o aumento multiplicando a base pelo percentual e soma ao valor base.
-- **Retorno**: Retorna um inteiro que representa o novo valor após o aumento.
-
-```mermaid
-flowchart TD
-    A[Início] --> B[SugerirFiltros()]
-    B --> C[Criação do MapaNavegacaoFiltro]
-    C --> D[CalcularObjetivo]
-    D --> E[Retorna novo percentual]
-    C --> F[Repite para outros objetivos]
-    F --> G[Fim]
-```
+  1. Recebe um valor base e um percentual de aumento.
+  2. Calcula o aumento multiplicando o valor base pelo percentual dividido por 100.
+  3. Converte e retorna o novo valor total.
+- **Retorno**: Um inteiro representando o novo valor após aplicar o aumento.
 
 ## Propriedades Calculadas e de Validação
-- **PotencialTotalMercado**: Esta propriedade é populada com um valor que pode ser oriundo do filtro ou calculado com base no número de clientes e um percentual de aumento. A lógica consiste em assegurar que o valor utilizado seja adequado ao contexto de negócios, garantindo integridade de dados na análise de potencial de mercado.
+- A classe `MapaNavegacao` não possui propriedades com lógica de cálculo direta no `get` ou validação no `set`.
 
 ## Navigations Property
-- [MapaNavegacaoItem](MapaNavegacaoItem.md) - Utilizada para representar cada item nos estágios de atração, engajamento e venda.
+- `[MapaNavegacaoItem](MapaNavegacaoItem.md)` - Esta propriedade representa um item na navegação e é uma classe complexa que contém a lógica de valores variáveis para cada etapa de engajamento.
 
 ## Tipos Auxiliares e Dependências
-- [MapaNavegacaoFiltro](MapaNavegacaoFiltro.md) - Classe utilizada para representar filtros de análise.
-- [MapaNavegacaoIndicadores](MapaNavegacaoIndicadores.md) - Classe que contém indicadores relevantes para o cálculo das métricas.
-- [IMapaNavegacaoRegraCalculo](IMapaNavegacaoRegraCalculo.md) - Interface referente às regras de cálculo a serem aplicadas.
+- `[IMapaNavegacaoRegraCalculo](IMapaNavegacaoRegraCalculo.md)` - Interface utilizada para implementar regras de cálculo.
+- `[RegraCalculoOndeEstamosPercentual](RegraCalculoOndeEstamosPercentual.md)` - Regra específica para cálculo de percentual em relação ao estado atual.
+- `[RegraCalculoOndeEstamosDivisao](RegraCalculoOndeEstamosDivisao.md)` - Regra para cálculo de divisão aplicada a indicadores de vendas.
+- `[RegraCalculoParaOndeVamosPercentual](RegraCalculoParaOndeVamosPercentual.md)` - Regra para cálculo percentual do destino futuro.
+- `[RegraCalculoParaOndeVamosMultiplicacao](RegraCalculoParaOndeVamosMultiplicacao.md)` - Regra que executa multiplicação em indicadores de vendas.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class MapaNavegacao {
-        +int PotencialTotalMercado
-        +MapaNavegacaoFiltro SugerirFiltros()
-        +void CriarRegrasCalculo()
-        +static decimal CalcularObjetivo(decimal percentualAtual)
-        +static int CalcularAumento(decimal valorBase, decimal percentualAumento)
+        + SugerirFiltros() MapaNavegacaoFiltro
+        - CalcularObjetivo(decimal percentualAtual) decimal
+        - CalcularAumento(decimal valorBase, decimal percentualAumento) int
     }
-    class MapaNavegacaoItem 
-    class MapaNavegacaoFiltro 
-    class MapaNavegacaoIndicadores 
-    class IMapaNavegacaoRegraCalculo 
+    
+    class MapaNavegacaoItem {
+    }
 
-    MapaNavegacao --> MapaNavegacaoItem : "Utiliza"
-    MapaNavegacao --> MapaNavegacaoFiltro : "Gera"
-    MapaNavegacao --> MapaNavegacaoIndicadores : "Recebe de"
-    MapaNavegacao --> IMapaNavegacaoRegraCalculo : "Depende de várias regras"
+    MapaNavegacao --> MapaNavegacaoItem : AtrairBaseClientes
+    MapaNavegacao --> MapaNavegacaoItem : AtrairLoginLoginLiberados
+    MapaNavegacao --> MapaNavegacaoItem : Objetivo1
+    MapaNavegacao --> MapaNavegacaoItem : Objetivo2
+    MapaNavegacao --> MapaNavegacaoItem : EngajarSenhaGerada
+    MapaNavegacao --> MapaNavegacaoItem : EngajarComprasEfetuadas
+    MapaNavegacao --> MapaNavegacaoItem : Objetivo3
+    MapaNavegacao --> MapaNavegacaoItem : Objetivo4
+    MapaNavegacao --> MapaNavegacaoItem : VenderFrequenciaMes
+    MapaNavegacao --> MapaNavegacaoItem : VenderTicketMedioMes
+    MapaNavegacao --> MapaNavegacaoItem : Objetivo5
+    MapaNavegacao --> MapaNavegacaoItem : Objetivo6
 ```
+---
+Gerada em 29/12/2025 21:44:10

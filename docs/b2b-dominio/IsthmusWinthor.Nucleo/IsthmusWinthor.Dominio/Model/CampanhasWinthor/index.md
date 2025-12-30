@@ -1,4 +1,4 @@
-#Documentação - CampanhasWinthor
+# CampanhasWinthor
 ## Conteúdo
 - [PCDesconto](PCDesconto.md)
 - [PCPromocaoCliMed](PCPromocaoCliMed.md)

@@ -1,4 +1,4 @@
-#Documentação - NumeracaoPromocoes
+# NumeracaoPromocoes
 ## Conteúdo
 - [INumeracaoPCDescontoService](INumeracaoPCDescontoService.md)
 - [INumeracaoPCPromocaoMedService](INumeracaoPCPromocaoMedService.md)

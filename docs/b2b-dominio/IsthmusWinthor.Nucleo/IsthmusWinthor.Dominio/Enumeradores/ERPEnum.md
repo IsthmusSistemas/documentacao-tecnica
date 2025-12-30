@@ -1,14 +1,14 @@
 # ERPEnum
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: ERPEnum.cs
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: ERPEnum.cs  
 
-O `ERPEnum` é um enumerador que define os diferentes sistemas de ERP (Enterprise Resource Planning) disponíveis no contexto do sistema, permitindo a padronização e fácil referência a esses tipos ao longo da aplicação. 
+O `ERPEnum` é uma enumeração que representa os sistemas de planejamento de recursos empresariais (ERP) suportados pela aplicação. Seu propósito é fornecer uma forma tipada e segura para referenciar as diferentes opções de ERP disponíveis, minimizando erros de string e melhorando a legibilidade do código.
 
-### Tipos Auxiliares e Dependências
+## Tipos Auxiliares e Dependências
 - **Enumeradores**:
-  - `ERPEnum`: Define os sistemas de ERP suportados: Winthor, Sankhya, e SAP.
+  - [ERPEnum](ERPEnum.md): Enumeração que define os tipos de sistemas ERP. 
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ERPEnum {
@@ -18,3 +18,5 @@ classDiagram
         +SAP
     }
 ```
+---
+Gerada em 29/12/2025 20:54:18

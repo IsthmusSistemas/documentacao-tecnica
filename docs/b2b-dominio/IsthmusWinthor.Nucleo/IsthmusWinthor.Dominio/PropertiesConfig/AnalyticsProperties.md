@@ -1,7 +1,7 @@
 # AnalyticsProperties
-**Namespace**: IsthmusWinthor.Dominio.PropertiesConfig  
-**Nome do Arquivo**: AnalyticsProperties.cs  
+- **Namespace**: IsthmusWinthor.Dominio.PropertiesConfig
+- **Nome do Arquivo**: AnalyticsProperties.cs
 
-> A classe `AnalyticsProperties` é utilizada como um objeto de transporte de dados (DTO) para configurar propriedades relacionadas à análise, como um token de API e uma URL.
-
-
+Esta classe serve como um Data Transfer Object (DTO), destinada ao transporte de dados relacionados às propriedades de configuração de analytics, incluindo a URL e o token da API.
+---
+Gerada em 29/12/2025 22:02:03

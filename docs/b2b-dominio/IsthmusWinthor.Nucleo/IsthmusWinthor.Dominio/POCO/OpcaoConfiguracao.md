@@ -2,4 +2,7 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: OpcaoConfiguracao.cs  
 
-Esta classe é um DTO (Data Transfer Object) utilizado para transportar dados relacionados a opções de configuração dentro do domínio da aplicação.
+### Citação
+A classe `OpcaoConfiguracao` serve como um objeto de transporte de dados para descrever e armazenar opções de configuração no sistema.
+---
+Gerada em 29/12/2025 21:36:54

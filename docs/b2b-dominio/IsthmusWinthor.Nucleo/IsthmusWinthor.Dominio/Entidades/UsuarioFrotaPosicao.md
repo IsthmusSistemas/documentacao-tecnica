@@ -1,21 +1,22 @@
 # UsuarioFrotaPosicao
-
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: UsuarioFrotaPosicao.cs
+**Nome do Arquivo**: UsuarioFrotaPosicao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `UsuarioFrotaPosicao` representa a entidade que mapeia a relação entre um usuário de distribuidora e sua respectiva posição na frota. O papel desta classe é gerenciar o estado e as associações entre usuários e posições de frota, garantindo que os dados sejam incorporados de maneira coesa, facilitando a manipulação e rastreamento das posições dos usuários dentro de suas frotas.
+A classe `UsuarioFrotaPosicao` representa a associação entre um usuário da distribuidora e uma posição de frota no sistema. Sua principal responsabilidade é gerenciar o relacionamento entre esses dois elementos, garantindo que as informações de associação sejam mantidas de forma íntegra. Essa modelagem é fundamental para o correto funcionamento das operações logísticas e rastreamento dentro do contexto da frota, permitindo uma gestão eficiente dos recursos.
+
+## Métodos de Negócio
+A classe `UsuarioFrotaPosicao` não contém métodos de negócio com lógica complexa, focando apenas em armazenar os dados referentes à associação entre usuários e suas posições de frota.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades calculadas ou de validação nesta classe.
+A classe não possui propriedades calculadas ou validações em suas getters ou setters. Todas as propriedades são simples, assegurando que os dados de associação sejam definidos diretamente.
 
-## Navigations Property
-- `[UsuarioDistribuidora](UsuarioDistribuidora.md)`
-- `[FrotaPosicao](FrotaPosicao.md)`
+## Navigation Property
+- [UsuarioDistribuidora](UsuarioDistribuidora.md)
+- [FrotaPosicao](FrotaPosicao.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enums**: Não há enumeradores utilizados nesta classe.
-- **Classes Estáticas/Helpers**: Não há classes estáticas mencionadas.
+- [IEntidade](IEntidade.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -25,17 +26,17 @@ classDiagram
         +long UsuarioDistribuidoraId
         +long FrotaPosicaoId
     }
-    
+
     class UsuarioDistribuidora {
-        +Id
-        +Nome
+        +long Id
     }
     
     class FrotaPosicao {
-        +Id
-        +Descricao
+        +long Id
     }
 
-    UsuarioFrotaPosicao --> UsuarioDistribuidora : "associado a"
-    UsuarioFrotaPosicao --> FrotaPosicao : "associado a"
+    UsuarioFrotaPosicao --|> UsuarioDistribuidora : "associado a"
+    UsuarioFrotaPosicao --|> FrotaPosicao : "associado a"
 ```
+---
+Gerada em 29/12/2025 20:51:14

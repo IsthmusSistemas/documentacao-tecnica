@@ -1,21 +1,21 @@
 # FormularioPerfilPrecoFilial
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: FormularioPerfilPrecoFilial.cs  
+**Nome do Arquivo**: FormularioPerfilPrecoFilial.cs
 
 ## Visão Geral e Responsabilidade
-A classe `FormularioPerfilPrecoFilial` atua como uma entidade do domínio que representa a configuração de preços para um formulário de perfil em uma filial específica. Seu papel é garantir que todos os dados relacionados ao perfil de preços de uma filial sejam armazenados e geridos corretamente, permitindo que a aplicação ofereça preços diferenciados com base em regiões e filiais. Isso aborda a necessidade de flexibilidade e adaptação dos preços em distintos locais, considerando as particularidades de cada filial.
+A classe `FormularioPerfilPrecoFilial` representa uma entidade do domínio que lida com a configuração de perfis de preço para filiais em um sistema corporativo. Ela é responsável por manter a integridade dos dados relacionados ao perfil de preço de uma filial, associado a uma região específica, permitindo a aplicação de regras de negócio que envolvem a precificação e a localização geográfica das filiais.
 
 ## Métodos de Negócio
-Não há métodos com lógica de negócios nessa classe. Os métodos implementados são simples getters e setters para as propriedades.
+*Neste código não foram encontrados métodos de negócio com lógica, todos os métodos implementados são acessores simples.*
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades com lógica de cálculo ou validação no get/set nesta classe.
+- Não foram encontradas propriedades que possuam lógica no `get` ou validação no `set`.
 
 ## Navigation Property
-- [FormularioPerfil](FormularioPerfil.md) - Este é um modelo que representa um perfil específico, estando diretamente associado ao `FormularioPerfilPrecoFilial`.
+- [`FormularioPerfil`](FormularioPerfil.md): Esta propriedade representa a relação entre o perfil de preço e o formulário específico, permitindo acessar os detalhes de perfil associados a um formulário de preço.
 
 ## Tipos Auxiliares e Dependências
-Nenhum tipo auxiliar ou enum é utilizado diretamente nesta classe.
+- Não foram identificados enumeradores (Enums) ou classes estáticas/helpers que a classe utiliza.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -28,9 +28,11 @@ classDiagram
         +string CodigoFilialNF
         +long NumeroRegiao
     }
-    
+
     class FormularioPerfil {
     }
-    
-    FormularioPerfilPrecoFilial --> FormularioPerfil : associa
+
+    FormularioPerfilPrecoFilial --> FormularioPerfil
 ```
+---
+Gerada em 29/12/2025 20:34:00

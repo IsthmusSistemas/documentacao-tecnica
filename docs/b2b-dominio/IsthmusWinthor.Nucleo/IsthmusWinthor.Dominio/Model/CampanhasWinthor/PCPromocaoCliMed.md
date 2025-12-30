@@ -2,28 +2,29 @@
 **Namespace**: IsthmusWinthor.Dominio.Model.CampanhasWinthor  
 **Nome do Arquivo**: PCPromocaoCliMed.cs  
 
-### Visão Geral e Responsabilidade
-A classe `PCPromocaoCliMed` atua como um modelo de domínio que representa uma promoção vinculada a um cliente. O principal objetivo dessa classe é garantir que as informações sobre códigos de promoção e cliente estejam associadas corretamente, assegurando a integridade e a validação dos dados no contexto de campanhas promocionais.
+A classe `PCPromocaoCliMed` é responsável por representar a associação entre uma promoção médica (`CodPromocaoMed`) e um cliente (`CodCli`). Este modelo é um Rich Domain Model, considerando que não apenas transporta dados, mas também infere uma relação de negócios importante entre os dois elementos.
 
-### Métodos de Negócio
-- **Título**: Construtor `PCPromocaoCliMed` (Visibilidade: `public`)
-  - **Objetivo**: O construtor assegura que uma instância da classe `PCPromocaoCliMed` é criada de forma que os valores de `CodPromocaoMed` e `CodCli` sejam obrigatoriamente fornecidos, evitando a criação de objetos inválidos.
+## Visão Geral e Responsabilidade
+A classe `PCPromocaoCliMed` encapsula a lógica de identificação única de uma promoção médica específica aplicável a um determinado cliente. O papel principal dessa classe é garantir que a ligação entre os códigos de promoção e cliente seja claramente definida, promovendo a integridade dos dados no contexto de campanhas de promoção dirigidas aos clientes.
+
+## Métodos de Negócio
+- **Título**: Construtor (public)
+  - **Objetivo**: Este método garante que a instância de promoção médica e cliente seja criada com informações obrigatórias, prevenindo a criação de objetos sem dados válidos.
   - **Comportamento**: 
-    1. Recebe como parâmetros `codPromocaoMed` e `codCli`.
-    2. Atribui esses valores às propriedades correspondentes `CodPromocaoMed` e `CodCli`.
-    3. As propriedades são somente leitura, garantindo que uma vez que a instância é criada, os valores não podem ser alterados.
-  - **Retorno**: Não possui retorno, mas resulta na criação de um novo objeto `PCPromocaoCliMed` válido.
+    1. Recebe os parâmetros `codPromocaoMed` e `codCli`.
+    2. Atribui os valores dos parâmetros às propriedades imutáveis `CodPromocaoMed` e `CodCli`.
+  - **Retorno**: Não retorna um valor, mas resulta em uma instância consistente de `PCPromocaoCliMed`.
 
-### Propriedades Calculadas e de Validação
-- Não há propriedades com lógica de cálculo ou validação no `get` ou no `set`.
+## Propriedades Calculadas e de Validação
+A classe não contém propriedades que possuam lógica no `get` ou validação no `set`. Todas as propriedades são imutáveis e são definidas apenas no construtor.
 
-### Navigations Property
-- Neste caso, não existem propriedades que representem classes complexas do domínio.
+## Navigation Property
+A classe `PCPromocaoCliMed` não possui navegações complexas para outras classes dentro do domínio, dado que se destina a ser uma entidade simples para relações.
 
-### Tipos Auxiliares e Dependências
-- Não há enumeradores, classes auxiliares ou helpers utilizados na classe `PCPromocaoCliMed`.
+## Tipos Auxiliares e Dependências
+- Esta classe não depende de quaisquer enumeradores (Enums) ou classes estáticas/helpers. É uma classe autônoma sem referências externas.
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PCPromocaoCliMed {
@@ -31,4 +32,5 @@ classDiagram
         +long CodCli
     }
 ```
-Na classe `PCPromocaoCliMed`, as propriedades são representações diretas dos dados de promoção e cliente, sem dependências externas ou associações complexas, refletindo uma estrutura de dados simples alinhada ao modelo de domínio.
+---
+Gerada em 29/12/2025 21:20:11

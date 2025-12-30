@@ -3,40 +3,32 @@
 **Nome do Arquivo**: ConfiguracoesDistribuidora.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ConfiguracoesDistribuidora` representa a configuração de uma distribuidora no sistema. É responsável por encapsular as diferentes configurações associadas à distribuidora, utilizando um identificador único (`DistribuidoraId`) e um tipo de solução (`TipoSolucao`). Essa classe facilita a obtenção e o gerenciamento das configurações das distribuidoras, assegurando que as informações sejam organizadas e acessíveis de maneira eficiente.
+A classe `ConfiguracoesDistribuidora` é responsável por agrupar e gerenciar as configurações específicas de cada distribuidora dentro do sistema. Ela permite que as soluções oferecidas sejam configuradas de acordo com as necessidades de cada distribuidora, facilitando a personalização da oferta de serviços. Essa classe atua como um objeto de domínio, assegurando que cada distribuidora tenha as configurações corretas, permitindo que o sistema funcione de maneira coerente com as regras de negócio estabelecidas para cada tipo de solução.
 
 ## Métodos de Negócio
-
-### Título: Key() - Visibilidade: Público
-- **Objetivo**: Gera uma chave única para o cache de configurações da distribuidora, utilizando o identificador da distribuidora e o tipo de solução.
+### Título: Key() - Visibilidade: Public
+- **Objetivo**: Garante a geração de uma chave única para armazenar as configurações da distribuidora em cache.
 - **Comportamento**: 
-  1. Invoca o método `DaConfiguracao` da classe `RedisKeys`, passando `DistribuidoraId` e `TipoSolucao`.
-  2. O método retorna uma string que representa a chave de cache correspondente a essa configuração.
-- **Retorno**: Retorna uma string que representa a chave única para o cache das configurações.
+    1. Recebe o `DistribuidoraId` e o `TipoSolucao`.
+    2. Chama o método estático `RedisKeys.DaConfiguracao`, passando os parâmetros do ID da distribuidora e o tipo da solução.
+    3. Retorna a chave gerada que pode ser usada no armazenamento em cache.
+- **Retorno**: Retorna uma string que representa a chave única para as configurações de uma distribuidora specificada.
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades com lógica no `get` ou validação no `set` nesta classe.
+- Não há propriedades com lógica no `get` ou validação no `set`.
 
 ## Navigations Property
-- `List<ConfiguracaoDistribuidora>`: Representa uma coleção de configurações específicas associadas à distribuidora, facilitando a gestão das configurações em um único objeto.
-  - [ConfiguracaoDistribuidora](ConfiguracaoDistribuidora.md)
+- `Configuracoes`: Propriedade que contém uma lista de configurações específicas da distribuidora. Representa uma coleção de objetos do tipo [ConfiguracaoDistribuidora](ConfiguracaoDistribuidora.md).
 
 ## Tipos Auxiliares e Dependências
-- `TipoSolucao`: [TipoSolucao](TipoSolucao.md)
-- `RedisKeys`: Classe estática que fornece métodos para a manipulação de chaves de cache.
+- `TipoSolucao`: [TipoSolucao](TipoSolucao.md) - Enumerador que indica o tipo de solução oferecida pela distribuidora.
+- `RedisKeys`: Classe auxiliar/estática utilizada para geração de chaves de armazenamento em cache.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    class ConfiguracoesDistribuidora {
-        +long DistribuidoraId
-        +TipoSolucao TipoSolucao
-        +List<ConfiguracaoDistribuidora> Configuracoes
-        +Key() string
-    }
-    class ConfiguracaoDistribuidora
-    class TipoSolucao
-    
-    ConfiguracoesDistribuidora --> ConfiguracaoDistribuidora
-    ConfiguracoesDistribuidora --> TipoSolucao
+    ConfiguracoesDistribuidora --|> TipoSolucao
+    ConfiguracoesDistribuidora o-- ConfiguracaoDistribuidora
 ```
+---
+Gerada em 29/12/2025 21:30:42

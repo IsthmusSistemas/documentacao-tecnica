@@ -1,100 +1,78 @@
 # PromoValorMinimo
+
 **Namespace**: IsthmusWinthor.Dominio.POCO.Precos  
 **Nome do Arquivo**: PromoValorMinimo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PromoValorMinimo` representa uma promoção de preço mínimo que deve ser atendida para que um cliente possa usufruir de benefícios relacionados a compras. O problema de negócio que esta classe resolve é a necessidade de definir e validar condições promocionais baseadas em valores mínimos de compra, garantindo que determinados produtos estejam incluídos na transação para a promoção ser válida.
+A classe `PromoValorMinimo` representa uma promoção que garante um desconto ao cliente quando um valor mínimo de compra é atingido. O principal problema de negócio resolvido por esta classe é assegurar que para que um cliente se beneficie da promoção, ele deve adquirir um conjunto específico de produtos no valor mínimo estipulado. Além disso, ela controla as condições da promoção, como produtos obrigatórios e regras de tributação.
 
 ## Métodos de Negócio
 
-### 1. AplicarCondicaoPharmalink
-- **Visibilidade**: Public
-- **Objetivo**: Aplica condições específicas de desconto para produtos que se encaixam na política Pharmalink.
-- **Comportamento**: Este método recebe um desconto e a quantidade de casas decimais. Ele aplica este desconto tanto ao `ProdutoValorMinimo` quanto a todos os itens na lista `ItensValorMinimo`.
-- **Retorno**: Não retorna valor; aplica a condição diretamente sobre os objetos.
+### Título: AplicarCondicaoPharmalink (public)
+- **Objetivo**: Este método aplica um desconto específico à condição da promoção, utilizando a taxa de desconto do Pharmalink.
+- **Comportamento**:
+  1. Recebe um valor de desconto e o número de casas decimais para arredondar.
+  2. Aplica o desconto ao `ProdutoValorMinimo` e a todos os `ItensValorMinimo` associados.
+- **Retorno**: Este método não retorna um valor, ele apenas aplica uma alteração de estado nos objetos.
 
-### 2. AplicarCondicaoIsthmusIndustria
-- **Visibilidade**: Public
-- **Objetivo**: Aplica condições específicas de desconto para produtos que se encaixam na política da indústria Isthmus.
-- **Comportamento**: Este método recebe um valor de desconto e a quantidade de casas decimais. Similar ao método anterior, aplica o desconto ao `ProdutoValorMinimo` e a todos os itens em `ItensValorMinimo`.
-- **Retorno**: Não retorna valor; aplica a condição diretamente sobre os objetos.
+### Título: AplicarCondicaoIsthmusIndustria (public)
+- **Objetivo**: Este método aplica um desconto específico da indústria à condição da promoção.
+- **Comportamento**:
+  1. Recebe um valor de desconto e o número de casas decimais para arredondar.
+  2. Aplica o desconto ao `ProdutoValorMinimo` e a todos os `ItensValorMinimo` associados.
+- **Retorno**: Este método não retorna um valor, ele apenas aplica uma alteração de estado nos objetos.
 
-### 3. DescricaoCondicao
-- **Visibilidade**: Private
-- **Objetivo**: Cria uma string que descreve as condições da promoção, incluindo valor mínimo e produtos obrigatórios.
-- **Comportamento**: Forma um texto com as condições necessárias para a promoção, considerando o valor mínimo e os produtos obrigatórios.
-- **Retorno**: Retorna uma string que descreve as condições da promoção.
-
-### 4. DescricaoQuantidade
-- **Visibilidade**: Private
-- **Objetivo**: Fornece uma descrição da quantidade necessária para a promoção.
-- **Comportamento**: Avalia se há um intervalo de quantidades e retorna um texto com os limites de compras.
-- **Retorno**: Retorna uma string que descreve a quantidade de produtos.
+### Título: DescricaoCondicao (private)
+- **Objetivo**: Gera uma descrição textual que detalha as condições da promoção.
+- **Comportamento**:
+  1. Inicia com uma descrição padrão da promoção.
+  2. Adiciona informações sobre o valor mínimo e se existem produtos obrigatórios.
+  3. Invoca o método `DescricaoQuantidade` para adicionar informações sobre quantidades.
+- **Retorno**: Retorna uma string contendo a descrição detalhada das condições da promoção.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{ProdutoValorMinimo?}
-    B -- Sim --> C{IntervaloQuantidade?}
-    C -- Sim --> D["A descrição de intervalo é gerada"]
-    C -- Não --> E["Nenhum intervalo"]
-    
-    B -- Não --> E
-    E --> F["Retorna a descrição"]
+    A[Início] --> B{Produto Obrigatório}
+    B -->|Sim| C[Adiciona "Esse produto é obrigatório para a promoção!"]
+    B -->|Não| D{Possui Produtos Obrigatórios}
+    D -->|Sim| E[Adiciona "Existem produtos obrigatórios para atingir a promoção!"]
+    D -->|Não| F[Continua]
+    C --> F
+    E --> F
+    F --> G[Adiciona informações de quantidade]
+    G --> H[Fim]
 ```
 
 ## Propriedades Calculadas e de Validação
-- **DescricaoVencimetoPromocao**: Retorna uma descrição da data de vencimento da promoção, formatando a data de fim, se houver.
-  
-## Navigations Property
-- **ItensValorMinimo**: Lista de [ItemValorMinimo](ItemValorMinimo.md) que define os itens necessários para a promoção ser válida.
-- **ProdutoValorMinimo**: Representa o item promocional de valor mínimo, que deve ser um [ItemValorMinimo](ItemValorMinimo.md).
+- **DescricaoVencimetoPromocao**: 
+  - Regra: Esta propriedade calcula e retorna uma string formatada com a data de término da promoção, se disponível. Caso contrário, retorna uma string vazia.
+
+## Navigation Properties
+- **ItensValorMinimo**: Um lista de `ItemValorMinimo` que mantém a necessidade de itens específicos para a condição da promoção.  
+- **ProdutoValorMinimo**: Representa um produto que é relevante para a promoção, podendo ser obrigatório.
+
+### Links:
+- [ItemValorMinimo](ItemValorMinimo.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enums**:  
-  - `[TipoPromocaoEnum](TipoPromocaoEnum.md)`
-- **Classes**:  
-  - `[TributacaoErp](TributacaoErp.md)`
+- **Enumeradores**: 
+  - [TipoPromocaoEnum](TipoPromocaoEnum.md)
 
 ## Diagrama de Relacionamentos
+
 ```mermaid
 classDiagram
     class PromoValorMinimo {
-        + TipoPromocaoEnum TipoPromocao
-        + long DistribuidoraId
-        + long CodigoCliente
-        + long CodigoPromocao
-        + string Nome
-        + string Descricao
-        + DateTime? DataInicio
-        + DateTime? DataFim
-        + List<ItemValorMinimo> ItensValorMinimo
-        + decimal ValorMinimo
-        + ItemValorMinimo ProdutoValorMinimo
-        + List<string> Filiais
-        + long NivelPrioritario
-        + bool AlteraPrecoTabela
-        + bool CreditaSobrePolitica
-        + bool BaseCreditaDeRca
+        +long DistribuidoraId
+        +decimal ValorMinimo
+        +List~ItemValorMinimo~ ItensValorMinimo
+        +ItemValorMinimo ProdutoValorMinimo
     }
-
     class ItemValorMinimo {
-        + bool Obrigatorio
-        + long CodigoProduto
-        + long CodigoMarca
-        + long CodigoDepartamento
-        + long CodigoSecao
-        + long CodigoCategoria
-        + long CodigoSubCategoria
-        + long CodigoFornecedor
-        + long CodigoProdutoPrincipal
-        + string ClasseProduto
-        + int IntervaloInicial
-        + int IntervaloFinal
-        + decimal PrecoBase
-        + decimal PrecoFixo
-        + decimal PercentualDesconto
-        + bool PromocaoPrioritaria
+        +decimal PrecoBase
+        +decimal PrecoPromocional
     }
-
-    PromoValorMinimo --> ItemValorMinimo
+    PromoValorMinimo --> "1..*" ItemValorMinimo
 ```
+---
+Gerada em 29/12/2025 21:55:33

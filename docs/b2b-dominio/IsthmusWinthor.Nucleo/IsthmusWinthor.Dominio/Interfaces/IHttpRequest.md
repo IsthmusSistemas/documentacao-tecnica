@@ -1,49 +1,48 @@
 # IHttpRequest
 
-- **Namespace**: IsthmusWinthor.Dominio.Interfaces
-- **Nome do Arquivo**: IHttpRequest.cs
+**Namespace**: IsthmusWinthor.Dominio.Interfaces  
+**Nome do Arquivo**: IHttpRequest.cs
 
-## Visão Geral e Responsabilidade
-A interface `IHttpRequest` atua como um contrato para classes que realizam requisições HTTP em um contexto corporativo. Ela permite a abstração das operações de envio de requisições POST, facilitando a comunicação com APIs externas ou microserviços. A sua principal função é garantir que as implementações forneçam um meio consistente e seguro de enviar dados e receber respostas, promovendo a interoperabilidade em um ambiente distribuído.
+A interface `IHttpRequest` defini métodos para realizar requisições HTTP, oferecendo uma maneira de estruturar chamadas para serviços web dentro do domínio da aplicação. Seu papel é facilitar a comunicação com APIs externas, permitindo o envio de dados e recepção de respostas de maneira robusta e coesa.
 
 ## Métodos de Negócio
 
-### Título: `Post<T>(string urlAbsolutePath, object bodyRequest = null, Dictionary<string, string> headerParams = null)` - **Público**
-- **Objetivo:** Garantir que uma requisição HTTP POST seja realizada para a URL fornecida, enviando um corpo de solicitação opcional e cabeçalhos que possam ser necessários.
-- **Comportamento:**
-  1. Recebe a URL absoluta para a qual a requisição deve ser feita.
-  2. Prepara o corpo da requisição se um `bodyRequest` for fornecido.
-  3. Inclui cabeçalhos adicionais se especificados pelo `headerParams`.
-  4. Executa a requisição POST e aguarda a resposta.
-  5. Retorna a resposta de forma deserializada no tipo especificado.
+### T Post<T>(string urlAbsolutePath, object bodyRequest = null, Dictionary<string, string> headerParams = null) where T : class
+- **Objetivo**: Este método garante a capacidade de enviar dados para um serviço web especificado pelo `urlAbsolutePath`, retornando um objeto do tipo T como resposta.
+- **Comportamento**:
+  1. Recebe a URL absoluta do serviço para o qual a requisição será enviada.
+  2. Permite a inclusão de um corpo de requisição (`bodyRequest`), que pode ser nulo.
+  3. Permite a inclusão de parâmetros de cabeçalho (`headerParams`), que também podem ser nulos.
+  4. Envia a requisição POST e processa a resposta.
+  5. Retorna a resposta como um objeto do tipo T.
+- **Retorno**: Retorna um objeto do tipo T representando a resposta da requisição HTTP. Se ocorrer algum erro, o tratamento e retorno depende da implementação específica.
 
-- **Retorno:** Um objeto do tipo `<T>` que representa o resultado da operação, que pode ser um modelo de dados ou uma confirmação da operação.
-
-### Título: `Post<T>(string baseUrl, string endpointUrl, object bodyRequest = null, Dictionary<string, string> headerParams = null)` - **Público**
-- **Objetivo:** Garantir a execução de uma requisição HTTP POST com uma base URL e um endpoint especificado, possibilitando flexibilidade no direcionamento de requisições.
-- **Comportamento:**
-  1. Constrói a URL completa combinando a `baseUrl` com o `endpointUrl`.
-  2. Prepara o corpo da requisição conforme o `bodyRequest`.
-  3. Adiciona cabeçalhos necessários de acordo com o que foi passado em `headerParams`.
-  4. Realiza a requisição POST e processa a resposta recebida.
-  5. Retorna o resultado da operação em um formato deserializado.
-
-- **Retorno:** Um objeto do tipo `<T>` que representa o resultado ou o estado da operação realizada.
+### T Post<T>(string baseUrl, string endpointUrl, object bodyRequest = null, Dictionary<string, string> headerParams = null) where T : class
+- **Objetivo**: Semelhante ao método anterior, este garante a invocação de um endpoint específico, construindo a URL combinando `baseUrl` e `endpointUrl`.
+- **Comportamento**:
+  1. Recebe uma URL base e um endpoint para formar a URL completa.
+  2. Permite a inclusão de um corpo de requisição (`bodyRequest`), que pode ser nulo.
+  3. Permite a inclusão de parâmetros de cabeçalho (`headerParams`), que também podem ser nulos.
+  4. Envia a requisição POST para a URL combinada.
+  5. Retorna a resposta como um objeto do tipo T.
+- **Retorno**: Retorna um objeto do tipo T que representa a resposta da requisição HTTP. Assim como no primeiro método, o resultado pode variar conforme a implementação.
 
 ## Propriedades Calculadas e de Validação
-- A interface `IHttpRequest` não possui propriedades suspensas com lógica de validação ou cálculo.
+Não há propriedades calculadas ou de validação na interface `IHttpRequest`.
 
 ## Navigations Property
-- Não existem propriedades de navegação complexas na interface `IHttpRequest`.
+Não há propriedades que são classes complexas do domínio nesta interface.
 
 ## Tipos Auxiliares e Dependências
-- **Nenhum tipo auxiliar ou dependência** Como a interface não possui enumerações ou classes estáticas associadas, não é necessário citar outros tipos.
+- Não há enumeradores ou classes auxiliares que a interface `IHttpRequest` utiliza diretamente, dado que enfatiza apenas as operações de requisição.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IHttpRequest {
-        + T Post<T>(string urlAbsolutePath, object bodyRequest = null, Dictionary<string, string> headerParams = null)
-        + T Post<T>(string baseUrl, string endpointUrl, object bodyRequest = null, Dictionary<string, string> headerParams = null)
+        +Post<T>(string urlAbsolutePath, object bodyRequest = null, Dictionary<string, string> headerParams = null) where T : class
+        +Post<T>(string baseUrl, string endpointUrl, object bodyRequest = null, Dictionary<string, string> headerParams = null) where T : class
     }
 ```
+---
+Gerada em 29/12/2025 21:16:27

@@ -1,29 +1,28 @@
 # IntegracaoEmail
-- **Namespace**: IsthmusWinthor.Dominio.Entidades  
-- **Nome do Arquivo**: IntegracaoEmail.cs  
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: IntegracaoEmail.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `IntegracaoEmail` representa uma entidade no domínio responsável por configurar e armazenar as informações necessárias para a integração de serviços de email dentro do sistema corporativo. Essa classe resolve o problema de gerenciamento centralizado das credenciais e configurações de envio de e-mails, garantindo a comunicação eficiente e organizada entre o sistema e serviços de email externos.
+A classe `IntegracaoEmail` representa uma entidade que gerencia as configurações de integração de e-mail de uma distribuidora. Seu principal objetivo é encapsular os dados necessários para autenticação e comunicação com um servidor SMTP para o envio de e-mails, garantindo que as informações de autenticação estejam corretamente configuradas e ativas para uso nas operações correlatas.
 
 ## Métodos de Negócio
-A classe `IntegracaoEmail` não contém métodos de negócio com lógica complexa; suas funcionalidades são voltadas principalmente à configuração e armazenamento dos dados relacionados às integrações de email.
+Nenhum método de negócio complexo identificado nesta classe. Todos os métodos são simples setters e getters.
 
 ## Propriedades Calculadas e de Validação
-- **EmailAutenticado**: Esta propriedade deve ser validada quanto ao formato do e-mail antes de ser setada, garantindo que apenas endereços válidos sejam armazenados.
-  
-  **Regra**: Um e-mail deve seguir o padrão de validação típico (ex: conter "@" e um domínio válido).
+Nenhuma propriedade com lógica de cálculo ou validação no `get` ou `set` foi identificada nesta classe.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`: Representa a distribuidora associada à integração de email.
+- [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-- `[IntegracaoEmailEnum](IntegracaoEmailEnum.md)`: Enumerador que define os tipos de integração de email disponíveis.
+- [IntegracaoEmailEnum](IntegracaoEmailEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IntegracaoEmail {
         +long Id
+        +Distribuidora Distribuidora
         +long DistribuidoraId
         +IntegracaoEmailEnum Tipo
         +string EmailAutenticado
@@ -34,7 +33,17 @@ classDiagram
         +string Senha
         +bool EnableSSL
     }
+    
+    class Distribuidora {
+        <<Entity>>
+    }
+
+    class IntegracaoEmailEnum {
+        <<Enum>>
+    }
 
     IntegracaoEmail --> Distribuidora
-    IntegracaoEmail --* IntegracaoEmailEnum
+    IntegracaoEmail --|> IntegracaoEmailEnum
 ```
+---
+Gerada em 29/12/2025 20:37:19

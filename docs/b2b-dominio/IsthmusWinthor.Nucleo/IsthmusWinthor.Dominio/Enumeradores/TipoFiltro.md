@@ -1,17 +1,18 @@
 # TipoFiltro
 
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: TipoFiltro.cs
+**Nome do Arquivo**: TipoFiltro.cs  
 
-O `TipoFiltro` é um enumerador que define diferentes tipos de filtros utilizados no sistema, permitindo a categorização e seleção de dados de forma sistemática e organizada. Ele é amplamente utilizado em operações de busca e filtragem de registros, contribuindo para a eficiência e precisão da manipulação dos dados.
+O `TipoFiltro` é um enumerador que define os diferentes tipos de filtros que podem ser aplicados em um contexto de consulta ou relatório, permitindo uma categorização eficiente dos dados que serão trabalhados.
 
-### Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou classe estática adicional é necessário para a operação deste enumerador.
+## Tipos Auxiliares e Dependências
+- N/A (Nenhuma classe ou tipo auxiliar é diretamente dependente da classe `TipoFiltro`, além dos próprios valores enumerados).
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoFiltro {
+        <<enumeration>>
         +Cliente
         +Regiao
         +RamoAtividade
@@ -22,3 +23,6 @@ classDiagram
         +IndiceFaixaCampanha
     }
 ```
+
+---
+Gerada em 29/12/2025 21:03:49

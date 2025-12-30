@@ -1,26 +1,24 @@
 # TamanhoImagem
 
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: TamanhoImagem.cs
+**Nome do Arquivo**: TamanhoImagem.cs  
 
----
-
-Esta classe representa um enumerador utilizado para especificar os diferentes tamanhos de imagem suportados. O `TamanhoImagem` é fundamental em cenários onde o dimensionamento adequado das imagens é crítico, como na apresentação de conteúdo visual em uma aplicação.
+O `TamanhoImagem` é um enumerador utilizado para representar os diferentes tamanhos possíveis de uma imagem no sistema, garantindo a padronização e a integridade dos dados relacionados às dimensões das imagens.
 
 ## Tipos Auxiliares e Dependências
-
-- Enumeradores:
-  - `[TamanhoImagem](TamanhoImagem.md)`
+- Nenhum
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class TamanhoImagem {
-        +Original
-        +Media
-        +Grande
-        +Pequena
-        +Miniatura
+        <<enumeration>>
+        + Original = 1
+        + Media = 2
+        + Grande = 3
+        + Pequena = 4
+        + Miniatura = 5
     }
 ```
+---
+Gerada em 29/12/2025 21:01:55

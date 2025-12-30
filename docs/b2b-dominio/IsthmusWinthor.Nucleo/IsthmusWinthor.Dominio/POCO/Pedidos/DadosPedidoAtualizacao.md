@@ -4,36 +4,33 @@
 **Nome do Arquivo**: DadosPedidoAtualizacao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DadosPedidoAtualizacao` é responsável por encapsular as informações relacionadas a uma atualização de pedido dentro do sistema. Esse modelo faz parte do fluxo de mensagens, permitindo que alterações em pedidos sejam rastreadas com detalhes sobre o que foi atualizado, por quem e quando. A principal regra de negócio que esta classe aplica é garantir que cada atualização tenha informações contextuais que ajudem em auditoria e rastreamento de ações no sistema.
+A classe `DadosPedidoAtualizacao` representa as informações necessárias para atualizar um pedido em um sistema de pedidos. Ela encapsula detalhes sobre a ação de atualização, como a data e hora da atualização, o usuário que realizou a ação, e uma descrição do que foi atualizado. Essa classe resolve o problema de manter um registro auditável das atualizações em pedidos, permitindo que o sistema rastreie alterações e identifique quem realizou cada ação.
 
 ## Métodos de Negócio
 
-### Título: Equals (public)
-- **Objetivo**: Garante que duas instâncias de `DadosPedidoAtualizacao` são consideradas iguais se o pedido associado a elas for o mesmo.
-- **Comportamento**: 
-  1. Verifica se o objeto passado como parâmetro é do tipo `DadosPedidoAtualizacao`.
-  2. Compara a propriedade `Pedido` da instância atual com a do objeto passado para determinar se são iguais.
-- **Retorno**: Retorna `true` se os pedidos forem iguais, caso contrário, retorna `false`.
+### Título: Equals (public override)
+**Objetivo**: Garante que duas instâncias de `DadosPedidoAtualizacao` sejam consideradas equivalentes se elas se referirem ao mesmo pedido.  
+**Comportamento**: 
+1. Verifica se o objeto passado é do tipo `DadosPedidoAtualizacao`.
+2. Compara o objeto atual com o outro através do pedido.
+3. Retorna `true` se eles referem ao mesmo pedido, caso contrário, retorna `false`.  
+**Retorno**: Retorna um valor booleano representando se os pedidos são equivalentes.
 
-### Título: GetHashCode (public)
-- **Objetivo**: Fornece um código hash para a instância, essencial para operações em estruturas de dados que utilizam hashing, como dicionários.
-- **Comportamento**:
-  1. Utiliza `HashCode.Combine` para gerar um código hash baseado na propriedade `Pedido`.
-- **Retorno**: Um valor inteiro que representa o código hash do pedido associado.
+### Título: GetHashCode (public override)
+**Objetivo**: Assegura que a classe possa ser usada em coleções que requerem um código hash único, como `HashSet`.  
+**Comportamento**: 
+1. Combina o código hash do `Pedido` para gerar um código hash único para a instância atual.
+2. Retorna um inteiro que representa o código hash da instância.  
+**Retorno**: Retorna um inteiro que representa o código hash calculado.
 
 ## Propriedades Calculadas e de Validação
+Não há propriedades com lógica no `get` ou validação no `set`.
 
-### Propriedades com Lógica de Validação:
-- **MessageId**: Retorna o identificador do pedido como uma string. Esta propriedade é importante para identificar de forma única cada mensagem relacionada ao pedido.
-  - **Regra**: A transformação da ID do pedido para string garante que a mensagem seja rastreável e facilmente identificável.
-
-### Propiedades de Navegação
-- **Pedido**: 
-  - Tipo: `PedidoAtualizacao`
-  - Link Presumido: `[PedidoAtualizacao](PedidoAtualizacao.md)`
+## Navigations Property
+- [PedidoAtualizacao](PedidoAtualizacao.md): Representa o pedido específico que está sendo atualizado.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe estática externa é utilizada diretamente nesta classe, mas ela depende da classe `PedidoAtualizacao`, a qual pode ter suas próprias regras de domínio.
+- N/A: Não existem enums ou classes estáticas/auxiliares utilizados na classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -44,15 +41,12 @@ classDiagram
         +string? UsuarioAtualizacao
         +string DescricaoAtualizacao
         +PedidoAtualizacao Pedido
-        +string MessageId
-        +int QueuedCount
     }
-    
-    class PedidoAtualizacao {
-        <<Entidade>>
-    }
-    
-    DadosPedidoAtualizacao --> PedidoAtualizacao : contém
-``` 
 
-Esta documentação fornece uma compreensão clara sobre a classe `DadosPedidoAtualizacao`, focando em suas responsabilidades de domínio e como se integra aos processos do sistema em termos de auditoria e rastreamento de atualizações de pedidos.
+    class PedidoAtualizacao {
+    }
+
+    DadosPedidoAtualizacao --> PedidoAtualizacao : possui
+```
+---
+Gerada em 29/12/2025 21:46:03

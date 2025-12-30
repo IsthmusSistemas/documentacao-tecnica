@@ -1,33 +1,30 @@
 # UsuarioAuthUpsertMessage
-
 **Namespace**: IsthmusWinthor.Dominio.QueueMessages  
-**Nome do Arquivo**: UsuarioAuthUpsertMessage.cs
+**Nome do Arquivo**: UsuarioAuthUpsertMessage.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `UsuarioAuthUpsertMessage` é um modelo de domínio que serve como um objeto de transporte de dados para operações de upsert (inserção ou atualização) relacionadas à autenticação de usuários. Esta classe encapsula informações essenciais sobre um usuário na arquitetura de mensagens, garantindo que os dados necessários para realizar a autenticação e autorização sejam transmitidos de forma consistente entre os componentes do sistema.
+A classe `UsuarioAuthUpsertMessage` é responsável por representar mensagens de atualização ou inserção de informações de autenticação de usuários. Ela é utilizada no contexto de filas de mensagens, permitindo que informações críticas sobre usuários, como a inclusão ou atualização de seus dados, sejam enviadas e processadas de forma assíncrona. Essa abordagem é fundamental para garantir a consistência das informações de autenticação em serviços distribuídos.
 
 ## Métodos de Negócio
-### Título: MessageId (Propriedade de Leitura)
-- **Objetivo**: Garante que cada mensagem tenha um identificador único baseado no e-mail do usuário.
-- **Comportamento**: Retorna o e-mail do usuário como identificador, assegurando que não haja duplicidade nas filas de mensagens enviadas.
-- **Retorno**: O valor retornado é o e-mail do usuário (`string`), que pode ser usado como um identificador único na fila.
+### Título: MessageId (Propriedade – somente leitura)
+- **Objetivo**: Garante que a identidade única da mensagem seja baseada no e-mail do usuário, facilitando a deduplicação de mensagens em um sistema de filantragem.
+- **Comportamento**: Retorna o e-mail do usuário como um identificador único da mensagem. Essa implementação assegura que cada mensagem enviada contenha uma referência clara ao usuário associado.
+- **Retorno**: O valor retornado é uma string representando o e-mail do usuário, que serve como um identificador único da mensagem.
 
-### Título: QueuedCount (Propriedade de Leitura)
-- **Objetivo**: Determina a contagem de vezes que a mensagem foi enfileirada.
-- **Comportamento**: Retorna um valor fixo de 1, indicando que esta mensagem deve ser enfileirada uma única vez.
-- **Retorno**: O valor retornado é um inteiro (`int`), representando a contagem de mensagens enfileiradas, que neste caso, é sempre 1.
+### Título: QueuedCount (Propriedade – somente leitura)
+- **Objetivo**: Define o número de vezes que a mensagem foi enfileirada, neste caso fixo em 1, indicando que cada instância da mensagem é destinada à fila exatamente uma vez.
+- **Comportamento**: Sempre retorna 1, sugerindo que a mensagem é idealmente enfileirada uma única vez por operação de autenticação.
+- **Retorno**: O valor retornado é um inteiro constante, que representa a frequência de enfileiramento da mensagem.
 
 ## Propriedades Calculadas e de Validação
-- **MessageId**: Esta propriedade utiliza o e-mail como um identificador único. A regra é que cada e-mail deve ser exclusivo dentro do sistema para garantir a unicidade das mensagens.
-  
-- **QueuedCount**: A propriedade `QueuedCount` tem um valor fixo, o que denota que deve apenas ser enfileirada uma vez. Sua regra é manter a integridade da mensagem dentro do fluxo de filas, evitando duplicidades desnecessárias.
+Não há propriedades com lógica de cálculo ou validação específicas além das propriedades que servem como identificadores simples e constantes.
 
-## Navigations Property
-Não há propriedades de navegação que são classes complexas do domínio nesta classe.
+## Navigation Property
+- Não há propriedades que representem classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- **IQueueMessage**: Interface que esta classe implementa, define como a mensagem deve se comportar em um contexto de fila.
-- **Newtonsoft.Json**: Biblioteca utilizada para a serialização/deserialização de JSON, fundamental para o transporte de dados.
+- Dependências:
+  - [JsonConstructor](https://www.newtonsoft.com/json) - Um atributo da biblioteca Newtonsoft.Json que facilita a desserialização de JSON.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -44,9 +41,13 @@ classDiagram
         +string MessageId
         +int QueuedCount
     }
+
     class IQueueMessage {
     }
-    UsuarioAuthUpsertMessage ..|> IQueueMessage : implements
-```
+    
+    UsuarioAuthUpsertMessage --|> IQueueMessage : Implementa
+``` 
 
-Esta documentação fornece uma visão clara sobre as regras de negócio e a lógica envolvida na classe `UsuarioAuthUpsertMessage`, ajudando a manter a integridade dos dados e eficiência nas operações de autenticação dentro do sistema corporativo.
+Esta documentação visa fornecer uma visão clara e concisa das responsabilidades e regras de negócio associadas à classe `UsuarioAuthUpsertMessage`, estruturando as informações de maneira que facilite o entendimento e a manutenção do sistema.
+---
+Gerada em 29/12/2025 22:04:46

@@ -1,29 +1,28 @@
 # Script
+
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: Script.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Script` serve como uma entidade do domínio que modela um script a ser associado a uma `Distribuidora`. Ela é responsável por encapsular as informações relevantes que descrevem um script, como sua descrição, local de exibição, tipo de script e outras propriedades que definem seu comportamento no sistema. Essa estrutura é fundamental para a gestão de scripts em um sistema que envolve automação ou execução de tarefas relacionadas a distribuições. A classe também é projetada para permitir o controle da execução assíncrona de scripts.
+A classe `Script` representa uma entidade do domínio que encapsula a lógica e os dados relacionados a um script dentro de um sistema de processamento de dados. Ela está relacionada à execução de scripts que podem ser geridos por uma distribuidora, abrangendo aspectos como descrição, local de exibição, tags, tipo e fonte do script. O principal problema de negócio que essa classe resolve é o gerenciamento eficaz e a configuração de scripts, permitindo a flexibilidade na execução e apresentação dos dados.
 
 ## Métodos de Negócio
-*Nenhum método complexo foi identificado nesta classe*.
+No momento, a classe `Script` não contém métodos de negócios com lógica complexa, focando principalmente em propriedades que definem suas características.
 
 ## Propriedades Calculadas e de Validação
-- Não há propriedades com lógica de cálculo ou validação no `get` ou `set`.
+Atualmente, não foram encontradas propriedades com lógica de cálculo ou validação no `get` ou `set`.
 
 ## Navigations Property
-- `Distribuidora`: classe que representa a distribuidora associada ao script. 
-  - [Distribuidora](Distribuidora.md)
+- [Distribuidora](Distribuidora.md): Representa a distribuidora associada ao script.
+- [LocalExibicaoScript](LocalExibicaoScript.md): Representa onde o script será exibido.
+- [TagScript](TagScript.md): Tags para categorização do script.
+- [TypeScript](TypeScript.md): Define o tipo do script.
 
 ## Tipos Auxiliares e Dependências
-- `LocalExibicaoScript`: enum que define as possíveis localizações onde o script pode ser exibido.
-  - [LocalExibicaoScript](LocalExibicaoScript.md)
-- `TagScript`: enum que categoriza os scripts.
-  - [TagScript](TagScript.md)
-- `TypeScript`: enum que define o tipo de script.
-  - [TypeScript](TypeScript.md)
-- `TipoSolucao`: enum que representa diferentes tipos de soluções associadas ao script.
-  - [TipoSolucao](TipoSolucao.md)
+- [LocalExibicaoScript](LocalExibicaoScript.md): Enum que determina os possíveis locais de exibição.
+- [TagScript](TagScript.md): Enum que categoriza os tipos de tags para o script.
+- [TypeScript](TypeScript.md): Enum que define os tipos de script.
+- [TipoSolucao](TipoSolucao.md): Enum que representa os tipos de soluções associadas.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -36,9 +35,15 @@ classDiagram
         +string Text
         +TipoSolucao? TipoSolucao
     }
+    class Distribuidora
+    class LocalExibicaoScript
+    class TagScript
+    class TypeScript
+
     Script --> Distribuidora
     Script --> LocalExibicaoScript
     Script --> TagScript
     Script --> TypeScript
 ```
-
+---
+Gerada em 29/12/2025 20:49:26

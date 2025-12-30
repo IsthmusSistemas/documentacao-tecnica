@@ -1,28 +1,27 @@
 # CachePromocaoKey
-
 **Namespace**: IsthmusWinthor.Dominio.CacheKeys  
 **Nome do Arquivo**: CachePromocaoKey.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CachePromocaoKey` atua como um identificador exclusivo para chaves de cache no sistema de promoções. Ela permite a construção de uma chave única, composta pela combinação dos identificadores de distribuidora, cliente, tipo de promoção e código da promoção. Responde ao problema de garantir acesso e controle rápido a dados em cache associados a promoções específicas.
+A classe `CachePromocaoKey` é um Rich Domain Model que representará uma chave de cache relacionada a promoções. Ela permite a criação de uma chave única que combina informações do cliente e da promoção, ajudando a otimizar o acesso e o gerenciamento de dados em cache referente a promoções específicas para cada cliente. Isso é crucial para garantir que os dados recuperados sejam pertinentes e estejam atualizados, contribuindo para a eficiência e a performance do sistema.
+
+## Métodos de Negócio
+
+### Título: `Key` (Propriedade Pública)
+- **Objetivo**: Gera uma chave única para o cache.
+- **Comportamento**: A propriedade `Key` concatena `DistribuidoraId`, `CodigoCliente`, `TipoPromocao` e `CodigoPromocao` em uma string. Isso garante que cada chave gerada seja única para a combinação de distribuidora, cliente e promoção.
+- **Retorno**: Retorna uma string formatada que representa a chave do cache.
 
 ## Propriedades Calculadas e de Validação
-
-### Key
-- **Descrição**: A propriedade `Key` constrói uma string que serve como uma chave única no cache, baseada nos atributos da classe.
-- **Regra de Negócio**: Ela formata e concatena os identificadores (DistribuidoraId, CodigoCliente, TipoPromocao, CodigoPromocao) separados por dois-pontos para criar uma chave única.
-- **Cálculo**: `Key => $"{DistribuidoraId}:{CodigoCliente}:{TipoPromocao}:{CodigoPromocao}"`
+- `Key`: A propriedade calcula uma chave única do cache com base nas propriedades da classe. A regra por trás do cálculo é garantir que cada combinação de cliente, distribuição e promoção gere uma string única para fácil acesso e recuperação no sistema de cache.
 
 ## Navigations Property
-Nenhuma.
+- Esta classe não possui propriedades que são classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-
-- `[TipoPromocaoEnum](TipoPromocaoEnum.md)`: Enumerador que especifica o tipo de promoção.
-- `[ClienteLogado](ClienteLogado.md)`: POCO que representa os detalhes do cliente logado no sistema.
+- [TipoPromocaoEnum](TipoPromocaoEnum.md): Enumerador que representa os diferentes tipos de promoções que podem ser aplicadas.
 
 ## Diagrama de Relacionamentos
-
 ```mermaid
 classDiagram
     class CachePromocaoKey {
@@ -33,15 +32,14 @@ classDiagram
         +string Key
     }
     
-    class ClienteLogado {
-        +long DistribuidoraId
-        +long Codigo
+    class TipoPromocaoEnum {
+        <<enumeration>>
+        +Tipo1
+        +Tipo2
+        +Tipo3
     }
     
-    class TipoPromocaoEnum
-    
-    CachePromocaoKey --> ClienteLogado
     CachePromocaoKey --> TipoPromocaoEnum
 ```
-
-Esta documentação resume a função e as regras de negócio implementadas pela classe `CachePromocaoKey`, destacando, particularmente, sua capacidade de gerar chaves de cache únicas para operações eficientes de armazenamento em cache de promoções.
+---
+Gerada em 29/12/2025 20:10:06

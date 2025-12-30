@@ -1,35 +1,25 @@
 # OrigemPedido
-
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: OrigemPedido.cs
+**Nome do Arquivo**: OrigemPedido.cs  
 
-A enumeração `OrigemPedido` representa as diferentes origens de pedidos que podem ser registradas no sistema. Esse tipo é crucial para categorizar e identificar a procedência dos pedidos, garantindo uma organização e análise eficaz dos dados de vendas.
-
-## Métodos de Negócio
-A classe `OrigemPedido` não possui métodos de negócio, pois é uma simples enumeração. No entanto, sua presença permite garantir a validade dos dados referentes à origem dos pedidos.
-
-## Propriedades Calculadas e de Validação
-A classe não possui propriedades calculadas ou de validação, pois sua definição é de um enumerador, com um conjunto fixo de valores.
-
-## Navigations Property
-Esta classe não contém propriedades de navegação, visto que seu propósito é simplesmente ser um enumerador.
+O `OrigemPedido` é um enumerador que define as várias origens possíveis para um pedido dentro do sistema, permitindo categorizar de maneira rica e significativa as fontes de onde um pedido pode se originar. Essa classificação é crucial para análise de vendas e otimização de processos relacionados às preferências dos canais de venda dos clientes.
 
 ## Tipos Auxiliares e Dependências
-Esta classe não possui dependências externas, além de ser definida dentro do namespace `IsthmusWinthor.Dominio.Enumeradores`.
+- **Enumeradores**:
+  - [OrigemPedido](OrigemPedido.md) - Enum que categoriza as diferentes origens de pedidos, como Força de Vendas, Balcão, Telemarketing, entre outros.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class OrigemPedido {
-        <<enumeration>>
-        Indefinido
-        ForcaVendas
-        Balcao
-        BalcaoReserva
-        TeleMarketing
-        Site
-        CallCenter
+        + Indefinido
+        + ForcaVendas
+        + Balcao
+        + BalcaoReserva
+        + TeleMarketing
+        + Site
+        + CallCenter
     }
-``` 
-
-Essa enumeração, portanto, fornece uma estrutura sólida para a classificação dos pedidos no sistema corporativo, facilitando a gestão e análise de vendas com base na origem dos pedidos.
+```
+---
+Gerada em 29/12/2025 20:58:29

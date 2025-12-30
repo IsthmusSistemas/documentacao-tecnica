@@ -1,25 +1,22 @@
 # PerfilRepresentanteEnum
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: PerfilRepresentanteEnum.cs
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: PerfilRepresentanteEnum.cs  
 
-O `PerfilRepresentanteEnum` é um enumerador que define os diferentes perfis que um representante pode ter dentro do sistema.
+Este enum define os diferentes perfis de representantes de vendas dentro do sistema, permitindo a categorização e controle das permissões e responsabilidades atribuídas a cada perfil.
 
 ## Tipos Auxiliares e Dependências
-- Nenhuma classe ou estrutura complexa é utilizada por esta enumeração.
-
-### Enumeradores
-- `PerfilRepresentanteEnum`:  
-  Enum contendo os perfis disponíveis para os representantes, cada um identificando um nível de responsabilidade e cargo dentro da estrutura de vendas:
-  - `Vendedor`: Representante que lida diretamente com vendas.
-  - `Supervisor`: Responsável por supervisionar as atividades dos vendedores.
-  - `Gerente`: Encarregado de gerenciar toda a equipe de vendas e estratégias.
+- **Enumeradores**:
+  - [PerfilRepresentanteEnum](PerfilRepresentanteEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PerfilRepresentanteEnum {
-        + Vendedor
-        + Supervisor
-        + Gerente
+        <<enumeration>>
+        +Vendedor
+        +Supervisor
+        +Gerente
     }
 ```
+---
+Gerada em 29/12/2025 20:58:55

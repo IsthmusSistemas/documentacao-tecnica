@@ -1,28 +1,36 @@
 # IElementoIndex
-
 **Namespace**: IsthmusWinthor.Dominio.AzureSearchIndex  
 **Nome do Arquivo**: IElementoIndex.cs
 
-## Visão Geral e Responsabilidade
+### Visão Geral e Responsabilidade
+A interface `IElementoIndex` define um contrato para os elementos que serão indexados em um sistema de busca baseado em Azure. Sua principal responsabilidade é garantir que cada elemento tenha um identificador único e uma ação associada a ele durante o processo de indexação. Isso é crucial para a integridade dos dados e a correta execução das operações de busca e apresentação dos resultados.
 
-IElementoIndex é uma interface destinada a normalizar a maneira como elementos são preparados para serem indexados no Azure Search. Ela atua como um contrato para garantir que as implementações providenciem uma ação de indexação e um identificador de documento, assegurando a consistência e integridade dos dados durante operações de índice no Azure Search.
+### Métodos de Negócio
+#### Título: Não aplicável (interface não possui métodos implementados com lógica)
+- **Objetivo**: Como esta é uma interface, não há métodos com lógica de negócio, mas os implementadores devem garantir que a lógica relacionada às ações e identificadores seja mantida.
+- **Comportamento**: Nenhum comportamento implementado. Os métodos que implementarem esta interface devem seguir as regras de negócio relacionadas ao manuseio e indexação de dados.
+- **Retorno**: N/A
 
-## Métodos de Negócio
+### Propriedades Calculadas e de Validação
+Não há propriedades com lógica complexa de validação ou cálculo na interface `IElementoIndex`, uma vez que é uma interface que apenas declara propriedades anêmicas que devem ser implementadas.
 
-Não aplicável, pois `IElementoIndex` é uma interface que define propriedades e não métodos.
+### Navigations Property
+Não existem propriedades de navegação complexas dentro da interface, visto que, como uma interface, ela não define outros tipos de classes complexas ou dependências.
 
-## Propriedades Calculadas e de Validação
+### Tipos Auxiliares e Dependências
+- **Dependências**:
+  - `Newtonsoft.Json.JsonProperty` é utilizado para a serialização e deserialização dos dados, permitindo a personalização do mapeamento entre propriedades C# e os nomes de propriedades JSON.
 
-Nenhuma lógica complexa nos `get` ou `set` das propriedades é implementada na interface.
+### Diagrama de Relacionamentos
+```mermaid
+classDiagram
+    class IElementoIndex {
+        <<interface>>
+        +string AcaoExecutar
+        +string IdentificadorDocumento
+    }
+```
 
-## Navigations Property
-
-Não aplicável.
-
-## Tipos Auxiliares e Dependências
-
-Nenhum enumerador ou classe estática/helper específica é utilizada diretamente na interface.
-
-## Diagrama de Relacionamentos
-
-Não aplicável, pois a interface não possui relações diretas no formato de propriedades complexas ou enumerações.
+Este diagrama de classes representa a interface `IElementoIndex` e suas propriedades. Como não há implementações diretas ou tipos auxiliares adicionais, o diagrama é simples e direto.
+---
+Gerada em 29/12/2025 20:09:20

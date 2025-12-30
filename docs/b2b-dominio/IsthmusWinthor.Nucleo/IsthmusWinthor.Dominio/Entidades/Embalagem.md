@@ -3,40 +3,43 @@
 **Nome do Arquivo**: Embalagem.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Embalagem` representa uma entidade do modelo de domínio relacionada a produtos que precisam ser embalados para venda. Ela captura informações essenciais sobre a embalagem de um produto, como unidade de medida, descrição, código de filial e dados de sincronização. O objetivo principal dessa classe é integrar e garantir a integridade dos dados relativos às embalagens e suas associações com produtos no sistema, assegurando que as informações sobre como um produto pode ser embalado e vendido sejam mantidas de forma consistente.
+A classe `Embalagem` representa a estrutura e as características de uma unidade de embalagem de um produto no sistema. Esta classe é fundamental para o gerenciamento do estoque e da logística, pois define como os produtos são agrupados e transportados, incluindo informações como quantidade, tipo de embalagem e codificação para rastreamento. O controle adequado da embalagem ajuda a garantir que os produtos cheguem ao destino em condições adequadas e que os dados de inventário sejam precisos.
 
 ## Métodos de Negócio
-* **Título**: Este código não contém métodos complexos de negócio, apenas propriedades de estado que não possuem lógicas específicas definidas como métodos. Portanto, não há métodos de negócio a serem documentados nesta classe.
+A classe `Embalagem` não possui métodos de negócio com lógica complexa implementados que se enquadrem na definição dada, consistindo apenas em propriedades.
 
 ## Propriedades Calculadas e de Validação
-- Nenhuma propriedade com lógica de `get` ou validação no `set` foi identificada. Todas as propriedades são simples e representativas de dados.
+A classe possui várias propriedades simples, sem validação ou lógica computacional em seus `getters` ou `setters`. No entanto, as propriedades são definidas de forma a assegurar a integridade dos dados da embalagem.
 
 ## Navigations Property
-- [Produto](Produto.md): Representa uma referência ao produto que está associado a esta embalagem.
+- `Produto`: [Produto](Produto.md) - Representa a associação da embalagem a um produto.
 
 ## Tipos Auxiliares e Dependências
-- [TipoEmbalagemEnum](TipoEmbalagemEnum.md): Enum que define os tipos de embalagem que podem ser utilizados. 
+- `TipoEmbalagemEnum`: [TipoEmbalagemEnum](TipoEmbalagemEnum.md) - Enum que classifica os tipos de embalagem disponíveis.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Embalagem {
         +long Id
+        +Produto Produto
+        +long ProdutoId
         +string Unidade
         +string Descricao
         +string CodigoFilial
         +decimal FatorPreco
         +decimal QuantidadeUnitaria
         +string CodigoBarras
+        +TipoEmbalagemEnum TipoEmbalagem
         +string GuidSincronizacao
     }
-
+    
     class Produto {
-        +long Id
-        +string Nome
+        +... // Propriedades e métodos do Produto
     }
 
-    Embalagem --> Produto : "Produto"
-``` 
-
-A classe `Embalagem` relaciona-se diretamente à classe `Produto`, indicando que cada embalagem está associada a exatamente um produto.
+    Embalagem --> Produto : "associado a"
+    Embalagem --> TipoEmbalagemEnum : "define"
+```
+---
+Gerada em 29/12/2025 20:29:13

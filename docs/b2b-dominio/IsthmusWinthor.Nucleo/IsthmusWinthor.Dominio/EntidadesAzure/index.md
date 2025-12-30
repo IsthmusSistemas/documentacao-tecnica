@@ -1,4 +1,4 @@
-#Documentação - EntidadesAzure
+# EntidadesAzure
 ## Conteúdo
 - [DataFactoryJson](DataFactoryJson.md)
 - [EntidadeAzureAbstract](EntidadeAzureAbstract.md)

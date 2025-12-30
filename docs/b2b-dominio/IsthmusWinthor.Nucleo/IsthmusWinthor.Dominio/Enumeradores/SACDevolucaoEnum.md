@@ -2,11 +2,10 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: SACDevolucaoEnum.cs  
 
-O `SACDevolucaoEnum` é um enumerador que categoriza os diferentes tipos de devoluções possíveis dentro do sistema de atendimento ao cliente (SAC). Sua finalidade é facilitar a distinção entre devoluções e auxiliar na implementação de regras de negócio específicas, garantindo clareza na manipulação de dados relacionados.
+O `SACDevolucaoEnum` é um enumerador que tipifica as diferentes condições de devolução dentro do contexto do sistema SAC (Serviço de Atendimento ao Cliente). Ele garante que as devoluções sejam categorizadas de forma consistente, evitando erros e mal-entendidos nas operações relacionadas a devoluções.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[SACDevolucaoEnum](SACDevolucaoEnum.md)`: Enumeração que define os tipos de devolução.
+- Nenhuma classe ou função auxiliar utilizada.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -17,4 +16,8 @@ classDiagram
         Parcial
         Integral
     }
-```
+``` 
+
+Este diagrama representa o `SACDevolucaoEnum`, evidenciando suas opções de devolução possíveis. Como um enumerador, ele não possui dependências com propriedades de navegação ou outros tipos complexos.
+---
+Gerada em 29/12/2025 21:00:10

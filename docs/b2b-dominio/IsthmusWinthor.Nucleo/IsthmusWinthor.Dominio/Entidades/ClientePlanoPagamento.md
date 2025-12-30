@@ -1,15 +1,15 @@
 # ClientePlanoPagamento
-**Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: ClientePlanoPagamento.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Entidades
+- **Nome do Arquivo**: ClientePlanoPagamento.cs
 
 ## Visão Geral e Responsabilidade
-A classe `ClientePlanoPagamento` representa a associação entre clientes e seus planos de pagamento. Este modelo é fundamental para a gestão financeira do sistema, permitindo ao sistema de pagamento identificar qual plano está vinculado a cada cliente e, portanto, gerenciar corretamente as transações e as configurações específicas de pagamento. O problema de negócio que essa classe resolve é a organização da relação entre múltiplos clientes e planos de pagamento, garantindo que os dados sejam integrados e acessíveis de maneira eficiente.
+A classe `ClientePlanoPagamento` representa a associação entre um cliente e um plano de pagamento. Ela é responsável por manter a integridade e a consistência dos dados relacionados a qual plano de pagamento um cliente está utilizando, além de fornecer informações adicionais, como o tipo de plano e um identificador único para sincronização. Essa classe resolve o problema de associar corretamente os clientes aos seus respectivos planos de pagamento e gerenciar a relação entre essas entidades.
 
 ## Métodos de Negócio
-(Nenhum método de lógica foi definido dentro da classe, somente propriedades foram declaradas.)
+Nenhum método com lógica de negócio foi implementado na classe, apenas propriedades simples.
 
 ## Propriedades Calculadas e de Validação
-(Não há propriedades com lógica no `get` ou validação no `set`.)
+Nenhuma propriedade com cálculo ou validação foi definida na classe.
 
 ## Navigation Property
 - [PlanoPagamento](PlanoPagamento.md)
@@ -22,14 +22,24 @@ A classe `ClientePlanoPagamento` representa a associação entre clientes e seus
 ```mermaid
 classDiagram
     class ClientePlanoPagamento {
-        long Id
-        long PlanoPagamentoId
-        long ClienteId
-        string GuidSincronizacao
-        TipoPlanoPagamento TipoPlanoPagamento
+        +long Id
+        +long PlanoPagamentoId
+        +long ClienteId
+        +string GuidSincronizacao
+        +TipoPlanoPagamento TipoPlanoPagamento
     }
-
-    ClientePlanoPagamento --> PlanoPagamento
-    ClientePlanoPagamento --> Cliente
-    ClientePlanoPagamento --> TipoPlanoPagamento
+    
+    class PlanoPagamento {
+        ...
+    }
+    
+    class Cliente {
+        ...
+    }
+    
+    ClientePlanoPagamento --> PlanoPagamento : Associacao
+    ClientePlanoPagamento --> Cliente : Associacao
+    ClientePlanoPagamento --> TipoPlanoPagamento : Referencia
 ```
+---
+Gerada em 29/12/2025 20:21:09

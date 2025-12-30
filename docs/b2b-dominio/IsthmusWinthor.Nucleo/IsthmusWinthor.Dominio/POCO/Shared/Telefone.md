@@ -3,63 +3,52 @@
 **Nome do Arquivo**: Telefone.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Telefone` é um Rich Domain Model que representa um número de telefone, incluindo seu formato, tipo e DDD (código de área). Ela desempenha um papel fundamental na validação e formatação de números de telefone, assegurando que o dado esteja em conformidade com as regras de negócios pertinentes a números de contato em um sistema corporativo.
+A classe `Telefone` é um modelo de domínio que representa um número de telefone, incluindo suas propriedades associadas, como DDD (código de área) e tipo de contato. Ela encapsula a lógica para manipulação e formatação de números de telefone, garantindo que as várias representações de um número sejam tratadas de maneira consistente. A classe é importante para a validação e formatação de dados de contato em um sistema corporativo, contribuindo para a integridade dos dados.
 
 ## Métodos de Negócio
 
-### TelefoneFormatado()
-- **Objetivo**: Garante que o número de telefone seja retornado em um formato legível e consistente, respeitando as especificidades de telefones fixos e celulares além de lidar com números toll-free.
+### TelefoneFormatado() - Público
+- **Objetivo**: Garante que o número de telefone esteja formatado corretamente de acordo com seu tipo e estrutura.
 - **Comportamento**: 
-  1. Verifica se o `Numero` inicia com "0800" ou "0900" e, se sim, retorna o número sem formatação.
-  2. Chama o método `RemoverMascaras` para eliminar caracteres não numéricos do número.
-  3. Avalia o comprimento do número sem máscara:
-     - Para números de 8 dígitos, insere um hífen na posição correta.
-     - Para números de 9 dígitos, também insere um hífen na posição correta.
-  4. Verifica se o `Ddd` está vazio:
-     - Se sim, retorna somente o telefone formatado.
-     - Se não, retorna o DDD seguido do telefone formatado.
-- **Retorno**: Um `string` representando o número de telefone formatado, que inclui DDD se disponível e a formatação apropriada.
+  1. Verifica se o número começa com "0800" ou "0900". Se sim, retorna o número sem formatação.
+  2. Chama o método `RemoverMascaras()` para obter o número sem caracteres especiais.
+  3. Formata o número de telefone com base na sua quantidade de dígitos:
+     - Para um número fixo de 8 dígitos, insere um hífen após o quarto dígito.
+     - Para um número celular de 9 dígitos, insere um hífen após o quinto dígito.
+  4. Se o DDD não estiver presente, retorna o telefone formatado apenas.
+  5. Se o DDD estiver presente, retorna o telefone no formato "(DDD) telefone".
+- **Retorno**: Uma string representando o número de telefone formatado.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Número inicia com 0800 ou 0900?}
-    B -- Sim --> C[Retorna número sem formatação]
-    B -- Não --> D[Chama RemoverMascaras()]
-    D --> E{Número sem máscara possui 8 ou 9 dígitos?}
-    E -- 8 dígitos --> F[Insere '-' na posição correta para telefone fixo]
-    E -- 9 dígitos --> G[Insere '-' na posição correta para telefone celular]
-    F --> H{DDD está vazio?}
+    A[Início] --> B{Número começa com 0800 ou 0900?}
+    B -- Sim --> C[Retornar Número]
+    B -- Não --> D[Remover Máscaras]
+    D --> E{Telefone sem máscara possui 8 ou 9 dígitos?}
+    E -- 8 dígitos --> F[Inserir hífen após 4º dígito]
+    E -- 9 dígitos --> G[Inserir hífen após 5º dígito]
+    F --> H{DDD está presente?}
     G --> H
-    H -- Sim --> I[Retorna telefone formatado]
-    H -- Não --> J[Retorna DDD e telefone formatado]
-    I --> K[Fim]
-    J --> K
+    H -- Sim --> I[Retornar "(DDD) telefone"]
+    H -- Não --> J[Retornar telefone]
 ```
 
-### FoneSemMascara()
-- **Objetivo**: Fornece o número de telefone e DDD concatenados sem qualquer formatação.
-- **Comportamento**:
-  1. Chama o método `RemoverMascaras` para eliminar caracteres não numéricos do DDD e do número.
-  2. Concatena o DDD e o telefone sem máscara.
-- **Retorno**: Um `string` contendo o DDD e o número de telefone como um único texto contínuo.
-
-### RemoverMascaras()
-- **Objetivo**: Remove caracteres não numéricos dos campos DDD e número de telefone, padronizando as informações para fins de análise.
-- **Comportamento**:
-  1. Filtra o `Numero` e `Ddd`, mantendo apenas dígitos.
-  2. Se houver um número de telefone com 10 ou 11 dígitos e sem DDD, extrai o DDD dos dois primeiros dígitos.
-- **Retorno**: Uma tupla contendo o DDD e o telefone sem máscara.
+### FoneSemMascara() - Público
+- **Objetivo**: Remove a máscara do número de telefone e DDD, unindo ambos em uma única representação simples.
+- **Comportamento**: 
+  1. Chama o método `RemoverMascaras()` para obter DDD e telefone sem caracteres especiais.
+  2. Concatena o DDD e o telefone sem máscara e os retorna.
+- **Retorno**: Uma string contendo o DDD seguido pelo número do telefone, sem formatação.
 
 ## Propriedades Calculadas e de Validação
-- **Identificador**: Este campo é gerado automaticamente como um novo GUID quando um objeto Telefone é instanciado com um número.
-- **TipoTelefone**: A propriedade deve ser validada para assegurar que o tipo de contato atribuído é compatível com as regras de negócios da aplicação. Não há lógica direta visível nas validações do set, mas deve ser considerada no uso do sistema.
+- Não há propriedades com lógica nas operações de `get` ou `set` que exijam validação ou faça cálculos.
 
-## Navigations Property
-- Esta classe não possui diretamente propriedades de navegação complexas para outras entidades do domínio, mas dependendo do contexto, pode estar ligada a outras entidades de contato.
+## Navigation Property
+- Não existem propriedades de navegação que sejam classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
 - **Enumeradores**:
-  - `[TipoContato](TipoContato.md)`: Representa os tipos de contato que podem ser associados a um telefone.
+  - [TipoContato](TipoContato.md) - Enum que define os tipos de contato relacionados ao telefone.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -71,7 +60,10 @@ classDiagram
         +string Identificador
         +string TelefoneFormatado()
         +string FoneSemMascara()
-        +Tuple RemoverMascaras()
+        -string RemoverMascaras()
     }
-    Telefone --> TipoContato
+
+    Telefone --> TipoContato : utiliza
 ```
+---
+Gerada em 29/12/2025 22:01:59

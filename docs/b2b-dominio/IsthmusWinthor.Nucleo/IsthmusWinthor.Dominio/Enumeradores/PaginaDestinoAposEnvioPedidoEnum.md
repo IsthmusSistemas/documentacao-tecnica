@@ -1,19 +1,21 @@
 # PaginaDestinoAposEnvioPedidoEnum
-- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
-- **Nome do Arquivo**: PaginaDestinoAposEnvioPedidoEnum.cs
+**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
+**Nome do Arquivo**: PaginaDestinoAposEnvioPedidoEnum.cs  
 
-Esta classe é um enumerador utilizada para transportar dados referentes às páginas de destino após o envio de um pedido no sistema.
+Este é um enumerador que define as páginas de destino possíveis após o envio de um pedido, facilitando a navegação do usuário no sistema.
 
 ## Tipos Auxiliares e Dependências
-- `PaginaDestinoAposEnvioPedidoEnum` é um enumerador que define três opções de páginas para redirecionamento após o envio de um pedido.
+- Nenhum tipo auxiliar ou dependência adicional.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PaginaDestinoAposEnvioPedidoEnum {
-        <<enumerator>>
-        PaginaPedido
-        ListagemTodosPedidos
-        PaginaAgradecimento
+        <<enumeration>>
+        + PaginaPedido
+        + ListagemTodosPedidos
+        + PaginaAgradecimento
     }
 ```
+---
+Gerada em 29/12/2025 20:58:36

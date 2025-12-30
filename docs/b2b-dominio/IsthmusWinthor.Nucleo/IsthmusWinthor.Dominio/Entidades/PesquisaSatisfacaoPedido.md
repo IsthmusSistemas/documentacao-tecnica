@@ -1,23 +1,24 @@
 # PesquisaSatisfacaoPedido
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: PesquisaSatisfacaoPedido.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: PesquisaSatisfacaoPedido.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PesquisaSatisfacaoPedido` representa uma entidade que coleta feedback dos clientes sobre sua satisfação em relação a um pedido específico. Este mecanismo é crucial para a mensuração da qualidade dos serviços prestados pela distribuidora e para a melhoria contínua dos processos. A pesquisa de satisfação permite capturar informações valiosas que podem orientar decisões empresariais e impactar a experiência do cliente.
+A classe `PesquisaSatisfacaoPedido` representa uma entidade de domínio responsável pela captura e armazenamento de feedbacks de satisfação de clientes em relação a pedidos feitos. Ela conecta as informações sobre o cliente, a distribuidora e os pedidos que foram avaliados, permitindo uma análise quantitativa e qualitativa da satisfação do cliente. Isso é fundamental para o aprimoramento contínuo dos serviços prestados e para a aferição da qualidade.
 
 ## Métodos de Negócio
-Não foram identificados métodos com lógica de negócios na classe, todos os membros são simples propriedades.
+Esta classe não define métodos de negócio complexos que requerem descrição detalhada.
 
 ## Propriedades Calculadas e de Validação
-Não foram identificadas propriedades que possuam lógica no `get` ou validação no `set`.
+Não existem propriedades com lógica complexa no `get` ou no `set` que precisem ser documentadas nesta classe.
 
-## Navigation Properties
-- `Cliente`: Representa o cliente que realizou o pedido e está vinculado à pesquisa de satisfação. [Cliente](Cliente.md)
-- `Distribuidora`: Refere-se à distribuidora associada à pesquisa de satisfação. [Distribuidora](Distribuidora.md)
-- `Pedidos`: Coleção de pedidos envolvidos na pesquisa. [Pedido](Pedido.md)
+## Navigation Property
+- [Cliente](Cliente.md)
+- [Distribuidora](Distribuidora.md)
+- [Pedido](Pedido.md)
+- [GrauPesquisaSatisfacao](GrauPesquisaSatisfacao.md)
 
 ## Tipos Auxiliares e Dependências
-- `GrauPesquisaSatisfacao`: Enum que representa os níveis de satisfação do cliente. [GrauPesquisaSatisfacao](GrauPesquisaSatisfacao.md)
+- [GrauPesquisaSatisfacao](GrauPesquisaSatisfacao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -26,14 +27,26 @@ classDiagram
         +long Id
         +DateTime Data
         +string Mensagem
-        +GrauPesquisaSatisfacao GrauPesquisaSatisfacao
     }
-    class Cliente
-    class Distribuidora
-    class Pedido
 
-    PesquisaSatisfacaoPedido --> Cliente : "Cliente"
-    PesquisaSatisfacaoPedido --> Distribuidora : "Distribuidora"
-    PesquisaSatisfacaoPedido --> "1..*" Pedido : "Pedidos"
-    PesquisaSatisfacaoPedido ..> GrauPesquisaSatisfacao : "Grau de Satisfação"
+    class Cliente {
+        +long ClienteId
+    }
+
+    class Distribuidora {
+        +long DistribuidoraId
+    }
+
+    class Pedido {
+    }
+
+    class GrauPesquisaSatisfacao {
+    }
+
+    PesquisaSatisfacaoPedido --> Cliente : "Relaciona-se com"
+    PesquisaSatisfacaoPedido --> Distribuidora : "Relaciona-se com"
+    PesquisaSatisfacaoPedido --> Pedido : "Contém"
+    PesquisaSatisfacaoPedido --> GrauPesquisaSatisfacao : "Usa"
 ```
+---
+Gerada em 29/12/2025 20:42:48

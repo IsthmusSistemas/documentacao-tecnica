@@ -1,20 +1,7 @@
 # FormaExibicaoFaixaProdutos
-**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: FormaExibicaoFaixaProdutos.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
+- **Nome do Arquivo**: FormaExibicaoFaixaProdutos.cs
 
-Este enum define as diferentes formas de exibição para faixas de produtos dentro do sistema de domínio. Ele serve como um conjunto de constantes que ajudam a garantir a integridade e a clareza nas opções de exibição disponíveis.
-
-## Tipos Auxiliares e Dependências
-- Enumeradores:
-  - `[FormaExibicaoFaixaProdutos](FormaExibicaoFaixaProdutos.md)`
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class FormaExibicaoFaixaProdutos {
-        <<enumerator>>
-        + Carrossel
-        + Abas
-        + Grid
-    }
-```
+Esta classe é um enumerador que representa as diferentes formas de exibição de uma faixa de produtos, essencial para a definição da interface do usuário e para a experiência de navegação do cliente em plataformas de e-commerce ou sistemas que exibem catálogos de produtos.
+---
+Gerada em 29/12/2025 20:55:12

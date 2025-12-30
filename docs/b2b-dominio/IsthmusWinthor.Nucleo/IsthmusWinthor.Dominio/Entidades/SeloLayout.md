@@ -1,45 +1,45 @@
 # SeloLayout
-
 - **Namespace**: IsthmusWinthor.Dominio.Entidades
 - **Nome do Arquivo**: SeloLayout.cs
 
 ## Visão Geral e Responsabilidade
-A classe `SeloLayout` representa a estrutura de um layout de selo dentro do sistema. O problema de negócio que ela resolve é a necessidade de armazenar e gerenciar informações específicas que caracterizam um selo, permitindo que distintos tipos de informações sejam associadas a diferentes selos, o que é crucial para a personalização e organização de dados no contexto de uso do sistema.
+A classe `SeloLayout` representa a estrutura que define o layout de um selo no sistema. Esta classe é responsável por vincular e armazenar informações específicas associadas a um tipo de selo, permitindo que informações sobre o layout do selo sejam organizadas e manipuladas de forma eficiente. O problema de negócio que esta classe resolve é a necessidade de gerenciar e armazenar diferentes informações sobre selos de forma estruturada, facilitando o uso dessas informações em processos de validação e visualização.
 
 ## Métodos de Negócio
-Atualmente, a classe `SeloLayout` não contém métodos de negócio com lógica complexa. Portanto, essa seção está vazia.
+### Método: Nenhum método de negócio presente.
+Não há métodos com lógica complexa nesta classe, portanto, não há documentação adicional a ser feita neste espaço.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica no `get` ou validações no `set` nesta classe.
+### Propriedades:
+- **ValorInformacaoLayout**: Esta propriedade armazena o valor associado ao layout do selo. Embora não tenha lógica de validação ou cálculo explícita, a integridade dos dados na propriedade deve ser garantida em nível de aplicação, assegurando que o valor inserido corresponda ao tipo de informação do layout.
 
-## Navigations Property
-- `[Selo](Selo.md)`
+## Navigation Property
+- **Selo**: [Selo](Selo.md)
 
 ## Tipos Auxiliares e Dependências
-- `[TipoInformacaoLayout](TipoInformacaoLayout.md)`
+- **Enumeradores**:
+  - [TipoInformacaoLayout](TipoInformacaoLayout.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class SeloLayout {
         +long Id
-        +Selo Selo
         +long SeloId
-        +TipoInformacaoLayout TipoInformacaoLayout
         +string ValorInformacaoLayout
     }
+
     class Selo {
         +long Id
         +string Nome
-        +string Descricao
     }
+
     class TipoInformacaoLayout {
-        +int Value
-        +string Description
+        +int Valor
     }
-    
+
     SeloLayout --> Selo
     SeloLayout --> TipoInformacaoLayout
 ```
-
-Nesta documentação, apresentamos a classe `SeloLayout`, destacando sua responsabilidade dentro do domínio e as relações que mantém com outras classes relevantes.
+---
+Gerada em 29/12/2025 20:49:41

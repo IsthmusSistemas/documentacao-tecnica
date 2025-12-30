@@ -1,55 +1,79 @@
 # SQLAbstractModel
+
 **Namespace**: IsthmusWinthor.Dominio.Model.CampanhasWinthor  
 **Nome do Arquivo**: SQLAbstractModel.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `SQLAbstractModel` atua como uma base para modelos que necessitam gerar operações SQL de inserção de dados em um banco de dados, especificamente formulando comandos SQL na forma de strings. Ela visa facilitar a criação dinâmica de comandos de inserção, abstraindo a complexidade da manipulação de propriedades do modelo e suas conversões correspondentes para o formato SQL. O problema de negócio que esta classe resolve está relacionado com a necessidade de um meio eficiente e consistente para inserir dados em tabelas, evitando a repetição de código nas subclasses.
+A classe `SQLAbstractModel` é uma classe abstrata na camada de domínio responsável por facilitar a construção de comandos SQL para inserção de dados em tabelas de banco de dados. Ela resolve o problema de consistência e padronização na geração de queries SQL, fornecendo um método que automatiza a criação de instruções `INSERT` com base nas propriedades do objeto, permitindo que subclasse possam herdar e implementar modelos de dados específicos.
 
 ## Métodos de Negócio
 
-### Título: ToSQLInsert e Visibilidade: public
-- **Objetivo**: Garante a criação de um comando SQL de inserção com base nas propriedades do modelo, independentemente do tipo de dado.
+### Título: ToSQLInsert — Visibilidade: Public
+- **Objetivo**: Garante a criação de uma instrução SQL `INSERT` válida para a persistência de dados no banco de dados baseado nas propriedades da subclasse.
+  
 - **Comportamento**: 
-  1. Inicializa um `StringBuilder` para compor a consulta SQL.
-  2. Obtém as propriedades do objeto usando reflexão.
-  3. Adiciona o nome da tabela ao comando SQL.
-  4. Itera sobre cada propriedade, construindo a lista de colunas e valores correspondentes. 
-  5. Formata valores considerando o tipo (string, DateTime, long, int, decimal) ou insere `NULL` se o valor for nulo.
-  6. Constrói e retorna a string final do comando SQL.
-- **Retorno**: Retorna um `StringBuilder` que contém a consulta SQL de inserção formatada.
+  1. Inicializa um `StringBuilder` para construir a instrução SQL.
+  2. Obtém o tipo da classe atual e suas propriedades por reflexão.
+  3. Adiciona a cláusula `INSERT INTO` com o nome da tabela.
+  4. Para cada propriedade do objeto:
+     - Se necessário, adiciona vírgulas para separar os nomes das colunas.
+     - Adiciona o nome da propriedade à instrução SQL.
+     - Para cada valor da propriedade, aplica a conversão para o formato correto de acordo com o tipo (string, DateTime, long, int, decimal, etc.) ou define como `NULL` se o valor for nulo.
+  5. Finaliza a instrução SQL com a cláusula `VALUES` e os valores formatados correspondentes.
+  
+- **Retorno**: Retorna um `StringBuilder` contendo a instrução SQL `INSERT`, pronta para ser utilizada na execução da inserção no banco de dados.
 
 ```mermaid
 flowchart TD
-    A[Inicio] --> B[Inicializa StringBuilder para SQL]
-    B --> C[Obtém Propriedades do Objeto]
-    C --> D[Adiciona Nome da Tabela]
-    D --> E{Tem Propriedades?}
-    E -- Sim --> F[Itera sobre Propriedades]
-    F --> G[Adiciona Nome da Propriedade]
-    G --> H{Valor é nulo?}
-    H -- Sim --> I[Adiciona NULL]
-    H -- Não --> J[Converte e Adiciona o Valor]
-    I --> E
-    J --> E
-    E -- Não --> K[Retorna StringBuilder]
+  A[Início da construção da SQL] --> B{Tipo da Propriedade}
+  B -- String --> C[Formata como String]
+  B -- DateTime --> D[Formata como DateTime]
+  B -- long --> E[Formata como Long]
+  B -- int --> F[Formata como Int]
+  B -- decimal --> G[Formata como Decimal]
+  B -- NULL --> H[Define como NULL]
+  B --others--> I[Formata como String]
+  C --> J[Adiciona ao SQL]
+  D --> J
+  E --> J
+  F --> J
+  G --> J
+  H --> J
+  I --> J
+  J --> K[Fim da construção da SQL]
 ```
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades com lógica de cálculo ou validação nesta classe, pois seu propósito principal é apenas a geração do comando SQL.
+Esta classe não contém propriedades que realizam cálculos ou validações no `get` ou `set`.
 
 ## Navigations Property
-Não há propriedades que sejam classes complexas do domínio nesta classe.
+Esta classe não possui propriedades que são instâncias de classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-- Extendendo a funcionalidade de conversão de tipos, a classe utiliza métodos de extensão como `ToOracleString()`, `ToOracleDateTime()`, `ToOracleLong()`, `ToOracleInt()`, e `ToOracleDecimal()`.  
-  Links para os tipos associados devem ser encontrados nas respectivas definições de métodos de extensão.
+- Classes de Extensão:
+  - [StringExtensions](StringExtensions.md)
+  - [DateTimeExtensions](DateTimeExtensions.md)
+  - [LongExtensions](LongExtensions.md)
+  - [IntExtensions](IntExtensions.md)
+  - [DecimalExtensions](DecimalExtensions.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class SQLAbstractModel {
-        +ToSQLInsert() : StringBuilder
+        +StringBuilder ToSQLInsert()
     }
-```
+    class StringExtensions
+    class DateTimeExtensions
+    class LongExtensions
+    class IntExtensions
+    class DecimalExtensions
 
-Neste diagrama, `SQLAbstractModel` é a única classe representada, visto que não possui propriedades complexas ou relações explícitas com outras classes ou enums.
+    SQLAbstractModel --> StringExtensions
+    SQLAbstractModel --> DateTimeExtensions
+    SQLAbstractModel --> LongExtensions
+    SQLAbstractModel --> IntExtensions
+    SQLAbstractModel --> DecimalExtensions
+```
+---
+Gerada em 29/12/2025 21:20:52

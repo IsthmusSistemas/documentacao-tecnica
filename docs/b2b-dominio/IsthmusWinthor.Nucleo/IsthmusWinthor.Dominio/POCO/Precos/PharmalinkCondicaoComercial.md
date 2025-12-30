@@ -1,65 +1,57 @@
 # PharmalinkCondicaoComercial
-**Namespace**: IsthmusWinthor.Dominio.POCO.Precos  
-**Nome do Arquivo**: PharmalinkCondicaoComercial.cs  
+- **Namespace**: IsthmusWinthor.Dominio.POCO.Precos
+- **Nome do Arquivo**: PharmalinkCondicaoComercial.cs
 
 ## Visão Geral e Responsabilidade
-A classe `PharmalinkCondicaoComercial` atua como um modelo para representar as condições comerciais associadas a produtos em uma loja, gerenciando descontos e margens de reembolso. O principal objetivo deste modelo é garantir que as condições de venda e reembolso sejam corretamente aplicadas, permitindo a aplicação de promoções e retorno adequado sobre as vendas, o que é essencial para a competitividade no mercado.
+A classe `PharmalinkCondicaoComercial` representa uma condição comercial específica para produtos dentro de uma loja, incluindo informações sobre descontos e margens de reembolso. Seu papel principal é fornecer uma maneira de calcular o melhor desconto disponível para uma determinada quantidade de produto e a margem de reembolso aplicável a uma filial específica. Ela agrega dados de desconto e margem de reembolso, permitindo otimizar a oferta comercial e garantir que as condições corretas sejam aplicadas às vendas.
 
 ## Métodos de Negócio
 
 ### ObterDescontoParaQuantidadeSolicitada
-- **Visibilidade**: Público
-- **Objetivo**: Este método determina o desconto aplicável com base na quantidade solicitada de um produto. Garante que o desconto correto seja retornado conforme a quantidade do produto dentro dos limites estabelecidos.
+- **Título**: `ObterDescontoParaQuantidadeSolicitada` (public)
+- **Objetivo**: Este método garante que seja aplicado o desconto correto com base na quantidade solicitada de produtos.
 - **Comportamento**: 
-  1. Ordena a lista de descontos pela quantidade.
-  2. Filtra os descontos para aqueles que são válidos, comparando a quantidade solicitada com a quantidade mínima e máxima de cada desconto.
-  3. Retorna o valor do desconto do primeiro desconto qualificado ou zero se nenhum desconto se aplicar.
-- **Retorno**: Retorna um valor decimal representando o desconto aplicável. Se nenhum desconto for encontrado, retorna 0.
+  1. Ordena a lista de `Descontos` pela quantidade.
+  2. Filtra os descontos que são aplicáveis (a quantidade solicitada deve estar dentro dos limites de quantidade definida por cada desconto).
+  3. Retorna o desconto correspondente ou 0 se não houver um desconto aplicável.
+- **Retorno**: Retorna um decimal representando o valor do desconto ou 0 caso não haja desconto aplicável.
 
 ```mermaid
 flowchart TD
-    A[Quantidade Solicitada] -->|Menor que Quantidade mínima| B[Sem Desconto]
-    A -->|Dentro do intervalo| C[Retorna Desconto]
-    A -->|Maior que Quantidade máxima| B
+    A[Quantidade Solicitada] -->|>=| B[Desconto.Variavel]
+    A -->|<=| C[Desconto.Maximo]
+    B --> D{Desconto Encontrado?}
+    D -->|Sim| E[Retorna Desconto]
+    D -->|Não| F[Retorna 0]
 ```
 
 ### ObterMargemReembolsoDaFilial
-- **Visibilidade**: Público
-- **Objetivo**: Este método busca retornar a margem de reembolso para uma filial específica, garantindo que a lógica de reembolso fiquem claras e precisas.
-- **Comportamento**:
-  1. Verifica se o código da filial não está vazio.
-  2. Filtra as margens pelas filiais que possuem um código igual ao código passado como parâmetro.
-  3. Ordena as margens de reembolso pela maior margem.
-  4. Retorna a margem encontrada ou zero se nenhuma margem se aplicar.
-- **Retorno**: Retorna um valor decimal que representa a margem de reembolso da filial especificada. Caso não haja uma margem aplicável, retorna 0.
-
-```mermaid
-flowchart TD
-    A[Codigo Filial Vazio?] -->|Sim| B[Retorna 0]
-    A -->|Não| C[Filtra Margens]
-    C --> D[Ordena Margens]
-    D -->|Margem Encontrada| E[Retorna Margem]
-    D -->|Nenhuma Margem| B
-```
+- **Título**: `ObterMargemReembolsoDaFilial` (public)
+- **Objetivo**: Garante que a margem de reembolso correta seja recuperada com base no código da filial.
+- **Comportamento**: 
+  1. Verifica se o `codigoFilial` não está vazio ou nulo.
+  2. Filtra as margens de reembolso que correspondem ao `codigoFilial` e ordena por margem em ordem decrescente.
+  3. Retorna a margem de reembolso maior ou 0 se não houver margem correspondente.
+- **Retorno**: Retorna um decimal representando a margem de reembolso ou 0 caso não haja nenhuma associada à filial.
 
 ## Propriedades Calculadas e de Validação
 
 ### IsValid
-- Esta propriedade determina se há ao menos um desconto válido associado à condição comercial. A lógica garante que a condição é válida para aplicar perante transações comerciais.
+- Esta propriedade avalia se existe pelo menos um desconto válido na lista de `Descontos`. A regra aqui é que a condição comercial deve ser considerada válida se pelo menos um desconto estiver ativo, permitindo assim a aplicação de promoções.
 
 ### MelhorDesconto
-- Esta propriedade calcula o maior desconto presente na lista de descontos válidos. A regra enfatiza obter o melhor benefício que pode ser oferecido ao cliente.
+- Calcula o melhor desconto disponível ao encontrar o desconto que tenha o maior valor entre os válidos. Se não houver descontos válidos, retornará 0.
 
 ### DescricaoSelo
-- Esta propriedade gera uma descrição formatada do desconto, exibindo a porcentagem apenas se existir um desconto positivo, o que é útil para comunicação visual em interfaces de vendas.
+- Retorna uma string formatada representando o melhor desconto de forma percentual, com o formato específico de "X.XX% Off". Se não houver desconto, retorna uma string vazia.
 
 ## Navigations Property
 - [PharmalinkDesconto](PharmalinkDesconto.md)
 - [PharmalinkMargemReembolso](PharmalinkMargemReembolso.md)
 
 ## Tipos Auxiliares e Dependências
-- [PharmalinkDesconto](PharmalinkDesconto.md)
-- [PharmalinkMargemReembolso](PharmalinkMargemReembolso.md)
+- **Enumeradores**: Não existem enumeradores nas propriedades/interfaces da classe.
+- **Classes Estáticas/Helpers**: Não existem classes estáticas ou helpers utilizados diretamente aqui.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -75,9 +67,8 @@ classDiagram
         +decimal ObterDescontoParaQuantidadeSolicitada(decimal quantidadeSolicitada)
         +decimal ObterMargemReembolsoDaFilial(string codigoFilial)
     }
-    class PharmalinkDesconto
-    class PharmalinkMargemReembolso
-    
-    PharmalinkCondicaoComercial --> "0..*" PharmalinkDesconto : possui
-    PharmalinkCondicaoComercial --> "0..*" PharmalinkMargemReembolso : possui
+    PharmalinkCondicaoComercial --> "1..*" PharmalinkDesconto
+    PharmalinkCondicaoComercial --> "1..*" PharmalinkMargemReembolso
 ```
+---
+Gerada em 29/12/2025 21:51:16

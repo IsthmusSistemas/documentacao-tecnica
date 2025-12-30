@@ -1,20 +1,22 @@
 # ClusterK8SEnum
+
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: ClusterK8SEnum.cs
+**Nome do Arquivo**: ClusterK8SEnum.cs  
 
-Esta classe enumera os diferentes clusters de Kubernetes utilizados no sistema, facilitando a categorização e управления política de deployments.
+O `ClusterK8SEnum` é um enumerador utilizado para categorizar os diferentes ambientes de cluster Kubernetes, facilitando a identificação e seleção de ambientes específicos dentro de um sistema de gerenciamento. 
 
-### Tipos Auxiliares e Dependências
+## Tipos Auxiliares e Dependências
 - **Enumeradores**:
-  - `[ClusterK8SEnum](ClusterK8SEnum.md)`
+  - `[ClusterK8SEnum](ClusterK8SEnum.md)` 
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ClusterK8SEnum {
-      <<enumeration>>
-      +Infra
-      +Producao
-      +QA
+        +Infra
+        +Producao
+        +QA
     }
 ```
+---
+Gerada em 29/12/2025 20:53:35

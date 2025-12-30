@@ -1,4 +1,4 @@
-#Documentação - CarrinhoCompras
+# CarrinhoCompras
 ## Conteúdo
 - [CarrinhoEditadoResumo](CarrinhoEditadoResumo.md)
 - [RegistroCarrinhoEditado](RegistroCarrinhoEditado.md)

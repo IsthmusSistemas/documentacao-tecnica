@@ -1,22 +1,22 @@
 # Selo
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: Selo.cs
+**Nome do Arquivo**: Selo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Selo` representa uma entidade no domínio de um sistema de gestão de distribuição. Seu papel principal é gerenciar as informações e as associações dos selos utilizados pelas distribuidoras. Um selo pode ser visualizado como uma identificação visual ou etiqueta que informa características de um produto ou serviço. Ele é essencial para garantir a rastreabilidade e a categorização dos produtos disponibilizados pelas distribuidoras, o que é crucial para conformidade e marketing.
+A classe `Selo` representa a entidade que possui informações relacionadas a um selo de distribuição. Ela é responsável por associar um selo a uma distribuidora específica, armazenar tanto o nome interno quanto o nome para exibição do selo, e categorizar o selo de acordo com um tipo específico. Esta classe é fundamental para o gerenciamento e categorização de selos dentro do sistema, garantindo que as informações sejam corretamente associadas e classificadas para facilitar operações no negócio.
 
 ## Métodos de Negócio
-Nenhum método que contenha lógica foi implementado na classe `Selo`, pois a atual implementação oferece apenas propriedades básicas para o transporte dos dados.
+A classe `Selo` não contém métodos com lógica complexa além dos getters e setters simples. Portanto, não há métodos de negócio a serem documentados.
 
 ## Propriedades Calculadas e de Validação
-Nenhuma propriedade com lógica de cálculo ou validação foi identificada na classe `Selo`.
+A classe não possui propriedades que implementem lógica complexa em seus `get` ou validação nos `set`. As propriedades são anêmicas e simples.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`: Representa a distribuidora associada ao selo.
-- `[SeloLayout](SeloLayout.md)`: Representa uma coleção de layouts associados ao selo.
+- [Distribuidora](Distribuidora.md) - Referência à distribuidora associada ao selo.
+- [SeloLayout](SeloLayout.md) - Coleção de layouts associados ao selo.
 
 ## Tipos Auxiliares e Dependências
-- `[TipoSelo](TipoSelo.md)`: Enumerator que define os tipos de selo disponíveis no sistema.
+- [TipoSelo](TipoSelo.md) - Enum que representa os tipos de selo disponíveis.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -26,11 +26,16 @@ classDiagram
         +string NomeInterno
         +string NomeExibicao
         +TipoSelo TipoSelo
-        +long DistribuidoraId
     }
-    class Distribuidora
-    class SeloLayout
-
-    Selo --> Distribuidora
-    Selo --> SeloLayout
+    class Distribuidora {
+        +long Id
+    }
+    class SeloLayout {
+        +long Id
+    }
+    Selo --> Distribuidora : "associado a"
+    Selo --> "0..*" SeloLayout : "possui"
 ```
+
+---
+Gerada em 29/12/2025 20:49:33

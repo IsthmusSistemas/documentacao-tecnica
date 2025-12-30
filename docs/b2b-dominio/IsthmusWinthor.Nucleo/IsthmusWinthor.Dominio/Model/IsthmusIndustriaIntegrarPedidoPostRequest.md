@@ -2,27 +2,22 @@
 **Namespace**: IsthmusWinthor.Dominio.Model  
 **Nome do Arquivo**: IsthmusIndustriaIntegrarPedidoPostRequest.cs  
 
-A classe `IsthmusIndustriaIntegrarPedidoPostRequest` serve como um objeto de transporte para mensagens em uma fila de integração de pedidos na indústria, encapsulando as informações necessárias para a transmissão e a identificação de um pedido.
+### Visão Geral e Responsabilidade
+A classe `IsthmusIndustriaIntegrarPedidoPostRequest` representa uma mensagem que encapsula informações necessárias para integrar um pedido em um sistema de B2B. Ela é responsável por facilitar a comunicação entre diferentes sistemas, garantindo que detalhes críticos do pedido sejam transmitidos de forma estruturada e com identificação única, o que ajuda na robustez do sistema e na integração entre plataformas.
 
-## Métodos de Negócio
-### Título: Construtor (`public IsthmusIndustriaIntegrarPedidoPostRequest()`)
-- **Objetivo**: Inicializar um novo objeto de requisição para a integração de pedidos, garantindo que a contagem de filas e o ID da mensagem sejam definidas de maneira padrão.
-- **Comportamento**: 
-  1. O construtor é chamado para criar uma nova instância.
-  2. A propriedade `QueuedCount` é definida como 1, indicando que a mensagem foi colocada na fila uma vez.
-  3. O `MessageId` é gerado de forma única utilizando `Guid.NewGuid().ToString()` para assegurar a singularidade da mensagem.
-- **Retorno**: O construtor não retorna um valor, mas inicializa a instância da classe com as propriedades padrão.
+### Métodos de Negócio
+Nesta classe, não existem métodos de negócio com lógica condicional ou complexidade, já que ela atua como um DTO. A única lógica presente está na inicialização dos valores padrão no construtor.
 
-## Propriedades Calculadas e de Validação
-- Não existem propriedades com lógica de cálculo ou validação complexa, uma vez que todas as propriedades são simples (anêmicas).
+### Propriedades Calculadas e de Validação
+Esta classe não possui propriedades com lógica de cálculo no `get` ou validação no `set`. Todas as propriedades são do tipo "anêmico".
 
-## Navigation Properties
-- A classe não possui Navigation Properties relacionadas a outras classes do domínio.
+### Navigations Property
+Esta classe não possui propriedades que são classes complexas do domínio.
 
-## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar está sendo utilizado diretamente nesta classe.
+### Tipos Auxiliares e Dependências
+Não há enumeradores ou classes estáticas/helpers utilizados nesta classe.
 
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IsthmusIndustriaIntegrarPedidoPostRequest {
@@ -33,6 +28,8 @@ classDiagram
         +string MessageId
         +int QueuedCount
     }
-``` 
+```
 
-Esta documentação tem como foco fornecer uma visão clara da classe `IsthmusIndustriaIntegrarPedidoPostRequest`, não apenas em termos de suas propriedades, mas enfatizando as regras de negócio que ela representa, mesmo numa estrutura simples como um objeto de transporte.
+Esta documentação resume a responsabilidade e a estrutura da classe `IsthmusIndustriaIntegrarPedidoPostRequest`, conforme as diretrizes apresentadas. Como essa classe é essencialmente um DTO, não há complexidade adicional a ser abordada.
+---
+Gerada em 29/12/2025 21:19:32

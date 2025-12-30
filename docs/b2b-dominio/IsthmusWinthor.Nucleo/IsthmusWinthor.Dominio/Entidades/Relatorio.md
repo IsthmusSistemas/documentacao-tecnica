@@ -1,28 +1,23 @@
 # Relatorio
+
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: Relatorio.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Relatorio` atua como uma representação de um relatório dentro do sistema, encapsulando as definições essenciais que determinam como um relatório é configurado e acessado. Ela resolve a necessidade de gerir relatórios dinâmicos, permitindo a configuração de parâmetros, restrições e definições de acesso, essenciais para a execução e análise de dados.
+A classe `Relatorio` representa um modelo de domínio que encapsula os dados e comportamentos relacionados à geração de relatórios em um sistema. Ela é responsável por definir as características de um relatório, incluindo seu nome, descrição, status de atividade (ativo/inativo), acessibilidade geral, consulta de dados e a fonte de dados utilizada. A classe resolve o problema de gerenciamento e execução de relatórios, garantindo que apenas relatórios válidos e autorizados sejam acessados e utilizados pelas distribuidoras pertinentes.
 
 ## Métodos de Negócio
-### (Não há métodos com lógica complexa, apenas um construtor e métodos simples de acesso.)
+Atualmente, a classe não possui métodos de negócio com lógica complexa, portanto, não há métodos a serem detalhados neste momento.
 
 ## Propriedades Calculadas e de Validação
-### Atributos Privados:
-- `Ativo`: Indica se o relatório está ativo ou não.
-- `AcessoGeral`: Indica se o relatório pode ser acessado por um amplo público.
-  
-Essas propriedades precisam ser validadas em qualquer operação que envolva a apresentação ou execução de um relatório.
+Atualmente, não existem propriedades na classe `Relatorio` com lógica no `get` ou validação no `set`.
 
-## Navigation Properties
-- `[DistribuidoraRelatorio](DistribuidoraRelatorio.md)`: Lista de distribuidoras permitidas para acessar o relatório.
-- `[RelatorioParametro](RelatorioParametro.md)`: Lista de parâmetros associados ao relatório.
+## Navigations Property
+- `DistribuidorasPermitidas`: [DistribuidoraRelatorio](DistribuidoraRelatorio.md)  
+- `RelatorioParametros`: [RelatorioParametro](RelatorioParametro.md)  
 
 ## Tipos Auxiliares e Dependências
-- `[TipoFonteDados](TipoFonteDados.md)`: Enumerador que define os tipos de fonte de dados que o relatório pode utilizar.
-- `[DistribuidoraRelatorio](DistribuidoraRelatorio.md)`: Classe que representa a distribuição de relatórios permitidos.
-- `[RelatorioParametro](RelatorioParametro.md)`: Classe que representa os parâmetros do relatório.
+- [TipoFonteDados](TipoFonteDados.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -38,12 +33,19 @@ classDiagram
         +TimeSpan? RestricaoHorarioInicio
         +TimeSpan? RestricaoHorarioFim
     }
-    class DistribuidoraRelatorio
-    class RelatorioParametro
-    class TipoFonteDados
 
-    Relatorio "1" -- "0..*" DistribuidoraRelatorio : possui
-    Relatorio "1" -- "0..*" RelatorioParametro : possui
-``` 
+    class DistribuidoraRelatorio {
+        <<Navigations Property>>
+    }
+    
+    class RelatorioParametro {
+        <<Navigations Property>>
+    }
 
-Esta documentação fornece uma compreensão clara do `Relatorio` como uma parte crítica do domínio do sistema, detalhando suas regras de negócios, propriedades importantes e suas interações com outras entidades.
+    Relatorio -- "0..*" DistribuidoraRelatorio : inclui >
+    Relatorio -- "0..*" RelatorioParametro : possui >
+```  
+
+Essa documentação deve proporcionar uma visão clara da classe `Relatorio` e suas responsabilidades, além de definir suas dependências e relacionamento com outras entidades do domínio.
+---
+Gerada em 29/12/2025 20:47:54

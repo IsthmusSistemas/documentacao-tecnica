@@ -1,45 +1,53 @@
 # TipoConteudo
 
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: TipoConteudo.cs  
+**Nome do Arquivo**: TipoConteudo.cs
 
-### Visão Geral e Responsabilidade
-A classe `TipoConteudo` é um enumerador que categoriza diferentes tipos de conteúdo que podem ser exibidos ou gerenciados em um sistema de e-commerce ou gestão de produtos. Este enumerador é crucial para garantir que o sistema é capaz de identificar e manipular variados tipos de conteúdo de forma estruturada, assegurando que os dados exibidos respeitam a semântica do contexto de uso (por exemplo, produtos, marcas, listas de desejos, entre outros). O uso adequado do enum ajuda a evitar erros de tipo e melhora a legibilidade do código.
+## Visão Geral e Responsabilidade
+A classe `TipoConteudo` é um enumerador que define os diferentes tipos de conteúdo disponíveis no sistema. Sua principal responsabilidade é catalogar e categorizar conteúdos que podem ser exibidos em uma interface de usuário ou processados por serviços do sistema. Essa classificação é essencial para garantir que os dados sejam apresentados adequadamente e que as operações relacionadas ao conteúdo sejam realizadas de forma consistente e lógica.
 
-### Métodos de Negócio
-Neste caso, a classe `TipoConteudo` não possui métodos de negócio, pois é um simples enumerador que serve para classificação de tipos de conteúdo sem lógica complexa. Portanto, não há métodos a serem detalhados nesta seção.
+## Métodos de Negócio
 
-### Propriedades Calculadas e de Validação
-Na classe `TipoConteudo`, não existem propriedades que exigem cálculos ou validações, visto que se trata de um enumerador.
+Neste caso, o `TipoConteudo` é um enumerador e, portanto, não contém métodos de negócio que implementem lógica complexa.
 
-### Navigations Property
-A classe não possui propriedades de navegação, pois é um enumerador simples. 
+## Propriedades Calculadas e de Validação
 
-### Tipos Auxiliares e Dependências
-- Esta classe depende de componentes do namespace `System.ComponentModel.DataAnnotations` para fornecer a funcionalidade de exibição de nomes personalizados através da annotation `Display`.
+Neste caso, não há propriedades calculadas ou de validação, pois `TipoConteudo` é um enumerador que contém valores fixos sem lógica de cálculo ou validação subjacente.
 
-### Diagrama de Relacionamentos
+## Navigations Property
+
+Neste caso, não existem propriedades de navegação, pois `TipoConteudo` é um enumerador e não contém referências a outras classes.
+
+## Tipos Auxiliares e Dependências
+
+- Não há dependências de tipos auxiliares diretos dentro de `TipoConteudo`, pois ele é um enumerador autônomo.
+
+## Diagrama de Relacionamentos
+
 ```mermaid
 classDiagram
     class TipoConteudo {
-        <<enumeration>>
-        + Produtos
-        + Marcas
-        + SqlProdutosOracle
-        + Html
-        + Link
-        + ProdutosSimilares
-        + MaisVendidosPorRamoAtividade
-        + ListaDesejos
-        + AlertaPrecos
-        + ComprasRelacionadas
-        + MeuMix
-        + ComprasFrequentesCliente
-        + ComplementoMix
-        + ProdutosNaoComprados
-        + ProdutosNovidade
-        + Widgets
-        + Fornecedores
+      <<enumerator>>
+      Produtos
+      Marcas
+      SqlProdutosOracle
+      Html
+      Link
+      ProdutosSimilares
+      Imagens
+      MaisVendidosPorRamoAtividade
+      ListaDesejos
+      AlertaPrecos
+      ComprasRelacionadas
+      MeuMix
+      ComprasFrequentesCliente
+      ComplementoMix
+      ProdutosNaoComprados
+      ProdutosNovidade
+      Widgets
+      Fornecedores
     }
 ```
 
+---
+Gerada em 29/12/2025 21:03:20

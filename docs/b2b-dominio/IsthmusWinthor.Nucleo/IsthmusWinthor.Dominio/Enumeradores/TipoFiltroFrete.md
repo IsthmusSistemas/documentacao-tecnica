@@ -2,18 +2,17 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoFiltroFrete.cs  
 
-O `TipoFiltroFrete` é um enumerador que define os diferentes tipos de filtros que podem ser aplicados para o cálculo ou a apresentação de informações relacionadas a fretes. Cada valor do enumerador representa um critério específico que auxilia na segmentação e identificação de fretes aplicáveis em uma operação de logística ou e-commerce.
+O enum `TipoFiltroFrete` é utilizado para definir os diferentes tipos de filtros que podem ser aplicados na busca de fretes. Essa categoria de informação permite que o sistema adapte suas operações de logística, oferecendo flexibilidade nas opções de filtragem conforme a necessidade do negócio.
 
 ## Tipos Auxiliares e Dependências
-- Não existem classes complexas ou propriedades que possuam lógica de negócio ou validação a serem listadas nesta classe.
-- Enumeradores utilizados: 
-  - `TipoFiltroFrete`
+- **Enumeradores**:
+  - [TipoFiltroFrete](TipoFiltroFrete.md) - Enumeração que lista os tipos de filtros de frete.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoFiltroFrete {
-        <<enum>>
+        <<enumerator>>
         Regiao
         FaixaCepInicial
         FaixaCepFinal
@@ -25,4 +24,8 @@ classDiagram
         ValorCarrinhoMinimo
         ValorCarrinhoMaximo
     }
-```
+``` 
+
+Este diagrama ilustra a estrutura do enumerador `TipoFiltroFrete`, que categoriza os tipos de filtro possíveis para utilização no sistema de fretes. 
+---
+Gerada em 29/12/2025 21:03:59

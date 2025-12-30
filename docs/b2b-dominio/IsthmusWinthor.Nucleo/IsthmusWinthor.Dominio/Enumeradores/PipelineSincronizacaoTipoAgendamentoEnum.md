@@ -1,21 +1,22 @@
 # PipelineSincronizacaoTipoAgendamentoEnum
-**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: PipelineSincronizacaoTipoAgendamentoEnum.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
+- **Nome do Arquivo**: PipelineSincronizacaoTipoAgendamentoEnum.cs
 
-Este enumerador define os tipos de agendamento que podem ser utilizados no contexto da sincronização de pipelines, proporcionando flexibilidade na escolha do tipo de agendamento a ser aplicado em operações relacionadas.
+Este enumerador define os diferentes tipos de agendamento utilizados no contexto de sincronização de pipelines. 
 
 ## Tipos Auxiliares e Dependências
-- `PipelineSincronizacaoTipoAgendamentoEnum`: Enum que define os tipos de agendamento disponíveis.
-  
-### Enum
-- `Padrao`: Tipo de agendamento padrão utilizado para operações gerais.
-- `Distribuidora`: Tipo de agendamento específico para operações associadas a distribuidoras.
-- `Modulo`: Tipo de agendamento relacionado a módulos específicos dentro do sistema.
+- Enumeradores:
+  - [PipelineSincronizacaoTipoAgendamentoEnum](PipelineSincronizacaoTipoAgendamentoEnum.md) 
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PipelineSincronizacaoTipoAgendamentoEnum {
         <<enumeration>>
+        Padrao
+        Distribuidora
+        Modulo
     }
 ```
+---
+Gerada em 29/12/2025 20:59:22

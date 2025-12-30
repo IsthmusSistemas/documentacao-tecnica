@@ -2,6 +2,8 @@
 **Namespace**: IsthmusWinthor.Dominio.Relatorios.Crud  
 **Nome do Arquivo**: RelatorioListagem.cs  
 
-A classe `RelatorioListagem` é um DTO (Data Transfer Object) utilizado para o transporte de dados relacionados à listagem de relatórios no sistema. Ela contém propriedades que representam os detalhes básicos de um relatório, facilitando a comunicação entre diferentes camadas do aplicativo.
+> A classe `RelatorioListagem` é um DTO (Data Transfer Object) destinada a transportar informações relacionadas à listagem de relatórios.
 
-Por ser um DTO, não contém lógica de negócios ou validações.
+
+---
+Gerada em 29/12/2025 22:05:19

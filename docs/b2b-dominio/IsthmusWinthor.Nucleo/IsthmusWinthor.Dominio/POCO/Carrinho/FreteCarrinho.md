@@ -3,32 +3,32 @@
 **Nome do Arquivo**: FreteCarrinho.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `FreteCarrinho` é responsável por gerenciar as informações relacionadas ao frete de um carrinho de compras. Ela é utilizada para identificar o agrupamento ao qual a opção de frete escolhida pertence e armazenar a opção de frete selecionada. Sua finalidade é apoiar a lógica de cálculo e seleção de frete em um sistema de e-commerce, garantindo que o desconto e a seleção do frete sejam aplicados corretamente no carrinho.
+A classe `FreteCarrinho` representa as opções de frete disponíveis para um carrinho de compras em um sistema de e-commerce. Ela encapsula a lógica para identificar um agrupamento de frete e a seleção de um frete específico, permitindo que o sistema gerencie e processe corretamente as opções de envio para as compras dos usuários. Essa classe é fator-chave na determinação do custo de envio e na união de vários itens de envio em uma única carga, se aplicável.
 
 ## Métodos de Negócio
-### Título: Equals (public)
-- **Objetivo**: Garante que duas instâncias de `FreteCarrinho` sejam consideradas iguais se compartilham o mesmo `IdentificadorAgrupamento`.
-- **Comportamento**:
-  1. Recebe um objeto como parâmetro.
-  2. Verifica se o objeto recebido é do tipo `FreteCarrinho`.
-  3. Compara o `IdentificadorAgrupamento` da instância atual com o do objeto passado.
-- **Retorno**: Retorna `true` se ambos os `IdentificadorAgrupamento` forem iguais, caso contrário, retorna `false`.
 
-### Título: GetHashCode (public)
-- **Objetivo**: Garante a integridade dos objetos em coleções baseadas em hash (como dicionários), proporcionando um código de hash exclusivo para a instância de `FreteCarrinho`.
-- **Comportamento**:
-  1. Utiliza o `HashCode.Combine` para gerar um código de hash baseado no `IdentificadorAgrupamento`.
-  2. Retorna esse código de hash como resultado.
-- **Retorno**: Um valor inteiro que representa o código de hash da instância.
+### Título: Equals (override)
+- **Objetivo**: Garante a unicidade da opção de frete com base no `IdentificadorAgrupamento`.
+- **Comportamento**: 
+    1. Recebe um objeto e verifica se ele é do tipo `FreteCarrinho`.
+    2. Compara o `IdentificadorAgrupamento` do objeto atual com o do objeto recebido.
+    3. Retorna `true` se os identificadores forem iguais, indicando que são da mesma opção de frete; caso contrário, retorna `false`.
+- **Retorno**: Retorna um valor booleano que indica se os dois objetos `FreteCarrinho` são equivalentes com base no `IdentificadorAgrupamento`.
+
+### Título: GetHashCode (override)
+- **Objetivo**: Garante que a classe tenha um código de hash consistente para operações de comparação em coleções.
+- **Comportamento**: 
+    1. Usa o método `HashCode.Combine` para gerar um código de hash único baseado em `IdentificadorAgrupamento`.
+- **Retorno**: Retorna um valor inteiro que representa o código de hash único do `FreteCarrinho`.
 
 ## Propriedades Calculadas e de Validação
-- **IdentificadorAgrupamento**: Este campo armazena o identificador do agrupamento do frete. Sua presença ou ausência é utilizada para determinar como o frete deve ser calculado. Um valor vazio indica que não há agrupamento aplicado para o frete.
+Não existem propriedades com lógica de validação ou com cálculos complexos na classe `FreteCarrinho`. As propriedades `IdentificadorAgrupamento` e `Frete` são de acesso simples.
 
 ## Navigations Property
-- **Frete**: `Frete` representa a opção de frete selecionada para o carrinho. [Frete](Frete.md)
+- [Frete](Frete.md)
 
 ## Tipos Auxiliares e Dependências
-- **Frete**: Este tipo pode ser uma classe que representa as opções de frete disponíveis, a qual é utilizada para armazenar a opção de frete selecionada.
+- [Frete](Frete.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -39,7 +39,14 @@ classDiagram
         +bool Equals(object obj)
         +int GetHashCode()
     }
-    FreteCarrinho -- Frete : has
+
+    class Frete {
+        <<interface>>
+    }
+
+    FreteCarrinho --> Frete
 ``` 
 
-Esta documentação fornece uma visão abrangente da classe `FreteCarrinho`, destacando suas regras de negócio e integrações no contexto de um sistema de carrinho de compras.
+Essa estrutura fornece um entendimento claro da classe `FreteCarrinho`, seu propósito, suas operações e suas interações com outras entidades no domínio, contribuindo para a integridade de dados e aplicação das regras de negócios relevantes.
+---
+Gerada em 29/12/2025 21:41:05

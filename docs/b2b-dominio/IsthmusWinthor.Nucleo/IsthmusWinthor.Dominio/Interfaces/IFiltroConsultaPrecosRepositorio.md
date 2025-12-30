@@ -2,27 +2,44 @@
 **Namespace**: IsthmusWinthor.Dominio.Interfaces  
 **Nome do Arquivo**: IFiltroConsultaPrecosRepositorio.cs  
 
-Este é um contrato que define a interface para o repositório responsável pela filtragem de preços, sinalizando a presença e a definição de códigos de filtros de políticas de promoção.
+Esta interface é utilizada para definir metodologias de acesso e manipulação de filtros de consulta de preços dentro do sistema, facilitando a integração e a implementação de diferentes estratégias de consulta.
 
 ## Métodos de Negócio
 
-### 1. `CodigosFiltrosPoliticas` (Visibilidade: `public`)
-- **Objetivo**: Retornar os códigos relacionados aos filtros de políticas disponíveis para consulta de preços.
-- **Comportamento**: Este método deve acessar a fonte de dados e extrair uma lista de códigos que representam filtros de políticas aplicáveis. Ele fornece uma forma de consulta que pode ser utilizada para personalizar a exibição de preços com base em critérios definidos.
-- **Retorno**: Retorna uma string que contém os códigos dos filtros, que podem ser utilizados em outros processos de negócio.
+### 1. CodigosFiltrosPoliticas
+- **Título**: CodigosFiltrosPoliticas e Visibilidade: `public`
+- **Objetivo**: Este método garante que o sistema possa recuperar os códigos dos filtros de políticas aplicadas nas consultas.
+- **Comportamento**:
+  1. O método deve se conectar ao repositório de dados.
+  2. Ele irá buscar e retornar os códigos já definidos para as políticas de filtro.
+  3. O retorno deve ser uma string com os códigos. 
+- **Retorno**: Retorna uma string representando os códigos aplicados às políticas de filtro.
 
-### 2. `PossuiFiltrosPoliticas` (Visibilidade: `public`)
-- **Objetivo**: Verificar se existem filtros de políticas disponíveis.
-- **Comportamento**: Este método consulta a fonte de dados e verifica a presença de filtros de políticas. A lógica interna deve considerar todos os filtros que ainda estão ativos e disponíveis para utilização.
-- **Retorno**: Retorna um valor booleano que indica a presença (`true`) ou a ausência (`false`) de filtros de políticas.
+### 2. PossuiFiltrosPoliticas
+- **Título**: PossuiFiltrosPoliticas e Visibilidade: `public`
+- **Objetivo**: Verificar se existem filtros de políticas configurados no sistema.
+- **Comportamento**:
+  1. O método consulta o repositório para verificar a existência de filtros configurados.
+  2. Retorna verdadeiro se pelo menos um filtro estiver definido; caso contrário, retorna falso.
+- **Retorno**: Um booleano que indica a presença de filtros de políticas.
 
-### 3. `DefinirCodigosFiltros` (Visibilidade: `public`)
-- **Objetivo**: Definir os códigos de filtros a partir de uma consulta de marketing de catálogo de produtos em promoção.
-- **Comportamento**: Este método aceita um objeto do tipo `ConsultaMarketingCatalogoProdutosEmPromocao` como parâmetro. Ele deve processar a consulta e extrair os códigos relevantes para os filtros de políticas, armazenando-os adequadamente para futuras consultas.
-- **Retorno**: Este método não retorna valor, sua função é primariamente de efeito colateral, alterando o estado do repositório com os códigos fornecidos.
+### 3. DefinirCodigosFiltros
+- **Título**: DefinirCodigosFiltros e Visibilidade: `public`
+- **Objetivo**: Permitir a definição ou atualização dos códigos dos filtros de consulta a partir de um objeto que contém as instruções para a configuração.
+- **Comportamento**:
+  1. Recebe um objeto do tipo `ConsultaMarketingCatalogoProdutosEmPromocao`.
+  2. Extrai os códigos de filtro do objeto e os armazena no repositório de filtros.
+  3. Pode envolver validações para garantir que os códigos não sejam duplicados ou inválidos.
+- **Retorno**: O método não retorna um valor, mas deve ser considerado de efeito colateral, pois altera o estado do repositório.
+
+## Propriedades Calculadas e de Validação
+- Não aplicável: Esta interface não contém propriedades calculadas ou de validação.
+
+## Navigations Property
+- Não aplicável: Esta interface não define propriedades de navegação.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou enum foi identificado como utilizado dentro dessa interface.
+- [ConsultaMarketingCatalogoProdutosEmPromocao](ConsultaMarketingCatalogoProdutosEmPromocao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -32,4 +49,11 @@ classDiagram
         +bool PossuiFiltrosPoliticas()
         +void DefinirCodigosFiltros(ConsultaMarketingCatalogoProdutosEmPromocao consultaMarketingCatalogo)
     }
-```
+    class ConsultaMarketingCatalogoProdutosEmPromocao {
+    }
+    IFiltroConsultaPrecosRepositorio --> ConsultaMarketingCatalogoProdutosEmPromocao : utiliza
+``` 
+
+Essa documentação fornece um entendimento claro dos métodos disponíveis na interface `IFiltroConsultaPrecosRepositorio`, suas responsabilidades e como se relacionam com outras partes do sistema.
+---
+Gerada em 29/12/2025 21:16:13

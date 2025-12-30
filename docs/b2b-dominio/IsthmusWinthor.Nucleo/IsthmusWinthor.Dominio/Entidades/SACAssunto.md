@@ -1,38 +1,51 @@
 # SACAssunto
+
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: SACAssunto.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `SACAssunto` representa um assunto relacionado a um Sistema de Atendimento ao Cliente (SAC). Seu papel é estruturar e definir informações pertinentes a um assunto que pode ser abordado no contexto do SAC, incluindo a identificação de sua distribuidora associada, descrição, e estados de ativação. Esta classe é crucial para garantir que a comunicação do cliente seja clara e dirigida, permitindo que os assuntos sejam categorizados e gerenciados de forma eficaz.
+A classe `SACAssunto` representa um assunto que pode ser relacionado a atendimentos no sistema de SAC (Serviço de Atendimento ao Consumidor). A sua principal responsabilidade é encapsular informações pertinentes a um assunto, como uma descrição e estado de atividade, que são fundamentais para categorizar e gerenciar as interações com os clientes. Esse modelo permite que a empresa identifique tópicos relevantes para os atendimentos, facilitando a organização e priorização das demandas.
 
 ## Métodos de Negócio
-Atualmente, a classe `SACAssunto` não contém métodos com lógica de negócios complexa que exigiriam documentação. As operações sobre a classe estão focadas na manipulação direta de propriedades.
+Atualmente, a classe `SACAssunto` não contém métodos de negócio com lógica complexa, concentrando-se em armazenar e gerenciar os dados por meio de suas propriedades.
 
 ## Propriedades Calculadas e de Validação
-Atualmente, a classe `SACAssunto` não contém propriedades com lógica no `get` ou validação no `set`.
+### Propriedades com Lógica
+- `Ativo`: Indica se o assunto está ativo ou não, considerando regras de negócio para habilitação em atendimentos.
+- `LiberadoSite`: Refere-se à visibilidade do assunto no site, que pode estar sujeito a validações de disponibilidade para os clientes.
 
-## Navigations Property
-- [Distribuidora](Distribuidora.md)
-- [SACMotivo](SACMotivo.md)
+## Navigation Property
+- [Distribuidora](Distribuidora.md): Representa a distribuidora associada ao assunto, essencial para o contexto do atendimento.
+- [SACMotivo](SACMotivo.md): Coleção de motivos disponíveis para o assunto, que fornece categorias adicionais para fins de classificação durante o atendimento.
 
 ## Tipos Auxiliares e Dependências
-Nenhum tipo auxiliar ou enum utilizado diretamente nesta classe.
+- **Enums**: Não possui enums associados atualmente.
+- **Classes**:
+  - [Distribuidora](Distribuidora.md)
+  - [SACMotivo](SACMotivo.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class SACAssunto {
-        +long Id
-        +long DistribuidoraId
-        +long Codigo
-        +string Descricao
-        +bool Ativo
-        +bool LiberadoSite
+        long Id
+        long DistribuidoraId
+        long Codigo
+        string Descricao
+        bool Ativo
+        bool LiberadoSite
     }
-    class Distribuidora
-    class SACMotivo
-    
-    SACAssunto --> Distribuidora : "associado a"
-    SACAssunto --> SACMotivo : "tem muitos"
-```
 
+    class Distribuidora {
+        <<entity>>
+    }
+
+    class SACMotivo {
+        <<entity>>
+    }
+
+    SACAssunto --> Distribuidora : associacao
+    SACAssunto --> SACMotivo : composição
+```
+---
+Gerada em 29/12/2025 20:48:12

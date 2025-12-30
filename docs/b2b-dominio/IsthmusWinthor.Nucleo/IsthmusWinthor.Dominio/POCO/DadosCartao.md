@@ -3,56 +3,63 @@
 **Nome do Arquivo**: DadosCartao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DadosCartao` representa os dados essenciais de um cartão de pagamento, incluindo informações como o nome impresso, número do cartão, bandeira do cartão, validade e código de segurança. A principal responsabilidade dessa classe consiste na validação e manipulação de dados sensíveis relacionados aos cartões, assegurando que as informações sejam apresentadas de forma segura, por exemplo, ocultando parte do número do cartão.
+A classe `DadosCartao` atua como uma representação de informações sensíveis relacionadas a cartões de crédito ou débito. Ela é responsável por manipular os dados essenciais de um cartão, garantindo que informações como validade e número de cartão sejam processadas corretamente. Essa classe resolve problemas de negócio relacionados à segurança e à formatação de dados vinculados ao uso de cartões.
 
 ## Métodos de Negócio
 
-### Título: NumeroCartaoOcultado() - Public
-- **Objetivo**: Garantir a segurança do número do cartão ao apresentá-lo ao usuário, ocultando os primeiros dígitos.
+### Título: `NumeroCartaoOcultado` - Visibilidade: `public`
+- **Objetivo**: Garante que o número do cartão seja ocultado, exceto pelos últimos quatro dígitos, permitindo a visualização segura das informações.
 - **Comportamento**:
-    1. Verifica se o comprimento do `NumeroCartao` é menor que 4. Se sim, lança uma exceção, pois o número do cartão é considerado inválido.
-    2. Se o número for válido, separa os primeiros números (todos menos os quatro últimos) e os últimos quatro dígitos.
-    3. Os primeiros números são convertidos para 'x' se forem dígitos, mantendo outros caracteres intactos.
-    4. Concatena os dígitos exibidos como 'x' com os últimos quatro números do cartão.
-- **Retorno**: Retorna uma string que representa o número do cartão, com os primeiros dígitos ocultos.
+  1. Verifica se o comprimento do `NumeroCartao` é menor que 4.
+  2. Caso seja, lança uma exceção informando que o número do cartão é inválido.
+  3. Extrai os primeiros dígitos, exceto os últimos quatro, do `NumeroCartao`.
+  4. Substitui os números dos primeiros dígitos por 'x', mantendo os últimos quatro inalterados.
+  5. Retorna o número do cartão oculto como uma string.
+- **Retorno**: Uma string representando o número do cartão onde os primeiros dígitos estão ocultos por 'x' e somente os últimos quatro dígitos são visíveis.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Número de Cartão Válido?}
-    B -- Sim --> C[Separar os primeiros números e os últimos 4]
-    B -- Não --> D[Lançar exceção "Número de cartão inválido!"]
-    C --> E[Substituir dígitos por 'x']
-    E --> F[Retornar combinação dos primeiros números e últimos 4]
+    A[Início] --> B{Número de cartão válido?}
+    B -- Sim --> C[Extrair primeiros e últimos números]
+    B -- Não --> D[Lançar exceção]
+    C --> E[Ocultar primeiros números]
+    E --> F[Retornar número oculto]
 ```
 
-### Título: DataValidade() - Public
-- **Objetivo**: Fornecer a data de validade do cartão em um formato padronizado.
-- **Comportamento**: Formata o mês e o ano de validade em uma string no formato "MM/AAAA", garantindo que o mês seja sempre exibido com dois dígitos.
-- **Retorno**: Retorna uma string representando a data de validade do cartão.
+### Título: `DataValidade` - Visibilidade: `public`
+- **Objetivo**: Formata a data de validade do cartão em um padrão padrão "MM/AAAA".
+- **Comportamento**:
+  1. Usa os valores das propriedades `MesValidade` e `AnoValidade` para criar uma string formatada no formato desejado.
+  2. Retorna a string resultante.
+- **Retorno**: Uma string representando a data de validade do cartão no formato "MM/AAAA".
 
 ## Propriedades Calculadas e de Validação
-- **DataValidade**: A propriedade `DataValidade()` é uma forma calculada que garante a formatação correta da data de validade do cartão.
+### Propriedades
+- `DataValidade`: Calcula a data de validade do cartão com base no mês e no ano fornecidos.
 
 ## Navigations Property
-- Nenhuma.
+- Nenhuma propriedade de navegação complexa listada nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- [BandeiraCartaoEnum](BandeiraCartaoEnum.md)
+- **Enumeradores**:  
+  - [BandeiraCartaoEnum](BandeiraCartaoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class DadosCartao {
-        +string NomeImpressoCartao
-        +string NumeroCartao
-        +BandeiraCartaoEnum Bandeira
-        +int MesValidade
-        +int AnoValidade
-        +string CodigoSeguranca
-        +bool SalvarCartao
-        +long OperadoraId
-        +string DataValidade()
-        +string NumeroCartaoOcultado()
+        +NomeImpressoCartao: string
+        +NumeroCartao: string
+        +Bandeira: BandeiraCartaoEnum
+        +MesValidade: int
+        +AnoValidade: int
+        +CodigoSeguranca: string
+        +SalvarCartao: bool
+        +OperadoraId: long
+        +DataValidade(): string
+        +NumeroCartaoOcultado(): string
     }
     DadosCartao --> BandeiraCartaoEnum
 ```
+---
+Gerada em 29/12/2025 21:31:46

@@ -3,37 +3,24 @@
 **Nome do Arquivo**: SACItemChamado.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `SACItemChamado` representa um item específico associado a um chamado do Serviço de Atendimento ao Cliente (SAC). Seu papel é facilitar o gerenciamento e o rastreamento de informações sobre produtos que estão sendo reclamados, incluindo detalhes como quantidade e preço de compra. Essa classe é essencial para assegurar que os dados relacionados às reclamações de produtos estejam organizados e acessíveis, permitindo ao SAC lidar efetivamente com as solicitações dos clientes.
+A classe `SACItemChamado` representa um item relacionado a um chamado de Serviço de Atendimento ao Cliente (SAC). Sua principal responsabilidade é encapsular as informações pertinentes a cada item reclamado em um chamado, permitindo um controle eficaz sobre quantidades faturadas e reclamadas, além de associar itens a um chamado específico. Esta classe é fundamental para garantir que as interações dos clientes sejam tratadas adequadamente e que os problemas sejam resolvidos de forma eficiente.
 
 ## Métodos de Negócio
-Neste momento, a classe não possui métodos com lógica de negócio complexa a serem destacados.
+*A classe SACItemChamado não possui métodos com lógica de negócio além dos acessores.*
 
 ## Propriedades Calculadas e de Validação
-Atualmente, não existem propriedades dentro da classe `SACItemChamado` que contenham lógica no `get` ou validação no `set`.
+As propriedades da classe `SACItemChamado` não possuem lógica adicional de validação ou cálculo além das propriedades padrão. Todos os atributos são anêmicos.
 
-## Navigation Property
-- `Chamado`: `[SACChamado](SACChamado.md)`
+## Navigations Property
+- [SACChamado](SACChamado.md) - Esta propriedade representa a ligação do item de chamado ao chamado específico dentro da estrutura do atendimento, permitindo o acesso às informações do chamado ao qual o item está associado.
 
 ## Tipos Auxiliares e Dependências
-Atualmente, não foram identificados enumeradores ou classes estáticas/helpers diretamente utilizados por `SACItemChamado`.
+A classe `SACItemChamado` não faz uso de tipologias auxiliares ou enumeradores adicionais.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    class SACItemChamado {
-        +long Id
-        +long ChamadoId
-        +long CodigoProduto
-        +string Descricao
-        +decimal QuantidadeFaturada
-        +decimal QuantidadeReclamada
-        +string Lote
-        +decimal PrecoCompra
-    }
-    
-    class SACChamado {
-        <<Interface>> IEntidade
-    }
-
-    SACItemChamado --> SACChamado : relaciona
+    SACItemChamado --> SACChamado
 ```
+---
+Gerada em 29/12/2025 20:48:39

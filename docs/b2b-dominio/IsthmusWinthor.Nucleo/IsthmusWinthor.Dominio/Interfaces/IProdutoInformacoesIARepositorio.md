@@ -3,59 +3,60 @@
 **Nome do Arquivo**: IProdutoInformacoesIARepositorio.cs  
 
 ## Visão Geral e Responsabilidade
-A interface `IProdutoInformacoesIARepositorio` define as operações necessárias para gerenciar informações relacionadas a produtos em um contexto de Inteligência Artificial (IA). Ela desempenha um papel crítico ao permitir que o sistema acesse, atualize e recupere informações associadas a produtos, garantindo que os dados estejam sempre atualizados e disponíveis para tomadas de decisões embasadas por IA.
+A interface `IProdutoInformacoesIARepositorio` é responsável por definir as operações necessárias para gerenciar as informações dos produtos dentro do domínio da aplicação. Ela provê métodos essenciais para acessar e atualizar informações relacionadas a produtos, numa perspectiva que suporta características como a recuperação de produtos que não possuem informações relacionadas a Inteligência Artificial (IA) e a atualização das informações quando necessário. A interface é fundamental para a implementação de repositórios que interagem diretamente com o armazenamento de dados de produtos, garantindo consistência e integridade nas operações de dados no domínio.
 
 ## Métodos de Negócio
 
-### 1. `InformacoesIAProduto`
-- **Objetivo**: Recuperar as informações do produto, dado um ID de distribuidora e um código de produto.
+### InformacoesIAProduto (Público)
+- **Objetivo**: Garante a recuperação das informações de um produto específico com base na distribuidora e no código do produto, assegurando que sejam obtidos dados completos e relevantes.
 - **Comportamento**: 
-  1. O método recebe `distribuidoraId` e `produtoCodigo` como parâmetros.
-  2. Ele busca no repositório informações específicas para o produto correspondente às chaves fornecidas.
-  3. Retorna uma instância de `Produto` com as informações requisitadas, ou um valor nulo se não encontrar correspondência.
-- **Retorno**: Um objeto do tipo `Produto` que contém as informações da inteligência artificial associadas ao produto, ou null caso não haja informações disponíveis.
+  1. Recebe como parâmetros o `distribuidoraId` e o `produtoCodigo`.
+  2. Realiza a busca dessas informações no repositório de dados.
+  3. Retorna o objeto `Produto` contendo informações detalhadas.
+- **Retorno**: Retorna um objeto `Produto` que contém todas as informações pertinentes à inteligência artificial para o produto especificado.
 
-### 2. `ProdutoSemInformacoesIA`
-- **Objetivo**: Listar produtos que não possuem informações de IA associadas.
+### ProdutoSemInformacoesIA (Público)
+- **Objetivo**: Garante a recuperação de todos os produtos de uma distribuidora que não possuem informações relacionadas a IA, permitindo identificar produtos que podem necessitar de atenção ou melhorias.
 - **Comportamento**:
-  1. O método recebe um `distribuidoraId`.
-  2. Ele consulta o repositório para todos os produtos da distribuidora que não têm informações de IA.
-  3. Retorna uma lista de produtos que se encaixam nesse critério.
-- **Retorno**: Um `IEnumerable<Produto>` que representa os produtos sem informações de IA.
+  1. Recebe o `distribuidoraId` como parâmetro.
+  2. Realiza a busca de todos os produtos que não possuem informações de IA associadas dentro do repositório.
+  3. Retorna uma coleção de produtos que atendem a esse critério.
+- **Retorno**: Retorna um `IEnumerable<Produto>`, que fornece a lista de produtos sem informações de IA.
 
-### 3. `Salvar`
-- **Objetivo**: Persiste ou atualiza as informações de IA de um produto.
+### Salvar (Público)
+- **Objetivo**: Garante a atualização das informações de um produto relacionado à IA, assim assegurando que os dados no sistema estejam sempre atualizados e corretos.
 - **Comportamento**:
-  1. O método recebe um objeto do tipo `ProdutoInformacoesIA` que contém os dados a serem atualizados.
-  2. Ele verifica se as informações já existem no repositório e realiza a atualização se necessário, ou cria um novo registro se não.
-  3. As alterações são salvas no contexto do repositório.
-- **Retorno**: O método não possui um retorno explícito, mas realiza a ação de persistência.
+  1. Recebe um objeto `ProdutoInformacoesIA` que contém as novas informações a serem salvas.
+  2. Altera ou adiciona as informações no repositório de dados baseando-se na lógica interna de persistência.
+  3. Confirma a operação concluída.
+- **Retorno**: Não retorna valor, mas implica que a operação foi realizada com sucesso, se não ocorrer uma exceção.
 
-## Navigations Property
-- `Produto` - Representa a classe que contém as informações sobre os produtos.  
-  [Produto](Produto.md)  
-- `ProdutoInformacoesIA` - Representa a classe que contém as informações especificadas para IA.  
-  [ProdutoInformacoesIA](ProdutoInformacoesIA.md)  
+## Propriedades Calculadas e de Validação
+A interface não contém propriedades que implementem lógica de cálculo ou validação em seus getters/setters.
+
+## Navigation Property
+A interface não contém propriedades de navegação complexas.
 
 ## Tipos Auxiliares e Dependências
-- `Produto` - Representa a entidade de produto.
-- `ProdutoInformacoesIA` - Representa a estrutura das informações de IA a serem armazenadas.
+- **Classes Auxiliares**:
+  - [`Produto`](Produto.md)
+  - [`ProdutoInformacoesIA`](ProdutoInformacoesIA.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IProdutoInformacoesIARepositorio {
-        +Produto InformacoesIAProduto(long distribuidoraId, long produtoCodigo)
-        +IEnumerable<Produto> ProdutoSemInformacoesIA(long distribuidoraId)
-        +void Salvar(ProdutoInformacoesIA informacoesUpdate)
+        +Produto InformacoesIAProduto(long, long)
+        +IEnumerable<Produto> ProdutoSemInformacoesIA(long)
+        +void Salvar(ProdutoInformacoesIA)
     }
     class Produto {
-        // Propriedades da classe Produto
     }
     class ProdutoInformacoesIA {
-        // Propriedades da classe ProdutoInformacoesIA
     }
-    
-    IProdutoInformacoesIARepositorio --> Produto : "Retorna"
-    IProdutoInformacoesIARepositorio --> ProdutoInformacoesIA : "Atualiza"
+
+    IProdutoInformacoesIARepositorio --> Produto
+    IProdutoInformacoesIARepositorio --> ProdutoInformacoesIA
 ```
+---
+Gerada em 29/12/2025 21:16:58

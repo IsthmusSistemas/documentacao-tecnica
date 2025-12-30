@@ -1,21 +1,19 @@
 # FiltroCepOrigemFreteEnum
 
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: FiltroCepOrigemFreteEnum.cs
+**Nome do Arquivo**: FiltroCepOrigemFreteEnum.cs  
 
-Este enumerador é utilizado para definir os tipos de filtros disponíveis para a origem do CEP no cálculo de frete, facilitando a seleção e validação correta nos processos que envolvem informações de endereçamento. 
+Este enumerador é utilizado para definir as diferentes origens de filtro de CEP para cálculos ou verificações relacionadas a frete dentro do sistema. 
 
-## Tipos Auxiliares e Dependências
+### Tipos Auxiliares e Dependências
+- Nenhum.
 
-- **Enums**:
-  - `[FiltroCepOrigemFreteEnum](FiltroCepOrigemFreteEnum.md)`
-
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FiltroCepOrigemFreteEnum {
-        <<enumeration>>
-        + EnderecoPainel
-        + FilialCompra
+        <<enumerator>>
     }
 ```
+---
+Gerada em 29/12/2025 20:54:33

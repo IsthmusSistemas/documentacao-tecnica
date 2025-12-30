@@ -3,19 +3,28 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TagScript.cs  
 
-Este enumerador é utilizado para categorizar diferentes tipos de scripts que podem ser aplicados em uma aplicação, oferecendo uma abstração clara sobre as opções disponíveis.
+---
+
+O `TagScript` é um enumerador utilizado para categorizar tipos de tags que podem ser usadas em uma aplicação web, definindo assim o comportamento da representação de conteúdo dinâmico ou estático.
 
 ## Tipos Auxiliares e Dependências
 - **Enumeradores**:
-  - `[TagScript](TagScript.md)`  
+  - `Script`: Indica uma tag de script que contém código executável pelo navegador.
+  - `NoScript`: Indica uma tag que se utiliza quando o suporte a script está desabilitado.
+  - `Css`: Indica uma tag de estilo que contém definições de layout.
 
-## Diagrama de Relacionamentos
+--- 
+
+### Diagrama de Relacionamentos
+
 ```mermaid
 classDiagram
     class TagScript {
-        <<enumeration>>
-        +Script
-        +NoScript
-        +Css
+        <<enumerator>>
+        Script
+        NoScript
+        Css
     }
 ```
+---
+Gerada em 29/12/2025 21:01:50

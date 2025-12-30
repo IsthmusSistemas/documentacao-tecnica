@@ -1,30 +1,65 @@
 # HubVerbasGerenteMessage
-
 **Namespace**: IsthmusWinthor.Dominio.Hubs  
 **Nome do Arquivo**: HubVerbasGerenteMessage.cs  
 
-## Visão Geral e Responsabilidade
-A classe `HubVerbasGerenteMessage` é responsável por encapsular mensagens que serão enviadas através do Hub de comunicação para gerentes, gerando uma estrutura de dados que permite a troca eficiente de informações entre o servidor e os clientes conectados. Esta classe é fundamental para garantir que as mensagens contenham todas as informações necessárias, como identificador de sincronização, tipo e conteúdo da mensagem, assegurando que o sistema possa comunicar alterações ou notificações de maneira estruturada e confiável.
+HubVerbasGerenteMessage é uma classe que serve como um modelo de transporte de dados, destinada à interação entre o servidor e os clientes em um contexto de comunicação em tempo real, como um hub do SignalR. Ela encapsula informações relevantes que serão enviadas e recebidas pelas partes envolvidas.
 
 ## Propriedades Calculadas e de Validação
-As propriedades da classe são definidas apenas no construtor, e não possuem lógica de cálculo ou validação. Elas são utilizadas para transportar dados de forma integral.
+- **IdentificadorSync**: Identifica de maneira única cada mensagem, garantindo que as interações possam ser acompanhadas e monitoradas sem ambiguidade.
+- **Tipo**: Denota a categoria da mensagem, permitindo o tratamento adequado conforme o tipo de notificação que se deseja enviar ou receber.
+- **Mensagem**: Contém o conteúdo da notificação que será apresentada ao usuário ou processado pelo sistema.
+
+---
+
+# IHubVerbasGerente
+**Namespace**: IsthmusWinthor.Dominio.Hubs  
+**Nome do Arquivo**: IHubVerbasGerente.cs  
+
+IHubVerbasGerente é uma interface que define as operações que um hub de gerenciamento de verbas deve expor. Essa interface é crucial para garantir que as implementações sigam um contrato claro para a adição de usuários e a notificação de mensagens.
+
+## Métodos de Negócio
+### 1. AdicionarUser (public)
+- **Objetivo**: Garante que um usuário seja adicionado ao hub, permitindo a ele receber atualizações pertinentes em tempo real.
+- **Comportamento**: 
+    1. Recebe o identificador de um usuário como parâmetro.
+    2. Adiciona o usuário à lista de usuários conectados ao hub.
+    3. Prepara o hub para enviar atualizações futuras ao usuário adicionado.
+- **Retorno**: Este método é assíncrono e não retorna um valor específico, mas sua execução resulta na adição do usuário ao hub.
+
+### 2. Notificar (public)
+- **Objetivo**: Garante que uma mensagem seja entregue a todos os usuários conectados ao hub.
+- **Comportamento**: 
+    1. Recebe uma instância de `HubVerbasGerenteMessage` como parâmetro, que contém os dados a serem enviados.
+    2. Processa a mensagem e distribui para todos os usuários conectados.
+- **Retorno**: Este método é assíncrono e não retorna um valor específico, mas garante que todos os usuários recebam a notificação.
+
+---
 
 ## Navigations Property
-Não existem Navigations Properties nesta classe.
+Atualmente, esta classe não possui propriedades que represente classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-Não utiliza nenhum enumerador ou classe estática/helper.
+- **Externos**:
+  - `Newtonsoft.Json`: Necessário para a serialização/deserialização JSON utilizada na classe.
+- **Delimitadores**:
+  - `Task`: Usado para representação de métodos assíncronos.
+
+---
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
+    class IHubVerbasGerente {
+        +Task AdicionarUser(string user)
+        +Task Notificar(HubVerbasGerenteMessage message)
+    }
     class HubVerbasGerenteMessage {
         +string IdentificadorSync
         +string Tipo
         +string Mensagem
     }
+    
+    IHubVerbasGerente  -->  HubVerbasGerenteMessage : Notificar
 ```
-
 ---
-
-A classe `IHubVerbasGerente` serve como uma interface para criar um contrato de operação entre o servidor e os conectores, permitindo operações de adição de usuários e notificações. Entretanto, como se trata de uma interface, não é necessário documentar suas regras de negócio ou propriedades detalhadamente, pois não contém implementações concretas.
+Gerada em 29/12/2025 21:12:53

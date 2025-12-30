@@ -3,53 +3,76 @@
 **Nome do Arquivo**: Supervisor.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Supervisor` é um modelo de domínio que representa um supervisor dentro de um sistema de gestão de vendas. Seu papel é gerenciar as informações e o estado de supervisores que podem ter acesso a um sistema de B2B (Business to Business). A classe garante que apenas supervisores ativos e com acesso liberado possam interagir com funções críticas do sistema, assegurando a integridade e segurança dos dados nas operações de venda.
+A classe `Supervisor` representa um agente de supervisão em um sistema de gerenciamento. Este modelo de domínio encapsula as informações e comportamentos relacionados a um supervisor, permitindo que o sistema controle a supervisão de vendedores em relação a uma distribuidora específica. A classe abrange validações associadas ao acesso do supervisor e suas ligações a outras entidades, como `Distribuidora` e `Gerente`, ajudando a resolver problemas de integridade de dados relacionados ao papel do supervisor nas operações de vendas.
 
 ## Métodos de Negócio
-### Título: PodeAcessarB2B (Propriedade Calculada)
-- **Objetivo**: Garante que o supervisor possa acessar a funcionalidade B2B somente se a senha está definida, o supervisor está ativo e o acesso está liberado.
+
+### Título: PodeAcessarB2B (Public)
+- **Objetivo**: Garante que somente supervisores que têm uma senha definida, estão ativos e têm acesso liberado possam acessar uma plataforma B2B.
 - **Comportamento**: 
-    1. Verifica se a propriedade `Senha` não está vazia.
-    2. Confirma se o supervisor está `Ativo`.
-    3. Assegura que `AcessoLiberado` é verdadeiro.
-- **Retorno**: Retorna um valor booleano que indica se o supervisor tem permissão para acessar a plataforma B2B.
+  1. Verifica se a propriedade `Senha` não está vazia ou nula.
+  2. Confirma se a propriedade `Ativo` é verdadeira.
+  3. Valida se `AcessoLiberado` está definido como verdadeiro.
+- **Retorno**: Retorna um valor booleano (`true` ou `false`), indicando se o supervisor pode acessar a plataforma B2B.
+
+```mermaid
+flowchart TD
+    A[Início] --> B{Senha Vazia?}
+    B -->|Sim| C[Fim - Acesso Negado]
+    B -->|Não| D{Ativo?}
+    D -->|Não| C
+    D -->|Sim| E{Acesso Liberado?}
+    E -->|Não| C
+    E -->|Sim| F[Fim - Acesso Liberado]
+```
 
 ## Propriedades Calculadas e de Validação
-### PodeAcessarB2B
-- **Regra**: A propriedade permite o acesso ao B2B apenas se todas as condições de estado (`Senha`, `Ativo`, `AcessoLiberado`) estiverem satisfeitas.
+- **PodeAcessarB2B**: Esta propriedade avalia três condições:
+  1. `Senha` não é nula ou vazia.
+  2. `Ativo` deve ser verdadeiro.
+  3. `AcessoLiberado` deve ser verdadeiro.
+  Este cálculo assegura que apenas supervisores com requisitos de acesso específicos possam interagir com a plataforma B2B.
 
 ## Navigations Property
-- `[Distribuidora](Distribuidora.md)`: Representa a distribuidora associada ao supervisor.
-- `[Gerente](Gerente.md)`: Representa o gerente ao qual o supervisor está vinculado.
-- `[Vendedor](Vendedor.md)`: Coleção de vendedores supervisionados, representando a relação entre supervisores e a equipe de vendas.
+- [Distribuidora](Distribuidora.md)
+- [Gerente](Gerente.md)
+- [Vendedor](Vendedor.md)
 
 ## Tipos Auxiliares e Dependências
-- **Enums**: Nenhum enumerador é utilizado diretamente nesta classe.
-- **Classes Estáticas/Helpers**: Nenhuma classe auxiliar é utilizada diretamente nesta classe.
+- Enumeradores ou classes utilizadas não estão explicitamente presentes no código fornecido.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Supervisor {
-        +long Id
-        +long Codigo
-        +string Nome
-        +bool Ativo
-        +string Email
-        +string Cpf
-        +string Senha
-        +bool AcessoLiberado
-        +long CodigoEmitente
-        +Distribuidora Distribuidora
-        +Gerente Gerente
-        +ICollection<Vendedor> Vendedores
-        +bool PodeAcessarB2B
+        long Id
+        long Codigo
+        string Nome
+        bool Ativo
+        string Email
+        string Cpf
+        string Senha
+        bool AcessoLiberado
+        long CodigoEmitente
     }
-    class Distribuidora
-    class Gerente
-    class Vendedor
+
+    class Distribuidora {
+        + detalhes da distribuidora
+    }
+    
+    class Gerente {
+        + detalhes do gerente
+    }
+
+    class Vendedor {
+        + detalhes do vendedor
+    }
 
     Supervisor --> Distribuidora
     Supervisor --> Gerente
     Supervisor --> Vendedor
-```
+``` 
+
+Esta documentação fornece uma visão clara e organizada sobre a classe `Supervisor`, detalhando suas responsabilidades, regras de negócio e relacionamentos no contexto do domínio em que se insere.
+---
+Gerada em 29/12/2025 20:50:28

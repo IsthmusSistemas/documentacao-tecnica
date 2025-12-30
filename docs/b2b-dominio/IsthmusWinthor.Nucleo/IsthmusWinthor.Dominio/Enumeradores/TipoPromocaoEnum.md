@@ -2,29 +2,6 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoPromocaoEnum.cs  
 
-O `TipoPromocaoEnum` é um enumerador que define os diferentes tipos de promoções disponíveis no sistema. Ele serve como um meio para categorizar as promoções que podem ser aplicadas a produtos ou serviços, facilitando a implementação de regras de negócio específicas para cada tipo.
-
-## Tipos Auxiliares e Dependências
-- Nenhum
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class TipoPromocaoEnum {
-        <<enumerator>>
-        Nenhum
-        PrecoFixo
-        Combo
-        FaixaQuantidade
-        PromoMix
-        PromoValorMinimo
-        CupomDesconto
-        Brinde
-        Markup
-        CashBack
-        Pharmalink
-        IsthmusIndustrias
-        PromoFlex
-        VerbaIndustria
-    }
-```
+Este enum representa os diferentes tipos de promoções aplicáveis dentro do sistema, servindo como um meio de transporte de dados para categorizar e organizar as promoções disponíveis.
+---
+Gerada em 29/12/2025 21:06:17

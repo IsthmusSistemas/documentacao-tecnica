@@ -3,42 +3,48 @@
 **Nome do Arquivo**: CashBackExtratoPorMarca.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CashBackExtratoPorMarca` representa um extrato de cashback, associando valores disponíveis a diversas marcas e campanhas. Sua responsabilidade principal é consolidar as informações sobre o cashback disponível e fornecer uma descrição legível das marcas envolvidas.
+A classe `CashBackExtratoPorMarca` representa o extrato de cashback disponível por marca. Seu papel é consolidar os valores disponíveis e as marcas associadas, permitindo que os usuários visualizem de forma clara as informações sobre cashback. Ela resolve o problema de diferenciação de cashback disponível por marcas, facilitando o entendimento das ofertas de cashback que um usuário pode aproveitar.
 
 ## Métodos de Negócio
 
-### Título: `DescricaoMarcas` (Visibilidade: Public)
-- **Objetivo**: Garante que a descrição das marcas associadas ao extrato de cashback seja formatada corretamente, permitindo fácil visualização para o usuário final.
+### Título: `DescricaoMarcas` (Público)
+- **Objetivo**: Garante que a descrição das marcas disponíveis seja apresentada de maneira concatenada e ordenada.
 - **Comportamento**:
-  1. Verifica se a lista de marcas (`Marcas`) é nula ou vazia.
-  2. Se for nula ou vazia, retorna uma string vazia.
-  3. Caso contrário, ordena as marcas por nome.
-  4. Itera sobre as marcas ordenadas e as acumula em uma string, separando por " / ".
-  5. Retorna a string que contém a descrição formatada das marcas.
-- **Retorno**: Retorna uma string que representa a descrição formatada das marcas ou uma string vazia se não houver marcas.
+  1. Verifica se a lista de marcas (`Marcas`) é null ou vazia.
+  2. Caso seja, retorna uma string vazia.
+  3. Se não for, inicializa um `StringBuilder` para começar a construir a descrição.
+  4. Ordena as marcas pelo nome em ordem crescente.
+  5. Para cada marca, verifica se já há uma descrição acumulada e, se sim, adiciona uma barra (`" / "`).
+  6. Adiciona o nome da marca à descrição acumulada.
+  7. Retorna a string resultante da descrição atualizada.
+- **Retorno**: Uma string contendo os nomes das marcas disponíveis, separados por barra.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{Marcas é nulo ou vazio?}
-    B -->|Sim| C[Retorna ""]
-    B -->|Não| D[Ordena Marcas por Nome]
-    D --> E[Itera sobre Marcas]
-    E --> F{Tem marca?}
-    F -->|Sim| G[Acumula nome em descricao]
-    F -->|Não| H[Retorna descricao]
+    A[Inicio] --> B{Marcas == null ou Marcas vazia?}
+    B -- Sim --> C[Retorna ""]
+    B -- Não --> D[Inicia StringBuilder]
+    D --> E[Ordena Marcas]
+    E --> F[Para cada Marca]
+    F --> G{Descricao.Length > 0?}
+    G -- Sim --> H[Adiciona " / "]
+    G -- Não --> I[Adiciona Marca.Nome]
+    F --> J[Retorna descricao.ToString()]
 ```
 
 ## Propriedades Calculadas e de Validação
-### Propriedade: `DescricaoMarcas`
-- **Regra**: Esta propriedade computa uma lista de nomes de marcas disponíveis, garantindo que a saída esteja formatada corretamente. Se não houver marcas, ela retorna uma string vazia.
 
-## Navigations Property
-- `Marcas`: Lista de objetos do tipo `[CashBackExtratoPorMarcaMarca](CashBackExtratoPorMarcaMarca.md)`, representando as marcas associadas ao cashback.
-- `Campanhas`: Lista de objetos do tipo `[CashBackExtratoPorCampanha](CashBackExtratoPorCampanha.md)`, representando as campanhas associadas ao cashback.
+### Propriedade: `DescricaoMarcas`
+- **Regra de Cálculo**: Concatena os nomes das marcas que estão presentes na lista `Marcas`, separando-os por " / " e garantindo que estão em ordem alfabética.
+
+## Navigation Property
+- `Marcas`: Lista de objetos da classe complexa [CashBackExtratoPorMarcaMarca](CashBackExtratoPorMarcaMarca.md), representando cada marca associada ao cashback.
+- `Campanhas`: Lista de objetos da classe complexa [CashBackExtratoPorCampanha](CashBackExtratoPorCampanha.md), representando as campanhas de cashback disponíveis.
 
 ## Tipos Auxiliares e Dependências
-- `CashBackExtratoPorMarcaMarca`: Utilizada para representar informações sobre cada marca no extrato. ([CashBackExtratoPorMarcaMarca](CashBackExtratoPorMarcaMarca.md))
-- `CashBackExtratoPorCampanha`: Utilizada para representar as campanhas relacionadas. ([CashBackExtratoPorCampanha](CashBackExtratoPorCampanha.md))
+- Classe Complexa: 
+  - [CashBackExtratoPorMarcaMarca](CashBackExtratoPorMarcaMarca.md)
+  - [CashBackExtratoPorCampanha](CashBackExtratoPorCampanha.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -61,6 +67,9 @@ classDiagram
         +decimal Valor
         +decimal ValorUsado
     }
-    CashBackExtratoPorMarca --> "0..*" CashBackExtratoPorMarcaMarca
-    CashBackExtratoPorMarca --> "0..*" CashBackExtratoPorCampanha
+    
+    CashBackExtratoPorMarca --> CashBackExtratoPorMarcaMarca : contains
+    CashBackExtratoPorMarca --> CashBackExtratoPorCampanha : contains
 ```
+---
+Gerada em 29/12/2025 21:29:24

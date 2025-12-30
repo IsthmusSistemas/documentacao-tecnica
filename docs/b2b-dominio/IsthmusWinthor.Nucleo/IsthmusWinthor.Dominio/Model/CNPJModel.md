@@ -1,44 +1,53 @@
 # CNPJModel
 **Namespace**: IsthmusWinthor.Dominio.Model  
-**Nome do Arquivo**: CNPJModel.cs
+**Nome do Arquivo**: CNPJModel.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CNPJModel` é responsável por encapsular a lógica de validação e formatação do Cadastro Nacional da Pessoa Jurídica (CNPJ). Ela garante que um CNPJ seja armazenado em um formato consistente e livre de caracteres não numéricos, solucionando problemas comuns relacionados ao tratamento de CNPJs nas aplicações corporativas.
+A classe `CNPJModel` atua como um modelo de domínio para a representação e manipulação de CNPJ (Cadastro Nacional da Pessoa Jurídica). Ela é responsável por garantir a validade, formatação e integridade dos dados do CNPJ fornecido, resolvendo assim o problema de inconsistência e formatação que pode ocorrer ao manipular esse dado tributário essencial para empresas no Brasil.
 
 ## Métodos de Negócio
+### Título: Constructor e Visibilidade
+**Visibilidade**: `public`  
+**Objetivo**: Garantir que o CNPJ fornecido seja validado e formatado corretamente ao ser instanciado, removendo caracteres não numéricos e exigindo um formato consistente.
 
-### Título: CNPJModel(string cnpj) - Construtor
-- **Objetivo**: Garante que a entrada do CNPJ esteja no formato correto e é limpo de qualquer caracter não numérico.
-- **Comportamento**:
-  1. Verifica se a string de CNPJ está vazia ou nula.
-     - Se estiver, inicializa `_cnpj` com um CNPJ formatado como "00000000000000".
-  2. Se a string não for nula, a classe remove os caracteres especiais (pontos, traços, e barras).
-  3. Formata a string de CNPJ resultante em um formato padrão de 14 dígitos.
-- **Retorno**: Nenhum retorno explícito, mas o CNPJ é armazenado de forma consistente na instância da classe.
+**Comportamento**:
+1. O parâmetro `cnpj` é recebido no construtor.
+2. Verifica se o `cnpj` é nulo ou vazio. Se for, inicializa o `_cnpj` com um valor padrão formatado como '00000000000000'.
+3. Se um CNPJ válido for fornecido, substitui os caracteres ".", "-", e "/" por uma string vazia.
+4. Converte a string resultante em um número longo.
+5. Formata o número do CNPJ para o padrão '00000000000000' usando o método `Format`.
+6. Armazena o `cnpj` formatado na variável de instância `_cnpj`.
 
-### Título: ToString() - Método Público
-- **Objetivo**: Retorna a representação textual do CNPJ armazenado.
-- **Comportamento**:
-  1. Chama o método `ToString` da propriedade `_cnpj` para obter o valor formatado.
-  2. Retorna este valor como uma string.
-- **Retorno**: Uma string representando o CNPJ formatado.
+**Retorno**: O construtor não possui retorno, mas altera o estado do objeto `CNPJModel`, garantindo que o CNPJ esteja sempre em um formato correto.
+
+### Título: ToString e Visibilidade
+**Visibilidade**: `public override`  
+**Objetivo**: Fornecer uma representação string do CNPJ formatado.
+
+**Comportamento**:
+1. Retorna o valor armazenado em `_cnpj` como string.
+
+**Retorno**: Retorna a representação string do CNPJ em formato limpo e padronizado.
 
 ## Propriedades Calculadas e de Validação
-- **Propriedade**: `_cnpj` 
-  - **Regra**: A propriedade `_cnpj` é manipulada através de métodos para garantir que o CNPJ seja consistido com a formatação padrão, removendo caracteres inaceitáveis e aplicando a formatação correta.
+- **Propriedade**: `_cnpj`
+  - A propriedade `_cnpj` armazena o CNPJ de forma que sua formatação e integridade sejam garantidas. Não há validações diretas em `get` ou `set`, pois o CNPJ é formatado corretamente no construtor.
 
 ## Navigations Property
-Não há propriedades de navegação complexas nesta classe.
+- Não existem propriedades que sejam classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-Não existem enumeradores ou classes auxiliares que a classe `CNPJModel` utilize, visto que a lógica se concentra totalmente na manipulação do CNPJ.
+- Nenhum enumerador ou classe estática/helper é utilizado nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CNPJModel {
         +CNPJModel(string cnpj)
-        +ToString() string
+        +string ToString()
     }
-```
+``` 
 
+A classe `CNPJModel` é autônoma e não possui relacionamentos com outras classes ou tipos enumeradores no escopo atualmente fornecido. Adjustes futuros no domínio podem incorformar tais nuances, mas no estado atual, a classe focaliza exclusivamente no tratamento do CNPJ.
+---
+Gerada em 29/12/2025 21:19:24

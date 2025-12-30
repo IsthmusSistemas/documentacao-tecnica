@@ -3,89 +3,60 @@
 **Nome do Arquivo**: DescontoProgressivoFamiliaIsthmusIndustriaModel.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DescontoProgressivoFamiliaIsthmusIndustriaModel` é responsável por modelar condições comerciais relacionadas a descontos progressivos aplicáveis a diferentes famílias de produtos. Ela busca resolver a necessidade de aplicar regras de desconto baseadas nas campanhas de vendas e no tratamento diferenciado por família, proporcionando uma forma organizada de validar e calcular os melhores preços com base em campanhas específicas.
+A classe `DescontoProgressivoFamiliaIsthmusIndustriaModel` representa um modelo de desconto progressivo aplicável a famílias de produtos em uma indústria. Seu principal objetivo é calcular e gerenciar campanhas de desconto que variam de acordo com a quantidade de famílias adquiridas, facilitando a aplicação de regras comerciais e a obtenção do melhor preço para o cliente.
 
 ## Métodos de Negócio
 
-### ElegivelParaSKU (public)
-- **Objetivo**: Garante que o SKU fornecido é elegível para os descontos, validando se o código de barras associado é o mesmo e se as campanhas são válidas.
-- **Comportamento**:
-  1. Verifica se o `codigoBarrasSku` é inválido (nulo ou em branco).
-  2. Converte os códigos de barras para long.
-  3. Compara o código de barras do SKU com o código de barras da instância.
-  4. Retorna `true` se forem iguais e a condição for válida; caso contrário, retorna `false`.
-- **Retorno**: Retorna um booleano que indica a elegibilidade do SKU para a aplicação dos descontos.
+### Título: ElegivelParaSKU (public)
+**Objetivo**: Verifica se um determinado SKU é elegível para a aplicação de descontos com base no código de barras e se a condição de desconto é válida.  
+**Comportamento**: 
+1. Verifica se o código de barras fornecido não está vazio ou nulo.
+2. Converte o código de barras tanto do SKU quanto do modelo para o formato numérico.
+3. Compara os códigos de barras numéricos.
+4. Retorna verdadeiro se o código de barras do SKU corresponder ao do modelo e a condição de desconto for válida; caso contrário, retorna falso.  
+**Retorno**: `bool` - Indica se o SKU é elegível para desconto.
 
-```mermaid
-flowchart TD
-    A[Início] --> B{codigoBarrasSku é inválido?}
-    B -- Sim --> C[False]
-    B -- Não --> D[Convert códigoBarrasSku e este.CodigoBarras para long]
-    D --> E{códigoBarrasSku == this.CodigoBarras}
-    E -- Sim --> F{IsValid?}
-    E -- Não --> C
-    F -- Sim --> G[True]
-    F -- Não --> C
-```
+### Título: CalcularMelhorPreco (public)
+**Objetivo**: Calcula o melhor preço disponível considerando o preço do cliente e a melhor campanha de desconto.  
+**Comportamento**: 
+1. Obtém o melhor desconto da melhor campanha disponível.
+2. Se não houver campanha, define o desconto como zero.
+3. Cria e retorna um objeto `MelhorPrecoCondicaoComercialModel` contendo as informações relacionadas ao melhor preço, incluindo o preço do cliente e melhor desconto.  
+**Retorno**: `MelhorPrecoCondicaoComercialModel` - Contém informações sobre a melhor condição comercial e preço.
 
-### CalcularMelhorPreco (public)
-- **Objetivo**: Calcula o melhor preço aplicável ao cliente com base no desconto escolhido pela campanha.
-- **Comportamento**:
-  1. Obtém o percentual de desconto da melhor campanha.
-  2. Cria uma nova instância de `MelhorPrecoCondicaoComercialModel` passando os parâmetros relevantes como código da campanha, data de término, quantidade mínima de famílias, preço cliente e valor mínimo de ticket.
-- **Retorno**: Retorna um objeto do tipo `MelhorPrecoCondicaoComercialModel` que contém as melhores condições comerciais.
+### Título: ObterDescontoAplicavel (public)
+**Objetivo**: Obtém o desconto aplicável com base na campanha recebida e na quantidade de famílias compradas.  
+**Comportamento**: 
+1. Busca por uma campanha recebida que corresponda ao identificador fornecido e que tenha descontos aplicáveis para a quantidade de famílias compradas.
+2. Se nenhuma campanha for encontrada e a opção para devolver o desconto padrão estiver ativa, a melhor campanha é procurada.
+3. Busca o desconto aplicável na campanha. Se não encontrar, tenta usar o melhor desconto da campanha.
+4. Se encontrar um desconto aplicável, cria um modelo de desconto aplicável, desabilita opções para combos e o retorna; caso contrário, retorna um modelo vazio.  
+**Retorno**: `DescontoIsthmusIndustriaAplicavelModel` - Representa o desconto que pode ser aplicado na transação.
 
-### ObterDescontoAplicavel (public)
-- **Objetivo**: Retorna o desconto aplicável para uma campanha específica com base nas quantidades de famílias e condições de ticket.
-- **Comportamento**:
-  1. Busca a campanha recebedora válida que corresponde ao identificador fornecido e que aplicada ao número de famílias compradas.
-  2. Se não encontrada e `devolverDescontoDefaultCasoNenhumAtingido` é verdadeiro, busca a melhor campanha.
-  3. Busca o desconto aplicável na campanha encontrada.
-  4. Se nenhum desconto aplicável e `devolverDescontoDefaultCasoNenhumAtingido` é verdadeiro, retorna o melhor desconto.
-  5. Se um desconto aplicável é encontrado, cria um modelo `DescontoIsthmusIndustriaAplicavelModel`.
-  6. Desabilita o desconto para combos e retorna o desconto aplicável.
-- **Retorno**: Retorna um objeto do tipo `DescontoIsthmusIndustriaAplicavelModel` representando o desconto que pode ser aplicado.
-
-```mermaid
-flowchart TD
-    A[Início] --> B[Buscar campanha recebedora]
-    B --> C{Campanha encontrada?}
-    C -- Sim --> D[Buscar desconto aplicável]
-    C -- Não --> E{devolverDescontoDefaultCasoNenhumAtingido?}
-    E -- Sim --> F[Buscar melhor campanha]
-    F --> G[Buscar desconto da melhor campanha]
-    G --> H{Desconto encontrado?}
-    H -- Sim --> J[Retornar desconto]
-    H -- Não --> K[Retornar desconto vazio]
-    E -- Não --> K[Retornar desconto vazio]
-    D --> I{Desconto encontrado?}
-    I -- Sim --> J[Retornar desconto]
-    I -- Não --> K[Retornar desconto vazio]
-```
-
-### PadronizarParaExibicaoNaPaginaDetalhes (public)
-- **Objetivo**: Prepara a representação de `IsthmusIndustria` para exibição em painéis detalhados, extraindo e formatando as campanhas e descontos.
-- **Comportamento**:
-  1. Cria uma nova instância de `IsthmusIndustria`.
-  2. Popula as propriedades de família e campanhas.
-  3. Para cada campanha, organiza os descontos por quantidade mínima e máxima de famílias.
-- **Retorno**: Retorna uma instância de `IsthmusIndustria` pronta para exibição nos detalhes.
+### Título: PadronizarParaExibicaoNaPaginaDetalhes (public)
+**Objetivo**: Prepara os dados para apresentação na interface de detalhes do produto.  
+**Comportamento**:
+1. Cria e retorna um novo objeto `IsthmusIndustria` que inclui o identificador da família e uma lista de campanhas formatadas para exibição, ordenando os descontos por quantidade mínima e máxima de famílias.
+  
+**Retorno**: `IsthmusIndustria` - Um modelo formatado para exibição.
 
 ## Propriedades Calculadas e de Validação
+### Propriedade: CampanhasRecebedoras
+- Regra: Retorna uma lista apenas das campanhas que são válidas e têm o SKU configurado como recebedor.
 
-### CampanhasRecebedoras
-- **Regra**: Filtra e retorna somente as campanhas que são válidas e têm a flag `SKURecebedor` marcada.
+### Propriedade: CampanhasGeradoras
+- Regra: Retorna uma lista apenas das campanhas que são válidas e têm o SKU configurado como gerador.
 
-### CampanhasGeradoras
-- **Regra**: Filtra e retorna somente as campanhas que são válidas e têm a flag `SKUGerador` marcada.
+### Propriedade: IsValid
+- Regra: Indica se há pelo menos uma campanha válida dentro da lista de campanhas.
 
-### IsValid
-- **Regra**: Retorna `true` se existe ao menos uma campanha válida.
+### Propriedade: MelhorCampanha
+- Regra: Obtém a melhor campanha dentre as campanhas recebedoras, ordenando-as de acordo com o percentual de desconto do melhor desconto disponível.
 
-### MelhorCampanha
-- **Regra**: Retorna a campanha recebedora com o melhor percentual de desconto aplicável.
+### Propriedade: DescricaoMelhorCondicao
+- Regra: Formata uma string com a descrição do melhor desconto, caso ele exista.
 
-## Navigations Property
+## Navigation Property
 - [DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel](DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel.md)
 
 ## Tipos Auxiliares e Dependências
@@ -105,7 +76,20 @@ classDiagram
         +IReadOnlyList<DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel> CampanhasRecebedoras
         +IReadOnlyList<DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel> CampanhasGeradoras
         +bool IsValid
+        +DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel MelhorCampanha
+        +string DescricaoMelhorCondicao
+        +bool ElegivelParaSKU(string codigoBarrasSku)
+        +MelhorPrecoCondicaoComercialModel CalcularMelhorPreco(decimal precoCliente)
+        +DescontoIsthmusIndustriaAplicavelModel ObterDescontoAplicavel(string identificadorCampanhaRecebedora, int quantidadeFamiliasCompradas, decimal ticket, decimal totalDesconto, bool devolverDescontoDefaultCasoNenhumAtingido)
+        +IsthmusIndustria PadronizarParaExibicaoNaPaginaDetalhes()
+    }
+
+    class DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel {
+        +string Identificador
+        +List<DescontoProgressivoFamiliaDescontoIsthmusIndustriaModel> Descontos
     }
 
     DescontoProgressivoFamiliaIsthmusIndustriaModel --> DescontoProgressivoFamiliaCampanhaIsthmusIndustriaModel
 ```
+---
+Gerada em 29/12/2025 21:59:50

@@ -1,17 +1,7 @@
 # FormatoArquivoEnum
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: FormatoArquivoEnum.cs  
+**Nome do Arquivo**: FormatoArquivoEnum.cs
 
-O `FormatoArquivoEnum` é uma enumeração que define os formatos de arquivo disponíveis no sistema. Ele facilita a seleção de tipos de arquivo para exportação e importação de dados, garantindo que as opções sejam limitadas e fáceis de gerenciar no contexto do domínio.
-
-## Tipos Auxiliares e Dependências
-- `FormatoArquivoEnum` - Enumeração que representa os formatos de arquivos disponíveis: PDF e XML.
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class FormatoArquivoEnum {
-        +Pdf
-        +Xml
-    }
-```
+Esta classe enumera os formatos de arquivo suportados pelo sistema, facilitando a padronização e o uso em outras partes do domínio, garantindo que apenas tipos válidos de arquivo estejam associados às operações do sistema.
+---
+Gerada em 29/12/2025 20:55:33

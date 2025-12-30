@@ -1,49 +1,59 @@
-# FormaIntegracaoCupomDescontoEnum
-
-**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: FormaIntegracaoCupomDesconto.cs
-
-### Visão Geral e Responsabilidade
-O `FormaIntegracaoCupomDescontoEnum` representa diferentes formas de integração de cupons de desconto no sistema. O principal objetivo desta enumeração é definir os tipos de integrações disponíveis, facilitando a identificação e o tratamento específico de cada forma de desconto no fluxo de aplicação de regras de negócios.
-
-### Tipos Auxiliares e Dependências
-- Enumeração: `[FormaIntegracaoCupomDescontoEnum](FormaIntegracaoCupomDescontoEnum.md)`
-
----
-
 # FormaIntegracaoCupomDesconto
 
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: FormaIntegracaoCupomDesconto.cs
+**Nome do Arquivo**: FormaIntegracaoCupomDesconto.cs  
 
-### Visão Geral e Responsabilidade
-A classe estática `FormaIntegracaoCupomDesconto` fornece métodos auxiliares para trabalhar com a enumeração `FormaIntegracaoCupomDescontoEnum`. O método `DescontoAplicado` é responsável por determinar se um determinado tipo de integração já implicou na aplicação de um desconto sobre o preço, ajudando na validação de regras de negócio ao processar transações com cupons de desconto.
+## Visão Geral e Responsabilidade
+A classe `FormaIntegracaoCupomDesconto` contém funcionalidades auxiliares que determinam se uma determinada forma de integração de cupom de desconto já aplica o desconto ao preço final do produto. Essa lógica é crucial para evitar a aplicação dupla de descontos e garantir um processo de checkout claro e transparente para o usuário.
 
-### Métodos de Negócio
+## Métodos de Negócio
 
-#### Título: `DescontoAplicado` - Public
-- **Objetivo**: Determina se a forma de integração implica que o preço já foi ajustado com o desconto do cupom.
+### Título: DescontoAplicado (public static)
+
+- **Objetivo**: Determinar se a forma de integração escolhida já inclui o desconto do cupom aplicado.
 - **Comportamento**: 
-  1. O método recebe um valor do tipo `FormaIntegracaoCupomDescontoEnum`.
-  2. Ele verifica se o valor não é igual a `FormaIntegracaoCupomDescontoEnum.PCPEDIFV_PERDESCBOLETO`.
-  3. Se o valor não for igual, isso indica que o desconto já foi aplicado; caso contrário, significa que o desconto não foi aplicado.
-- **Retorno**: Retorna um booleano (`true` ou `false`) que indica se o desconto já foi aplicado ou não.
+  1. O método recebe um valor do enumerador `FormaIntegracaoCupomDescontoEnum`.
+  2. Verifica se o valor é diferente de `FormaIntegracaoCupomDescontoEnum.PCPEDIFV_PERDESCBOLETO`.
+  3. Retorna `true` se o desconto foi aplicado, caso contrário, retorna `false`.
+  
+- **Retorno**: 
+  - `true`: O desconto já está aplicado na forma de integração.
+  - `false`: O desconto não está aplicado.
 
-### Diagrama de Relacionamentos
+```mermaid
+flowchart TD
+    A[Início] --> B{Forma de Integração}
+    B -- PCAUTORI --> C[Desconto Aplicado: true]
+    B -- PCPEDIFV_CODPROMOCAOMED --> C
+    B -- PCPEDIFV_PERDESCBOLETO --> D[Desconto Aplicado: false]
+    C --> E[Fim]
+    D --> E
+```
+
+## Propriedades Calculadas e de Validação
+- Não há propriedades que contenham lógica no `get` ou validação no `set` nesta classe.
+
+## Navigations Property
+- Não existem propriedades que sejam classes complexas do domínio nesta classe.
+
+## Tipos Auxiliares e Dependências
+- Enumerador: 
+  - [FormaIntegracaoCupomDescontoEnum](FormaIntegracaoCupomDescontoEnum.md)
+
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
+    class FormaIntegracaoCupomDesconto {
+        +bool DescontoAplicado(FormaIntegracaoCupomDescontoEnum this)
+    }
+    
     class FormaIntegracaoCupomDescontoEnum {
-        <<enumeration>>
         PCAUTORI
         PCPEDIFV_PERDESCBOLETO
         PCPEDIFV_CODPROMOCAOMED
     }
 
-    class FormaIntegracaoCupomDesconto {
-        +bool DescontoAplicado(FormaIntegracaoCupomDescontoEnum)
-    }
-
-    FormaIntegracaoCupomDesconto --|> FormaIntegracaoCupomDescontoEnum : utiliza
-``` 
-
-Essa documentação técnica reflete a funcionalidade e as regras de negócio relacionadas à classe `FormaIntegracaoCupomDesconto`, evidenciando sua importância na aplicação de cupons de desconto dentro do sistema.
+    FormaIntegracaoCupomDesconto --> FormaIntegracaoCupomDescontoEnum
+```
+---
+Gerada em 29/12/2025 20:55:24

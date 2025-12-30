@@ -1,17 +1,18 @@
 # FormularioMascaraEnum
+
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FormularioMascaraEnum.cs
 
-O `FormularioMascaraEnum` é uma enumeração que define diferentes tipos de máscaras que podem ser aplicadas a campos de entrada em um formulário. Cada tipo de máscara representa um formato específico de dados a ser inserido pelo usuário, garantindo que as informações sejam capturadas de maneira consistente e adequada às regras de negócio.
+O `FormularioMascaraEnum` é um enumerador que define diferentes tipos de máscaras de entrada de dados que podem ser aplicadas a campos de formulários. Ele é usado para garantir que os dados inseridos pelo usuário atendam a formatos predefinidos, assegurando integridade e validade dos dados.
 
 ## Tipos Auxiliares e Dependências
-- **Nenhum tipo estático ou helper adicional é utilizado nesta enumeração.**
+- Nenhum.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FormularioMascaraEnum {
-        <<enumeration>>
+        <<enumerator>>
         Livre
         CNPJ
         CPF
@@ -26,3 +27,5 @@ classDiagram
         CEP
     }
 ```
+---
+Gerada em 29/12/2025 20:56:14

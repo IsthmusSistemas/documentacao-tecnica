@@ -2,16 +2,18 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: DistribuidoraBrandingEnum.cs  
 
-Esta enumeração representa as marcas de distribuidor disponíveis no sistema, facilitando a identificação e categorização de brandings associados a produtos ou serviços.
+Distribui as marcas disponíveis para os distribuidores, permitindo que o sistema identifique e utilize as branding corretas para cada integração.
 
 ## Tipos Auxiliares e Dependências
-- `DistribuidoraBrandingEnum`: Enum que lista as marcas de distribuidor disponíveis.
-
+- Enumeradores:
+  - [DistribuidoraBrandingEnum](DistribuidoraBrandingEnum.md)
+  
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class DistribuidoraBrandingEnum {
-        <<enumeration>>
-        Intellibrand
+        +Intellibrand : int
     }
 ```
+---
+Gerada em 29/12/2025 20:54:07

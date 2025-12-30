@@ -1,4 +1,4 @@
-#Documentação - QueueMessages
+# QueueMessages
 ## Conteúdo
 - [ConviteAceitoMessage](ConviteAceitoMessage.md)
 - [DistribuidoraDeleteMessage](DistribuidoraDeleteMessage.md)

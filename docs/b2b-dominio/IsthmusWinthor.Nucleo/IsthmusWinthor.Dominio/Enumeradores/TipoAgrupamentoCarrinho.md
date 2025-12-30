@@ -2,30 +2,22 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoAgrupamentoCarrinho.cs  
 
-O `TipoAgrupamentoCarrinho` é um enumerador que define diferentes modos de agrupamento para itens em um carrinho de compras dentro do sistema, permitindo gerenciar as regras de negócios associadas ao processo de faturamento e restrições de pagamento.
-
-## Métodos de Negócio
-Nenhum método com lógica de negócio foi encontrado neste enumerador, pois trata-se apenas de um agrupamento de valores constantes.
-
-## Propriedades Calculadas e de Validação
-Não há propriedades calculadas ou de validação neste enumerador, uma vez que se trata de um conjunto de constantes.
-
-## Navigations Property
-Não existem propriedades de navegação a serem listadas, pois o `TipoAgrupamentoCarrinho` não contém associações complexas.
+TipoAgrupamentoCarrinho é um enumerador que define os diferentes tipos de agrupamento que podem ser aplicados ao carrinho de compras. Ele serve como um suporte para a lógica de agrupamento de itens com base em diversas regras de negócio relevantes durante o processo de faturamento e restrição de planos de pagamento.
 
 ## Tipos Auxiliares e Dependências
-Não há enumeradores ou classes auxiliares utilizadas diretamente dentro deste enumerador, mas ele pode ser considerado por outros componentes que utilizem agrupamentos em carrinhos.
+- Nenhum enumerador ou classe estática adicional é utilizada nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoAgrupamentoCarrinho {
-        <<enumerator>>
-        + Default
-        + GrupoFaturamento
-        + PlanoPagamento
-        + Vendedor
-        + Filial
-        + RestricaoTransporte
+        +Default
+        +GrupoFaturamento
+        +PlanoPagamento
+        +Vendedor
+        +Filial
+        +RestricaoTransporte
     }
 ```
+---
+Gerada em 29/12/2025 21:02:07

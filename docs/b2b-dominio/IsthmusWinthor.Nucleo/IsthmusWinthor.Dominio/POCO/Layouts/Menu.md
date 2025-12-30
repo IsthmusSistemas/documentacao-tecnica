@@ -1,20 +1,24 @@
 # Menu
-- **Namespace**: IsthmusWinthor.Dominio.POCO.Layouts
-- **Nome do Arquivo**: Menu.cs
+**Namespace**: IsthmusWinthor.Dominio.POCO.Layouts  
+**Nome do Arquivo**: Menu.cs  
 
-### Visão Geral e Responsabilidade
-A classe `Menu` representa a configuração de exibição de um sistema de menu, abrangendo propriedades relacionadas a cores e exibição de ícones. Ela também capta informações sobre o usuário que realiza a modificação, seja um usuário real ou um sistema automatizado. Essa classe ajuda a garantir que as configurações de menu sejam ajustadas de acordo com as preferências do usuário e a lógica do sistema.
+## Visão Geral e Responsabilidade
+A classe `Menu` representa a configuração de um menu no contexto do sistema. É responsável por armazenar as propriedades visuais (como cores de fundo e fonte) e comportamentais (como utilização de ícones) do menu, que serão utilizadas na interface do usuário. Essa configuração é essencial para garantir uma experiência de usuário coesa e visualmente agradável, além de armazenar informações sobre a origem da alteração ou criação do menu.
 
-### Propriedades Calculadas e de Validação
-- **TipoObjeto**: Esta propriedade retorna o nome do tipo da classe. Sua finalidade é ajudar na identificação e categorização dessa classe em operações que possam depender do seu tipo. Não contém lógica complexa, mas é relevante para fins de identificação.
+## Métodos de Negócio
+Não há métodos com lógica de negócio definida além das propriedades simples.
 
-### Navigations Property
-- Não há propriedades que representem classes complexas do domínio.
+## Propriedades Calculadas e de Validação
+- **TipoObjeto**
+  - Esta propriedade retorna o nome da classe atual (`Menu`). Ela é utilizada para identificar o tipo de objeto em operações dinâmicas dentro do sistema.
 
-### Tipos Auxiliares e Dependências
-- Não há enumeradores ou classes auxiliares utilizadas diretamente na classe `Menu`.
+## Navigations Property
+A classe `Menu` não possui navigations properties complexas que referenciam outras classes do domínio.
 
-### Diagrama de Relacionamentos
+## Tipos Auxiliares e Dependências
+Não há enumeradores ou classes estáticas/helpers utilizadas diretamente na classe `Menu`.
+
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Menu {
@@ -27,6 +31,6 @@ classDiagram
         +long? UsuarioId
         +string TipoObjeto
     }
-``` 
-
-Essa documentação tem como objetivo fornecer uma visão geral clara sobre a classe `Menu`, suas propriedades e sua responsabilidade no contexto do domínio, facilitando a compreensão para desenvolvedores e stakeholders interessados no sistema.
+```
+---
+Gerada em 29/12/2025 21:43:27

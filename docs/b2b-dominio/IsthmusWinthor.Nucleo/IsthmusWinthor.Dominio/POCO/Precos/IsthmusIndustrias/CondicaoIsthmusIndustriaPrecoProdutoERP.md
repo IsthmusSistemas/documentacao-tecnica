@@ -1,73 +1,69 @@
 # CondicaoIsthmusIndustriaPrecoProdutoERP
 **Namespace**: IsthmusWinthor.Dominio.POCO.Precos.IsthmusIndustrias  
-**Nome do Arquivo**: CondicaoIsthmusIndustriaPrecoProdutoERP.cs
+**Nome do Arquivo**: CondicaoIsthmusIndustriaPrecoProdutoERP.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CondicaoIsthmusIndustriaPrecoProdutoERP` atua como um mecanismo de gerenciamento de condições comerciais específicas para produtos da indústria Isthmus. Ela lida com o armazenamento e a aplicação de descontos progressivos por família, de acordo com condições comerciais definidas. A principal função desta classe é garantir que os descontos sejam aplicados corretamente com base na unidade federativa da filial, contribuindo para a precisão na formação de preços e oferta de produtos.
+A classe `CondicaoIsthmusIndustriaPrecoProdutoERP` é responsável por gerenciar as condições comerciais relacionadas ao preço dos produtos da indústria Isthmus. Ela permite a adicionamento e a manipulação de condições de descontos progressivos baseadas em famílias de produtos, oferecendo suporte à lógica de precificação dinâmica e adaptada a diferentes estados fiscais.
 
 ## Métodos de Negócio
 
 ### AdicionarCondicoesComerciais (public)
-- **Objetivo**: Este método valida e adiciona condições comerciais, aplicando a lógica específica de cada tipo de condição.
-- **Comportamento**:
-  1. Chama o método `Reset()` para limpar as condições existentes.
-  2. Itera sobre a coleção de condições comerciais fornecidas.
-  3. Para cada condição, verifica seu tipo.
-  4. Se a condição for do tipo `DescontosProgressivosFamilias`, chama o método `AdicionarDescontosProgressivosFamilias`, passando a condição e a unidade federativa.
-  
-- **Retorno**: Não retorna valor; opera sobre o estado interno da classe.
-
-### Reset (public)
-- **Objetivo**: Inicializa ou limpa a lista de descontos progressivos.
-- **Comportamento**:
-  1. Atribui uma nova lista vazia à propriedade `_descontoProgressivoFamilia`.
-
-- **Retorno**: Não retorna valor; serve para reinicializar o estado da classe.
+- **Objetivo**: Este método garante que as condições comerciais corretas sejam adicionadas à lista de descontos progressivos, considerando o estado da filial do produto.
+- **Comportamento**: 
+  1. Chama o método `Reset` para limpar o estado atual da lista de descontos.
+  2. Itera sobre cada condição comercial fornecida.
+  3. Avalia o tipo de cada condição:
+     - Se a condição for do tipo `DescontosProgressivosFamilias`, chama o método `AdicionarDescontosProgressivosFamilias`, passando a condição e o estado.
+  4. Ignora outras condições que não se enquadram no tipo especificado.
+- **Retorno**: Não há retorno; o método modifica a lista interna de descontos progressivos.
 
 ### AdicionarDescontosProgressivosFamilias (private)
-- **Objetivo**: Adiciona uma condição de desconto progressivo se ela atender às regras de aplicação com base na unidade federativa.
+- **Objetivo**: Este método adiciona uma nova condição de desconto progressivo à lista se a condição estiver associada a campanhas válidas para a filial do preço.
 - **Comportamento**:
-  1. Cria uma nova instância de `DescontoProgressivoFamiliaIsthmusIndustriaModel` utilizando dados da condição recebida.
-  2. Filtra as campanhas associadas à condição com base na unidade federativa da filial.
-  3. Se a lista filtrada de campanhas não estiver vazia, adiciona a nova condição à lista interna `_descontoProgressivoFamilia`.
-  
-- **Retorno**: Não retorna valor; modifica o estado interno da lista de descontos.
+  1. Cria uma nova instância de `DescontoProgressivoFamiliaIsthmusIndustriaModel` com os dados da condição fornecida.
+  2. Filtra as campanhas da condição para incluir apenas aquelas relevantes para o estado da filial.
+  3. Se houver campanhas válidas, adiciona a condição à lista de descontos progressivos.
+- **Retorno**: Não há retorno; efetua alterações na lista interna se as condições forem válidas.
 
 ```mermaid
 flowchart TD
-    A[AdicionarCondicoesComerciais] --> B[Reset]
-    B --> C{Tipo de Condição}
-    C -->|DescontosProgressivosFamilias| D[AdicionarDescontosProgressivosFamilias]
-    C -->|Outros| E[Ignorar]
-    D --> F{Campanhas}
-    F -->|Não Vazia| G[Adicionar Desconto]
-    F -->|Vazia| H[Não Adicionar]
+    A[AdicionarDescontosProgressivosFamilias] --> B{Condicao da Filial}
+    B -->|Has Campaigns| C[Add to List]
+    B -->|No Valid Campaigns| D[Do Nothing]
 ```
 
+### Reset (public)
+- **Objetivo**: Limpa todas as condições de descontos progressivos da classe para um estado inicial vazio.
+- **Comportamento**: Reinicializa a lista interna de `_descontoProgressivoFamilia` como uma nova lista vazia.
+- **Retorno**: Não há retorno.
+
 ## Propriedades Calculadas e de Validação
-- Nenhuma propriedade com lógica de cálculo ou validação foi identificada neste modelo.
+- **DescontoProgressivoFamilia**: Esta propriedade retorna uma lista de descontos progressivos que foram filtrados de acordo com as regras de negócio estabelecidas. A lógica de filtragem baseia-se na contrapartida da filial do estado, garantindo que apenas as condições relevantes sejam apresentadas.
 
 ## Navigations Property
-- `[DescontoProgressivoFamiliaIsthmusIndustriaModel](DescontoProgressivoFamiliaIsthmusIndustriaModel.md)`
+- [DescontoProgressivoFamiliaIsthmusIndustriaModel](DescontoProgressivoFamiliaIsthmusIndustriaModel.md)
 
 ## Tipos Auxiliares e Dependências
-- `[IsthmusIndustriaTipoCondicaoEnum](IsthmusIndustriaTipoCondicaoEnum.md)`
-- `[ICondicaoIsthmusIndustria](ICondicaoIsthmusIndustria.md)`
-- `[DescontoProgressivoFamiliaIsthmusIndustriaModel](DescontoProgressivoFamiliaIsthmusIndustriaModel.md)`
+- [ICondicaoIsthmusIndustria](ICondicaoIsthmusIndustria.md)
+- [IsthmusIndustriaTipoCondicaoEnum](IsthmusIndustriaTipoCondicaoEnum.md)
+- [DescontoProgressivoFamiliaIsthmusIndustriaModel](DescontoProgressivoFamiliaIsthmusIndustriaModel.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CondicaoIsthmusIndustriaPrecoProdutoERP {
-        +AdicionarCondicoesComerciais(condicoesComerciais, ufFilialPreco)
-        +Reset()
+        +void AdicionarCondicoesComerciais(IEnumerable<ICondicaoIsthmusIndustria>, string)
+        +void Reset()
     }
+
     class DescontoProgressivoFamiliaIsthmusIndustriaModel {
-        +IdentificadorIndustria
-        +CodigoBarras
-        +IdentificadoresFamilia
-        +Campanhas
+        +string IdentificadorIndustria
+        +string CodigoBarras
+        +List<string> IdentificadoresFamilia
+        +List<Campanha> Campanhas
     }
-    CondicaoIsthmusIndustriaPrecoProdutoERP --> "0..*" DescontoProgressivoFamiliaIsthmusIndustriaModel
-    CondicaoIsthmusIndustriaPrecoProdutoERP --> IsthmusIndustriaTipoCondicaoEnum
+
+    CondicaoIsthmusIndustriaPrecoProdutoERP --> DescontoProgressivoFamiliaIsthmusIndustriaModel
 ```
+---
+Gerada em 29/12/2025 21:56:55

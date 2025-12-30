@@ -1,8 +1,7 @@
 # ProdutoAutoCompleteIndex
-
 **Namespace**: IsthmusWinthor.Dominio.AzureSearchIndex  
-**Nome do Arquivo**: ProdutoAutoCompleteIndex.cs
+**Nome do Arquivo**: ProdutoAutoCompleteIndex.cs  
 
+Este modelo é um DTO que tem como finalidade o transporte de dados relacionados ao autocomplete de produtos em uma indexação para busca.
 ---
-
-> Esta classe atua como um Data Transfer Object (DTO), responsável pelo transporte de dados relacionados ao índice de auto-completar de produtos no contexto da busca em Azure Search.
+Gerada em 29/12/2025 20:09:24

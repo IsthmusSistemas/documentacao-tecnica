@@ -4,79 +4,48 @@
 **Nome do Arquivo**: PipelineSincronizacaoRegras.cs
 
 ## Visão Geral e Responsabilidade
-A classe `PipelineSincronizacaoRegras` é responsável por definir e fornecer regras de sincronização de dados dentro do sistema, mais especificamente em relação à execução de processos que não requerem a informação de código em um painel e que podem rodar em horário comercial. Esta classe ajuda a manter a integridade e a eficiência dos fluxos de dados, garantindo que os pipelines adequados sejam utilizados em circunstâncias apropriadas.
+A classe `PipelineSincronizacaoRegras` é responsável por encapsular e centralizar a lógica de negócio relacionada às regras de sincronização de pipelines da aplicação. Ela auxilia na identificação de quais pipelines não precisam informar um código no painel e quais podem ser executados durante o horário comercial, ajudando a manter a integridade e a eficiência no processo de sincronização de dados.
 
 ## Métodos de Negócio
 
-### 1. Nome e Visibilidade: `NaoPrecisamInformarCodigoNoPainel` (public static)
-- **Objetivo**: Retornar uma lista de pipelines que não precisam informar código no painel.
-- **Comportamento**: 
-  1. Inicializa uma lista de pipelines chamando o método privado `EmComum_NaoPrecisamInformarCodigoNoPainel_PodemRodarEmHorarioComercial`.
-  2. Permite a adição de novas entradas que se encaixem na regra, através de comentários indicativos, que o programador pode descomentar e adaptar.
-  3. Retorna a lista gerada.
-- **Retorno**: Uma coleção de `PipelineSincronizacaoEnum` que representa os pipelines que podem ser executados sem necessidade de informar um código no painel.
-
-### 2. Nome e Visibilidade: `PodemRodarEmHorarioComercial` (public static)
-- **Objetivo**: Retornar uma lista de pipelines que podem ser executados em horário comercial.
+### Método: `NaoPrecisamInformarCodigoNoPainel()` - `public static`
+- **Objetivo**: Este método garante que sejam identificados os pipelines que não exigem a indicação de um código específico ao serem executados no painel, facilitando a operação para os usuários que interagem com esses processos.
 - **Comportamento**:
-  1. Inicializa uma lista de pipelines também usando `EmComum_NaoPrecisamInformarCodigoNoPainel_PodemRodarEmHorarioComercial`.
-  2. Similar ao método anterior, possui a estrutura para adicionar futuras definições que possam se aplicar a essa regra.
-  3. Retorna a lista gerada.
-- **Retorno**: Uma coleção de `PipelineSincronizacaoEnum` que representa os pipelines que podem ser executados durante o horário comercial.
+  1. Inicia uma lista de pipelines a partir do método auxiliar `EmComum_NaoPrecisamInformarCodigoNoPainel_PodemRodarEmHorarioComercial()`.
+  2. Poderá adicionar pipelines específicos que atendem a esta regra, caso necessário.
+  3. Retorna a lista de pipelines que não necessitam informar um código.
+- **Retorno**: Retorna uma coleção de `PipelineSincronizacaoEnum` representando os pipelines que não precisam de um código no painel.
 
-### Diagrama de Fluxo para `NaoPrecisamInformarCodigoNoPainel`
-```mermaid
-flowchart TD
-    A[Início] --> B{Pipeline}
-    B -->|Estoque| C[Sem código necessário]
-    B -->|Restrição de Vendas| C[Sem código necessário]
-    B -->|Outros| D[Fim]
-```
-
-### Diagrama de Fluxo para `PodemRodarEmHorarioComercial`
-```mermaid
-flowchart TD
-    A[Início] --> B{Pipeline}
-    B -->|Estoque| C[Executável em horário comercial]
-    B -->|Restrição de Vendas| C[Executável em horário comercial]
-    B -->|Outros| D[Fim]
-```
+### Método: `PodemRodarEmHorarioComercial()` - `public static`
+- **Objetivo**: Este método garante que sejam identificados quais pipelines estão autorizados a rodar durante o horário comercial, otimizando a operação e gerenciando melhor os recursos disponíveis.
+- **Comportamento**:
+  1. Inicia uma lista de pipelines a partir do método auxiliar `EmComum_NaoPrecisamInformarCodigoNoPainel_PodemRodarEmHorarioComercial()`.
+  2. Poderá incluir pipelines adicionais que possam rodar nesse horário, caso necessário.
+  3. Retorna a lista de pipelines liberados para a execução no horário comercial.
+- **Retorno**: Retorna uma coleção de `PipelineSincronizacaoEnum` que especifica quais pipelines estão autorizados a rodar durante horário comercial.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades calculadas ou de validação na classe `PipelineSincronizacaoRegras`, pois a lógica reside unicamente nos métodos.
+- Não há propriedades que possuam lógica no `get` ou validações no `set` nesta classe.
 
-## Navigation Property
-- Não existem propriedades de navegação na classe.
+## Navigations Property
+- Não existem propriedades que sejam classes complexas do domínio nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**: 
-  - `[PipelineSincronizacaoEnum](PipelineSincronizacaoEnum.md)`
+- Enum: [PipelineSincronizacaoEnum](PipelineSincronizacaoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PipelineSincronizacaoRegras {
-        +NaoPrecisamInformarCodigoNoPainel() 
-        +PodemRodarEmHorarioComercial() 
+        +static IEnumerable<PipelineSincronizacaoEnum> NaoPrecisamInformarCodigoNoPainel()
+        +static IEnumerable<PipelineSincronizacaoEnum> PodemRodarEmHorarioComercial()
     }
     
     class PipelineSincronizacaoEnum {
-        +Produtos 
-        +Clientes 
-        +LinhasPrazo 
-        +Representantes 
-        +Estoque 
-        +VendedorFornecedores 
-        +VendedorDepartamentoSecao 
-        +RestricaoVendas 
-        +RegiaoClientes 
-        +Embalagens 
-        +AutorizarRepresentanteEnviarPedido 
-        +AtualizarProdutos 
-        +AtualizacaoDadosFinanceiros 
-        +Organização 
-        +DadosBasicosProdutos 
+        <<enumeration>>
     }
     
-    PipelineSincronizacaoRegras --> PipelineSincronizacaoEnum : utiliza >
+    PipelineSincronizacaoRegras --> PipelineSincronizacaoEnum
 ```
+---
+Gerada em 29/12/2025 20:59:18

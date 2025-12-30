@@ -3,38 +3,46 @@
 **Nome do Arquivo**: DadosAcessoRepresentante.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DadosAcessoRepresentante` é um modelo representativo que encapsula as informações de acesso e permissões associadas a diferentes tipos de representantes (Vendedor, Supervisor, Gerente). Sua principal responsabilidade é fornecer a estrutura de dados que determina o que um representante pode fazer dentro do sistema de vendas, assegurando que somente as operações permitidas sejam realizadas em função do perfil do usuário.
+A classe `DadosAcessoRepresentante` encapsula as informações de acesso e autenticação de representantes dentro de um sistema corporativo. Ela é responsável por gerenciar e fornecer dados relevantes sobre os diferentes tipos de representantes (Vendedor, Supervisor e Gerente) e suas permissões associadas para operações como envio de pedidos e acesso a verbas. 
 
 ## Métodos de Negócio
 
-### Título: PerfilLogin (public)
-- **Objetivo**: Garante que o tipo de perfil de acesso do representante seja corretamente traduzido para um perfil de login correspondente, assegurando que o acesso ao sistema seja restrito de acordo com as permissões relevantes.
-- **Comportamento**: 
-    1. A propriedade avalia o `PerfilRepresentante`.
-    2. Se o perfil for `Vendedor`, retorna `PerfilLoginEnum.Vendedor`.
-    3. Se for `Supervisor`, retorna `PerfilLoginEnum.Supervisor`.
-    4. Se for `Gerente`, retorna `PerfilLoginEnum.Gerente`.
-    5. Para qualquer outro caso, assume o padrão como `PerfilLoginEnum.Vendedor`.
-- **Retorno**: Retorna o valor do tipo `PerfilLoginEnum` que especifica o nível de acesso do representante no sistema.
+### Título: `PerfilLogin` (propriedade)
 
-### Título: Implicit Operator (várias, `public static`)
-- **Objetivo**: Facilita a conversão implícita de diferentes entidades de representantes (Vendedor, Supervisor, Gerente) para a classe `DadosAcessoRepresentante`, permitindo a manipulação simplificada de dados entre diferentes camadas do sistema.
+- **Objetivo**: Determina o perfil de login com base no perfil do representante, essencial para controle de permissões no sistema.
 - **Comportamento**:
-    1. Recebe uma instância de `Entidades.Vendedor`, `Entidades.Supervisor` ou `Entidades.Gerente`.
-    2. Extrai propriedades relevantes de cada entidade e cria uma nova instância de `DadosAcessoRepresentante`.
-    3. Define o `PerfilRepresentante` com base no tipo de representante, além de configurar outras permissões específicas.
-- **Retorno**: Nenhum retorno explícito, pois é uma operação de conversão implícita.
+  1. Avalia o `PerfilRepresentante`.
+  2. Retorna `PerfilLoginEnum.Vendedor` se `PerfilRepresentante` for `Vendedor`.
+  3. Retorna `PerfilLoginEnum.Supervisor` se `PerfilRepresentante` for `Supervisor`.
+  4. Retorna `PerfilLoginEnum.Gerente` se `PerfilRepresentante` for `Gerente`.
+  5. Retorna `PerfilLoginEnum.Vendedor` por padrão, caso ocorra um valor não esperado.
+- **Retorno**: O valor retornado é de tipo `PerfilLoginEnum`, refletindo o perfil associado ao representante.
+
+```mermaid
+flowchart TD
+    A[PerfilRepresentante]
+    B[Vendedor]
+    C[Supervisor]
+    D[Gerente]
+
+    A -->|É igual a| B --> |Retorna| E[PerfilLoginEnum.Vendedor]
+    A -->|É igual a| C --> |Retorna| F[PerfilLoginEnum.Supervisor]
+    A -->|É igual a| D --> |Retorna| G[PerfilLoginEnum.Gerente]
+    A -->|Outro Caso| H[Retorna PerfilLoginEnum.Vendedor]
+```
 
 ## Propriedades Calculadas e de Validação
-### PerfilLogin
-- **Regra**: A propriedade `PerfilLogin` calcula seu valor com base no `PerfilRepresentante` para assegurar que o tipo de login esteja correto para o representante, ajustando automaticamente o acesso conforme necessário.
+
+### `PerfilLogin`
+- **Regra**: O valor do `PerfilLogin` é calculado com base no `PerfilRepresentante`. A lógica garante que cada tipo de representante tenha um nível apropriado de acesso dentro do sistema, assegurando uma validação de permissões que se encaixa em suas funções específicas.
 
 ## Navigations Property
-- Nenhuma propriedade de navegação complexa está presente nesta classe.
+- Não há propriedades complexas de navegação associadas a esta classe.
 
 ## Tipos Auxiliares e Dependências
-- Enum `[PerfilRepresentanteEnum](PerfilRepresentanteEnum.md)`
-- Enum `[PerfilLoginEnum](PerfilLoginEnum.md)`
+- Dependências do tipo `Enum`:
+  - [PerfilRepresentanteEnum](PerfilRepresentanteEnum.md)
+  - [PerfilLoginEnum](PerfilLoginEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -50,8 +58,9 @@ classDiagram
         +bool PermiteVendaSemEstoque
         +bool TemAcessoVerbas
         +PerfilLoginEnum PerfilLogin
+        
     }
-    
+
     class PerfilRepresentanteEnum {
     }
 
@@ -61,3 +70,5 @@ classDiagram
     DadosAcessoRepresentante --> PerfilRepresentanteEnum
     DadosAcessoRepresentante --> PerfilLoginEnum
 ```
+---
+Gerada em 29/12/2025 21:31:29

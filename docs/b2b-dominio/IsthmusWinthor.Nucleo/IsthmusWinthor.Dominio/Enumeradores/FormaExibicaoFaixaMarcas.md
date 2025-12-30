@@ -1,18 +1,24 @@
 # FormaExibicaoFaixaMarcas
+
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FormaExibicaoFaixaMarcas.cs  
 
-O enumerador `FormaExibicaoFaixaMarcas` define as diferentes formas de exibição disponíveis para faixas de marcas no sistema. Ele facilita a escolha de como as informações são apresentadas ao usuário, permitindo uma melhor experiência na interface.
+Esta classe define um enumerador que especifica as diferentes formas de exibição para a faixa de marcas dentro do sistema.
 
 ## Tipos Auxiliares e Dependências
-- `FormaExibicaoFaixaMarcas`: Este é um enumerador que define duas opções de exibição.
+
+- Enumeradores:  
+  - [FormaExibicaoFaixaMarcas](FormaExibicaoFaixaMarcas.md) 
 
 ## Diagrama de Relacionamentos
+
 ```mermaid
 classDiagram
     class FormaExibicaoFaixaMarcas {
         <<enumeration>>
-        Carrossel: 1
-        Interativa: 2
+        + Carrossel
+        + Interativa
     }
 ```
+---
+Gerada em 29/12/2025 20:55:10

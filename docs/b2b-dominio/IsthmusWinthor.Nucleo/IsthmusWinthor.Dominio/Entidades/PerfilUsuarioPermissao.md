@@ -3,20 +3,24 @@
 **Nome do Arquivo**: PerfilUsuarioPermissao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PerfilUsuarioPermissao` atua como um modelo de domínio que representa a relação entre um usuário e as permissões associadas ao seu perfil. O propósito dessa classe é garantir que os usuários tenham acesso adequado aos itens de menu com base em seu perfil de usuário, permitindo uma gestão eficiente de permissões em sistemas corporativos que necessitam de controle de acesso.
+A classe `PerfilUsuarioPermissao` atua como um modelo de domínio na camada de segurança de um sistema, representando a associação entre um perfil de usuário e as permissões de acesso a itens de menu. Essa estrutura é fundamental para garantir que usuários sejam atribuídos apenas aos itens que têm permissão para acessar, garantindo assim a integridade e segurança das operações dentro do sistema.
 
 ## Métodos de Negócio
-Atualmente, a classe `PerfilUsuarioPermissao` não possui métodos com lógica de negócios implementados. A operação principal da classe é a definição de relacionamentos entre as entidades, portanto, o foco está nas propriedades que representam esses vínculos.
+*(Não existem métodos de negócio com lógica na classe fornecida.)*
 
 ## Propriedades Calculadas e de Validação
-A classe não apresenta propriedades que possuam lógica específica no `get` ou validação no `set`. Ela serve como um modelo para a gestão de associações entre usuários e permissões.
+- **Id**: Identificador único da entidade `PerfilUsuarioPermissao`.
+- **PerfilId**: Identificador do perfil de usuário associado.
+- **ItemMenuId**: Identificador do item de menu relacionado à permissão.
 
-## Navigation Properties
-- `[PerfilUsuario](PerfilUsuario.md)`
-- `[ItemMenu](ItemMenu.md)`
+*(Não existem propriedades com lógica no `get` ou validação no `set` na classe fornecida.)*
+
+## Navigations Property
+- [PerfilUsuario](PerfilUsuario.md): Representa o perfil associado a esta permissão.
+- [ItemMenu](ItemMenu.md): Representa o item de menu ao qual a permissão se aplica.
 
 ## Tipos Auxiliares e Dependências
-Não existem enumeradores ou classes estáticas/helpers utilizadas diretamente nesta classe.
+*(Não existem tipos auxiliares ou dependências adicionais listadas na classe fornecida.)*
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -26,13 +30,19 @@ classDiagram
         +long PerfilId
         +long ItemMenuId
     }
-  
+    
     class PerfilUsuario {
-    }
-  
-    class ItemMenu {
+        +long Id
+        +string Nome
     }
 
-    PerfilUsuarioPermissao --> PerfilUsuario : associacao
-    PerfilUsuarioPermissao --> ItemMenu : associacao
+    class ItemMenu {
+        +long Id
+        +string Nome
+    }
+    
+    PerfilUsuarioPermissao --> PerfilUsuario : "associado a"
+    PerfilUsuarioPermissao --> ItemMenu : "permite acesso a"
 ```
+---
+Gerada em 29/12/2025 20:42:30

@@ -1,69 +1,75 @@
 # PipelineSincronizacaoAgendamentoDistribuidora
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: PipelineSincronizacaoAgendamentoDistribuidora.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: PipelineSincronizacaoAgendamentoDistribuidora.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PipelineSincronizacaoAgendamentoDistribuidora` representa um agendamento de sincronização de dados para distribuidoras em um sistema. Este modelo encapsula as regras de negócio relacionadas ao agendamento, incluindo o controle de execução, intervalo de tempo e status do agendamento. A principal função deste domínio é garantir que as sincronizações sejam realizadas de acordo com o tempo e as condições definidas, respeitando a configuração de cada distribuidora.
+A classe `PipelineSincronizacaoAgendamentoDistribuidora` é um modelo de domínio que representa o agendamento de sincronização para uma distribuidora específica. Seu papel é gerenciar a configuração de agendamentos que inclui a periodicidade e os horários de execução necessárias para a sincronização de dados entre diferentes sistemas. Esta classe resolve o problema de regularidade e controle eficiente nas execuções das sincronizações agendadas.
 
 ## Métodos de Negócio
-### Método: `public List<TimeSpan> HorariosExecucao`
-#### Objetivo:
-Este método garante que os horários de execução sejam recuperados e armazenados adequadamente, garantindo a integridade dos dados e a correta serialização/deserialização dos horários.
 
-#### Comportamento:
-1. Verifica se a propriedade `HorariosExecucaoJson` está vazia.
-   - Se estiver vazia, retorna uma nova lista de `TimeSpan`.
-2. Tenta deserializar a string `HorariosExecucaoJson` em uma lista de `TimeSpan`.
-   - Se a deserialização for bem-sucedida, retorna a lista.
-   - Se ocorrer uma exceção durante a deserialização, retorna uma lista vazia.
+### Método: `get HorariosExecucao`
+- **Objetivo**: Garantir que a lista de horários de execução seja corretamente deserializada a partir de um JSON e, em caso de erro ou ausência, retorne uma lista vazia.
+- **Comportamento**: 
+  1. Verifica se `HorariosExecucaoJson` é nulo ou vazio.
+  2. Se sim, retorna uma nova lista vazia de `TimeSpan`.
+  3. Caso contrário, tenta deserializar o JSON para uma lista de `TimeSpan`.
+  4. Se a deserialização falhar (capturada pela exceção), retorna uma nova lista vazia de `TimeSpan`.
+- **Retorno**: Retorna uma lista de objetos `TimeSpan` que representa os horários em que as execuções estão programadas, ou uma lista vazia em caso de erro.
 
-#### Retorno:
-Retorna uma lista de `TimeSpan` que representa os horários de execução ou uma lista vazia em caso de falhas.
-
-### Visualização
 ```mermaid
 flowchart TD
-    A[Início] --> B{HorariosExecucaoJson vazio?}
-    B -- Sim --> C[Retornar nova lista de TimeSpan]
-    B -- Não --> D[Tentar deserializar HorariosExecucaoJson]
-    D --> E{Deserialização bem-sucedida?}
-    E -- Sim --> F[Retornar lista deserializada]
-    E -- Não --> G[Retornar lista vazia]
+    A[HorariosExecucaoJson vazio?] -->|Sim| B[Retorna nova lista vazia]
+    A -->|Não| C[Tenta deserializar JSON]
+    C -->|Sucesso| D[Retorna lista de horarios]
+    C -->|Falha| E[Retorna nova lista vazia]
 ```
 
-## Propriedades Calculadas e de Validação
-### Propriedade: `HorariosExecucao`
-Esta propriedade possui lógica de validação e cálculo na captura de dados e na serialização das listas de horários de execução. Quando atribuída, ela serializa a lista de horários para JSON, e quando acessada, ela desserializa o JSON armazenado de volta para uma lista.
+### Método: `set HorariosExecucao`
+- **Objetivo**: Serializar a lista de horários de execução e armazená-la como um JSON.
+- **Comportamento**: 
+  1. Recebe uma lista de `TimeSpan`.
+  2. Verifica se a lista é nula.
+  3. Se sim, atribui uma nova lista vazia.
+  4. Serializa a lista de `TimeSpan` em JSON e atribui ao campo `HorariosExecucaoJson`.
+- **Retorno**: Não possui retorno explícito, mas altera o estado interno da classe ao armazenar os horários em formato JSON.
 
-## Navigation Properties
-- `PipelineSincronizacao`: `[PipelineSincronizacao](PipelineSincronizacao.md)`
-- `Distribuidora`: `[Distribuidora](Distribuidora.md)`
+## Propriedades Calculadas e de Validação
+
+### Propriedade: `HorariosExecucao`
+- **Regra**: Esta propriedade é calculada com base na representação JSON dos horários de execução. Ela garante que sempre que os horários sejam acessados, eles sejam retornados de uma forma utilizável, convertendo o formato JSON armazenado para uma lista utilizável no domínio.
+
+## Navigation Property
+- [PipelineSincronizacao](PipelineSincronizacao.md) - Referência ao modelo de sincronização associado.
+- [Distribuidora](Distribuidora.md) - Referência à distribuidora que está sendo sincronizada.
 
 ## Tipos Auxiliares e Dependências
-- Enum: `[TipoIntervaloEnum](TipoIntervaloEnum.md)`
-- Enum: `[TipoAgendamentoEnum](TipoAgendamentoEnum.md)`
+- [TipoIntervaloEnum](TipoIntervaloEnum.md) - Enum que define os tipos possíveis de intervalos de tempo.
+- [TipoAgendamentoEnum](TipoAgendamentoEnum.md) - Enum que define os tipos possíveis de agendamentos.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PipelineSincronizacaoAgendamentoDistribuidora {
         +long Id
-        +long PipelineSincronizacaoId
-        +long DistribuidoraId
         +DateTime DataInicial
         +int TempoIntervalo
         +TipoIntervaloEnum TipoIntervalo
         +bool Pausada
         +TipoAgendamentoEnum TipoAgendamento
-        +string HorariosExecucaoJson
-        +List<TimeSpan> HorariosExecucao
     }
     
-    class PipelineSincronizacao {}
-    class Distribuidora {}
-    class TipoIntervaloEnum {}
-    class TipoAgendamentoEnum {}
+    class PipelineSincronizacao {
+        +long Id
+        // Mais propriedades
+    }
 
-    PipelineSincronizacaoAgendamentoDistribuidora --> PipelineSincronizacao : `associação`
-    PipelineSincronizacaoAgendamentoDistribuidora --> Distribuidora : `associação`
+    class Distribuidora {
+        +long Id
+        // Mais propriedades
+    }
+
+    PipelineSincronizacaoAgendamentoDistribuidora --> PipelineSincronizacao
+    PipelineSincronizacaoAgendamentoDistribuidora --> Distribuidora
 ```
+---
+Gerada em 29/12/2025 20:43:34

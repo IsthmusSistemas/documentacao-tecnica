@@ -1,4 +1,4 @@
-#Documentação - Precos
+# Precos
 ## Conteúdo
 - [PrecosSankhyaRequest](PrecosSankhyaRequest.md)
 - [PrecosSankhyaResponse](PrecosSankhyaResponse.md)

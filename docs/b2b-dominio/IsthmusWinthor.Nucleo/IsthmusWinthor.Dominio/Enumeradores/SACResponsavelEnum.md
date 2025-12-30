@@ -2,18 +2,12 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: SACResponsavelEnum.cs  
 
-Este enumerador lista os responsáveis possíveis para o Sistema de Atendimento ao Cliente (SAC). Ele é utilizado para identificar o agente que está gerenciando determinadas interações no contexto do atendimento ao cliente, contribuindo para a organização e a clareza nas atribuições de tarefas.
+O `SACResponsavelEnum` é um enumerador que define as categorias de responsáveis dentro do sistema de Atendimento ao Cliente (SAC). Ele serve para categorizar interações e responsabilidades, facilitando a gestão e o direcionamento adequado dos atendimentos.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[SACResponsavelEnum](SACResponsavelEnum.md)`: Enum que categoriza os responsáveis no atendimento.
+- Não existem dependências de classes complexas ou cálculos associados, pois esta é uma enumeração simples. 
 
-```mermaid
-classDiagram
-    class SACResponsavelEnum {
-        <<enumeration>>
-    }
-    SACResponsavelEnum : Cliente
-    SACResponsavelEnum : RCA
-    SACResponsavelEnum : UsuarioPainel
-```
+### Enumeradores
+- [SACResponsavelEnum](SACResponsavelEnum.md) - Enum que define os tipos de responsáveis no SAC.
+---
+Gerada em 29/12/2025 21:00:17

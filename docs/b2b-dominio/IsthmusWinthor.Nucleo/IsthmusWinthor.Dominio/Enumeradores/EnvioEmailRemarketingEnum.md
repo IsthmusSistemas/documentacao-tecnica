@@ -1,20 +1,21 @@
 # EnvioEmailRemarketingEnum
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: EnvioEmailRemarketingEnum.cs
+**Nome do Arquivo**: EnvioEmailRemarketingEnum.cs  
 
-Este enumerador é responsável por definir as opções de envio de e-mails de remarketing para diferentes grupos de usuários dentro do sistema.
+Esta classe enumera as opções para o envio de emails de remarketing, definindo as ações a serem tomadas em relação aos vendedores.
 
 ## Tipos Auxiliares e Dependências
-- Nenhuma classe complexa do domínio.
-- Enumerações:
-  - `[EnvioEmailRemarketingEnum](EnvioEmailRemarketingEnum.md)`
+- Nenhum tipo auxiliar ou classe estática/helper está diretamente associado a esta enumeração.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class EnvioEmailRemarketingEnum {
-        + NaoEnviar
-        + EnviarApenasParaVendedorPadrao
-        + EnviarParaTodosVendedores
+        <<enumeration>>
+        NaoEnviar
+        EnviarApenasParaVendedorPadrao
+        EnviarParaTodosVendedores
     }
 ```
+---
+Gerada em 29/12/2025 20:54:15

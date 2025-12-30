@@ -1,74 +1,78 @@
 # Prospecto
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: Prospecto.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: Prospecto.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Prospecto` representa um potencial cliente em um sistema de gestão. O principal papel dessa classe é armazenar informações relevantes sobre o prospecto, incluindo seus dados pessoais e status de interação. Ela é fundamental para a gestão de relacionamento com clientes, permitindo que a empresa acompanhe o histórico de integrações e o estado atual de cada prospecto. Além disso, a classe oferece funcionalidades para tratamento de dados e formatação, garantindo a integridade das informações relacionadas ao prospecto.
+A classe `Prospecto` representa um potencial cliente dentro do sistema, sendo um componente crucial para o gerenciamento de leads e a interação com as distribuidoras. Esta classe tem a responsabilidade de armazenar e manipular informações sobre prospects, ajudando na automação de processos e na análise de dados relacionados à captação e acompanhamento de clientes.
 
 ## Métodos de Negócio
+### Título: NumeroDocumentoSemMascara (get)  
+**Objetivo:** Retornar a versão limpa do número do documento, removendo todos os caracteres especiais.  
+**Comportamento:**  
+1. Verifica se o `NumeroDocumento` está vazio ou nulo.
+2. Se estiver, retorna uma string vazia.
+3. Caso contrário, utiliza um `StringBuilder` para construir uma nova string que remove slashes (`/`), hífens (`-`) e pontos (`.`) do `NumeroDocumento`.  
+4. Retorna a versão limpa do número do documento.
 
-### 1. Numer Documento Sem Mascara (get)
-- **Objetivo**: Garante que o número do documento do prospecto seja retornado sem caracteres especiais, facilitando a manipulação e armazenamento de dados.
-- **Comportamento**: 
-    1. Verifica se a propriedade `NumeroDocumento` está vazia ou nula.
-    2. Se estiver, retorna uma string vazia.
-    3. Caso contrário, utiliza um `StringBuilder` para eliminar caracteres como "/", "-", e "." do número do documento.
-    4. Retorna o número do documento formatado.
-- **Retorno**: Uma string representando o número do documento sem máscara, ou uma string vazia se o número não estiver disponível.
-
-### 2. Status Descricao (get)
-- **Objetivo**: Proporciona uma descrição legível do status atual do prospecto, usando um método auxiliar para obter a descrição do enumerador.
-- **Comportamento**: 
-    1. Chama o método `Description` da classe `UtilEnumDescription` passando o status atual do prospecto.
-    2. Retorna a descrição correspondente ao valor do enumerador `Status`.
-- **Retorno**: Uma string que representa a descrição legível do status do prospecto.
+**Retorno:** Retorna o número do documento sem formatação, útil para comparações ou armazenamento em sistemas que exigem dados limpos.
 
 ```mermaid
 flowchart TD
-    A[Status] -->|Se Status é válido| B[Descrição]
-    A -->|Se Status é inválido| C[Retorna string vazia]
+    A[Início] --> B{NumeroDocumento Vazio?}
+    B -- Sim --> C[Return ""]
+    B -- Não --> D[Remover Caracteres Especiais]
+    D --> E[Return NumeroDocumento Limpo]
 ```
 
+### Título: StatusDescricao (get)  
+**Objetivo:** Retornar a descrição legível do status do prospecto.  
+**Comportamento:**  
+1. Chama o método `Description` da classe `UtilEnumDescription`, passando o `Status` atual.
+2. Retorna a descrição correspondente ao valor do enum `Status`.
+
+**Retorno:** Retorna uma string que representa a descrição do status do prospecto, proporcionando uma visualização amigável para o usuário.
+
 ## Propriedades Calculadas e de Validação
+- **NumeroDocumentoSemMascara**: Propriedade que retorna o número do documento sem caracteres especiais, permitindo um tratamento mais simples e preciso em operações que não discriminam a formatação.
+- **StatusDescricao**: Propriedade que converte o valor do `Status` em uma descrição mais compreensível, promovendo uma melhor experiência do usuário ao visualizar o estado atual do prospecto.
 
-### NumeroDocumentoSemMascara
-- **Regra**: A propriedade calcula um valor a partir da propriedade `NumeroDocumento`, removendo caracteres especiais. Isso assegura que os dados sejam armazenados em um formato padrão e limpo.
-
-### StatusDescricao
-- **Regra**: Esta propriedade valida o status do prospecto e gera uma descrição adequada baseada no valor do enumerador. Isso é importante para garantir que os usuários do sistema tenham uma compreensão clara do status do prospecto.
-
-## Navegação de Propriedades
-- `[Distribuidora](Distribuidora.md)`
-- `[Formulario](Formulario.md)`
-- `[ProspectoHistoricoIntegracao](ProspectoHistoricoIntegracao.md)`
+## Navigations Property
+- [Distribuidora](Distribuidora.md)
+- [Formulario](Formulario.md)
+- [ProspectoHistoricoIntegracao](ProspectoHistoricoIntegracao.md)
 
 ## Tipos Auxiliares e Dependências
-- `[ProspectoStatusEnum](ProspectoStatusEnum.md)`
-- `[FormularioTipoIntegracaoEnum](FormularioTipoIntegracaoEnum.md)`
-- `[UtilEnumDescription](UtilEnumDescription.md)`
+- [ProspectoStatusEnum](ProspectoStatusEnum.md)
+- [FormularioTipoIntegracaoEnum](FormularioTipoIntegracaoEnum.md)
+- [UtilEnumDescription](UtilEnumDescription.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class Prospecto {
-        +long Id
-        +long DistribuidoraId
-        +DateTime DataGravacao
-        +ProspectoStatusEnum Status
-        +string Token
-        +long FormularioId
-        +long PerfilId
-        +string Identificacao
-        +string Email
-        +bool Novo
-        +long CodigoCliente
-        +string NumeroDocumento
-        +long CodigoCidade
-        +FormularioTipoIntegracaoEnum Acao
+        - long Id
+        - long DistribuidoraId
+        - DateTime DataGravacao
+        - ProspectoStatusEnum Status
+        - string Token
+        - long FormularioId
+        - long PerfilId
+        - string Identificacao
+        - string Email
+        - string EmailRCA
+        - bool Novo
+        - long CodigoCliente
+        - string NumeroDocumento
+        - long CodigoCidade
+        - FormularioTipoIntegracaoEnum Acao
+        - ICollection<ProspectoHistoricoIntegracao> HistoricoIntegracao
     }
+    
     Prospecto --> Distribuidora
     Prospecto --> Formulario
     Prospecto --> ProspectoHistoricoIntegracao
-``` 
-
-Esta documentação tem o intuito de servir como um guia técnico, esclarecendo a lógica de negócios e a integridade de dados dentro da estrutura da classe `Prospecto`.
+    Prospecto --> ProspectoStatusEnum
+    Prospecto --> FormularioTipoIntegracaoEnum
+```
+---
+Gerada em 29/12/2025 20:45:37

@@ -4,59 +4,58 @@
 **Nome do Arquivo**: LocalExibicao.cs  
 
 ## Visão Geral e Responsabilidade
-A enumeração `LocalExibicao` define diversos locais nos quais produtos podem ser exibidos no sistema, contribuindo para a lógica de apresentação da interface do usuário em um cenário de e-commerce. O uso correto dessa enumeração permite que o sistema apresente os produtos de maneira adequada, facilitando a visibilidade e a experiência do usuário ao navegar na plataforma.
+A classe `LocalExibicao` é um enumerador que define diferentes locais onde um produto pode ser exibido em um sistema de e-commerce. O objetivo deste enumerador é facilitar a identificação dos contextos em que os produtos podem ser apresentados aos usuários, assegurando que as soluções apresentadas sejam adequadas ao tipo de exibição desejada.
 
 ## Métodos de Negócio
 
-### Título: FaixaProdutos (Estático)
-- **Objetivo**: Garante que os locais apropriados para exibição de produtos sejam sempre utilizados, baseado no tipo de solução.
-- **Comportamento**: 
-  1. O método `FaixaProdutos` recebe um parâmetro `tipoSolucao`.
-  2. Retorna uma lista contendo os locais de exibição que sempre estão disponíveis para qualquer tipo de solução.
-- **Retorno**: Retorna uma lista de `LocalExibicao` que contém `Vitrine`, `Produto`, e `Carrinho`.
+### Título: FaixaProdutos (Visibilidade: public static)
+- **Objetivo**: Retornar uma lista de locais de exibição padrão para diferentes tipos de soluções.
+- **Comportamento**: Este método cria e retorna uma lista contendo os valores `Vitrine`, `Produto` e `Carrinho` do enum `LocalExibicao`, que são os três lugares onde os produtos geralmente são exibidos, independentemente do tipo de solução.
+- **Retorno**: Uma lista de `LocalExibicao` que contém os locais de exibição disponíveis.
 
-### Título: FaixaPopUp (Estático)
-- **Objetivo**: Garante que os locais de exibição para pop-ups sejam adequados ao tipo de solução, otimizando a relevância da apresentação.
-- **Comportamento**: 
-  1. O método `FaixaPopUp` recebe um parâmetro `tipoSolucao`.
-  2. Se o tipo de solução for `B2B`, retorna uma lista com `Vitrine` e `Carrinho`.
-  3. Caso contrário, retorna apenas `Vitrine`.
-- **Retorno**: Retorna uma lista de `LocalExibicao` contendo os locais permitidos para exibição de acordo com o tipo de solução.
+### Título: FaixaPopUp (Visibilidade: public static)
+- **Objetivo**: Determinar os locais de exibição para um pop-up com base no tipo de solução.
+- **Comportamento**: O método verifica o tipo de solução passado como parâmetro. Se for do tipo `B2B`, retorna uma lista com `Vitrine` e `Carrinho`. Para qualquer outro tipo de solução, retorna apenas `Vitrine`. Isso garante que a exibição do pop-up seja adaptada conforme a necessidade do cliente.
+  
 ```mermaid
 flowchart TD
-    A[Início] --> B{TipoSolucao}
-    B -->|B2B| C[Retornar Vitrine, Carrinho]
-    B -->|Outro| D[Retornar Vitrine]
+    A[TipoSolucao] -->|B2B| B[LocalExibicao]
+    A -->|Outro| C[LocalExibicao]
+    B --> D[Vitrine] 
+    B --> E[Carrinho]
+    C --> F[Vitrine]
 ```
 
 ## Propriedades Calculadas e de Validação
-- Não existem propriedades calculadas ou de validação na enumeração `LocalExibicao`.
+- Não há propriedades calculadas ou de validação nesta classe, pois todas as propriedades são de enumeração.
 
 ## Navigations Property
-- Não existem propriedades de navegação nesta classe.
+- Não existem Navigations Properties nesta classe, pois `LocalExibicao` é um enumerador.
 
 ## Tipos Auxiliares e Dependências
-- `TipoSolucao` - Enumeração que categoriza o tipo de solução do fluxo de produtos.
+- **Enumerador**: 
+  - [LocalExibicao](LocalExibicao.md)
+- **Classes Estáticas**:
+  - [LocalExibicaoSafeEnum](LocalExibicaoSafeEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class LocalExibicao {
-        <<enumeration>>
-        +Vitrine
-        +Produto
-        +Carrinho
-        +AcimaTopo
-        +UltimasUnidades
+        <<enumerator>>
+        + Vitrine
+        + Produto
+        + Carrinho
+        + AcimaTopo
+        + UltimasUnidades
     }
+
     class LocalExibicaoSafeEnum {
-        +FaixaProdutos(tipoSolucao: TipoSolucao): List<LocalExibicao>
-        +FaixaPopUp(tipoSolucao: TipoSolucao): List<LocalExibicao>
-    }
-    class TipoSolucao {
-        <<enumeration>>
+        + FaixaProdutos(tipoSolucao)
+        + FaixaPopUp(tipoSolucao)
     }
 
     LocalExibicaoSafeEnum --> LocalExibicao
-    LocalExibicaoSafeEnum --> TipoSolucao
 ```
+---
+Gerada em 29/12/2025 20:57:33

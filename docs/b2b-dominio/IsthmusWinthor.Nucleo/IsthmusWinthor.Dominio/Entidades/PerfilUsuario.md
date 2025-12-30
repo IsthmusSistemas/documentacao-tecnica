@@ -3,47 +3,50 @@
 **Nome do Arquivo**: PerfilUsuario.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PerfilUsuario` representa um modelo de domínio que define um perfil de usuário no sistema. Esse perfil gerencia as permissões associadas aos usuários e sua vinculação a uma distribuidora específica. O problema de negócio que esta classe resolve é a necessidade de organzação e controle de acesso de usuários dentro do sistema, permitindo a atribuição de diferentes permissões e funcionalidades conforme o perfil que cada usuário possui.
+A classe `PerfilUsuario` representa um perfil de usuário dentro do sistema, permitindo a associação de usuários a distribuidoras e a aplicação de permissões específicas a cada perfil. Sua principal responsabilidade é garantir que um usuário tenha o conjunto apropriado de permissões e associações de distribuição, assegurando que as operações realizadas estejam de acordo com os direitos e límites estabelecidos.
 
 ## Métodos de Negócio
-Não há métodos de negócio complexos definidos nesta classe, apenas propriedades para definir o estado do objeto.
+A classe `PerfilUsuario` não contém métodos de negócio complexos, pois suas operações estão inteiramente relacionadas à manipulação de dados de entidades associadas. Portanto, não há detalhamentos para métodos com lógica.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica no `get` ou validação no `set` nesta classe.
+- **Nome**: A propriedade `Nome` deve ser válida e única entre os perfis de usuário, assegurando que não existem dois perfis com o mesmo nome para um mesmo contexto de distribuição. A validação deve garantir que o valor não esteja vazio e que atenda a uma regra de comprimento mínimo e máximo, se necessário.
 
-## Navigations Property
-- [Distribuidora](Distribuidora.md)
-- [PerfilUsuarioPermissao](PerfilUsuarioPermissao.md)
-- [UsuarioDistribuidora](UsuarioDistribuidora.md)
+## Navigation Property
+- [Distribuidora](Distribuidora.md): Representa a distribuidora à qual o perfil de usuário está associado.
+- [PerfilUsuarioPermissao](PerfilUsuarioPermissao.md): Coleção que determina as permissões específicas atribuídas ao perfil do usuário.
+- [UsuarioDistribuidora](UsuarioDistribuidora.md): Coleção que relaciona usuários à distribuidora, permitindo a gestão de usuários dentro da distribuidora associada.
 
 ## Tipos Auxiliares e Dependências
-Nenhum enumerador ou classe estática/helper é utilizada diretamente nesta classe.
+- Nenhum tipo auxiliar ou enumerador específico foi identificado nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-  class PerfilUsuario {
-    +long Id
-    +string Nome
-    +bool Master
-  }
+    class PerfilUsuario {
+        +long Id
+        +string Nome
+        +long DistribuidoraId
+        +bool Master
+    }
 
-  class Distribuidora {
-    +long Id
-    +string Nome
-  }
+    class Distribuidora {
+        +long Id
+        +string Nome
+    }
 
-  class PerfilUsuarioPermissao {
-    +long Id
-    +string Nome
-  }
+    class PerfilUsuarioPermissao {
+        +long Id
+        +string NomePermissao
+    }
 
-  class UsuarioDistribuidora {
-    +long Id
-    +string Nome
-  }
+    class UsuarioDistribuidora {
+        +long Id
+        +string NomeUsuario
+    }
 
-  PerfilUsuario --> Distribuidora : É associado a
-  PerfilUsuario --> PerfilUsuarioPermissao : Contém permissões
-  PerfilUsuario --> UsuarioDistribuidora : Vincula usuários
+    PerfilUsuario --> Distribuidora
+    PerfilUsuario o-- PerfilUsuarioPermissao
+    PerfilUsuario o-- UsuarioDistribuidora
 ```
+---
+Gerada em 29/12/2025 20:42:22

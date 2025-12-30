@@ -1,6 +1,7 @@
 # CarrinhoEditadoResumo
-
 **Namespace**: IsthmusWinthor.Dominio.Analytics.CarrinhoCompras  
-**Nome do Arquivo**: CarrinhoEditadoResumo.cs
+**Nome do Arquivo**: CarrinhoEditadoResumo.cs  
 
-> A classe `CarrinhoEditadoResumo` é utilizada para representar um conjunto de dados analíticos referentes a carrinhos de compras. Ela serve o propósito de transporte de dados (DTO), carregando informações como quantidades de carrinhos abandonados ou recuperados, além de métricas como o percentual de conversão e o valor total recuperado.
+Esta classe serve como um DTO (Data Transfer Object) que transporta dados relacionados ao resumo do carrinho editado em um sistema de e-commerce, especialmente focando em métricas de carrinhos abandonados e ações de remarketing.
+---
+Gerada em 29/12/2025 20:07:08

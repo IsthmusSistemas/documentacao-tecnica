@@ -2,16 +2,12 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: CondicaoVendaEnum.cs  
 
-### Citação
-Enumeração destinada a categorizar as condições de venda no sistema, servindo como um tipo auxiliar para identificar o tipo de transação comercial realizada. 
+O `CondicaoVendaEnum` é um enumerador que define as diferentes condições de venda aplicáveis ao sistema, possibilitando a categorização das transações de forma clara e padronizada.
 
-### Tipos Auxiliares e Dependências
-- `CondicaoVendaEnum`: Enum que define as diferentes condições de venda:
-  - **Revenda**: Representa uma venda para retorno ao mercado de revenda.
-  - **Brinde**: Identifica produtos que são oferecidos como brindes.
-  - **Consumo**: Refere-se a produtos que serão consumidos pelo comprador final. 
+## Tipos Auxiliares e Dependências
+- `CondicaoVendaEnum`: Enumeração que representa as diferentes condições de venda.
 
-### Diagrama de Relacionamentos
+## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class CondicaoVendaEnum {
@@ -21,3 +17,5 @@ classDiagram
         Consumo
     }
 ```
+---
+Gerada em 29/12/2025 20:53:46

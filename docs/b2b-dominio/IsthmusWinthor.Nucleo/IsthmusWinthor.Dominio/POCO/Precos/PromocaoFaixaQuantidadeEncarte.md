@@ -3,30 +3,23 @@
 **Nome do Arquivo**: PromocaoFaixaQuantidadeEncarte.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PromocaoFaixaQuantidadeEncarte` é responsável por encapsular a lógica relacionada à promoção de faixa de quantidade de produtos, que permite aplicar descontos com base na quantidade adquirida. Esta classe gerencia os detalhes da promoção e associa itens que fazem parte dessa promoção, garantindo que as regras de negócio relacionadas a descontos e códigos promocionais sejam adequadamente aplicadas.
+`PromocaoFaixaQuantidadeEncarte` representa uma promoção aplicada a faixas de quantidade de produtos, permitindo gerenciar condições específicas de promoção relacionadas a um ou mais itens. Esta classe é fundamental para implementar a lógica de promoções em um sistema de precificação, permitindo ao negócio proporcionar descontos com base na quantidade adquirida pelo cliente. A classe coordena a obtenção dos códigos da promoção e reúne todos os itens aplicáveis a essa faixa promocional.
 
 ## Métodos de Negócio
-
-### Título: `CodigoPromocao` (Público)
-- **Objetivo**: Garante que o código da promoção retorne o valor correto, priorizando o `CodigoPromocaoMedicamento` quando diferente de zero, caso contrário, retorna o `CodigoPromocaoDistribuidor`.
-- **Comportamento**: 
-  1. Verifica o valor de `CodigoPromocaoMedicamento`.
-  2. Se `CodigoPromocaoMedicamento` é diferente de zero, retorna este valor.
-  3. Se `CodigoPromocaoMedicamento` é zero, retorna o valor de `CodigoPromocaoDistribuidor`.
-- **Retorno**: Retorna um `long` que representa o código da promoção a ser utilizado, seja do medicamento ou do distribuidor.
+### CódigoPromocao (Propriedade)
+- **Objetivo**: Retornar o código da promoção de forma a garantir que, caso exista um código para o medicamento, esse seja priorizado em relação ao código do distribuidor.
+- **Comportamento**: Verifica se `CodigoPromocaoMedicamento` é diferente de zero; se sim, retorna este código, caso contrário retorna `CodigoPromocaoDistribuidor`.
+- **Retorno**: Retorna um `long` que corresponde ao código da promoção que será utilizado na lógica do sistema.
 
 ## Propriedades Calculadas e de Validação
-
-### Propriedade: `CodigoPromocao`
-- **Regra**: A propriedade `CodigoPromocao` calcula seu valor com base na presença de `CodigoPromocaoMedicamento`. Se não estiver configurado, o código do distribuidor é utilizado, garantindo que sempre haja um código válido para a promoção.
+### CódigoPromocao
+- **Regra**: O sistema deve sempre preferir o `CodigoPromocaoMedicamento` se ele for válido (diferente de zero). Caso contrário, utilizará o `CodigoPromocaoDistribuidor` como fallback, assegurando a correta aplicação da promoção.
 
 ## Navigations Property
-- **Itens da Promoção**: `ItensFaixaQuantidade` - uma lista de itens que fazem parte da promoção.
-- Link Presumido: `[ItemFaixaQuantidade](ItemFaixaQuantidade.md)`
+- None.
 
 ## Tipos Auxiliares e Dependências
-- **Enumerador**: 
-  - `[TipoPromocaoEnum](TipoPromocaoEnum.md)`
+- Enum: [TipoPromocaoEnum](TipoPromocaoEnum.md).
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -34,7 +27,12 @@ classDiagram
     class PromocaoFaixaQuantidadeEncarte {
         +long CodigoPromocaoMedicamento
         +long CodigoPromocaoDistribuidor
-        +List<ItemFaixaQuantidade> ItensFaixaQuantidade
+        +string Nome
+        +string Descricao
+        +DateTime? DataInicio
+        +DateTime? DataFim
+        +List~ItemFaixaQuantidade~ ItensFaixaQuantidade
+        +string CondicaoPromocao
     }
 
     class ItemFaixaQuantidade {
@@ -46,10 +44,13 @@ classDiagram
         +long CodigoSubCategoria
         +long CodigoFornecedor
         +long CodigoProdutoPrincipal
+        +string ClasseProduto
         +decimal PercentualDesconto
         +long CodigoLinhaProd
+        +decimal PercentualDescontoFinanceiro
     }
 
     PromocaoFaixaQuantidadeEncarte --> ItemFaixaQuantidade
-    PromocaoFaixaQuantidadeEncarte o-- TipoPromocaoEnum
 ```
+---
+Gerada em 29/12/2025 21:53:17

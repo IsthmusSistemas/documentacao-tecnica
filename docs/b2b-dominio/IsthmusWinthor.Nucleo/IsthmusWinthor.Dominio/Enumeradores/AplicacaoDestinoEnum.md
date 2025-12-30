@@ -2,11 +2,15 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: AplicacaoDestinoEnum.cs  
 
-AplicacaoDestinoEnum é um enumerador que fornece um conjunto de constantes que representam os diferentes destinos de aplicação para interações no sistema. Ele é utilizado para garantir que os destinos de aplicação sejam referenciados de maneira consistente e clara, promovendo a integridade dos dados e a legibilidade do código.
+Enumeração que define os diferentes destinos para aplicação, utilizada para categorizar a finalidade de dados no sistema.
+
+---
 
 ## Tipos Auxiliares e Dependências
-- Enumerador: 
-  - `[AplicacaoDestinoEnum](AplicacaoDestinoEnum.md)`
+- **Enumeradores:**
+  - [AplicacaoDestinoEnum](AplicacaoDestinoEnum.md)
+
+--- 
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -19,3 +23,5 @@ classDiagram
         +SincronizacoesOpenErp
     }
 ```
+---
+Gerada em 29/12/2025 20:52:34

@@ -3,20 +3,14 @@
 **Nome do Arquivo**: FormularioPerfilCampo.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `FormularioPerfilCampo` representa a conexão entre um perfil de formulário e os campos vinculados a ele. Seu papel é garantir que as informações relacionadas aos campos dos formulários sejam devidamente associadas a cada perfil, permitindo que os dados sejam capturados, armazenados e manipulados conforme as necessidades do negócio. Essa classe se insere em um contexto onde diferentes perfis de usuários podem ter suas próprias configurações de campos, essencial para a personalização da experiência do usuário.
+A classe `FormularioPerfilCampo` representa a associação entre um perfil de formulário e um campo específico do ERP. O objetivo desta classe é garantir que cada campo que faz parte do perfil do formulário possa armazenar um valor padrão. Essa funcionalidade é fundamental para a configuração dinâmica de formulários, onde diferentes perfis podem ter campos personalizados com valores predefinidos, garantindo que os dados capturados sejam consistentes e adequados para a aplicação de negócio.
 
-## Métodos de Negócio
-*Não há métodos com lógica complexa a serem documentados nesta classe.*
-
-## Propriedades Calculadas e de Validação
-- **ValorPadrao**: Esta propriedade armazena um valor padrão que pode ser utilizado nos campos do formulário para garantir a integridade e consistência dos dados. A regra de negócios associada à esse campo é que, se o valor padrão não for especificado, deve-se assegurar que não existam valores nulos ou não permitidos, preservando assim a necessária validação dos dados de entrada.
-
-## Navigations Property
-- [FormularioPerfil](FormularioPerfil.md)
-- [FormularioCampoERP](FormularioCampoERP.md)
+## Navegações
+- [FormularioPerfil](FormularioPerfil.md): Classe que representa a raiz do perfil do formulário.
+- [FormularioCampoERP](FormularioCampoERP.md): Classe que representa o campo específico do ERP.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum enumerador ou tipo auxiliar adicional é utilizado nesta classe.
+- Nenhum Enumerador ou Classe Estática/Helper foi identificado na classe `FormularioPerfilCampo`.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -31,7 +25,8 @@ classDiagram
     class FormularioCampoERP {
         +long Id
     }
-
     FormularioPerfilCampo --> FormularioPerfil : "associação"
     FormularioPerfilCampo --> FormularioCampoERP : "associação"
 ```
+---
+Gerada em 29/12/2025 20:33:53

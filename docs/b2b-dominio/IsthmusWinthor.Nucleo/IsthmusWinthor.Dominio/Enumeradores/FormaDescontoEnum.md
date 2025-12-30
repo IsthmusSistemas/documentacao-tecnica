@@ -1,28 +1,21 @@
 # FormaDescontoEnum
-**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: FormaDescontoEnum.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
+- **Nome do Arquivo**: FormaDescontoEnum.cs
 
-### Visão Geral e Responsabilidade
-O `FormaDescontoEnum` é uma enumeração que define as diferentes formas de aplicação de descontos em transações financeiras. A classificação dessas formas permite que o sistema controle e aplique descontos de maneira precisa, garantindo que a lógica de cálculo de preços seja clara e consistente.
-
-### Métodos de Negócio
-Nenhum método de negócio aplicável. A enumeração é utilizada apenas para definir constantes que representam formas de desconto.
-
-### Propriedades Calculadas e de Validação
-Nenhuma propriedade calculada ou de validação.
-
-### Navigation Property
-Nenhuma propriedade de navegação.
+### Citação
+`FormaDescontoEnum` é um enumerador que define as diferentes formas de aplicação de descontos, permitindo uma melhor representação dos tipos de desconto em sistemas corporativos.
 
 ### Tipos Auxiliares e Dependências
-- Nenhum enumerador ou classe auxiliar.
+- Nenhuma dependência complexa ou classe estática mencionada além do próprio tipo enum.
 
 ### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FormaDescontoEnum {
         <<enumeration>>
-        Percentual
-        Valor
+        + Percentual
+        + Valor
     }
 ```
+---
+Gerada em 29/12/2025 20:55:06

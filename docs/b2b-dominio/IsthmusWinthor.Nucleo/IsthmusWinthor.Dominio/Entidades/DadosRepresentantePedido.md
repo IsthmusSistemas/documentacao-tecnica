@@ -1,21 +1,18 @@
 # DadosRepresentantePedido
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: DadosRepresentantePedido.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: DadosRepresentantePedido.cs
 
 ## Visão Geral e Responsabilidade
-A classe `DadosRepresentantePedido` representa as informações relevantes sobre o representante de um pedido específico dentro do sistema. Ela é crucial para gerenciar e registrar detalhes como identificação, contato e perfil do representante relacionado ao pedido, resolvendo o problema de acompanhar e associar corretamente representantes a pedidos na plataforma.
-
-## Métodos de Negócio
-*Nota: A classe não possui métodos com lógica de negócios, apenas propriedades de dados.*
+A classe `DadosRepresentantePedido` representa as informações relacionadas ao representante de um pedido dentro do sistema. Ela é responsável por manter a integridade dos dados do representante, incluindo sua identificação e perfil, que são críticos para o correto processamento e atribuição de pedidos. Essa classe resolve o problema de associar um pedido a um representante específico, facilitando o rastreamento e gerenciamento das vendas.
 
 ## Propriedades Calculadas e de Validação
-- **EmailRepresentante**: Validação a ser aplicada para garantir que o e-mail adotado esteja em um formato válido. Essa validação deve assegurar a integridade dos dados e a confiabilidade da comunicação.
+- Não há propriedades calculadas ou validações específicas neste domínio; todas as propriedades são simples e anêmicas.
 
 ## Navigations Property
-- [Pedido](Pedido.md): Classe complexa que representa o pedido ao qual este dado de representante está associado.
+- [Pedido](Pedido.md): Representa um relacionamento com a classe `Pedido`, que contém informações detalhadas sobre o pedido ao qual o representante está associado.
 
 ## Tipos Auxiliares e Dependências
-- [PerfilRepresentanteEnum](PerfilRepresentanteEnum.md): Enumerador que define os perfis possíveis para um representante, assegurando a consistência dos dados associados.
+- [PerfilRepresentanteEnum](PerfilRepresentanteEnum.md): Enum que define os diferentes perfis possíveis para um representante, permitindo validar e categorizar as informações do representante.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -30,12 +27,10 @@ classDiagram
         +string IdentificadoOrcamento
         +string EmailRepresentante
     }
-    
     class Pedido {
-        +long Id
-        +decimal ValorTotal
-        +DateTime Data
+        <<complex>>
     }
-
     DadosRepresentantePedido --> Pedido
 ```
+---
+Gerada em 29/12/2025 20:27:26

@@ -3,28 +3,31 @@
 **Nome do Arquivo**: ItemMenu.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ItemMenu` representa um item dentro de um menu em uma aplicação. Seu papel é gerenciar as informações relacionadas a um item específico, incluindo seu título, endereço de navegação e a categoria à qual pertence. O problema de negócio que essa classe resolve é o agrupamento e organização dos módulos que podem ser associados a cada item de menu, permitindo uma navegação coesa e intuitiva para o usuário final.
+A classe `ItemMenu` representa os itens que compõem um menu em um sistema. Cada item possui um título, um endereço e se relaciona a uma categoria específica do menu. A principal responsabilidade desta classe é gerenciar informações relacionadas aos itens do menu, assegurando que cada item seja corretamente identificado e posicionado em uma ordem definida. Essa estrutura é essencial para a funcionalidade de navegação do usuário dentro da interface do aplicativo.
 
 ## Métodos de Negócio
-### Título: Equals (override)
-- **Objetivo**: Garante que a comparação entre dois itens de menu seja baseada no valor do `Id`, assegurando que dois `ItemMenu` com o mesmo `Id` sejam considerados iguais, o que é fundamental para operações de busca e manipulação no sistema.
-- **Comportamento**: O método verifica se o objeto fornecido é do tipo `ItemMenu` e, em caso afirmativo, compara seu `Id` com o `Id` do item atual.
-- **Retorno**: Retorna `true` se os `Id`s forem iguais, indicando que os itens são os mesmos. Caso contrário, retorna `false`.
+### Título: Equals | Visibilidade: public override
+- **Objetivo**: Garantir que a comparação entre dois objetos do tipo `ItemMenu` seja baseada no seu identificador único (Id).
+- **Comportamento**:
+  1. Verifica se o objeto passado é um `ItemMenu`.
+  2. Compara o Id do objeto atual com o Id do objeto comparado.
+- **Retorno**: Retorna `true` se os Ids forem iguais, caso contrário, retorna `false`.
 
-### Título: GetHashCode (override)
-- **Objetivo**: Garante que o método retorna um valor hash baseado no `Id` do item de menu, facilitando a utilização e a busca em estruturas de dados que usam hash, como `HashSet`.
-- **Comportamento**: O método utiliza a função `HashCode.Combine` para gerar um valor hash que é único para cada `Id`, assegurando uma distribuição uniforme em coleções hash.
-- **Retorno**: Retorna um valor hash que representa o `Id` do `ItemMenu`.
+### Título: GetHashCode | Visibilidade: public override
+- **Objetivo**: Prover uma representação numérica única para a instância da classe `ItemMenu`, que pode ser usada em coleções hash.
+- **Comportamento**:
+  1. Utiliza o método `HashCode.Combine` para gerar um hash baseado no identificador único (Id) do item do menu.
+- **Retorno**: Retorna um valor hash gerado a partir do Id, utilizado para operações em estruturas de dados que utilizam hashing.
 
 ## Propriedades Calculadas e de Validação
-Não há propriedades com lógica de cálculo ou validação na classe `ItemMenu`.
+- Nenhuma propriedade com lógica de cálculo ou validação foi identificada nesta classe.
 
 ## Navigation Property
-- `CategoriaMenu`: `[CategoriaMenu](CategoriaMenu.md)`
-- `ModulosItemMenu`: `[ModuloItemMenu](ModuloItemMenu.md)`
+- [CategoriaMenu](CategoriaMenu.md)
+- [ModuloItemMenu](ModuloItemMenu.md)
 
 ## Tipos Auxiliares e Dependências
-- Não há enumeradores ou classes estáticas necessárias para o funcionamento de `ItemMenu`.
+- Nenhum enumerador ou classes auxiliares adicionais foram identificados nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -36,17 +39,12 @@ classDiagram
         +long CategoriaMenuId
         +long Ordem
     }
-    
-    class CategoriaMenu {
-        +long Id
-        +string Nome
-    }
 
-    class ModuloItemMenu {
-        +long Id
-        +string Nome
-    }
+    class CategoriaMenu
+    class ModuloItemMenu
 
-    ItemMenu --> CategoriaMenu : Contém
-    ItemMenu --> ModuloItemMenu : Associado a
+    ItemMenu --> CategoriaMenu : "pertence a"
+    ItemMenu --> ModuloItemMenu : "tem muitos"
 ```
+---
+Gerada em 29/12/2025 20:37:51

@@ -1,22 +1,22 @@
 # FormularioFiltro
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: FormularioFiltro.cs  
+**Nome do Arquivo**: FormularioFiltro.cs
 
 ## Visão Geral e Responsabilidade
-A classe `FormularioFiltro` atua como um agregador de informações para estabelecer critérios de filtros a serem aplicados em formulários de dados. Seu objetivo é permitir a filtragem eficaz de informações, definindo intervalos e tipos de operações que podem ser utilizados na consulta de dados, ajudando os usuários a encontrar informações relevantes de forma mais eficiente.
+A classe `FormularioFiltro` representa um filtro aplicável a um formulário, permitindo que os usuários definam critérios específicos para a recuperação de dados. Ela é responsável por encapsular as condições que devem ser atendidas durante a consulta, auxiliando no processo de filtragem de informações com base em parâmetros como valores iniciais e finais, tipo de filtro e tipo de operação. Essa estrutura é fundamental para garantir que os dados retornados estejam dentro dos critérios estipulados, alinhando-se às necessidades de relatórios e análise.
 
 ## Métodos de Negócio
-Nenhum método com lógica complexa foi identificado nesta classe. Todos os métodos adicionais que possam ser implementados devem seguir as regras de negócio estabelecidas.
+*Nenhum método com lógica complexa foi identificado nesta classe. A classe `FormularioFiltro` consiste principalmente em propriedades, sem métodos que implementem regras de negócio, além de getters e setters simples.*
 
 ## Propriedades Calculadas e de Validação
-Nenhuma propriedade com lógica no `get` ou validação no `set` foi identificada nesta classe. Todas as propriedades são simples e armazenam dados diretamente.
+*Nenhuma propriedade calculada ou de validação foi identificada nesta classe.*
 
 ## Navigations Property
-- `[Formulario](Formulario.md)`: Propriedade que representa o formulário associado ao filtro.
+- [Formulario](Formulario.md)
 
 ## Tipos Auxiliares e Dependências
-- `[TipoFiltroFormularioEnum](TipoFiltroFormularioEnum.md)`: Enumerador utilizado para categorizar o tipo de filtro do formulário.
-- `[TipoOperacao](TipoOperacao.md)`: Classe utilizada para definir tipos de operações que podem ser aplicadas ao filtro.
+- [TipoFiltroFormularioEnum](TipoFiltroFormularioEnum.md)
+- [TipoOperacao](TipoOperacao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -31,7 +31,10 @@ classDiagram
 
     class Formulario {
         +long Id
+        +string Nome
     }
 
-    FormularioFiltro --> Formulario : contains
+    FormularioFiltro --> Formulario : referencia
 ```
+---
+Gerada em 29/12/2025 20:33:28

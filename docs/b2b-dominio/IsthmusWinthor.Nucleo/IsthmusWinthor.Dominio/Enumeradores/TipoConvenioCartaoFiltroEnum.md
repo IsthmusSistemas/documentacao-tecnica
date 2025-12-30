@@ -1,17 +1,11 @@
 # TipoConvenioCartaoFiltroEnum
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: TipoConvenioCartaoFiltroEnum.cs  
+**Nome do Arquivo**: TipoConvenioCartaoFiltroEnum.cs
 
-O `TipoConvenioCartaoFiltroEnum` é um enumerador que tem como finalidade categorizar os diferentes filtros que podem ser aplicados em convênios de cartão no sistema. Este enum permite que valores específicos sejam descritos de maneira legível, facilitando a aplicação dessas categorizations em regras de negócio e validação de dados.
+Este classe é um enumerador (enum) que representa os tipos de filtros que podem ser aplicados a convênios de cartão, permitindo uma restrição específica baseada em faixa de CEP.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum.
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class TipoConvenioCartaoFiltroEnum {
-        <<enumeration>>
-        +FaixaCepRestringir
-    }
-```
+- Enumeradores:
+  - [TipoConvenioCartaoFiltroEnum](TipoConvenioCartaoFiltroEnum.md)
+---
+Gerada em 29/12/2025 21:03:23

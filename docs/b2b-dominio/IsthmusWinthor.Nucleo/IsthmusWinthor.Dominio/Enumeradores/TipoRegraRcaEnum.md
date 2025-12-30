@@ -1,26 +1,7 @@
 # TipoRegraRcaEnum
-**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: TipoRegraRcaEnum.cs
+- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
+- **Nome do Arquivo**: TipoRegraRcaEnum.cs
 
-O `TipoRegraRcaEnum` é uma enumeração que define os tipos de regras RCA (Root Cause Analysis) disponíveis no sistema. Esta enumeração é crucial para categorizar as diferentes abordagens utilizadas no gerenciamento e análise de causas raiz no contexto de operação da plataforma.
-
-## Tipos Auxiliares e Dependências
-- **Enums**:
-  - `[TipoRegraRcaEnum](TipoRegraRcaEnum.md)`: Representa as diferentes categorias de regras RCA.
-
-## Diagrama de Relacionamentos
-```mermaid
-classDiagram
-    class TipoRegraRcaEnum {
-        <<enumeration>>
-        RcaPadraoPlataforma
-        RcaDoCliente
-        RcaFornecedor
-        RcaDepartamentoSecao
-        RcaManual
-        RcaLinhaPrazo
-        RcaClienteFilialMedicamento
-    }
-``` 
-
-Neste documento, são exploradas as definições de tipos de regras RCA, evidenciando a estrutura da enumeração e suas finalidades.
+Esta classe enumeração define os tipos de regras aplicáveis no contexto do sistema, facilitando a categorização e a aplicação de diferentes regras de negócios relacionadas aos RCAs (Relatórios de Conformidade Ágil). Cada tipo de regra corresponde a uma fonte ou critério específico que pode influenciar a lógica de negócios do sistema.
+---
+Gerada em 29/12/2025 21:06:40

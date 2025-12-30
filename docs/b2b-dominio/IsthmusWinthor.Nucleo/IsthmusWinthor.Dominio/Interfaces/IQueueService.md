@@ -1,48 +1,45 @@
 # IQueueService
-
 **Namespace**: IsthmusWinthor.Dominio.Interfaces  
 **Nome do Arquivo**: IQueueService.cs
 
-## Visão Geral e Responsabilidade
-A interface `IQueueService` atua como um contrato para serviços de fila no sistema. Ela permite que o sistema envie (`Push`) e receba (`Pop`) mensagens através de filas, facilitando a comunicação assíncrona entre diferentes componentes da aplicação. Essa abstração é essencial em sistemas distribuídos ou em arquiteturas baseadas em microsserviços, onde a troca de mensagens entre serviços é um padrão comum. Ela resolve problemas relacionados à decoupling de componentes, permitindo uma melhor escalabilidade e resiliência do sistema.
+A interface `IQueueService` estabelece um contrato para serviços de manipulação de filas, facilitando a troca de mensagens entre diferentes componentes do sistema. Sua implementação garante que mensagens possam ser empilhadas (push) e removidas (pop) de maneira confiável, assegurando que as regras de negócio associadas à comunicação assíncrona entre módulos sejam respeitadas.
 
-## Métodos de Negócio
+### Métodos de Negócio
 
-### `Pop<T>(string queueName, Action<T> consumer)` - Público
-- **Objetivo**: Garante a retirada de uma mensagem da fila para processamento.
+#### Método: `Pop<T>(string queueName, Action<T> consumer)`
+- **Visibilidade**: Public
+- **Objetivo**: Garante a extração de mensagens de uma fila, permitindo que um consumidor processe a mensagem recebida.
 - **Comportamento**: 
-  1. O método recebe o nome da fila como um parâmetro.
-  2. Em seguida, ele utiliza uma ação do consumidor, que processará a mensagem retirada da fila.
-  3. A operação é tipada, garantindo que a mensagem retirada seja compatível com o tipo `T` que implementa a interface `IQueueMessage`.
-- **Retorno**: Este método não retorna um valor; o resultado do processamento da mensagem é gerenciado pelo consumidor fornecido.
+  1. Recebe o nome da fila e um consumidor como parâmetros.
+  2. A fila identificada é buscada.
+  3. A mensagem é removida da fila.
+  4. O consumidor é chamado com a mensagem removida.
+  5. Ao final, a mensagem é processada pelo consumidor, que pode realizar ações adicionais conforme a lógica da aplicação.
+- **Retorno**: O método não retorna um valor; o resultado é processado através do consumidor.
 
-### `Push<T>(string queueName, T data)` - Público
-- **Objetivo**: Garante a inserção de uma mensagem na fila.
+#### Método: `Push<T>(string queueName, T data)`
+- **Visibilidade**: Public
+- **Objetivo**: Garante o armazenamento de mensagens na fila especificada.
 - **Comportamento**: 
-  1. O método recebe o nome da fila e os dados a serem enviados como parâmetros.
-  2. Os dados devem ser do tipo `T`, que deve implementar a interface `IQueueMessage`, assegurando assim que apenas mensagens válidas sejam adicionadas à fila.
-  3. A operação adiciona a mensagem na fila especificada para ser consumida posteriormente.
-- **Retorno**: Este método não retorna um valor, mas assegura que a mensagem foi registrada na fila.
+  1. Recebe o nome da fila e os dados a serem enviados como parâmetros.
+  2. A fila identificada é buscada ou criada se não existir.
+  3. Os dados são empilhados na fila para posterior processamento.
+  4. A operação é completada, garantindo que a mensagem esteja disponível na fila.
+- **Retorno**: O método não retorna um valor, confirmando apenas a inclusão dos dados na fila.
 
-## Propriedades Calculadas e de Validação
-Não existem propriedades com lógica de cálculo no `get` ou validação no `set` nesta interface, pois seu propósito é ser um contrato para interação com filas.
+### Tipos Auxiliares e Dependências
+- Interface: [IQueueMessage](IQueueMessage.md)
 
-## Navigation Property
-Não existem propriedades complexas do domínio que estejam associadas a esta interface.
-
-## Tipos Auxiliares e Dependências
-- `IQueueMessage`: Interface que deve ser implementada pelas mensagens que serão processadas pela fila.
-
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class IQueueService {
-        +Pop<T>(string queueName, Action<T> consumer)
-        +Push<T>(string queueName, T data)
+        +Pop<T>(queueName: string, consumer: Action<T>)
+        +Push<T>(queueName: string, data: T)
     }
-
     class IQueueMessage
-
-    IQueueService --> IQueueMessage : utiliza
+    
+    IQueueService --> IQueueMessage : uses
 ```
-
+---
+Gerada em 29/12/2025 21:17:27

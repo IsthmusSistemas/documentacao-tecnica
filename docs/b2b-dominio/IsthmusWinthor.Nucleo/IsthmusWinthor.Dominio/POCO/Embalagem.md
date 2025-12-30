@@ -1,43 +1,40 @@
 # Embalagem
-
 **Namespace**: IsthmusWinthor.Dominio.POCO  
 **Nome do Arquivo**: Embalagem.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `Embalagem` representa o conceito de embalagem de um produto dentro do sistema. Ela é responsável por calcular o preço de uma embalagem a partir do preço unitário do produto, considerando diversos parâmetros como o fator de preço e a quantidade de unidades por embalagem. Este cálculo é essencial para garantir a integridade dos preços apresentados aos clientes, assegurando que todos os fatores envolvidos na embalagem do produto sejam considerados corretamente.
+A classe `Embalagem` representa um modelo de domínio que encapsula informações e comportamentos relacionados a embalagens de produtos. O principal problema de negócio que esta classe resolve é o cálculo do preço de uma determinada embalagem de produto, considerando diferentes fatores como o fator de preço, a quantidade unitaria da embalagem e regras de arredondamento. Esta lógica assegura que o preço final refletido na operação de venda seja correto e aderente às políticas de precificação da organização.
 
 ## Métodos de Negócio
 
-### PrecoEmbalagem - Public
-- **Objetivo**: Garantir que o cálculo do preço da embalagem esteja correto, considerando se o preço deve ser arredondado e o fator de preço aplicável.
+### PrecoEmbalagem (public)
+- **Objetivo**: Este método garante que o preço da embalagem é calculado corretamente com base na política de arredondamento e no fator de preço, assegurando uma precisão apropriada no valor final apresentado ao cliente.
 - **Comportamento**: 
-  1. Inicializa a variável `precoEmbalagem` como 0.
-  2. Determina o `fatorPreco` com base na flag `usarFatorPreco`.
-  3. Verifica se a flag `ArredondarPrecoAntesMultiplicarEmbalagem` está ativa.
-     - Se ativa:
-       - Calcula o preço multiplicando o `preco` pelo `fatorPreco`, arredonda o resultado de acordo com `QuantidadeCasasDecimaisArredondamento` e multiplica pelo `QuantidadeUnitaria`.
-     - Se não ativa:
-       - Calcula o preço diretamente multiplicando o `preco`, `fatorPreco` e `QuantidadeUnitaria`.
-  4. Retorna o valor calculado para `precoEmbalagem`.
-- **Retorno**: Retorna o preço final da embalagem como um valor decimal, que pode ser utilizado para definição de preços ao consumidor.
+  1. Inicializa `precoEmbalagem` com zero.
+  2. Determina o `fatorPreco` a ser utilizado com base no parâmetro `usarFatorPreco`.
+  3. Avalia se o parâmetro `ArredondarPrecoAntesMultiplicarEmbalagem` é verdadeiro.
+     - Se verdadeiro, aplica o arredondamento no resultado da multiplicação entre `preco` e `fatorPreco`, utilizando a quantidade de casas decimais especificadas. Em seguida, multiplica pelo `QuantidadeUnitaria`.
+     - Se falso, simplesmente multiplica `preco`, `fatorPreco` e `QuantidadeUnitaria`.
+  4. Retorna o `precoEmbalagem` calculado.
+- **Retorno**: Retorna um `decimal` que representa o preço final da embalagem, considerando as regras de arredondamento e multiplicação.
 
 ```mermaid
 flowchart TD
-    A[Início] --> B{ArredondarPrecoAntesMultiplicarEmbalagem}
-    B -- Sim --> C[Calcula preço com arredondamento]
-    B -- Não --> D[Calcula preço sem arredondamento]
-    C --> E[Retorna preço embalado]
-    D --> E[Retorna preço embalado]
+    A[Início] --> B{ArredondarPrecoAntesMultiplicarEmbalagem?}
+    B -- Sim --> C[Calcular preço com arredondamento]
+    C --> D[Retornar preço]
+    B -- Não --> E[Calcular preço sem arredondamento]
+    E --> D
 ```
 
 ## Propriedades Calculadas e de Validação
-- **ArredondarPrecoAntesMultiplicarEmbalagem**: Esta propriedade indica se o preço deve ser arredondado antes da multiplicação. A regra de negócio garante que, se o arredondamento for necessário, seja feito com precisão especificada em `QuantidadeCasasDecimaisArredondamento`.
-  
+- Não há propriedades que contenham lógica no `get` ou validação no `set`.
+
 ## Navigations Property
-- [TipoEmbalagem](TipoEmbalagem.md): Enum que define os tipos de embalagem disponíveis.
+- Não há propriedades que sejam classes complexas do domínio.
 
 ## Tipos Auxiliares e Dependências
-- [TipoEmbalagemEnum](TipoEmbalagemEnum.md): Enum necessário para definir o tipo de embalagem.
+- Utiliza o enumerador [TipoEmbalagemEnum](TipoEmbalagemEnum.md) para determinar o tipo de embalagem.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -56,8 +53,7 @@ classDiagram
         +int QuantidadeCasasDecimaisArredondamento
         +decimal PrecoEmbalagem(decimal preco, bool usarFatorPreco)
     }
-    
-    class TipoEmbalagemEnum
-
-    Embalagem --> TipoEmbalagemEnum
+    Embalagem -- TipoEmbalagemEnum
 ```
+---
+Gerada em 29/12/2025 21:33:05

@@ -1,5 +1,20 @@
 # FiltroPlataformaEnum
-**Namespace**: IsthmusWinthor.Dominio.Enumeradores  
-**Nome do Arquivo**: FiltroPlataformaEnum.cs  
+- **Namespace**: IsthmusWinthor.Dominio.Enumeradores
+- **Nome do Arquivo**: FiltroPlataformaEnum.cs
 
-Esta classe é um enumerador utilizado para categorizar diferentes plataformas de acesso, facilitando o transporte de dados referentes à escolha da plataforma em um sistema.
+Esta classe enum é responsável por definir os diferentes filtros de plataforma disponíveis no sistema, facilitando a seleção de opções para o usuário.
+
+## Tipos Auxiliares e Dependências
+- Não há outros tipos auxiliares ou dependências listados além desta enumeração.
+
+## Diagrama de Relacionamentos
+```mermaid
+classDiagram
+    class FiltroPlataformaEnum {
+        + Ambos
+        + App
+        + Site
+    }
+```
+---
+Gerada em 29/12/2025 20:54:46

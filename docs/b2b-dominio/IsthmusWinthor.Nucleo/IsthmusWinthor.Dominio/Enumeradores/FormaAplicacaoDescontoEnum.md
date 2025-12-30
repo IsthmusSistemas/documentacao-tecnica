@@ -2,17 +2,20 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FormaAplicacaoDescontoEnum.cs  
 
-Este enumerador define as diferentes formas de aplicação de descontos em um sistema, resolvendo o problema de como gerir promoções em itens de venda, permitindo diferentes comportamentos em relação aos itens em promoção.
+Este é um enumerador que define as diferentes formas de aplicação de descontos em um sistema. Ele tem a função de categorizar como os descontos devem ser aplicados nas transações, influenciando o resultado financeiro e a percepção de promoções pelos usuários.
 
 ## Tipos Auxiliares e Dependências
-- Este enum é uma classe auxiliar que permite configurar a lógica de negócio relacionada à aplicação de descontos.
+- Nenhum tipo auxiliar ou classe estática adicional é utilizado.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class FormaAplicacaoDescontoEnum {
-        +RemoverPromocoes
-        +AplicarSobrePromocoes
-        +NaoAplicarItensPromocao
+        <<enumeration>>
+        + RemoverPromocoes
+        + AplicarSobrePromocoes
+        + NaoAplicarItensPromocao
     }
 ```
+---
+Gerada em 29/12/2025 20:55:03

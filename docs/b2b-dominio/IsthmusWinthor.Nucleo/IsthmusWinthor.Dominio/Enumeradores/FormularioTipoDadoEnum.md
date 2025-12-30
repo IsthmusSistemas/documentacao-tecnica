@@ -2,10 +2,11 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: FormularioTipoDadoEnum.cs  
 
-'FormularioTipoDadoEnum' é um enumerador que define os tipos de dados que podem ser utilizados em formulários dentro do sistema. Ele é utilizado para garantir que os dados capturados estejam de acordo com as expectativas de tipo, facilitando a validação e o processamento correto dos dados.
+O `FormularioTipoDadoEnum` é uma enumeração que define os tipos de dados disponíveis para formulários em um sistema. Cada tipo representa uma categoria específica de dados que podem ser manipulados dentro da aplicação, garantindo que os dados sejam tratados adequadamente conforme suas características.
 
 ## Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou dependência é utilizado diretamente por esta classe além dos padrões de tipos do C#.
+- **Enumeradores:**
+  - [FormularioTipoDadoEnum](FormularioTipoDadoEnum.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -19,3 +20,5 @@ classDiagram
         +Array
     }
 ```
+---
+Gerada em 29/12/2025 20:56:18

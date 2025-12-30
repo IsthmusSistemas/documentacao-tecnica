@@ -3,30 +3,30 @@
 **Nome do Arquivo**: CampanhaCashBackEncarte.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `CampanhaCashBackEncarte` representa uma promoção do tipo cashback. O intuito desta classe é encapsular os detalhes de uma campanha de cashback, que reembolsa ao cliente uma porcentagem ou valor fixo em suas compras, condicionados a um período específico e a itens participantes. A classe trata das regras que regem a promoção, incluindo a definição de condições e o gerenciamento dos itens que se qualificam para a promoção.
+A classe `CampanhaCashBackEncarte` representa uma promoção do tipo cashback no sistema, permitindo que os clientes recebam de volta uma porcentagem do valor gasto em compras de produtos específicos. Esta classe é fundamental para a implementação de estratégias de marketing e atração de clientes, além de oferecer uma forma de fidelização através de benefícios financeiros. Assim, ela facilita o acompanhamento e a gestão de campanhas promocionais com base nas condições estabelecidas.
 
 ## Métodos de Negócio
-**Título**: `TipoPromocao` (getter)  
-**Objetivo**: Garante que a promoção é do tipo cashback.  
-**Comportamento**: Retorna um enum que representa o tipo da promoção, especificamente `TipoPromocaoEnum.CashBack`.  
-**Retorno**: Retorna o tipo de promoção especificado como cashback.
+### Título: TipoPromocao (Acessor de Leitura)
+- **Objetivo**: Retornar o tipo da promoção, que neste caso é `TipoPromocaoEnum.CashBack`.
+- **Comportamento**: Este método não contém lógica condicional, sendo simplesmente uma propriedade que retorna um valor fixo do enumerador.
+- **Retorno**: Retorna um valor do tipo `TipoPromocaoEnum`, indicando que a promoção é do tipo cashback.
 
-**Título**: `CodigoPromocao` (getter)  
-**Objetivo**: Fornece um identificador único para a promoção baseada no ID.  
-**Comportamento**: Retorna o valor da propriedade `Id`, que representa o código da promoção dentro do sistema.  
-**Retorno**: Um número longo que representa o código da promoção.
+### Título: CodigoPromocao (Acessor de Leitura)
+- **Objetivo**: Fornecer o código da promoção que será utilizado ao transpor a `CampanhaCashBackEncarte` para a entidade `PromocaoEncarte`.
+- **Comportamento**: Retorna o valor do identificador (`Id`) da campanha.
+- **Retorno**: Retorna um `long`, que é o identificador da promoção.
 
 ## Propriedades Calculadas e de Validação
-- **Id**: Não possui validação explícita, mas deve ser assegurado que este ID é único em relação a outras campanhas no sistema.
-- **DataInicio** e **DataFim**: Devem ser validáveis para garantir que as datas estejam em uma lógica correta (Data de início não deve ser posterior à data de fim).
+- **TipoPromocao**: Esta propriedade é uma representação fixa do tipo de promoção. Não há lógica de validação, mas garante que este modelo de promoção sempre será identificado corretamente como cashback.
+- **CodigoPromocao**: Relaciona-se diretamente ao `Id`, servindo para assegurar que o código da promoção esteja sempre associado à instância correta.
 
-## Navigation Property
-- **ItemCashBackCampanha**: 
-  - Representa a coleção de itens que participam da campanha. Cada item é uma instância da classe `[ItemCashBackCampanha](ItemCashBackCampanha.md)`.
+## Navegations Property
+- **ItemCashBackCampanha**: Esta propriedade é uma lista de `ItemCashBackCampanha`. Cada item dessa lista representa um produto que participa da campanha de cashback.  
+  O link presumido para a classe: [ItemCashBackCampanha](ItemCashBackCampanha.md).
 
 ## Tipos Auxiliares e Dependências
-- **Enums**: 
-  - `[TipoPromocaoEnum](TipoPromocaoEnum.md)`: Enum que define os tipos de promoções disponíveis no sistema.
+- **Enumeradores**: 
+  - [TipoPromocaoEnum](TipoPromocaoEnum.md). Este enumerador define os tipos de promoção disponíveis no sistema.
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -38,6 +38,7 @@ classDiagram
         +DateTime? DataInicio
         +DateTime? DataFim
         +string CondicaoPromocao
+        +List<ItemCashBackCampanha> ItemCashBackCampanha
     }
     
     class ItemCashBackCampanha {
@@ -48,8 +49,7 @@ classDiagram
         +long CodigoSubCategoria
     }
     
-    CampanhaCashBackEncarte "1" --> "*" ItemCashBackCampanha : contém >
-    TipoPromocaoEnum <|-- CampanhaCashBackEncarte : utiliza >
-``` 
-
-Esta documentação sintetiza o papel de `CampanhaCashBackEncarte` no sistema, bem como suas propriedades e interações com outras classes do domínio, promovendo uma visão clara e organizada das regras de negócio envolvidas.
+    CampanhaCashBackEncarte --> ItemCashBackCampanha
+```
+---
+Gerada em 29/12/2025 21:49:41

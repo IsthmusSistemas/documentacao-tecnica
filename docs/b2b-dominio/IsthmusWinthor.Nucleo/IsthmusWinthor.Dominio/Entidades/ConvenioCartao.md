@@ -1,61 +1,60 @@
 # ConvenioCartao
+
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: ConvenioCartao.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `ConvenioCartao` representa um convênio associado a um cartão, permitindo a gestão de credenciais e restrições aplicáveis a esses convênios. Essa classe é fundamental para garantir que os cartões sejam utilizados de acordo com as regras estabelecidas, assegurando que apenas operações autorizadas sejam permitidas com base nos filtros de aplicativo. Ela resolve o problema de negócio relacionado ao controle de credenciais e acesso a convênios de pagamento.
+A classe `ConvenioCartao` representa um convênio de cartão que é utilizado em transações financeiras, servindo como um ponto de controle das credenciais, bandeiras, e filtros associados a cartões em um sistema corporativo. Ela assegura a integridade das operações relacionadas a transações de cartão por meio de regras de negócio, que incluem a validação e a aplicação de filtros diversos dependendo do contexto do cliente. O problema de negócio que essa classe resolve é a gestão eficiente e segura das operações de cartões, permitindo que apenas convênios adequados sejam utilizados.
 
 ## Métodos de Negócio
 
-### 1. Credencial(FiltroConvenioCartao filtroConvenioCartao)
-- **Objetivo**: Garante que seja retornada a credencial ativa apropriada baseada no filtro de convênio, caso exista.
+### Credencial (public)
+- **Objetivo**: Garante que a classe retorne a credencial apropriada para um convênio de cartão com base em um filtro fornecido.
 - **Comportamento**: 
-  1. Verifica se o filtro `filtroConvenioCartao` é nulo. Se for, assume-se que não há filtro.
-  2. Se o filtro não for nulo, busca uma credencial ativa que corresponda ao código da filial presente no filtro.
-  3. Retorna a primeira credencial que corresponder ao filtro. Se não encontrar, retorna a primeira credencial ativa sem restrições de filial.
-- **Retorno**: Retorna uma instância de `ConvenioCartaoCredencial`, que representa a credencial apropriada, ou `null` se nenhuma credencial estiver disponível.
+  1. Verifica se o filtro fornecido é nulo.
+  2. Se o filtro não for nulo, procura nas credenciais ativas a primeira credencial que corresponda ao código da filial fornecido no filtro.
+  3. Se não encontrar uma credencial que corresponda, retorna a primeira credencial ativa que não está vinculada a nenhuma filial.
+- **Retorno**: Retorna um objeto `ConvenioCartaoCredencial` que é a credencial correspondente ao filtro ou nula se nenhuma for encontrada.
 
-### 2. ConvenioOperadoraCartao(FiltroConvenioCartao filtroConvenioCartao)
-- **Objetivo**: Obtém a operadora de cartão associada à credencial do convênio, usando o filtro.
+### ConvenioOperadoraCartao (public)
+- **Objetivo**: Retorna a operadora de cartão associada ao convênio baseado no filtro fornecido.
 - **Comportamento**: 
-  1. Chama o método `Credencial` para obter a credencial correspondente ao filtro.
-  2. Retorna a operadora de cartão da credencial obtida.
-- **Retorno**: Retorna uma instância de `OperadoraCartao` associada à credencial, ou `null` se a credencial não for encontrada.
+  1. Chama o método `Credencial` passando o filtro.
+  2. Retorna a operadora de cartão da credencial encontrada.
+- **Retorno**: Retorna um objeto `OperadoraCartao` ou nulo se nenhuma credencial adequada for encontrada.
 
-### 3. ConvenioDiasCaptura(FiltroConvenioCartao filtroConvenioCartao)
-- **Objetivo**: Retorna o número de dias de captura associado à credencial de cartão, utilizando o filtro fornecido.
+### ConvenioDiasCaptura (public)
+- **Objetivo**: Fornece a quantidade de dias para captura definida pela credencial associada ao convênio para o filtro fornecido.
 - **Comportamento**: 
-  1. Invoca o método `Credencial` para recuperar a credencial ativa em função do filtro.
-  2. Retorna o valor de `DiasCaptura` da credencial, sendo zero caso a credencial não seja encontrada.
-- **Retorno**: Um inteiro representando os dias de captura, ou `0` se não houver credencial disponível.
+  1. Chama o método `Credencial`.
+  2. Retorna o número de dias de captura da credencial encontrada ou zero se não houver credencial adequada.
+- **Retorno**: Um inteiro que representa os dias para captura.
 
-### 4. SeAplicaFiltroConvenio(ClienteLogado cliente)
-- **Objetivo**: Determina se o convênio se aplica ao cliente baseado nos filtros definidos.
+### SeAplicaFiltroConvenio (public)
+- **Objetivo**: Avalia se os filtros associados ao convênio se aplicam a um cliente logado específico.
 - **Comportamento**: 
-  1. Verifica se há filtros definidos. Se não houver, retorna `true`.
-  2. Para cada filtro presente:
-     - Identifica o tipo de filtro e executa a lógica de verificação.
-     - No caso de um filtro de faixa de CEP, divide o valor do filtro em dois para obter os limites da faixa.
-     - Verifica se o CEP do cliente encontra-se fora da faixa especificada.
-  3. Retorna verdadeiro se todos os filtros forem aplicados corretamente, ou falso caso contrário.
-- **Retorno**: Um booleano indicando se o convênio se aplica ao cliente.
+  1. Verifica se há filtros estabelecidos e se estão ativos.
+  2. Para cada filtro, verifica se o tipo de filtro é `FaixaCepRestringir`.
+  3. Com base no tipo de filtro, parseia os valores para determinar se o CEP do cliente está fora da faixa permitida.
+  4. Retorna verdadeiro se todos os filtros forem atendidos.
+- **Retorno**: Um valor booleano indicando se os filtros se aplicam ao cliente.
 
 ```mermaid
 flowchart TD
-    A[SeAplicaFiltroConvenio(cliente)]
-    A -->|Filtros nulos| B[true]
-    A -->|Filtros existentes| C[Verifica todos os filtros]
-    C --> D[Tipo: FaixaCepRestringir]
-    D --> E{Cliente dentro da faixa?}
-    E -->|Sim| F[false]
-    E -->|Não| G[continue verificando]
-    C -->|Todos filtros verificados| H[true]
+    A[SeAplicaFiltroConvenio] -->|Filtros nulo ou vazio| B[Retorna verdadeiro]
+    A --> C{Contém filtros}
+    C -->|Sim| D[Filtro: FaixaCepRestringir]
+    C -->|Não| B[Retorna verdadeiro]
+    D --> E[Parseia valores do filtro]
+    E -->|Coherrente| F[Compara CEP do cliente ao filtro]
+    F -->|Dentro da faixa| G[Retorna falso]
+    F -->|Fora da faixa| H[Retorna verdadeiro]
 ```
 
 ## Propriedades Calculadas e de Validação
-- Nenhuma propriedade com lógica de cálculo ou validação encontrada.
+- **Credencial**: O método `Credencial` utilizou a lógica de verificação das credenciais ativas, assegurando a seleção correta baseada em um filtro. Não é uma propriedade, mas a lógica de validação do método é crucial para garantir a integridade dos dados transportados nas transações.
 
-## Navigation Property
+## Navigations Property
 - [Distribuidora](Distribuidora.md)
 - [ConvenioCartaoCredencial](ConvenioCartaoCredencial.md)
 - [ConvenioBandeira](ConvenioBandeira.md)
@@ -63,24 +62,31 @@ flowchart TD
 
 ## Tipos Auxiliares e Dependências
 - [TipoConvenioCartaoFiltroEnum](TipoConvenioCartaoFiltroEnum.md)
+- [ClienteLogado](ClienteLogado.md)
+- [OperadoraCartao](OperadoraCartao.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ConvenioCartao {
-        long Id
-        string Descricao
-        bool Habilitado
+        +long Id
+        +Distribuidora Distribuidora
+        +long DistribuidoraId
+        +string Descricao
+        +bool Habilitado
+        +ICollection<ConvenioCartaoCredencial> ConvenioCartaoCredenciais
+        +ICollection<ConvenioBandeira> Bandeiras
+        +ICollection<ConvenioCartaoFiltro> Filtros
     }
     class Distribuidora
     class ConvenioCartaoCredencial
     class ConvenioBandeira
     class ConvenioCartaoFiltro
-    class TipoConvenioCartaoFiltroEnum
 
-    ConvenioCartao --> Distribuidora : "associado a"
-    ConvenioCartao --> "0..*" ConvenioCartaoCredencial : "possui"
-    ConvenioCartao --> "0..*" ConvenioBandeira : "possui"
-    ConvenioCartao --> "0..*" ConvenioCartaoFiltro : "possui"
-    ConvenioCartaoFiltro --> TipoConvenioCartaoFiltroEnum : "usa"
+    ConvenioCartao --> Distribuidora
+    ConvenioCartao --> ConvenioCartaoCredencial
+    ConvenioCartao --> ConvenioBandeira
+    ConvenioCartao --> ConvenioCartaoFiltro
 ```
+---
+Gerada em 29/12/2025 20:25:02

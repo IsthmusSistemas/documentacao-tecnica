@@ -2,17 +2,20 @@
 **Namespace**: IsthmusWinthor.Dominio.Enumeradores  
 **Nome do Arquivo**: TipoApiCorreios.cs  
 
-O `TipoApiCorreios` é um enumerador que define os tipos de formato de resposta que podem ser utilizados ao interagir com a API dos Correios. Ele é essencial para garantir que os serviços que dependem da comunicação com essa API manipulem respostas no formato adequado, seja em XML ou JSON.
+O `TipoApiCorreios` é um enumerador que define os tipos de formatos aceitos na comunicação com a API dos Correios, sendo uma parte vital na configuração de métodos que precisam especificar o formato de resposta esperado (XML ou JSON).
 
-## Tipos Auxiliares e Dependências
-- `TipoApiCorreios` (Enumerador utilizado para especificar o formato da API de integração com os Correios).
+### Tipos Auxiliares e Dependências
+- **Enum**:
+  - [TipoApiCorreios](TipoApiCorreios.md) - Enumeração que lista os tipos de formato aceitos pela API dos Correios.
 
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class TipoApiCorreios {
-        <<enumerator>>
-        Xml
-        Json
+        <<enumeration>>
+        +Xml
+        +Json
     }
 ```
-
+---
+Gerada em 29/12/2025 21:02:38

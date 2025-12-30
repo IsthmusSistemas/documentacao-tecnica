@@ -3,52 +3,49 @@
 **Nome do Arquivo**: PromocoesErp.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `PromocoesErp` atua como uma raiz de agregado para gerenciar diversas promoções dentro de um sistema de preços corporativo. Ela encapsula diferentes tipos de promoções, como preços fixos, combos, faixas de quantidade e promoções de mix, permitindo a implementação e manipulação coerente das regras de negócio associadas às promoções de vendas. Isso garante que as promoções sejam configuradas e acessadas de maneira organizada, facilitando a gestão de preços e ofertas para os produtos.
+A classe `PromocoesErp` atua como um agregado que gerencia diferentes tipos de promoções e preços fixos no sistema. Ela permite a organização e a manipulação de diversas estratégias promocionais, assegurando a integridade dos dados relacionados à precificação e oferta de brindes. A problemática que esta classe resolve é a necessidade de gerenciar de forma eficiente várias promoções e políticas de preço para acomodar as dinâmicas do mercado e das vendas.
 
-## Propriedades
-A classe contém as seguintes propriedades que mantêm associações com outras classes do domínio:
-- `List<PrecoFixo> PrecosFixos`: Representa os preços fixos aplicáveis.
-- `List<Combo> Combos`: Contém informações sobre combos de produtos.
-- `List<FaixaQuantidade> FaixasQuantidade`: Define faixas de quantidade para a aplicação de promoções.
-- `List<PromoMix> PromosMix`: Representa promoções de mix de produtos.
-- `List<PromoValorMinimo> PromosValorMinimo`: Gerencia as promoções com base em valores mínimos de compras.
-- `List<Brinde> Brindes`: Contém informações sobre brindes oferecidos juntamente com as promoções.
-- `List<PromoMarkup> PromosMarkup`: Abarca promoções relacionadas a markups.
-- `List<PromoFlex> PromosFlex`: Trata promoções flexíveis com regras específicas.
+## Métodos de Negócio
+Não há métodos específicos com lógica de negócio implementada nesta classe.
 
-## Navigations Property
-- `[PrecoFixo](PrecoFixo.md)`
-- `[Combo](Combo.md)`
-- `[FaixaQuantidade](FaixaQuantidade.md)`
-- `[PromoMix](PromoMix.md)`
-- `[PromoValorMinimo](PromoValorMinimo.md)`
-- `[Brinde](Brinde.md)`
-- `[PromoMarkup](PromoMarkup.md)`
-- `[PromoFlex](PromoFlex.md)`
+## Propriedades Calculadas e de Validação
+Não existem propriedades com lógica de 'get' ou validação de 'set' nesta classe.
+
+## Navigation Property
+- [PrecoFixo](PrecoFixo.md)
+- [Combo](Combo.md)
+- [FaixaQuantidade](FaixaQuantidade.md)
+- [PromoMix](PromoMix.md)
+- [PromoValorMinimo](PromoValorMinimo.md)
+- [Brinde](Brinde.md)
+- [PromoMarkup](PromoMarkup.md)
+- [PromoFlex](PromoFlex.md)
 
 ## Tipos Auxiliares e Dependências
-- `PrecoFixo`
-- `Combo`
-- `FaixaQuantidade`
-- `PromoMix`
-- `PromoValorMinimo`
-- `Brinde`
-- `PromoMarkup`
-- `PromoFlex`
+Não há enumeradores ou classes estáticas/helpers utilizados diretamente nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class PromocoesErp {
-        + List<PrecoFixo> PrecosFixos
-        + List<Combo> Combos
-        + List<FaixaQuantidade> FaixasQuantidade
-        + List<PromoMix> PromosMix
-        + List<PromoValorMinimo> PromosValorMinimo
-        + List<Brinde> Brindes
-        + List<PromoMarkup> PromosMarkup
-        + List<PromoFlex> PromosFlex
     }
+    class PrecoFixo {
+    }
+    class Combo {
+    }
+    class FaixaQuantidade {
+    }
+    class PromoMix {
+    }
+    class PromoValorMinimo {
+    }
+    class Brinde {
+    }
+    class PromoMarkup {
+    }
+    class PromoFlex {
+    }
+
     PromocoesErp --> PrecoFixo
     PromocoesErp --> Combo
     PromocoesErp --> FaixaQuantidade
@@ -58,3 +55,5 @@ classDiagram
     PromocoesErp --> PromoMarkup
     PromocoesErp --> PromoFlex
 ```
+---
+Gerada em 29/12/2025 21:54:20

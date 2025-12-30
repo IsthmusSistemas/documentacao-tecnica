@@ -1,40 +1,52 @@
 # FormularioCampoERPMetadado
-- **Namespace**: IsthmusWinthor.Dominio.Entidades
-- **Nome do Arquivo**: FormularioCampoERPMetadado.cs
+**Namespace**: IsthmusWinthor.Dominio.Entidades  
+**Nome do Arquivo**: FormularioCampoERPMetadado.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `FormularioCampoERPMetadado` representa a definição de um campo de um formulário dentro de um sistema de integração ERP. Sua principal responsabilidade é armazenar metadados que determinam como os dados devem ser estruturados e tratados ao serem integrados a um sistema ERP, facilitando a captura e o envio de informações entre sistemas.
+A classe `FormularioCampoERPMetadado` representa a estrutura de metadados associada a campos em um formulário ERP, definindo atributos e comportamentos que garantem a integridade e coesão dos dados no processo de integração com sistemas ERP. Esta classe resolve problemas relacionados à configuração e definição dos campos do formulário, assegurando que as informações sejam coletadas de maneira adequada e consistente, respeitando regras de negócio específicas.
 
 ## Métodos de Negócio
 
-### NomeTabelaERP
-- **Visibilidade**: Público
-- **Objetivo**: Fornecer o nome da tabela correspondente ao canal de integração configurado para o campo do formulário.
+### NomeTabelaERP (Public)
+- **Objetivo**: Este método determina o nome da tabela ERP associada ao canal de integração especificado.
 - **Comportamento**: 
-   1. Chama o método estático `TabelaDoCanal` da classe `FormularioCanalIntegracaoTabela`.
-   2. Passa como argumento o valor do canal de integração (`CanalIntegracao`) do campo atual.
-   3. Retorna o nome da tabela correspondente ao canal.
-- **Retorno**: Retorna uma string que representa o nome da tabela ERP, onde os dados deste campo serão armazenados.
+  1. Recebe a propriedade `CanalIntegracao` como entrada.
+  2. Chama o método estático `TabelaDoCanal` da classe `FormularioCanalIntegracaoTabela`, passando `CanalIntegracao` para obter o nome da tabela correspondente.
+- **Retorno**: Retorna uma string que representa o nome da tabela ERP associada ao canal de integração.
+
+```mermaid
+flowchart TD
+    A[Início] --> B[Receber Canal Integracao]
+    B --> C{Canal Integracao Válido?}
+    C -->|Sim| D[Chamar TabelaDoCanal]
+    D --> E[Retornar Nome da Tabela]
+    C -->|Não| F[Erro]
+```
 
 ## Propriedades Calculadas e de Validação
 
 ### FormaUsarConteudo
-- **Regra de Cálculo**: Esta propriedade avalia se o `NomeCampoERP` contém um ponto e vírgula (`;`). Se contiver, a forma de usar o conteúdo será definida como `Dividir`; caso contrário, será `Unico`.
+- **Regra**: Esta propriedade avalia se o `NomeCampoERP` contém um delimitador (“;”). Se sim, indica que o conteúdo deve ser dividido; caso contrário, considerará o conteúdo como único. 
+- **Cálculo**: 
+  - Se `NomeCampoERP` não for nulo ou vazio e contiver ";", retorna `FormaUsarConteudoEnum.Dividir`.
+  - Caso contrário, retorna `FormaUsarConteudoEnum.Unico`.
 
 ### DicionarioOpcoes
-- **Regra de Cálculo**: Converte a propriedade `ArrayOpcoes`, que contém um array no formato de string, em um dicionário de pares chave-valor. Isto é realizado chamando um método de extensão que transforma essa string em um dicionário.
+- **Regra**: Esta propriedade cria um dicionário a partir de uma string `ArrayOpcoes`, convertendo as opções definidas em um formato de dicionário chave-valor. 
+- **Cálculo**: Chama o método `ToDictionary` na classe `FormularioCampoOpcoesArray`, passando `ArrayOpcoes` para geração do dicionário.
 
 ## Navigations Property
-- Não existem propriedades que são classes complexas do domínio nesta classe.
+- Nenhuma propriedade de navegação complexa foi identificada nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- **Enumeradores**:
-  - `[FormularioCampoERPMetadadoEnum](FormularioCampoERPMetadadoEnum.md)`
-  - `[FormularioCanalIntegracaoEnum](FormularioCanalIntegracaoEnum.md)`
-  - `[FormularioMascaraEnum](FormularioMascaraEnum.md)`
-  - `[FormularioTipoDadoEnum](FormularioTipoDadoEnum.md)`
-  - `[FormularioControleEnum](FormularioControleEnum.md)`
-  - `[FormaUsarConteudoEnum](FormaUsarConteudoEnum.md)`
+- [FormularioCampoERPMetadadoEnum](FormularioCampoERPMetadadoEnum.md)
+- [FormularioCanalIntegracaoEnum](FormularioCanalIntegracaoEnum.md)
+- [FormularioMascaraEnum](FormularioMascaraEnum.md)
+- [FormularioTipoDadoEnum](FormularioTipoDadoEnum.md)
+- [FormularioControleEnum](FormularioControleEnum.md)
+- [FormaUsarConteudoEnum](FormaUsarConteudoEnum.md)
+- [FormularioCampoOpcoesArray](FormularioCampoOpcoesArray.md)
+- [FormularioCanalIntegracaoTabela](FormularioCanalIntegracaoTabela.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -55,14 +67,14 @@ classDiagram
         +FormularioControleEnum Controle
         +string ArrayOpcoes
         +bool ExclusivoMedicamentos
-        +string NomeTabelaERP()
-        +FormaUsarConteudoEnum FormaUsarConteudo
-        +Dictionary<string, string> DicionarioOpcoes
     }
-    FormularioCampoERPMetadado --> FormularioCampoERPMetadadoEnum
-    FormularioCampoERPMetadado --> FormularioCanalIntegracaoEnum
-    FormularioCampoERPMetadado --> FormularioMascaraEnum
-    FormularioCampoERPMetadado --> FormularioTipoDadoEnum
-    FormularioCampoERPMetadado --> FormularioControleEnum
-    FormularioCampoERPMetadado --> FormaUsarConteudoEnum
+
+    FormularioCampoERPMetadado --|> FormularioCampoERPMetadadoEnum
+    FormularioCampoERPMetadado --|> FormularioCanalIntegracaoEnum
+    FormularioCampoERPMetadado --|> FormularioMascaraEnum
+    FormularioCampoERPMetadado --|> FormularioTipoDadoEnum
+    FormularioCampoERPMetadado --|> FormularioControleEnum
+    FormularioCampoERPMetadado --|> FormaUsarConteudoEnum
 ```
+---
+Gerada em 29/12/2025 20:33:21

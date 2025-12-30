@@ -1,40 +1,52 @@
 # DistribuidoraInexistenteException
-- **Namespace**: IsthmusWinthor.Dominio.Exceptions
-- **Nome do Arquivo**: DistribuidoraInexistenteException.cs
+**Namespace**: IsthmusWinthor.Dominio.Exceptions  
+**Nome do Arquivo**: DistribuidoraInexistenteException.cs
 
-A classe `DistribuidoraInexistenteException` é uma exceção personalizada utilizada para sinalizar que uma distribuidora não foi identificada em um determinado contexto de negócios. Essa classe ajuda a encapsular a lógica de erro, permitindo que outros componentes do sistema tratem erros relacionados à ausência de distribuidoras de maneira consistente e informativa.
+Esta classe representa uma exceção específica que é lançada quando uma distribuidora não é encontrada no sistema, garantindo assim que o fluxo de dados seja consistente e informando ao usuário sobre a ausência de informações críticas.
 
 ## Métodos de Negócio
+### Título: Construtor (public)
+**Objetivo**: Garante que uma mensagem padrão ou específica seja definida ao lançar a exceção da distribuidora inexistente, permitindo identificar o problema durante o tratamento de erros.
 
-### Título: Construtor Público
-- **Objetivo**: Garante que a exceção contenha uma mensagem padrão de erro, facilitando a identificação do problema quando não há distribuidoras.
-- **Comportamento**: O construtor inicializa a exceção com uma mensagem predefinida, caso nenhuma mensagem específica seja fornecida. Essa prática torna a manipulação de erros mais clara e organizada ao longo da aplicação.
-- **Retorno**: O construtor não retorna um valor, mas cria uma instância das exceções que podem ser lançadas e tratadas em outras partes do sistema.
+**Comportamento**:
+1. Chamado ao instanciar o objeto `DistribuidoraInexistenteException`.
+2. A mensagem padrão "Nenhuma Distribuidora identificada!" é aplicada se nenhuma mensagem adicional for fornecida.
+3. Essa mensagem pode ser substituída por uma mensagem personalizada, passada como argumento.
+4. A base da classe `Exception` é chamada para registrar a mensagem.
 
-### Título: Construtor de Serialização
-- **Objetivo**: Permite a serialização da exceção, útil em cenários de distribuição de exceções em sistemas distribuídos, garantindo que a informação do erro possa ser transmitida.
-- **Comportamento**: Este construtor é utilizado em casos onde a exceção é serializada e desserializada, como em chamadas de API, preservando o contexto do erro.
-- **Retorno**: O construtor não retorna um valor, mas possibilita a correta representação da exceção em outros contextos.
+**Retorno**: Esta construção não retorna um valor, mas cria uma nova instância da exceção que pode ser lançada e capturada em estruturas de tratamento de erro.
+
+### Título: Construtor de Serialização (protected)
+**Objetivo**: Permitir a reinicialização da exceção durante a serialização, assegurando que as informações passe por um processo de reinstância adequado em cenários que exigem serialização.
+
+**Comportamento**:
+1. Este construtor é utilizado quando a exceção é serializada e em seguida desserializada.
+2. Utiliza `SerializationInfo` e `StreamingContext` para transportar o estado da exceção.
+3. Chama o construtor base da classe `Exception` para garantir que todas as informações criadas anteriormente sejam preservadas durante a serialização.
+
+**Retorno**: Esta construção não retorna um valor, mas prepara a exceção para ser cuidadosamente restaurada a partir de um estado serializado.
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades calculadas ou de validação nesta classe, uma vez que trata-se uma exceção que contém somente a lógica relacionada ao tratamento de erros.
+- Não há propriedades calculadas ou de validação nessa classe, pois ela é uma implementação direta da classe de exceção, sem lógica adicional.
 
-## Navigations Property
-Não existem propriedades complexas de domínio a serem listadas.
+## Navigation Property
+- Nenhuma propriedade Navigation nesta classe.
 
 ## Tipos Auxiliares e Dependências
-- Não há enumeradores ou classes auxiliares utilizadas nesta classe.
+- Nenhum enumerador ou tipo auxiliar é utilizado diretamente nesta classe.
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class DistribuidoraInexistenteException {
-        +DistribuidoraInexistenteException(mensagem: string)
-        +DistributionInexistenteException(info: SerializationInfo, context: StreamingContext)
+        +DistribuidoraInexistenteException(string mensagem)
+        +DistribuidoraInexistenteException(SerializationInfo info, StreamingContext context)
     }
     class Exception {
+        +string Message
+        +Exception(string message)
     }
-    DistribuidoraInexistenteException --|> Exception
-``` 
-
-Este diagrama ilustra a herança da `DistribuidoraInexistenteException` da classe base `Exception`, permitindo que ela se comporte como uma exceção comum no C#.
+    DistribuidoraInexistenteException --> Exception
+```
+---
+Gerada em 29/12/2025 21:09:54

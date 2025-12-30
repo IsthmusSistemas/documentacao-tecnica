@@ -1,26 +1,38 @@
 # DistribuidoraLink
-
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
 **Nome do Arquivo**: DistribuidoraLink.cs  
 
 ## Visão Geral e Responsabilidade
-A classe `DistribuidoraLink` representa um vínculo entre uma distribuidora e um link associado a ela. O objetivo principal é facilitar o gerenciamento e a apresentação de links relevantes para a distribuidora, garantindo que cada link seja adequadamente identificado e ordenado. Isso resolve o problema de estruturação e organização dos links associados a distribuidoras no sistema.
+A classe `DistribuidoraLink` representa um vínculo entre uma distribuidora e um link associado (como uma URL ou referência). Ela é responsável por armazenar informações relevantes sobre o link, incluindo seu título, a URL em si, um identificador único e a ordem de exibição. Este modelo ajuda na organização e apresentação dos links de maneira que cada distribuidora possa ter uma ou várias referências úteis categorizadas.
 
 ## Métodos de Negócio
-*Observação: A classe não possui métodos com lógica de negócio, somente propriedades.*
+Não existem métodos com lógica de negócio complexa nesta classe, apenas propriedades que armazenam informações.
 
 ## Propriedades Calculadas e de Validação
-- **Identificador**: Esta propriedade deve conter um valor único que identifique a instância da `DistribuidoraLink`. A regra por trás da validação é que o identificador deve ser gerado ou atribuído de forma a garantir a unicidade no contexto da aplicação.
+Não existem propriedades calculadas ou validações específicas na classe `DistribuidoraLink`.
 
-## Navigations Property
-- [`Distribuidora`](Distribuidora.md): Representa a distribuidora associada a este link.
+## Navigation Property
+- [Distribuidora](Distribuidora.md)
 
 ## Tipos Auxiliares e Dependências
-- [`TipoLink`](TipoLink.md): Enum que define os tipos de links que podem ser associados a uma `DistribuidoraLink`.
+- [TipoLink](TipoLink.md)
 
 ## Diagrama de Relacionamentos
 ```mermaid
 classDiagram
-    DistribuidoraLink --> Distribuidora
-    DistribuidoraLink --> TipoLink
+    class DistribuidoraLink {
+        long Id
+        string Titulo
+        string Url
+        TipoLink TipoLink
+        int Ordem
+        string Identificador
+    }
+    class Distribuidora {
+        <<Entidade>>
+    }
+    DistribuidoraLink --> Distribuidora : "1..*"
+    DistribuidoraLink --> TipoLink : "Enum"
 ```
+---
+Gerada em 29/12/2025 20:28:41

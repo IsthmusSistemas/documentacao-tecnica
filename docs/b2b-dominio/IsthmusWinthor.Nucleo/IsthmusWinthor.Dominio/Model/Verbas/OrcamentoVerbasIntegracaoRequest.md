@@ -2,4 +2,8 @@
 **Namespace**: IsthmusWinthor.Dominio.Model.Verbas  
 **Nome do Arquivo**: OrcamentoVerbasIntegracaoRequest.cs  
 
-Esta classe serve como um Data Transfer Object (DTO) utilizado para transportar dados relacionados a solicitações de integração de orçamentos. Ela encapsula um único identificador de orçamento, o que a torna adequada para operações de transporte de dados entre camadas da aplicação.
+Esta classe é um objeto de transferência de dados (DTO) que transporta informações relacionadas ao orçamento, especificamente o identificador do orçamento.
+
+
+---
+Gerada em 29/12/2025 21:21:50

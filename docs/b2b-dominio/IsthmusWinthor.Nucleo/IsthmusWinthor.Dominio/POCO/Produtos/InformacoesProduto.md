@@ -2,22 +2,26 @@
 **Namespace**: IsthmusWinthor.Dominio.POCO.Produtos  
 **Nome do Arquivo**: InformacoesProduto.cs  
 
-## Visão Geral e Responsabilidade
-A classe `InformacoesProduto` representa as informações detalhadas de um produto dentro do sistema. Ela agrupa dados críticos como código, descrição, título e informações adicionais que são essenciais para a identificação e apresentação dos produtos. Esta classe ajuda na organização e estruturação de dados de produtos, facilitando consultas e a manipulação de informações relacionadas no domínio de produtos.
+### Visão Geral e Responsabilidade
+A classe `InformacoesProduto` representa os detalhes de um produto dentro do sistema. Ela encapsula informações relevantes que ajudam na apresentação e gerenciamento de produtos, juntamente com suas informações adicionais, como tags e vídeo formatado. Este modelo é crucial para garantir que o usuário tenha acesso a todas as informações necessárias para a tomada de decisão sobre produtos.
 
-## Métodos de Negócio
-*Esta classe não possui métodos de negócio com lógica complexa, apenas propriedades simples.*
+### Métodos de Negócio
+- **Título**: N/A (sem métodos de negócio com lógica complexa)
+- **Objetivo**: N/A
+- **Comportamento**: N/A
+- **Retorno**: N/A
 
-## Propriedades Calculadas e de Validação
-- *Nenhuma propriedade calculada ou de validação foi identificada nesta classe.*
+### Propriedades Calculadas e de Validação
+- **Tags**: Esta propriedade pode conter uma lista de strings que representa as categorias ou características específicas do produto. A validação deve garantir que as tags não sejam nulas ou vazias.
+  
+### Navigations Property
+- **AgrupamentoInformacoesAdicionais**: Esta propriedade representa uma lista de informações adicionais relacionadas ao produto.
+  - [AgrupamentoInformacoesAdicionais](AgrupamentoInformacoesAdicionais.md)
 
-## Navigations Property
-- `[AgrupamentoInformacoesAdicionais](AgrupamentoInformacoesAdicionais.md)`: Representa informações adicionais que podem ser agrupadas e fornecidas como parte das informações do produto.
+### Tipos Auxiliares e Dependências
+- N/A - Esta classe não depende de enumeradores ou classes auxiliares externas.
 
-## Tipos Auxiliares e Dependências
-- Nenhum tipo auxiliar ou dependência externa foi identificado nesta classe.
-
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class InformacoesProduto {
@@ -29,8 +33,9 @@ classDiagram
         +List<string> Tags
         +List<AgrupamentoInformacoesAdicionais> InformacoesAdicionais
     }
-    class AgrupamentoInformacoesAdicionais {
-    }
-    InformacoesProduto --> AgrupamentoInformacoesAdicionais
-```
+    class AgrupamentoInformacoesAdicionais 
 
+    InformacoesProduto --> AgrupamentoInformacoesAdicionais : InformacoesAdicionais
+```
+---
+Gerada em 29/12/2025 22:00:14

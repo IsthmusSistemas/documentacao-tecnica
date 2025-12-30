@@ -2,37 +2,35 @@
 **Namespace**: IsthmusWinthor.Dominio.Exceptions.FTP  
 **Nome do Arquivo**: ProdutosDaDistribuidoraException.cs  
 
-A classe `ProdutosDaDistribuidoraException` é uma extensão da classe base `Exception` e serve como um mecanismo para manipular erros específicos relacionados a produtos de distribuidoras no contexto do sistema. O uso desse tipo de exception permite implementar um controle mais robusto e específico sobre as falhas que podem ocorrer durante operações que envolvem produtos nas distribuidoras, melhorando a capacidade de resposta do sistema a essas situações.
+A classe `ProdutosDaDistribuidoraException` é um modelo de exceção específico usado para sinalizar erros relacionados ao processo de distribuição de produtos. Ela encapsula uma mensagem de erro que pode ocorrer durante a manipulação de produtos dentro do domínio de distribuição.
 
-## Métodos de Negócio
+### Métodos de Negócio
 
-### Título: Construtor público
-**Visibilidade**: `public`  
-**Objetivo**: Garantir que mensagens específicas de erro relacionadas a produtos de distribuidoras sejam propagadas corretamente durante a exceção.  
-**Comportamento**: Recebe uma mensagem de erro como argumento e a passa para a classe base `Exception`.  
-**Retorno**: Não possui retorno, é um construtor.
+#### Título: ProdutosDaDistribuidoraException(string mensagem) - Público
+- **Objetivo**: Lançar uma exceção com uma mensagem específica que descreve o erro relacionado à distribuição de produtos da distribuidora.
+- **Comportamento**: 
+  1. O construtor recebe uma string `mensagem` como parâmetro.
+  2. A mensagem é passada para o construtor da classe base `Exception`, que é responsável por armazenar as informações da exceção.
+- **Retorno**: O método não retorna valores, mas instancia um objeto de exceção que pode ser capturado em um bloco `try-catch`.
 
-### Título: Construtor protegido para serialização
-**Visibilidade**: `protected`  
-**Objetivo**: Proporcionar a capacidade de serializar a exceção, preservando o contexto durante a transferência do objeto de exceção.  
-**Comportamento**: Recebe um objeto de `SerializationInfo` e um `StreamingContext`, ambos são utilizados para serialização e deserialização. Este construtor é chamado quando a exceção é serializada, garantindo que todos os detalhes relevantes sejam mantidos.  
-**Retorno**: Não possui retorno, é um construtor.
+#### Título: ProdutosDaDistribuidoraException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) - Protegido
+- **Objetivo**: Permitir a serialização da exceção durante processos de transmissão ou armazenamento de dados.
+- **Comportamento**: 
+  1. Este construtor é chamado durante a desserialização de uma exceção capturada.
+  2. Ele utiliza os parâmetros de `SerializationInfo` e `StreamingContext` para restaurar o estado da exceção.
+- **Retorno**: O método não retorna valores, mas permite a recuperação de instâncias de exceção em contextos de serialização.
 
-## Propriedades Calculadas e de Validação
-Nenhuma propriedade calculada ou de validação está presente nesta classe, pois ela é uma implementação pura de uma exceção.
-
-## Navigation Property
-Nenhuma propriedade de navegação está presente nesta classe, visto que ela deriva diretamente de `Exception`.
-
-## Tipos Auxiliares e Dependências
-Nenhum tipo auxiliar, enum ou classe estática/utility é utilizado nesta classe.
-
-## Diagrama de Relacionamentos
+### Diagrama de Relacionamentos
 ```mermaid
 classDiagram
     class ProdutosDaDistribuidoraException {
         <<Exception>>
-        + ProdutosDaDistribuidoraException(string mensagem)
-        + ProdutosDaDistribuidoraException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+        +ProdutosDaDistribuidoraException(string mensagem)
+        +ProdutosDaDistribuidoraException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
     }
-```
+``` 
+
+### Tipos Auxiliares e Dependências
+- Nenhum enumerador ou classe auxiliar está listado nesta classe.
+---
+Gerada em 29/12/2025 21:11:37

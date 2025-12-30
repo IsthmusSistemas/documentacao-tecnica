@@ -1,22 +1,22 @@
 # SACNivelUsuario
 **Namespace**: IsthmusWinthor.Dominio.Entidades  
-**Nome do Arquivo**: SACNivelUsuario.cs  
+**Nome do Arquivo**: SACNivelUsuario.cs
 
 ## Visão Geral e Responsabilidade
-A classe `SACNivelUsuario` desempenha um papel crucial na modelagem do relacionamento entre usuários e níveis de acesso (SACNiveis) dentro do sistema. Ela representa a atribuição de um nível a um usuário, garantindo que os usuários tenham acesso adequado aos recursos e funcionalidades do sistema de acordo com seu nível de permissão. Esta classe ajuda a manter a integridade dos dados ao assegurar que cada usuário esteja associado a um nível específico.
+A classe `SACNivelUsuario` representa uma entidade de associação entre usuários e níveis de serviço (SAC). Ela é responsável por gerenciar a relação entre um usuário específico e seu nível de acesso ou categoria dentro do sistema de Atendimento ao Cliente (SAC). A implementação dessa classe é fundamental para garantir que a estrutura de níveis de usuários seja mantida e que as permissões e acessos sejam corretamente aplicados.
 
 ## Métodos de Negócio
-Esta classe não possui métodos com lógica de negócio, uma vez que serve basicamente como um mapeamento entre entidades.
+*Esta classe não contém métodos com lógica de negócio significativa. Portanto, não há métodos a serem documentados nesse formato.*
 
 ## Propriedades Calculadas e de Validação
-Não existem propriedades com lógica de cálculo ou validação que sobrescrevam o comportamento padrão.
+*Esta classe não contém propriedades com lógica no `get` ou validações no `set` que justifiquem documentação adicional.*
 
-## Navigations Property
-- [`SACNivel`](SACNivel.md): Representa a entidade de nível, que descreve o nível de acesso do usuário no sistema.
-- [`Usuario`](Usuario.md): Representa a entidade usuário, que identifica a pessoa ou sistema que está interagindo com o sistema.
+## Navigation Property
+- [SACNivel](SACNivel.md): Representa a classe que define o nível de acesso no sistema.
+- [Usuario](Usuario.md): Representa a classe que define o usuário que está associado a um nível de serviço.
 
 ## Tipos Auxiliares e Dependências
-Não existem enumeradores ou classes estáticas/helpers associadas diretamente a esta classe.
+*Não há enumeradores ou classes estáticas/helpers utilizadas diretamente por esta classe.*
 
 ## Diagrama de Relacionamentos
 ```mermaid
@@ -26,13 +26,19 @@ classDiagram
         +long SACNivelId
         +long UsuarioId
     }
+
     class SACNivel {
-        <<entity>>
-    }
-    class Usuario {
-        <<entity>>
+        +long Id
+        ...
     }
 
-    SACNivelUsuario --> SACNivel : "associado a"
-    SACNivelUsuario --> Usuario : "associado a"
+    class Usuario {
+        +long Id
+        ...
+    }
+
+    SACNivelUsuario --> SACNivel : tem um
+    SACNivelUsuario --> Usuario : tem um
 ```
+---
+Gerada em 29/12/2025 20:49:02
